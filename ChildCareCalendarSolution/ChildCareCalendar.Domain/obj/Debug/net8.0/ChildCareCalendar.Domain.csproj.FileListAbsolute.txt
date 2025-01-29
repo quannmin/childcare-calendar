@@ -1,0 +1,15 @@
+D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\bin\Debug\net8.0\ChildCareCalendar.Domain.deps.json
+D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\bin\Debug\net8.0\ChildCareCalendar.Domain.runtimeconfig.json
+D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\bin\Debug\net8.0\ChildCareCalendar.Domain.dll
+D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\bin\Debug\net8.0\ChildCareCalendar.Domain.pdb
+D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.csproj.AssemblyReference.cache
+D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.AssemblyInfoInputs.cache
+D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.AssemblyInfo.cs
+D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.csproj.CoreCompileInputs.cache
+D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.sourcelink.json
+D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.dll
+D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\refint\ChildCareCalendar.Domain.dll
+D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.pdb
+D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.genruntimeconfig.cache
+D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ref\ChildCareCalendar.Domain.dll
