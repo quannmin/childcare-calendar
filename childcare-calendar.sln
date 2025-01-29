@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.Web", "childcare-calendar\ChildCareCalendar.Web.csproj", "{D2D0CE39-749D-4B69-9332-2F08F387D579}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChildCareCalendar.Application", "ChildCareCalendar.Application", "{A360F6EA-1CD6-4795-BFC8-AAF2DC1E9BEB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChildCareCalendar.Infrastructure", "ChildCareCalendar.Infrastructure", "{52D18102-DC0F-4145-840F-B8C77950FE7E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{B0E73CC1-D1D0-4700-B111-3C87DE7C7DE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", "{D94F858A-DC6E-449A-8B7D-1EA71A96AC2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{691D2C87-02B8-4634-94B9-18ABD87AA412}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Features", "Features", "{79640F9F-776E-48D4-8347-0DB444CE61C2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Validators", "Validators", "{BF71386C-F2B8-4A9C-8109-651BBBB84A7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{C513D996-C7BF-4915-A06D-53F49335A3EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalServices", "ExternalServices", "{49AFCDF5-4F51-4F22-A151-34011737CFC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{D4A77A2F-B6D3-4A2C-BE61-B8F8FC9F89AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{34A204EF-7C09-4418-8C54-B0999D80414A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.Domain", "ChildCareCalendar.Domain\ChildCareCalendar.Domain.csproj", "{5BDC33A9-4F86-48A9-8335-1CAE5877F52E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChildCareCalendar.Shared", "ChildCareCalendar.Shared", "{7821BBFC-ACA5-43E5-9CE7-4C15144CFF2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.Shared", "ChildCareCalendar.Shared\ChildCareCalendar.Shared\ChildCareCalendar.Shared.csproj", "{5CDC2579-6380-4D11-AE42-AF5762BDC17C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2D0CE39-749D-4B69-9332-2F08F387D579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2D0CE39-749D-4B69-9332-2F08F387D579}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2D0CE39-749D-4B69-9332-2F08F387D579}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2D0CE39-749D-4B69-9332-2F08F387D579}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BDC33A9-4F86-48A9-8335-1CAE5877F52E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BDC33A9-4F86-48A9-8335-1CAE5877F52E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BDC33A9-4F86-48A9-8335-1CAE5877F52E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BDC33A9-4F86-48A9-8335-1CAE5877F52E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CDC2579-6380-4D11-AE42-AF5762BDC17C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CDC2579-6380-4D11-AE42-AF5762BDC17C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CDC2579-6380-4D11-AE42-AF5762BDC17C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CDC2579-6380-4D11-AE42-AF5762BDC17C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D94F858A-DC6E-449A-8B7D-1EA71A96AC2E} = {A360F6EA-1CD6-4795-BFC8-AAF2DC1E9BEB}
+		{691D2C87-02B8-4634-94B9-18ABD87AA412} = {A360F6EA-1CD6-4795-BFC8-AAF2DC1E9BEB}
+		{79640F9F-776E-48D4-8347-0DB444CE61C2} = {A360F6EA-1CD6-4795-BFC8-AAF2DC1E9BEB}
+		{BF71386C-F2B8-4A9C-8109-651BBBB84A7B} = {A360F6EA-1CD6-4795-BFC8-AAF2DC1E9BEB}
+		{C513D996-C7BF-4915-A06D-53F49335A3EA} = {52D18102-DC0F-4145-840F-B8C77950FE7E}
+		{49AFCDF5-4F51-4F22-A151-34011737CFC2} = {52D18102-DC0F-4145-840F-B8C77950FE7E}
+		{D4A77A2F-B6D3-4A2C-BE61-B8F8FC9F89AD} = {52D18102-DC0F-4145-840F-B8C77950FE7E}
+		{34A204EF-7C09-4418-8C54-B0999D80414A} = {C513D996-C7BF-4915-A06D-53F49335A3EA}
+		{5BDC33A9-4F86-48A9-8335-1CAE5877F52E} = {B0E73CC1-D1D0-4700-B111-3C87DE7C7DE9}
+		{5CDC2579-6380-4D11-AE42-AF5762BDC17C} = {7821BBFC-ACA5-43E5-9CE7-4C15144CFF2C}
+	EndGlobalSection
+EndGlobal
