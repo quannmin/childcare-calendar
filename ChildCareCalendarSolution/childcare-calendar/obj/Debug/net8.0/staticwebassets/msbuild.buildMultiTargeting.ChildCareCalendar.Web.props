@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\ChildCareCalendar.Web.props" />
+</Project>
