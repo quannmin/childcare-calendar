@@ -165,7 +165,6 @@ D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\childcare-calend
 D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\childcare-calendar\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.ChildCareCalendar.Web.props
 D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\childcare-calendar\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.ChildCareCalendar.Web.props
 D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\childcare-calendar\obj\Debug\net8.0\staticwebassets.pack.json
-D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\childcare-calendar\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\childcare-calendar\obj\Debug\net8.0\ChildCar.67175BC0.Up2Date
 D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\childcare-calendar\obj\Debug\net8.0\ChildCareCalendar.Web.dll
 D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\childcare-calendar\obj\Debug\net8.0\refint\ChildCareCalendar.Web.dll
