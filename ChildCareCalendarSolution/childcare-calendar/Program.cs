@@ -6,10 +6,9 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine($"Connection String: {connectionString}");
 
-builder.Services.AddDbContext<ChildCareCalendarContext>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("ChildCareCalendar.Domain")));
-
-
+builder.Services.AddDbContext<ChildCareCalendarContext>(options => options.UseSqlServer(connectionString));
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

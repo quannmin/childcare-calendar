@@ -9,6 +9,7 @@
       "ChildCareCalendar.Web/1.0.0": {
         "dependencies": {
           "ChildCareCalendar.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "9.0.1",
           "Microsoft.EntityFrameworkCore.Design": "9.0.1"
         },
         "runtime": {
