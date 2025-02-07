@@ -1730,6 +1730,16 @@
             "rid": "win"
           }
         }
+      },
+      "ChildCareCalendar.Utilities/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/ChildCareCalendar.Utilities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ChildCareCalendar.Utilities.dll": {}
+        }
       }
     }
   },
@@ -5016,10 +5026,16 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "ChildCareCalendar.Utilities/1.0.0": {
+      "type": "project",
+      "path": "../ChildCareCalendar.Utilities/ChildCareCalendar.Utilities.csproj",
+      "msbuildProject": "../ChildCareCalendar.Utilities/ChildCareCalendar.Utilities.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "ChildCareCalendar.Utilities >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 9.0.1",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.1",
@@ -5034,11 +5050,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj",
+      "projectUniqueName": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj",
       "projectName": "ChildCareCalendar.Domain",
-      "projectPath": "D:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj",
+      "projectPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj",
       "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "D:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\obj\\",
+      "outputPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5058,7 +5074,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Utilities\\ChildCareCalendar.Utilities.csproj": {
+              "projectPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Utilities\\ChildCareCalendar.Utilities.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

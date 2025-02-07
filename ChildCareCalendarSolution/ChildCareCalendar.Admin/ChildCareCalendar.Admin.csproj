@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChildCareCalendar.Domain\ChildCareCalendar.Domain.csproj" />
+    <ProjectReference Include="..\ChildCareCalendar.Infrastructure\ChildCareCalendar.Infrastructure.csproj" />
+    <ProjectReference Include="..\ChildCareCalendar.Utilities\ChildCareCalendar.Utilities.csproj" />
+  </ItemGroup>
+
+</Project>

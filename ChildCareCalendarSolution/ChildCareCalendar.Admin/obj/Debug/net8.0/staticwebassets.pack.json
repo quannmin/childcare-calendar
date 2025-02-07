@@ -1,0 +1,45 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChildCareCalendar.Admin.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ChildCareCalendar.Admin.9wfu4k0h46.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "D:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ChildCareCalendar.Admin.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ChildCareCalendar.Admin.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ChildCareCalendar.Admin.props",
+      "PackagePath": "build\\ChildCareCalendar.Admin.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ChildCareCalendar.Admin.props",
+      "PackagePath": "buildMultiTargeting\\ChildCareCalendar.Admin.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ChildCareCalendar.Admin.props",
+      "PackagePath": "buildTransitive\\ChildCareCalendar.Admin.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

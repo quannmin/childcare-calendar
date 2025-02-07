@@ -3,23 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.Web", "childcare-calendar\ChildCareCalendar.Web.csproj", "{D2D0CE39-749D-4B69-9332-2F08F387D579}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{A360F6EA-1CD6-4795-BFC8-AAF2DC1E9BEB}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{52D18102-DC0F-4145-840F-B8C77950FE7E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{B0E73CC1-D1D0-4700-B111-3C87DE7C7DE9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.Domain", "ChildCareCalendar.Domain\ChildCareCalendar.Domain.csproj", "{5BDC33A9-4F86-48A9-8335-1CAE5877F52E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ulities", "Ulities", "{5C52900D-29A6-47A5-A89B-58855A7FA7B8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.Ulities", "ChildCareCalendar.Ulities\ChildCareCalendar.Ulities.csproj", "{6D6F0CBE-10CA-4E0D-912F-16ACEC452A74}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.Application", "ChildCareCalendar.Application\ChildCareCalendar.Application.csproj", "{5CC3B8F2-0ED1-4D95-B491-AC95560A2574}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.Utilities", "ChildCareCalendar.Utilities\ChildCareCalendar.Utilities.csproj", "{5C52900D-29A6-47A5-A89B-58855A7FA7B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.Infrastructure", "ChildCareCalendar.Infrastructure\ChildCareCalendar.Infrastructure.csproj", "{30ED40B2-35F4-49BE-9646-2D25BB10BE73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.WebApp", "ChildCareCalendar.WebApp\ChildCareCalendar.WebApp.csproj", "{30EA0F97-94BD-4212-8DF9-C93E93804540}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.Admin", "ChildCareCalendar.Admin\ChildCareCalendar.Admin.csproj", "{4DF0081B-5EF1-4E67-8CA1-2E37AE0044BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{69444D48-925E-47F7-BDEB-0EDCAD977DA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,34 +25,33 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D2D0CE39-749D-4B69-9332-2F08F387D579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D2D0CE39-749D-4B69-9332-2F08F387D579}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D2D0CE39-749D-4B69-9332-2F08F387D579}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D2D0CE39-749D-4B69-9332-2F08F387D579}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5BDC33A9-4F86-48A9-8335-1CAE5877F52E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5BDC33A9-4F86-48A9-8335-1CAE5877F52E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BDC33A9-4F86-48A9-8335-1CAE5877F52E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BDC33A9-4F86-48A9-8335-1CAE5877F52E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D6F0CBE-10CA-4E0D-912F-16ACEC452A74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D6F0CBE-10CA-4E0D-912F-16ACEC452A74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D6F0CBE-10CA-4E0D-912F-16ACEC452A74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D6F0CBE-10CA-4E0D-912F-16ACEC452A74}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5CC3B8F2-0ED1-4D95-B491-AC95560A2574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5CC3B8F2-0ED1-4D95-B491-AC95560A2574}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5CC3B8F2-0ED1-4D95-B491-AC95560A2574}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5CC3B8F2-0ED1-4D95-B491-AC95560A2574}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C52900D-29A6-47A5-A89B-58855A7FA7B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C52900D-29A6-47A5-A89B-58855A7FA7B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C52900D-29A6-47A5-A89B-58855A7FA7B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C52900D-29A6-47A5-A89B-58855A7FA7B8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{30ED40B2-35F4-49BE-9646-2D25BB10BE73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{30ED40B2-35F4-49BE-9646-2D25BB10BE73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30ED40B2-35F4-49BE-9646-2D25BB10BE73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30ED40B2-35F4-49BE-9646-2D25BB10BE73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30EA0F97-94BD-4212-8DF9-C93E93804540}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30EA0F97-94BD-4212-8DF9-C93E93804540}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30EA0F97-94BD-4212-8DF9-C93E93804540}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30EA0F97-94BD-4212-8DF9-C93E93804540}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DF0081B-5EF1-4E67-8CA1-2E37AE0044BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DF0081B-5EF1-4E67-8CA1-2E37AE0044BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DF0081B-5EF1-4E67-8CA1-2E37AE0044BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DF0081B-5EF1-4E67-8CA1-2E37AE0044BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5BDC33A9-4F86-48A9-8335-1CAE5877F52E} = {B0E73CC1-D1D0-4700-B111-3C87DE7C7DE9}
-		{6D6F0CBE-10CA-4E0D-912F-16ACEC452A74} = {5C52900D-29A6-47A5-A89B-58855A7FA7B8}
-		{5CC3B8F2-0ED1-4D95-B491-AC95560A2574} = {A360F6EA-1CD6-4795-BFC8-AAF2DC1E9BEB}
+		{5C52900D-29A6-47A5-A89B-58855A7FA7B8} = {69444D48-925E-47F7-BDEB-0EDCAD977DA3}
 		{30ED40B2-35F4-49BE-9646-2D25BB10BE73} = {52D18102-DC0F-4145-840F-B8C77950FE7E}
 	EndGlobalSection
 EndGlobal

@@ -9,7 +9,10 @@
   <ItemGroup>
     <Folder Include="ExternalServices\" />
     <Folder Include="Logging\" />
-    <Folder Include="Repository\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChildCareCalendar.Domain\ChildCareCalendar.Domain.csproj" />
   </ItemGroup>
 
 </Project>
