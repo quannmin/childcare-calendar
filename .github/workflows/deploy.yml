@@ -21,7 +21,7 @@ jobs:
 
       - name: Build and push Docker images
         run: |
-          docker build -t louisquinn296/childcare-app:latest .
+          docker build -t louisquinn296/childcare-app:latest ./ChildCareCalendarSolution
           docker push louisquinn296/childcare-app:latest
 
   deploy:
