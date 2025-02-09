@@ -32,8 +32,16 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/FPTU/Ky7/PRN222/ChildCare-Calendar/ChildCareCalendarSolution/ChildCareCalendar.Admin/Components/Pages/Account/AccessDenied.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50XEFjY2Vzc0RlbmllZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/FPTU/Ky7/PRN222/ChildCare-Calendar/ChildCareCalendarSolution/ChildCareCalendar.Admin/Components/Pages/Account/Login.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50XExvZ2luLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/FPTU/Ky7/PRN222/ChildCare-Calendar/ChildCareCalendarSolution/ChildCareCalendar.Admin/Components/Pages/Account/Logout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50XExvZ291dC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/FPTU/Ky7/PRN222/ChildCare-Calendar/ChildCareCalendarSolution/ChildCareCalendar.Admin/Components/Pages/Counter.razor]
