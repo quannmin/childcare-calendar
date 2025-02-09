@@ -19,4 +19,10 @@
     <ProjectReference Include="..\ChildCareCalendar.Utilities\ChildCareCalendar.Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Components\Pages\Account\Login.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

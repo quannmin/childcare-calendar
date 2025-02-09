@@ -1,5 +1,4 @@
 ﻿@page "/login"
-
 @using System.Security.Claims
 @inject ChildCareCalendar.Domain.EF.ChildCareCalendarContext appDbContext
 
@@ -22,12 +21,11 @@
                 <ValidationMessage For="() => loginModel.Password" />
             </div>
             <div class="mb-3 text-center">
-                <span class="text-danger">errorMessage</span>
+                <span class="text-danger">@errorMessage</span>
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
-            <button type="submit" class="btn btn-primary mt-2">Login</button>
         </EditForm>
     </div>
 </div>
