@@ -1,11 +1,5 @@
 ﻿using ChildCareCalendar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChildCareCalendar.Domain.EF
 {
@@ -20,7 +14,6 @@ namespace ChildCareCalendar.Domain.EF
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Speciality> Specialities { get; set; }
         public DbSet<Service> Services { get; set; }
-        public DbSet<WorkDay> WorkDays { get; set; }
         public DbSet<WorkHour> WorkHours { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<ChildrenRecord> ChildrenRecords { get; set; }
@@ -38,14 +31,14 @@ namespace ChildCareCalendar.Domain.EF
                 entity.Property(e => e.Email).IsRequired().HasMaxLength(255);
                 entity.Property(e => e.PhoneNumber).HasMaxLength(15);
                 entity.Property(e => e.Password).IsRequired();
-                entity.Property(e => e.Gender).HasConversion<string>();
-                entity.Property(e => e.Role).HasConversion<string>();
+                entity.Property(e => e.Gender).HasConversion<String>();
+                entity.Property(e => e.Role).HasConversion<String>();
             });
 
             modelBuilder.Entity<Payment>(entity =>
             {
                 entity.HasKey(e => e.PaymentId);
-                entity.Property(e => e.PaymentMethod).HasConversion<string>().IsRequired();
+                entity.Property(e => e.PaymentMethod).HasConversion<String>().IsRequired();
                 entity.Property(e => e.Amount).HasPrecision(18, 2);
             });
 
@@ -65,11 +58,6 @@ namespace ChildCareCalendar.Domain.EF
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
-            modelBuilder.Entity<WorkDay>(entity =>
-            {
-                entity.HasKey(e => e.WorkDayId);
-            });
-
             modelBuilder.Entity<WorkHour>(entity =>
             {
                 entity.HasKey(e => e.WorkHourId);
@@ -86,11 +74,6 @@ namespace ChildCareCalendar.Domain.EF
                 entity.HasOne(e => e.Speciality)
                       .WithMany(s => s.Schedules)
                       .HasForeignKey(e => e.SpecialityId)
-                      .OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasOne(e => e.WorkDay)
-                      .WithMany(w => w.Schedules)
-                      .HasForeignKey(e => e.WorkDayId)
                       .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(e => e.WorkHour)
@@ -130,7 +113,7 @@ namespace ChildCareCalendar.Domain.EF
             modelBuilder.Entity<PrescriptionDetail>(entity =>
             {
                 entity.HasKey(e => e.PrescriptionDetailId);
-                entity.Property(e => e.Slot).HasConversion<string>();
+                entity.Property(e => e.Slot).HasConversion<String>();
                 entity.Property(e => e.TotalAmount).HasPrecision(18, 2);
                 entity.HasOne(e => e.Medicine)
                       .WithMany(m => m.PrescriptionDetails)
@@ -146,10 +129,10 @@ namespace ChildCareCalendar.Domain.EF
             modelBuilder.Entity<Appointment>(entity =>
             {
                 entity.HasKey(e => e.AppointmentId);
-                entity.Property(e => e.Status).HasConversion<string>();
+                entity.Property(e => e.Status).HasConversion<String>();
                 entity.Property(e => e.TotalAmount).HasPrecision(18, 2);
 
-                entity.HasOne(a => a.ExaminationReport) // Thêm rõ ràng ExaminationReport
+                entity.HasOne(a => a.ExaminationReport)
                       .WithOne(er => er.Appointment)
                       .HasForeignKey<ExaminationReport>(er => er.AppointmentId)
                       .OnDelete(DeleteBehavior.Restrict);
@@ -183,7 +166,7 @@ namespace ChildCareCalendar.Domain.EF
             modelBuilder.Entity<RefundReport>(entity =>
             {
                 entity.HasKey(e => e.RefundReportId);
-                entity.Property(e => e.RefundPercentage).HasConversion<string>();
+                entity.Property(e => e.RefundPercentage).HasConversion<String>();
                 entity.Property(e => e.RefundAmount).HasPrecision(18, 2);
                 entity.HasOne(e => e.Appointment)
                       .WithMany(a => a.RefundReports)

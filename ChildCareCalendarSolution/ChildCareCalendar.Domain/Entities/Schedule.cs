@@ -11,8 +11,8 @@ namespace ChildCareCalendar.Domain.Entities
         public int ScheduleId { get; set; }
         public int SpecialityId { get; set; }
         public Speciality? Speciality { get; set; }
-        public int WorkDayId { get; set; }
-        public WorkDay? WorkDay { get; set; }
+        public DateTime? WorkDay { get; set; }
+        public string? day { get; set; }
         public int WorkHourId { get; set; }
         public WorkHour? WorkHour { get; set; }
         public int UserId { get; set; }
