@@ -10,3 +10,15 @@ D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalenda
 D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\refint\ChildCareCalendar.Utilities.dll
 D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.pdb
 D:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ref\ChildCareCalendar.Utilities.dll
+E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.GeneratedMSBuildEditorConfig.editorconfig
+E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.AssemblyInfoInputs.cache
+E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.AssemblyInfo.cs
+E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.csproj.CoreCompileInputs.cache
+E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.sourcelink.json
+E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.dll
+E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\refint\ChildCareCalendar.Utilities.dll
+E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.pdb
+E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\bin\Debug\net8.0\ChildCareCalendar.Utilities.deps.json
+E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\bin\Debug\net8.0\ChildCareCalendar.Utilities.dll
+E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\bin\Debug\net8.0\ChildCareCalendar.Utilities.pdb
+E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ref\ChildCareCalendar.Utilities.dll
