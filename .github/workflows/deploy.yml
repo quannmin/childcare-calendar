@@ -37,5 +37,5 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             docker pull louisquinn296/childcare-app:latest
-            docker compose down
-            docker compose up -d
+            docker-compose down
+            docker-compose up -d
