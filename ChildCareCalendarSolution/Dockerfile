@@ -18,4 +18,4 @@ COPY --from=build /app/out ./
 
 # 6. Cấu hình cổng và chạy ứng dụng
 EXPOSE 8080 5269 7012
-CMD ["dotnet", "ChildCareCalendar.Web.dll"]
+CMD ["dotnet", "ChildCareCalendar.Admin.dll"]
