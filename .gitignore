@@ -1,0 +1,35 @@
+# Thư mục hệ thống của Visual Studio
+.vs/
+ChildCareCalendarSolution/.vs/
+.idea/
+*.suo
+*.user
+*.vsconfig
+
+# Build và output
+bin/
+obj/
+out/
+
+# Log & file tạm
+*.log
+*.tmp
+*.bak
+
+# Cấu hình tạm thời & khóa file
+*.lock
+*.cache
+*.config
+
+# Thư mục dependency
+node_modules/
+packages/
+
+# File database
+appsettings.Development.json
+localdb.mdf
+*.db
+
+# Thư viện bên thứ ba & Publish
+publish/
+wwwroot/lib/
