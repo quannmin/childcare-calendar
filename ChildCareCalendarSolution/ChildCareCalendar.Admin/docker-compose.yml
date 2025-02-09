@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  # 1. Ứng dụng (App)
+  childcare-app:
+    container_name: childcare-app 
+    build:
+      context: .  # Thư mục chứa mã nguồn của bạn
+      dockerfile: Dockerfile  # Đường dẫn tới Dockerfile
+    ports:
+      - "80:8080"   # Chuyển tiếp cổng 8080 của container sang cổng 80 của VPS
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production  # Chế độ môi trường của ứng dụng (Production)
+      - ConnectionStrings__DefaultConnection=Server=db;Database=ChildCareDb;User=sa;Password=MyStrong!Pass123;  # Kết nối tới MSSQL container
+    depends_on:
+      - db  # Đảm bảo MSSQL container được khởi động trước khi ứng dụng chạy
+    restart: always
+
+  # 2. Cơ sở dữ liệu (MSSQL)
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest  # Image MSSQL chính thức từ Microsoft
+    container_name: mssql-container
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=MyStrong!Pass123  # Mật khẩu của tài khoản 'sa' (quản trị viên)
+      - MSSQL_PID=Express  # Phiên bản SQL Server Express
+    ports:
+      - "1434:1433"  # Đổi cổng: Cổng 1434 trên VPS sẽ chuyển tiếp tới cổng 1433 trong container
+    volumes:
+      - mssql-data:/var/opt/mssql  # Lưu dữ liệu MSSQL trên VPS để không mất dữ liệu khi restart
+    restart: always
+
+# Định nghĩa volume để lưu trữ dữ liệu MSSQL
+volumes:
+  mssql-data:
