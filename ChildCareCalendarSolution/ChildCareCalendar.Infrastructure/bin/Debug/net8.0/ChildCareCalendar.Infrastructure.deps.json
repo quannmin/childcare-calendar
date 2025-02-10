@@ -696,12 +696,18 @@
           "Microsoft.Extensions.Configuration.Json": "9.0.1"
         },
         "runtime": {
-          "ChildCareCalendar.Domain.dll": {}
+          "ChildCareCalendar.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "ChildCareCalendar.Utilities/1.0.0": {
         "runtime": {
-          "ChildCareCalendar.Utilities.dll": {}
+          "ChildCareCalendar.Utilities.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

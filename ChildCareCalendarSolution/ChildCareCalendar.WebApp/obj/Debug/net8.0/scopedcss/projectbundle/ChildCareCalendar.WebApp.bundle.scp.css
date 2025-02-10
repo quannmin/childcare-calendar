@@ -1,6 +1,8 @@
 /* _content/ChildCareCalendar.WebApp/Components/Layout/MainLayout.razor.rz.scp.css */
-.page[b-qdesvhho5q] {
-    position: relative;
+
+html[b-qdesvhho5q], body[b-qdesvhho5q] {
+    height: 100%;
+    margin: 0;
     display: flex;
     flex-direction: column;
 }

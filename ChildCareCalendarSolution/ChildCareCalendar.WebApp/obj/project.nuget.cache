@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kKT8rhtXh0dzw+xBX3ixeekRxyw2i9UcKTTfdATOuTn3TKM3dQg3QpGo/YHNAbOAdndG6+WT+J0qdIxY1+L8zg==",
+  "dgSpecHash": "QOESuq14NsA=",
   "success": true,
-  "projectFilePath": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj",
+  "projectFilePath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ADMIN\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

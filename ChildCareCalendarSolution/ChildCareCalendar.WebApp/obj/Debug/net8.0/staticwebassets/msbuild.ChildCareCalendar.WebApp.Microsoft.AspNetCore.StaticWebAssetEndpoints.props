@@ -1,16 +1,16 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/ChildCareCalendar.WebApp/app.bnzp1xoml0.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\app.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"bnzp1xoml0"},{"Name":"integrity","Value":"sha256-Sbrsboulm7DQAyE8fyLuj0fMH3jUHSZdzuVDd81ZSI0="},{"Name":"label","Value":"_content/ChildCareCalendar.WebApp/app.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"38913"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Sbrsboulm7DQAyE8fyLuj0fMH3jUHSZdzuVDd81ZSI0=\u0022"},{"Name":"Last-Modified","Value":"Mon, 10 Feb 2025 17:09:07 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/ChildCareCalendar.WebApp/app.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\app.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-u9qEka1auR7E3rd3/8/j8hkQdSOYj9bRJ4nYiFDR1sE="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"2591"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022u9qEka1auR7E3rd3/8/j8hkQdSOYj9bRJ4nYiFDR1sE=\u0022"},{"Name":"Last-Modified","Value":"Wed, 05 Feb 2025 14:48:10 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/ChildCareCalendar.WebApp/app.da95v2qkru.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\app.css'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"da95v2qkru"},{"Name":"integrity","Value":"sha256-u9qEka1auR7E3rd3/8/j8hkQdSOYj9bRJ4nYiFDR1sE="},{"Name":"label","Value":"_content/ChildCareCalendar.WebApp/app.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2591"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022u9qEka1auR7E3rd3/8/j8hkQdSOYj9bRJ4nYiFDR1sE=\u0022"},{"Name":"Last-Modified","Value":"Wed, 05 Feb 2025 14:48:10 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Sbrsboulm7DQAyE8fyLuj0fMH3jUHSZdzuVDd81ZSI0="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"38913"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Sbrsboulm7DQAyE8fyLuj0fMH3jUHSZdzuVDd81ZSI0=\u0022"},{"Name":"Last-Modified","Value":"Mon, 10 Feb 2025 17:09:07 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/ChildCareCalendar.WebApp/bootstrap/bootstrap.min.bpk8xqwxhs.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\bootstrap\bootstrap.min.css'))</AssetFile>
@@ -37,16 +37,28 @@
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"449111"},{"Name":"Content-Type","Value":"text/plain"},{"Name":"ETag","Value":"\u0022gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ=\u0022"},{"Name":"Last-Modified","Value":"Wed, 05 Feb 2025 14:48:10 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/ChildCareCalendar.WebApp/ChildCareCalendar.WebApp.bundle.scp.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\ChildCareCalendar.WebApp.dkghwm8msd.bundle.scp.css'))</AssetFile>
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\ChildCareCalendar.WebApp.sxli5prcl3.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-41nDh1DCc1SNSGUe6wmIffTg0k9LYMQ/Q1Lr\u002BkOZP\u002BA="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"5931"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u002241nDh1DCc1SNSGUe6wmIffTg0k9LYMQ/Q1Lr\u002BkOZP\u002BA=\u0022"},{"Name":"Last-Modified","Value":"Wed, 05 Feb 2025 18:07:10 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-kBi63gv3Lb1wvaQX2QP1rTXtuLlsQnYz8XKxDtlJBk8="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"5962"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022kBi63gv3Lb1wvaQX2QP1rTXtuLlsQnYz8XKxDtlJBk8=\u0022"},{"Name":"Last-Modified","Value":"Mon, 10 Feb 2025 17:16:57 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/ChildCareCalendar.WebApp/ChildCareCalendar.WebApp.dkghwm8msd.bundle.scp.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\ChildCareCalendar.WebApp.dkghwm8msd.bundle.scp.css'))</AssetFile>
+    <StaticWebAssetEndpoint Include="_content/ChildCareCalendar.WebApp/ChildCareCalendar.WebApp.sxli5prcl3.bundle.scp.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\ChildCareCalendar.WebApp.sxli5prcl3.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"dkghwm8msd"},{"Name":"integrity","Value":"sha256-41nDh1DCc1SNSGUe6wmIffTg0k9LYMQ/Q1Lr\u002BkOZP\u002BA="},{"Name":"label","Value":"_content/ChildCareCalendar.WebApp/ChildCareCalendar.WebApp.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"5931"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u002241nDh1DCc1SNSGUe6wmIffTg0k9LYMQ/Q1Lr\u002BkOZP\u002BA=\u0022"},{"Name":"Last-Modified","Value":"Wed, 05 Feb 2025 18:07:10 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"sxli5prcl3"},{"Name":"integrity","Value":"sha256-kBi63gv3Lb1wvaQX2QP1rTXtuLlsQnYz8XKxDtlJBk8="},{"Name":"label","Value":"_content/ChildCareCalendar.WebApp/ChildCareCalendar.WebApp.bundle.scp.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"5962"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022kBi63gv3Lb1wvaQX2QP1rTXtuLlsQnYz8XKxDtlJBk8=\u0022"},{"Name":"Last-Modified","Value":"Mon, 10 Feb 2025 17:16:57 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/ChildCareCalendar.WebApp/css/main.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\main.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-S81Ml3k96Ya7yTmjkj0LTJbPRi37/jckvhIeoS1hpmc="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"41944"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022S81Ml3k96Ya7yTmjkj0LTJbPRi37/jckvhIeoS1hpmc=\u0022"},{"Name":"Last-Modified","Value":"Mon, 10 Feb 2025 17:09:07 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/ChildCareCalendar.WebApp/css/main.xxnypzidhz.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\main.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"xxnypzidhz"},{"Name":"integrity","Value":"sha256-S81Ml3k96Ya7yTmjkj0LTJbPRi37/jckvhIeoS1hpmc="},{"Name":"label","Value":"_content/ChildCareCalendar.WebApp/css/main.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"41944"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022S81Ml3k96Ya7yTmjkj0LTJbPRi37/jckvhIeoS1hpmc=\u0022"},{"Name":"Last-Modified","Value":"Mon, 10 Feb 2025 17:09:07 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/ChildCareCalendar.WebApp/favicon.ifv42okdf2.png">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.png'))</AssetFile>
@@ -59,6 +71,18 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"1148"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u00224mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg=\u0022"},{"Name":"Last-Modified","Value":"Wed, 05 Feb 2025 14:48:10 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/ChildCareCalendar.WebApp/js/main.iq7n6ouwqk.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\main.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"iq7n6ouwqk"},{"Name":"integrity","Value":"sha256-FnMAu767aDTOa20\u002Bo3p/JmeR/BE8IYsBiCa/6l3eMcY="},{"Name":"label","Value":"_content/ChildCareCalendar.WebApp/js/main.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"5335"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022FnMAu767aDTOa20\u002Bo3p/JmeR/BE8IYsBiCa/6l3eMcY=\u0022"},{"Name":"Last-Modified","Value":"Mon, 10 Feb 2025 17:09:07 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/ChildCareCalendar.WebApp/js/main.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\main.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-FnMAu767aDTOa20\u002Bo3p/JmeR/BE8IYsBiCa/6l3eMcY="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"5335"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022FnMAu767aDTOa20\u002Bo3p/JmeR/BE8IYsBiCa/6l3eMcY=\u0022"},{"Name":"Last-Modified","Value":"Mon, 10 Feb 2025 17:09:07 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
   </ItemGroup>
 </Project>
