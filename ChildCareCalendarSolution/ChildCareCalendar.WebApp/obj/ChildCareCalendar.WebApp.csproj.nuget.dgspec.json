@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj": {}
+    "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj": {}
   },
   "projects": {
-    "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj": {
+    "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj",
+        "projectUniqueName": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj",
         "projectName": "ChildCareCalendar.Domain",
-        "projectPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj",
+        "projectPath": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\obj\\",
+        "outputPath": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -32,8 +28,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Utilities\\ChildCareCalendar.Utilities.csproj": {
-                "projectPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Utilities\\ChildCareCalendar.Utilities.csproj"
+              "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Utilities\\ChildCareCalendar.Utilities.csproj": {
+                "projectPath": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Utilities\\ChildCareCalendar.Utilities.csproj"
               }
             }
           }
@@ -47,8 +43,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -95,25 +90,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\ChildCareCalendar.Infrastructure.csproj": {
+    "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\ChildCareCalendar.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\ChildCareCalendar.Infrastructure.csproj",
+        "projectUniqueName": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\ChildCareCalendar.Infrastructure.csproj",
         "projectName": "ChildCareCalendar.Infrastructure",
-        "projectPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\ChildCareCalendar.Infrastructure.csproj",
+        "projectPath": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\ChildCareCalendar.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\obj\\",
+        "outputPath": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -127,8 +118,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj": {
-                "projectPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj"
+              "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj": {
+                "projectPath": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj"
               }
             }
           }
@@ -142,8 +133,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -164,25 +154,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Utilities\\ChildCareCalendar.Utilities.csproj": {
+    "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Utilities\\ChildCareCalendar.Utilities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Utilities\\ChildCareCalendar.Utilities.csproj",
+        "projectUniqueName": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Utilities\\ChildCareCalendar.Utilities.csproj",
         "projectName": "ChildCareCalendar.Utilities",
-        "projectPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Utilities\\ChildCareCalendar.Utilities.csproj",
+        "projectPath": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Utilities\\ChildCareCalendar.Utilities.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Utilities\\obj\\",
+        "outputPath": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Utilities\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -207,8 +193,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -229,25 +214,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj": {
+    "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj",
+        "projectUniqueName": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj",
         "projectName": "ChildCareCalendar.WebApp",
-        "projectPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj",
+        "projectPath": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\obj\\",
+        "outputPath": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -261,11 +242,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj": {
-                "projectPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj"
+              "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj": {
+                "projectPath": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj"
               },
-              "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\ChildCareCalendar.Infrastructure.csproj": {
-                "projectPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\ChildCareCalendar.Infrastructure.csproj"
+              "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\ChildCareCalendar.Infrastructure.csproj": {
+                "projectPath": "E:\\FPT\\SPRING 2025\\PRN222\\Project\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\ChildCareCalendar.Infrastructure.csproj"
               }
             }
           }
@@ -279,8 +260,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -304,7 +284,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

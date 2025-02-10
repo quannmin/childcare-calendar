@@ -22,3 +22,15 @@ E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalenda
 E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\bin\Debug\net8.0\ChildCareCalendar.Utilities.dll
 E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\bin\Debug\net8.0\ChildCareCalendar.Utilities.pdb
 E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ref\ChildCareCalendar.Utilities.dll
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\bin\Debug\net8.0\ChildCareCalendar.Utilities.deps.json
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\bin\Debug\net8.0\ChildCareCalendar.Utilities.dll
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\bin\Debug\net8.0\ChildCareCalendar.Utilities.pdb
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.GeneratedMSBuildEditorConfig.editorconfig
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.AssemblyInfoInputs.cache
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.AssemblyInfo.cs
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.csproj.CoreCompileInputs.cache
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.sourcelink.json
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.dll
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\refint\ChildCareCalendar.Utilities.dll
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.pdb
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ref\ChildCareCalendar.Utilities.dll

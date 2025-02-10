@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ChildCareCalendar.Utilities")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff42769475011c02a06aa8b7203f6b7ffd729700")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a46fafa7b54f05b855a799906a1797862d89a829")]
 [assembly: System.Reflection.AssemblyProductAttribute("ChildCareCalendar.Utilities")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ChildCareCalendar.Utilities")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

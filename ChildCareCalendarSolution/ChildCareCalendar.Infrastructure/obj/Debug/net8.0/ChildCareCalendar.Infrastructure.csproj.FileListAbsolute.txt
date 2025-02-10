@@ -34,3 +34,21 @@ E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalenda
 E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\obj\Debug\net8.0\refint\ChildCareCalendar.Infrastructure.dll
 E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\obj\Debug\net8.0\ChildCareCalendar.Infrastructure.pdb
 E:\FPTU\Ky7\PRN222\ChildCare-Calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\obj\Debug\net8.0\ref\ChildCareCalendar.Infrastructure.dll
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\bin\Debug\net8.0\ChildCareCalendar.Infrastructure.deps.json
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\bin\Debug\net8.0\ChildCareCalendar.Infrastructure.dll
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\bin\Debug\net8.0\ChildCareCalendar.Infrastructure.pdb
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\bin\Debug\net8.0\ChildCareCalendar.Domain.dll
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\bin\Debug\net8.0\ChildCareCalendar.Utilities.dll
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\bin\Debug\net8.0\ChildCareCalendar.Domain.pdb
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\bin\Debug\net8.0\ChildCareCalendar.Utilities.pdb
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\obj\Debug\net8.0\ChildCareCalendar.Infrastructure.csproj.AssemblyReference.cache
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\obj\Debug\net8.0\ChildCareCalendar.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\obj\Debug\net8.0\ChildCareCalendar.Infrastructure.AssemblyInfoInputs.cache
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\obj\Debug\net8.0\ChildCareCalendar.Infrastructure.AssemblyInfo.cs
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\obj\Debug\net8.0\ChildCareCalendar.Infrastructure.csproj.CoreCompileInputs.cache
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\obj\Debug\net8.0\ChildCareCalendar.Infrastructure.sourcelink.json
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\obj\Debug\net8.0\ChildCar.08704C0A.Up2Date
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\obj\Debug\net8.0\ChildCareCalendar.Infrastructure.dll
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\obj\Debug\net8.0\refint\ChildCareCalendar.Infrastructure.dll
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\obj\Debug\net8.0\ChildCareCalendar.Infrastructure.pdb
+E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Infrastructure\obj\Debug\net8.0\ref\ChildCareCalendar.Infrastructure.dll

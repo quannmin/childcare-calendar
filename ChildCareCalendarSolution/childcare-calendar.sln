@@ -7,15 +7,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{B0E73CC1-D1D0-4700-B111-3C87DE7C7DE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.Domain", "ChildCareCalendar.Domain\ChildCareCalendar.Domain.csproj", "{5BDC33A9-4F86-48A9-8335-1CAE5877F52E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildCareCalendar.Domain", "ChildCareCalendar.Domain\ChildCareCalendar.Domain.csproj", "{5BDC33A9-4F86-48A9-8335-1CAE5877F52E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.Utilities", "ChildCareCalendar.Utilities\ChildCareCalendar.Utilities.csproj", "{5C52900D-29A6-47A5-A89B-58855A7FA7B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildCareCalendar.Utilities", "ChildCareCalendar.Utilities\ChildCareCalendar.Utilities.csproj", "{5C52900D-29A6-47A5-A89B-58855A7FA7B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.Infrastructure", "ChildCareCalendar.Infrastructure\ChildCareCalendar.Infrastructure.csproj", "{30ED40B2-35F4-49BE-9646-2D25BB10BE73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildCareCalendar.Infrastructure", "ChildCareCalendar.Infrastructure\ChildCareCalendar.Infrastructure.csproj", "{30ED40B2-35F4-49BE-9646-2D25BB10BE73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.WebApp", "ChildCareCalendar.WebApp\ChildCareCalendar.WebApp.csproj", "{30EA0F97-94BD-4212-8DF9-C93E93804540}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildCareCalendar.WebApp", "ChildCareCalendar.WebApp\ChildCareCalendar.WebApp.csproj", "{30EA0F97-94BD-4212-8DF9-C93E93804540}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildCareCalendar.Admin", "ChildCareCalendar.Admin\ChildCareCalendar.Admin.csproj", "{4DF0081B-5EF1-4E67-8CA1-2E37AE0044BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildCareCalendar.Admin", "ChildCareCalendar.Admin\ChildCareCalendar.Admin.csproj", "{4DF0081B-5EF1-4E67-8CA1-2E37AE0044BD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{69444D48-925E-47F7-BDEB-0EDCAD977DA3}"
 EndProject
