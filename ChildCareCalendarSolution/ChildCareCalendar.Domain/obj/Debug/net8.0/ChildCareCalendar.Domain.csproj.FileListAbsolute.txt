@@ -52,3 +52,21 @@ E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\C
 E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.pdb
 E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.genruntimeconfig.cache
 E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ref\ChildCareCalendar.Domain.dll
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\bin\Debug\net8.0\ChildCareCalendar.Domain.deps.json
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\bin\Debug\net8.0\ChildCareCalendar.Domain.runtimeconfig.json
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\bin\Debug\net8.0\ChildCareCalendar.Domain.dll
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\bin\Debug\net8.0\ChildCareCalendar.Domain.pdb
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\bin\Debug\net8.0\ChildCareCalendar.Utilities.dll
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\bin\Debug\net8.0\ChildCareCalendar.Utilities.pdb
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.csproj.AssemblyReference.cache
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.AssemblyInfoInputs.cache
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.AssemblyInfo.cs
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.csproj.CoreCompileInputs.cache
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.sourcelink.json
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCar.38F35656.Up2Date
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.dll
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\refint\ChildCareCalendar.Domain.dll
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.pdb
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ChildCareCalendar.Domain.genruntimeconfig.cache
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Domain\obj\Debug\net8.0\ref\ChildCareCalendar.Domain.dll

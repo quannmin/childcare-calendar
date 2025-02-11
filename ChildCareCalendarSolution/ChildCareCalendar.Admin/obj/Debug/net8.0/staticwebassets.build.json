@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uHIepNxdZeI/9pUA0yvR8UMnOqn10xsYiyEFxD/Z470=",
+  "Hash": "xZvcow0xNaGcwn/EK++2upMN/hsQTItEi2QeVXwz8IE=",
   "Source": "ChildCareCalendar.Admin",
   "BasePath": "_content/ChildCareCalendar.Admin",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "ChildCareCalendar.Admin\\wwwroot",
       "Source": "ChildCareCalendar.Admin",
-      "ContentRoot": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\",
       "BasePath": "_content/ChildCareCalendar.Admin",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChildCareCalendar.Admin.styles.css",
+      "Identity": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChildCareCalendar.Admin.styles.css",
       "SourceId": "ChildCareCalendar.Admin",
       "SourceType": "Computed",
-      "ContentRoot": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/ChildCareCalendar.Admin",
       "RelativePath": "ChildCareCalendar.Admin#[.{fingerprint}]?.styles.css",
       "AssetKind": "All",
@@ -35,13 +35,13 @@
       "Integrity": "B8DAVe3iilTELNOwp2w1gS6mYnatsVuu3HaKTwrzFfQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChildCareCalendar.Admin.styles.css"
+      "OriginalItemSpec": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChildCareCalendar.Admin.styles.css"
     },
     {
-      "Identity": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChildCareCalendar.Admin.bundle.scp.css",
+      "Identity": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChildCareCalendar.Admin.bundle.scp.css",
       "SourceId": "ChildCareCalendar.Admin",
       "SourceType": "Computed",
-      "ContentRoot": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/ChildCareCalendar.Admin",
       "RelativePath": "ChildCareCalendar.Admin#[.{fingerprint}]!.bundle.scp.css",
       "AssetKind": "All",
@@ -56,13 +56,13 @@
       "Integrity": "B8DAVe3iilTELNOwp2w1gS6mYnatsVuu3HaKTwrzFfQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChildCareCalendar.Admin.bundle.scp.css"
+      "OriginalItemSpec": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChildCareCalendar.Admin.bundle.scp.css"
     },
     {
-      "Identity": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\app.css",
+      "Identity": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\app.css",
       "SourceId": "ChildCareCalendar.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\",
       "BasePath": "_content/ChildCareCalendar.Admin",
       "RelativePath": "app#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -80,10 +80,10 @@
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Identity": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "ChildCareCalendar.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\",
       "BasePath": "_content/ChildCareCalendar.Admin",
       "RelativePath": "bootstrap/bootstrap.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -94,17 +94,17 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "bpk8xqwxhs",
-      "Integrity": "z8OR40MowJ8GgK6P89Y+hiJK5+cclzFHzLhFQLL92bg=",
+      "Fingerprint": "6gzpyzhau4",
+      "Integrity": "SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7/p4nS6D/0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "ChildCareCalendar.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\",
       "BasePath": "_content/ChildCareCalendar.Admin",
       "RelativePath": "bootstrap/bootstrap.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -122,10 +122,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\favicon.png",
+      "Identity": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\favicon.png",
       "SourceId": "ChildCareCalendar.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\",
       "BasePath": "_content/ChildCareCalendar.Admin",
       "RelativePath": "favicon#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -146,7 +146,7 @@
   "Endpoints": [
     {
       "Route": "app.css",
-      "AssetFile": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\app.css",
+      "AssetFile": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\app.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -167,7 +167,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 05 Feb 2025 17:34:07 GMT"
+          "Value": "Tue, 11 Feb 2025 02:20:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -183,7 +183,7 @@
     },
     {
       "Route": "app.da95v2qkru.css",
-      "AssetFile": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\app.css",
+      "AssetFile": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\app.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -204,7 +204,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 05 Feb 2025 17:34:07 GMT"
+          "Value": "Tue, 11 Feb 2025 02:20:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -227,8 +227,8 @@
       ]
     },
     {
-      "Route": "bootstrap/bootstrap.min.bpk8xqwxhs.css",
-      "AssetFile": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Route": "bootstrap/bootstrap.min.6gzpyzhau4.css",
+      "AssetFile": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\bootstrap\\bootstrap.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -237,7 +237,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "162720"
+          "Value": "162726"
         },
         {
           "Name": "Content-Type",
@@ -245,11 +245,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"z8OR40MowJ8GgK6P89Y+hiJK5+cclzFHzLhFQLL92bg=\""
+          "Value": "\"SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7/p4nS6D/0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 05 Feb 2025 17:34:07 GMT"
+          "Value": "Tue, 11 Feb 2025 02:20:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -259,7 +259,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "bpk8xqwxhs"
+          "Value": "6gzpyzhau4"
         },
         {
           "Name": "label",
@@ -267,13 +267,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-z8OR40MowJ8GgK6P89Y+hiJK5+cclzFHzLhFQLL92bg="
+          "Value": "sha256-SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7/p4nS6D/0="
         }
       ]
     },
     {
       "Route": "bootstrap/bootstrap.min.css",
-      "AssetFile": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "AssetFile": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\bootstrap\\bootstrap.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -282,7 +282,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "162720"
+          "Value": "162726"
         },
         {
           "Name": "Content-Type",
@@ -290,11 +290,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"z8OR40MowJ8GgK6P89Y+hiJK5+cclzFHzLhFQLL92bg=\""
+          "Value": "\"SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7/p4nS6D/0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 05 Feb 2025 17:34:07 GMT"
+          "Value": "Tue, 11 Feb 2025 02:20:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -304,13 +304,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-z8OR40MowJ8GgK6P89Y+hiJK5+cclzFHzLhFQLL92bg="
+          "Value": "sha256-SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7/p4nS6D/0="
         }
       ]
     },
     {
       "Route": "bootstrap/bootstrap.min.css.8inm30yfxf.map",
-      "AssetFile": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "AssetFile": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -331,7 +331,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 05 Feb 2025 17:34:07 GMT"
+          "Value": "Tue, 11 Feb 2025 02:20:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -355,7 +355,7 @@
     },
     {
       "Route": "bootstrap/bootstrap.min.css.map",
-      "AssetFile": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "AssetFile": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -376,7 +376,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 05 Feb 2025 17:34:07 GMT"
+          "Value": "Tue, 11 Feb 2025 02:20:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -392,7 +392,7 @@
     },
     {
       "Route": "ChildCareCalendar.Admin.9wfu4k0h46.bundle.scp.css",
-      "AssetFile": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChildCareCalendar.Admin.bundle.scp.css",
+      "AssetFile": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChildCareCalendar.Admin.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -413,7 +413,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 05 Feb 2025 18:07:10 GMT"
+          "Value": "Tue, 11 Feb 2025 02:20:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -437,7 +437,7 @@
     },
     {
       "Route": "ChildCareCalendar.Admin.9wfu4k0h46.styles.css",
-      "AssetFile": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChildCareCalendar.Admin.styles.css",
+      "AssetFile": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChildCareCalendar.Admin.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -458,7 +458,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 05 Feb 2025 18:07:10 GMT"
+          "Value": "Tue, 11 Feb 2025 02:20:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -482,7 +482,7 @@
     },
     {
       "Route": "ChildCareCalendar.Admin.bundle.scp.css",
-      "AssetFile": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChildCareCalendar.Admin.bundle.scp.css",
+      "AssetFile": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChildCareCalendar.Admin.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -503,7 +503,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 05 Feb 2025 18:07:10 GMT"
+          "Value": "Tue, 11 Feb 2025 02:20:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -519,7 +519,7 @@
     },
     {
       "Route": "ChildCareCalendar.Admin.styles.css",
-      "AssetFile": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChildCareCalendar.Admin.styles.css",
+      "AssetFile": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChildCareCalendar.Admin.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -540,7 +540,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 05 Feb 2025 18:07:10 GMT"
+          "Value": "Tue, 11 Feb 2025 02:20:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -556,7 +556,7 @@
     },
     {
       "Route": "favicon.ifv42okdf2.png",
-      "AssetFile": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\favicon.png",
+      "AssetFile": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\favicon.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -577,7 +577,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 05 Feb 2025 17:34:07 GMT"
+          "Value": "Tue, 11 Feb 2025 02:20:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -601,7 +601,7 @@
     },
     {
       "Route": "favicon.png",
-      "AssetFile": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\favicon.png",
+      "AssetFile": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Admin\\wwwroot\\favicon.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -622,7 +622,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 05 Feb 2025 17:34:07 GMT"
+          "Value": "Tue, 11 Feb 2025 02:20:56 GMT"
         },
         {
           "Name": "Cache-Control",

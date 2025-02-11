@@ -3155,23 +3155,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ADMIN\\.nuget\\packages\\": {},
+    "C:\\Users\\duclu\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj",
+      "projectUniqueName": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj",
       "projectName": "ChildCareCalendar.WebApp",
-      "projectPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj",
-      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\obj\\",
+      "projectPath": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj",
+      "packagesPath": "C:\\Users\\duclu\\.nuget\\packages\\",
+      "outputPath": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\duclu\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3186,11 +3186,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj": {
-              "projectPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj"
+            "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj": {
+              "projectPath": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Domain\\ChildCareCalendar.Domain.csproj"
             },
-            "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\ChildCareCalendar.Infrastructure.csproj": {
-              "projectPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\ChildCareCalendar.Infrastructure.csproj"
+            "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\ChildCareCalendar.Infrastructure.csproj": {
+              "projectPath": "D:\\childcare-calendar\\ChildCareCalendarSolution\\ChildCareCalendar.Infrastructure\\ChildCareCalendar.Infrastructure.csproj"
             }
           }
         }

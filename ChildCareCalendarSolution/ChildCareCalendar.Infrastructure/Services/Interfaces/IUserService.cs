@@ -14,5 +14,6 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task AddUserAsync(AppUser user);
         Task UpdateUserAsync(AppUser user);
         Task DeleteUserAsync(int id);
+
     }
 }

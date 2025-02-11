@@ -34,3 +34,15 @@ E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\C
 E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\refint\ChildCareCalendar.Utilities.dll
 E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.pdb
 E:\FPT\SPRING 2025\PRN222\Project\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ref\ChildCareCalendar.Utilities.dll
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\bin\Debug\net8.0\ChildCareCalendar.Utilities.deps.json
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\bin\Debug\net8.0\ChildCareCalendar.Utilities.dll
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\bin\Debug\net8.0\ChildCareCalendar.Utilities.pdb
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.GeneratedMSBuildEditorConfig.editorconfig
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.AssemblyInfoInputs.cache
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.AssemblyInfo.cs
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.csproj.CoreCompileInputs.cache
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.sourcelink.json
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.dll
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\refint\ChildCareCalendar.Utilities.dll
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ChildCareCalendar.Utilities.pdb
+D:\childcare-calendar\ChildCareCalendarSolution\ChildCareCalendar.Utilities\obj\Debug\net8.0\ref\ChildCareCalendar.Utilities.dll
