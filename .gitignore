@@ -33,3 +33,6 @@ localdb.mdf
 # Thư viện bên thứ ba & Publish
 publish/
 wwwroot/lib/
+
+/ChildCareCalendarSolution/ChildCareCalendar.Domain/Migrations/
+/ChildCareCalendar.Domain/Migrations/
