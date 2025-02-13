@@ -9,6 +9,7 @@ namespace Pubs.BackendApi.Mappings
         public MappingProfile()
         {
             CreateMap<SpecialityViewModel, Speciality>().ReverseMap();
+            CreateMap<SpecialityCreateViewModel, Speciality>();
         }
     }
 }

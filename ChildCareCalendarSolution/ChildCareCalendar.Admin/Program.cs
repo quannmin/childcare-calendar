@@ -1,10 +1,12 @@
 using ChildCareCalendar.Admin.Components;
+using ChildCareCalendar.Admin.Extensions;
 using ChildCareCalendar.Domain.EF;
 using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Pubs.BackendApi.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,8 @@ Console.WriteLine($"Connection String: {connectionString}");
 
 builder.Services.AddDbContext<ChildCareCalendarContext>(options => options.UseSqlServer(connectionString));
 // Add services to the container.
+builder.Services.AddDependencyInjection();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
@@ -27,8 +31,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<IUserService, UserService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
