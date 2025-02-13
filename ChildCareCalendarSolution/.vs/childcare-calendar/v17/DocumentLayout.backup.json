@@ -3,40 +3,68 @@
   "WorkspaceRootPath": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\components\\layout\\mainlayout.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\components\\layout\\mainlayout.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\wwwroot\\css\\main.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\wwwroot\\css\\main.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\components\\layout\\footer.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\components\\layout\\footer.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\wwwroot\\js\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\wwwroot\\js\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\wwwroot\\css\\main.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\wwwroot\\css\\main.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\components\\pages\\weather.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\components\\pages\\weather.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\wwwroot\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\wwwroot\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\components\\pages\\counter.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\components\\pages\\counter.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\components\\layout\\footer.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\components\\layout\\footer.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\components\\pages\\error.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\components\\pages\\error.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\components\\routes.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\components\\routes.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\components\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\components\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\components\\layout\\mainlayout.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\components\\layout\\mainlayout.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|e:\\fptu\\ky7\\prn222\\childcare-calendar\\childcarecalendarsolution\\childcarecalendar.webapp\\wwwroot\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{30EA0F97-94BD-4212-8DF9-C93E93804540}|ChildCareCalendar.WebApp\\ChildCareCalendar.WebApp.csproj|solutionrelative:childcarecalendar.webapp\\wwwroot\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,7 +74,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Bookmark",
@@ -70,20 +98,140 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Counter.razor",
+              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Pages\\Counter.razor",
+              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\Components\\Pages\\Counter.razor",
+              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Pages\\Counter.razor",
+              "RelativeToolTip": "ChildCareCalendar.WebApp\\Components\\Pages\\Counter.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-10T17:23:35.483Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Error.razor",
+              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Pages\\Error.razor",
+              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\Components\\Pages\\Error.razor",
+              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Pages\\Error.razor",
+              "RelativeToolTip": "ChildCareCalendar.WebApp\\Components\\Pages\\Error.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-10T17:23:34.111Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Weather.razor",
+              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Pages\\Weather.razor",
+              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\Components\\Pages\\Weather.razor",
+              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Pages\\Weather.razor",
+              "RelativeToolTip": "ChildCareCalendar.WebApp\\Components\\Pages\\Weather.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-10T17:23:23.605Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "App.razor",
+              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\App.razor",
+              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\Components\\App.razor",
+              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\App.razor",
+              "RelativeToolTip": "ChildCareCalendar.WebApp\\Components\\App.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-10T17:23:00.306Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Routes.razor",
+              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Routes.razor",
+              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\Components\\Routes.razor",
+              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Routes.razor",
+              "RelativeToolTip": "ChildCareCalendar.WebApp\\Components\\Routes.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-10T17:22:56.641Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Home.razor",
+              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\Components\\Pages\\Home.razor",
+              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Pages\\Home.razor",
+              "RelativeToolTip": "ChildCareCalendar.WebApp\\Components\\Pages\\Home.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-10T17:22:39.488Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\Components\\Layout\\NavMenu.razor",
+              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "ChildCareCalendar.WebApp\\Components\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-10T16:17:57.866Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MainLayout.razor.css",
-              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Layout\\MainLayout.razor.css",
-              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\Components\\Layout\\MainLayout.razor.css",
-              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Layout\\MainLayout.razor.css",
-              "RelativeToolTip": "ChildCareCalendar.WebApp\\Components\\Layout\\MainLayout.razor.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAASAAAAAAAAAA==",
+              "Title": "main.css",
+              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\wwwroot\\css\\main.css",
+              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\wwwroot\\css\\main.css",
+              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\wwwroot\\css\\main.css",
+              "RelativeToolTip": "ChildCareCalendar.WebApp\\wwwroot\\css\\main.css",
+              "ViewState": "AgIAAP4DAAAAAAAAAAAQwBMEAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-02-10T17:14:51.754Z",
+              "WhenOpened": "2025-02-10T16:35:40.313Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "main.js",
+              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\wwwroot\\js\\main.js",
+              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\wwwroot\\js\\main.js",
+              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\wwwroot\\js\\main.js",
+              "RelativeToolTip": "ChildCareCalendar.WebApp\\wwwroot\\js\\main.js",
+              "ViewState": "AgIAAKAAAAAAAAAAAAAkwAMAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-02-10T16:54:38.425Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Footer.razor",
+              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Layout\\Footer.razor",
+              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\Components\\Layout\\Footer.razor",
+              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Layout\\Footer.razor",
+              "RelativeToolTip": "ChildCareCalendar.WebApp\\Components\\Layout\\Footer.razor",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-10T16:45:50.873Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "_Imports.razor",
+              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\_Imports.razor",
+              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\Components\\_Imports.razor",
+              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\_Imports.razor",
+              "RelativeToolTip": "ChildCareCalendar.WebApp\\Components\\_Imports.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-10T17:22:51.526Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "appsettings.json",
               "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\appsettings.json",
               "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\appsettings.json",
@@ -91,49 +239,23 @@
               "RelativeToolTip": "ChildCareCalendar.WebApp\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-02-10T17:10:28.34Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-10T17:10:28.34Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "main.js",
-              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\wwwroot\\js\\main.js",
-              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\wwwroot\\js\\main.js",
-              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\wwwroot\\js\\main.js",
-              "RelativeToolTip": "ChildCareCalendar.WebApp\\wwwroot\\js\\main.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-02-10T16:54:38.425Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Footer.razor",
-              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Layout\\Footer.razor",
-              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\Components\\Layout\\Footer.razor",
-              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Layout\\Footer.razor",
-              "RelativeToolTip": "ChildCareCalendar.WebApp\\Components\\Layout\\Footer.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEgAAACMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-10T16:45:50.873Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "main.css",
-              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\wwwroot\\css\\main.css",
-              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\wwwroot\\css\\main.css",
-              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\wwwroot\\css\\main.css",
-              "RelativeToolTip": "ChildCareCalendar.WebApp\\wwwroot\\css\\main.css",
-              "ViewState": "AQIAAFQGAAAAAAAAAAAAAGQGAAAJAAAA",
+              "DocumentIndex": 12,
+              "Title": "MainLayout.razor.css",
+              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Layout\\MainLayout.razor.css",
+              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\Components\\Layout\\MainLayout.razor.css",
+              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Layout\\MainLayout.razor.css",
+              "RelativeToolTip": "ChildCareCalendar.WebApp\\Components\\Layout\\MainLayout.razor.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-02-10T16:35:40.313Z"
+              "WhenOpened": "2025-02-10T17:14:51.754Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 15,
               "Title": "app.css",
               "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\wwwroot\\app.css",
               "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\wwwroot\\app.css",
@@ -145,19 +267,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "NavMenu.razor",
-              "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Layout\\NavMenu.razor",
-              "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\Components\\Layout\\NavMenu.razor",
-              "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Layout\\NavMenu.razor",
-              "RelativeToolTip": "ChildCareCalendar.WebApp\\Components\\Layout\\NavMenu.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACkAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-10T16:17:57.866Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 14,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Program.cs",
               "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\Program.cs",
@@ -169,16 +279,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 11,
               "Title": "MainLayout.razor",
               "DocumentMoniker": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Layout\\MainLayout.razor",
               "RelativeDocumentMoniker": "ChildCareCalendar.WebApp\\Components\\Layout\\MainLayout.razor",
               "ToolTip": "E:\\FPTU\\Ky7\\PRN222\\ChildCare-Calendar\\ChildCareCalendarSolution\\ChildCareCalendar.WebApp\\Components\\Layout\\MainLayout.razor",
               "RelativeToolTip": "ChildCareCalendar.WebApp\\Components\\Layout\\MainLayout.razor",
-              "ViewState": "AgIAADYAAAAAAAAAAADwv0cAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABMAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-10T16:06:49.185Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-10T16:06:49.185Z"
             }
           ]
         }

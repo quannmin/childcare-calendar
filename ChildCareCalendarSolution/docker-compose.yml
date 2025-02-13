@@ -2,11 +2,13 @@ version: '3.8'
 
 services:
   # 1. Ứng dụng (App)
-  childcare-app:
-    container_name: childcare-app 
+  admin-app:
+    image: admin-app 
     build:
       context: .  # Thư mục chứa mã nguồn của bạn
       dockerfile: Dockerfile  # Đường dẫn tới Dockerfile
+      args:
+        APP_PATH: ChildCareCalendar.Admin/ChildCareCalendar.Admin.csproj
     ports:
       - "80:8080"   # Chuyển tiếp cổng 8080 của container sang cổng 80 của VPS
     environment:
@@ -14,7 +16,21 @@ services:
       - ConnectionStrings__DefaultConnection=Server=db;Database=ChildCareDb;User=sa;Password=MyStrong!Pass123;  # Kết nối tới MSSQL container
     depends_on:
       - db  # Đảm bảo MSSQL container được khởi động trước khi ứng dụng chạy
-    restart: always
+
+  product-app:
+    image: product-app 
+    build:
+      context: .  # Thư mục chứa mã nguồn của bạn
+      dockerfile: Dockerfile  # Đường dẫn tới Dockerfile
+      args:
+        APP_PATH: ChildCareCalendar.WebApp/ChildCareCalendar.WebApp.csproj
+    ports:
+      - "81:8080"   # Chuyển tiếp cổng 8080 của container sang cổng 80 của VPS
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production  # Chế độ môi trường của ứng dụng (Production)
+      - ConnectionStrings__DefaultConnection=Server=db;Database=ChildCareDb;User=sa;Password=MyStrong!Pass123;  # Kết nối tới MSSQL container
+    depends_on:
+      - db  # Đảm bảo MSSQL container được khởi động trước khi ứng dụng chạy
 
   # 2. Cơ sở dữ liệu (MSSQL)
   db:
