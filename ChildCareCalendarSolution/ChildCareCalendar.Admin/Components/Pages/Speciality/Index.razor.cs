@@ -36,12 +36,5 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
             var specialities = await SpecialityService.GetAllSpecialitiesAsync();
             Categories = Mapper.Map<List<SpecialityViewModel>>(specialities);
         }
-
-        private async Task NavigateToCreateSpecialities()
-        {
-            navigationManager.NavigateTo("/specialities/create");
-
-        }
-
     }
 }

@@ -2,31 +2,38 @@
 using ChildCareCalendar.Domain.ViewModels;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 {
     public partial class Create
     {
         private string? ErrorMessage;
-        private SpecialityCreateViewModel createModel { get; set; } = new();
+
+        [SupplyParameterFromForm]
+        private SpecialityCreateViewModel createModel { get; set; }
+
         [Inject]
-        private ISpecialityService SpecialityService { get; set; } = default!;
-        private NavigationManager navigationManager { get; set; }
-        private IMapper Mapper { get; set; } = default!;
+        private ISpecialityService SpecialityService { get; set; }
+
+        [Inject]
+        private IMapper Mapper { get; set; }
+
+        [Inject]
+        private NavigationManager Navigation { get; set; }
+
+
+        protected override void OnInitialized()
+        {
+            createModel ??= new();
+        }
 
         private async Task HandleCreate()
         {
-            try
-            {
-                var newSpeciality = Mapper.Map<ChildCareCalendar.Domain.Entities.Speciality>(createModel);
-
+      
+                var newSpeciality = Mapper.Map<Domain.Entities.Speciality>(createModel);
                 await SpecialityService.AddSpecialityAsync(newSpeciality);
-                navigationManager.NavigateTo("/specialities");
-            }
-            catch (Exception ex)
-            {
-                ErrorMessage = ex.Message;
-            }
+                Navigation.NavigateTo("/specialities");
         }
     }
 }

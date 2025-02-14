@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,5 +18,7 @@ namespace ChildCareCalendar.Domain.Entities
         public WorkHour? WorkHour { get; set; }
         public int UserId { get; set; }
         public AppUser? Doctor { get; set; }
+        [DefaultValue(false)]
+        public bool IsDelete { get; set; } = false;
     }
 }

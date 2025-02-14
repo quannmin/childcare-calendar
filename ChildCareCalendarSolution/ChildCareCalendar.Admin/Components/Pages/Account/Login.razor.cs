@@ -11,8 +11,10 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         [CascadingParameter]
         HttpContext httpContext { get; set; }
 
+        [SupplyParameterFromForm]
         private LoginViewModel loginModel { get; set; } = new();
 
+        [Inject]
         private NavigationManager navigationManager { get; set; }
 
         private string? errorMessage;

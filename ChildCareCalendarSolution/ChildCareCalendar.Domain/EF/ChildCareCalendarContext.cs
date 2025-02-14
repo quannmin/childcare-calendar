@@ -28,16 +28,18 @@ namespace ChildCareCalendar.Domain.EF
             modelBuilder.Entity<AppUser>(entity =>
             {
                 entity.HasKey(e => e.UserId);
-                entity.Property(e => e.Email).IsRequired().HasMaxLength(255);
+                entity.Property(e => e.UserId).UseIdentityColumn();
+                entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.PhoneNumber).HasMaxLength(15);
                 entity.Property(e => e.Password).IsRequired();
-                entity.Property(e => e.Gender).HasConversion<String>();
+                entity.Property(e => e.Gender).HasConversion<String>().HasMaxLength(10);
                 entity.Property(e => e.Role).HasConversion<String>();
             });
 
             modelBuilder.Entity<Payment>(entity =>
             {
                 entity.HasKey(e => e.PaymentId);
+                entity.Property(e => e.PaymentId).UseIdentityColumn();
                 entity.Property(e => e.PaymentMethod).HasConversion<String>().IsRequired();
                 entity.Property(e => e.Amount).HasPrecision(18, 2);
             });
@@ -45,6 +47,7 @@ namespace ChildCareCalendar.Domain.EF
             modelBuilder.Entity<Speciality>(entity =>
             {
                 entity.HasKey(e => e.SpecialityId);
+                entity.Property(e => e.SpecialityId).UseIdentityColumn();
                 entity.Property(e => e.SpecialtyName).HasMaxLength(255);
                 entity.Property(e => e.Description).HasMaxLength(255);
             });
@@ -52,6 +55,7 @@ namespace ChildCareCalendar.Domain.EF
             modelBuilder.Entity<Service>(entity =>
             {
                 entity.HasKey(e => e.ServiceId);
+                entity.Property(e => e.ServiceId).UseIdentityColumn();
                 entity.HasOne(e => e.Speciality)
                       .WithMany(s => s.Services)
                       .HasForeignKey(e => e.SpecialityId)
@@ -61,11 +65,14 @@ namespace ChildCareCalendar.Domain.EF
             modelBuilder.Entity<WorkHour>(entity =>
             {
                 entity.HasKey(e => e.WorkHourId);
+                entity.Property(e => e.WorkHourId).UseIdentityColumn();
             });
 
             modelBuilder.Entity<Schedule>(entity =>
             {
                 entity.HasKey(e => e.ScheduleId);
+                entity.Property(e => e.ScheduleId).UseIdentityColumn();
+
                 entity.HasOne(e => e.Doctor)
                       .WithMany(u => u.Schedules)
                       .HasForeignKey(e => e.UserId)
@@ -85,6 +92,7 @@ namespace ChildCareCalendar.Domain.EF
             modelBuilder.Entity<ChildrenRecord>(entity =>
             {
                 entity.HasKey(e => e.ChildrenRecordId);
+                entity.Property(e => e.ChildrenRecordId).UseIdentityColumn();
                 entity.Property(e => e.FullName).IsRequired().HasMaxLength(255);
                 entity.HasOne(e => e.Parent)
                       .WithMany(u => u.ChildrenRecords)
@@ -95,6 +103,7 @@ namespace ChildCareCalendar.Domain.EF
             modelBuilder.Entity<ExaminationReport>(entity =>
             {
                 entity.HasKey(e => e.ExaminationReportId);
+                entity.Property(e => e.ExaminationReportId).UseIdentityColumn();
                 entity.Property(e => e.TotalAmount).HasPrecision(18, 2);
                 entity.HasOne(e => e.ChildrenRecord)
                       .WithMany(c => c.ExaminationReports)
@@ -105,6 +114,7 @@ namespace ChildCareCalendar.Domain.EF
             modelBuilder.Entity<Medicine>(entity =>
             {
                 entity.HasKey(e => e.MedicineId);
+                entity.Property(e => e.MedicineId).UseIdentityColumn();
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(255);
                 entity.Property(e => e.Price).HasPrecision(18, 2);
                 entity.Property(e => e.Price).IsRequired();
@@ -113,7 +123,8 @@ namespace ChildCareCalendar.Domain.EF
             modelBuilder.Entity<PrescriptionDetail>(entity =>
             {
                 entity.HasKey(e => e.PrescriptionDetailId);
-                entity.Property(e => e.Slot).HasConversion<String>();
+                entity.Property(e => e.PrescriptionDetailId).UseIdentityColumn();
+                entity.Property(e => e.Slot).HasConversion<String>().HasMaxLength(10);
                 entity.Property(e => e.TotalAmount).HasPrecision(18, 2);
                 entity.HasOne(e => e.Medicine)
                       .WithMany(m => m.PrescriptionDetails)
@@ -129,7 +140,8 @@ namespace ChildCareCalendar.Domain.EF
             modelBuilder.Entity<Appointment>(entity =>
             {
                 entity.HasKey(e => e.AppointmentId);
-                entity.Property(e => e.Status).HasConversion<String>();
+                entity.Property(e => e.AppointmentId).UseIdentityColumn();
+                entity.Property(e => e.Status).HasConversion<String>().HasMaxLength(10);
                 entity.Property(e => e.TotalAmount).HasPrecision(18, 2);
 
                 entity.HasOne(a => a.ExaminationReport)
@@ -166,7 +178,8 @@ namespace ChildCareCalendar.Domain.EF
             modelBuilder.Entity<RefundReport>(entity =>
             {
                 entity.HasKey(e => e.RefundReportId);
-                entity.Property(e => e.RefundPercentage).HasConversion<String>();
+                entity.Property(e => e.RefundReportId).UseIdentityColumn();
+                entity.Property(e => e.RefundPercentage).HasConversion<String>().HasMaxLength(10);
                 entity.Property(e => e.RefundAmount).HasPrecision(18, 2);
                 entity.HasOne(e => e.Appointment)
                       .WithMany(a => a.RefundReports)

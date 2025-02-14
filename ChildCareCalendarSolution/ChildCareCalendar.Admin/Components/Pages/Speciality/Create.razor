@@ -9,9 +9,9 @@
     <div class="alert alert-danger">@ErrorMessage</div>
 }
 
-<EditForm Model="createModel" OnValidSubmit="HandleCreate" FormName="HandleCreate">
+<EditForm Model="createModel" OnValidSubmit="HandleCreate" FormName="SpecialityCreate">
     <DataAnnotationsValidator />
-    
+
     <div class="form-group m-2">
         <label class="control-label m-2">Tên chuyên khoa</label>
         <InputText class="form-control" @bind-Value="createModel.SpecialtyName" />
@@ -29,7 +29,7 @@
             <button type="submit" class="btn btn-success">Tạo mới</button>
         </div>
         <div class="col-md-4">
-            <a type="button" class="btn btn-secondary" href="/specialities">
+            <a class="btn btn-secondary" href="/specialities">
                 Về trang quản lí danh mục
             </a>
         </div>

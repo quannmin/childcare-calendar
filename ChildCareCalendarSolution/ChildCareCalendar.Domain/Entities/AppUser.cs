@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,8 @@ namespace ChildCareCalendar.Domain.Entities
         public string? Password { get; set; }
         public string? Gender { get; set; }
         public string? Address { get; set; }
-        public DateTime Dob { get; set; }
+        [DefaultValue(false)]
+        public bool IsDelete { get; set; } = false; public DateTime Dob { get; set; }
         public string? Role { get; set; }
         public bool Status { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -24,7 +26,5 @@ namespace ChildCareCalendar.Domain.Entities
         public ICollection<Appointment>? DoctorAppointments { get; set; }
         public ICollection<ChildrenRecord>? ChildrenRecords { get; set; }
         public ICollection<Schedule>? Schedules { get; set; }
-
-
     }
 }
