@@ -1,31 +1,104 @@
 ﻿@page "/login"
 @using System.Security.Claims
+@using ChildCareCalendar.Admin.Components.Layout
 @inject ChildCareCalendar.Domain.EF.ChildCareCalendarContext appDbContext
+@layout EmptyLayout
+  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Diamond Luxury System</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--===============================================================================================-->
+    @* <link rel="icon" type="image/png" href="~/images/LOGO_black.png" /> *@
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="~/Admin/vendor/bootstrap/css/bootstrap.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="~/Admin/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/admin/vendor/animate/animate.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="~/Admin/vendor/css-hamburgers/hamburgers.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="~/Admin/vendor/select2/select2.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Admin/css/util.css" />
+    <link rel="stylesheet" type="text/css" href="~/Admin/css/main.css" />
+    <!--===============================================================================================-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&display=swap"
+          rel="stylesheet" />
 
-<div class="row">
-    <div class="col-lg-4">
-        <EditForm Model="loginModel" OnValidSubmit="Authenticate">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-            <div class="mb-3 text-center flex-column">
-                <h3>Login</h3>
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <a href="/Login/Index">
+                        <img src="~/admin/images/LOGO_While.png" alt="IMG" />
+                    </a>
+                </div>
+
+                <EditForm Model="loginModel" OnValidSubmit="Authenticate" FormName="HandleLogin">
+                    <AntiforgeryToken />
+                    <DataAnnotationsValidator />
+
+                    <span class="login100-form-title"> Đăng nhập </span>
+                    <!-- Login gg fb -->
+                        <div class="wrap-input100 validate-input">
+                            <InputText class="form-control" @bind-Value="loginModel.Email" />
+                            <ValidationMessage For="@(() => loginModel.Email)" class="text-danger" />
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    <div class="wrap-input100 validate-input">
+                        <InputText class="form-control" @bind-Value="loginModel.Password" />
+                        <ValidationMessage For="@(() => loginModel.Password)" class="text-danger" />
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="btn btn-success">Đăng nhập</button>
+                        <button class="login100-form-btn"></button
+                    </div>
+                    @* <div class="text-center"> *@
+                    @*     <a class="txt2" href="/Login/ForgotPassword">Quên mật khẩu </a> *@
+                    @* </div> *@
+                </EditForm>
             </div>
-            <div class="mb-3">
-                <label>Email</label>
-                <InputText @bind-Value="loginModel.Email" class="form-control" placeholder="Username" />
-                <ValidationMessage For="() => loginModel.Email" />
-            </div>
-            <div class="mb-3">
-                <lable>Password</lable>
-                <InputText @bind-Value="loginModel.Password" placeholder="Password" type="password" class="form-control" />
-                <ValidationMessage For="() => loginModel.Password" />
-            </div>
-            <div class="mb-3 text-center">
-                <span class="text-danger">@errorMessage</span>
-            </div>
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Login</button>
-            </div>
-        </EditForm>
+        </div>
     </div>
-</div>
+    <!--===============================================================================================-->
+    <script src="~/Admin/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Admin/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Admin/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Admin/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Admin/vendor/tilt/tilt.jquery.min.js"></script>
+    <script>
+        $(".js-tilt").tilt({
+            scale: 1.1,
+        });
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/Admin/js/main.js"></script>
+
+</body>
+</html>

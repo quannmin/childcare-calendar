@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,5 +18,8 @@ namespace ChildCareCalendar.Domain.Entities
         public int Quantity { get; set; }
         public decimal TotalAmount { get; set; }
         public string? Slot { get; set; }
+
+        [DefaultValue(false)]
+        public bool IsDelete { get; set; } = false;
     }
 }

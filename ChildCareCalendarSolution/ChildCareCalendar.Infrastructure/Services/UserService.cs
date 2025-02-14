@@ -1,4 +1,5 @@
-﻿using ChildCareCalendar.Domain.Entities;
+﻿using BCrypt.Net;
+using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using System;
@@ -20,6 +21,7 @@ namespace ChildCareCalendar.Infrastructure.Services
 
         public async Task AddUserAsync(AppUser user)
         {
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             await _userRepository.AddAsync(user);
         }
 
@@ -35,6 +37,11 @@ namespace ChildCareCalendar.Infrastructure.Services
         public async Task<IEnumerable<AppUser>> GetAllUsersAsync()
         {
             return await _userRepository.GetAllAsync();
+        }
+
+        public async Task<IEnumerable<AppUser>> GetAllUsersByNameAsync(string name)
+        {
+            return await _userRepository.FindAsync(x => x.FullName.ToLower().Equals(name.ToLower()));
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)
