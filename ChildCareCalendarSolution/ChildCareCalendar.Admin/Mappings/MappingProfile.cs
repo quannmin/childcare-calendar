@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ChildCareCalendar.Domain.Entities;
-using ChildCareCalendar.Domain.ViewModels;
+using ChildCareCalendar.Domain.ViewModels.Account;
+using ChildCareCalendar.Domain.ViewModels.Specility;
 
 namespace Pubs.BackendApi.Mappings
 {
@@ -10,6 +11,8 @@ namespace Pubs.BackendApi.Mappings
         {
             CreateMap<SpecialityViewModel, Speciality>().ReverseMap();
             CreateMap<SpecialityCreateViewModel, Speciality>();
+            CreateMap<UserViewModel, AppUser>().ReverseMap();
+            CreateMap<UserCreateViewModel, AppUser>();
         }
     }
 }

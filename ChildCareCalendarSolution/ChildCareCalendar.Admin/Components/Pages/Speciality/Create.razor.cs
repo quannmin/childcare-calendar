@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ChildCareCalendar.Domain.ViewModels;
+using ChildCareCalendar.Domain.ViewModels.Specility;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -11,7 +11,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
         private string? ErrorMessage;
 
         [SupplyParameterFromForm]
-        private SpecialityCreateViewModel createModel { get; set; }
+        private SpecialityCreateViewModel CreateModel { get; set; }
 
         [Inject]
         private ISpecialityService SpecialityService { get; set; }
@@ -25,13 +25,13 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 
         protected override void OnInitialized()
         {
-            createModel ??= new();
+            CreateModel ??= new();
         }
 
         private async Task HandleCreate()
         {
       
-                var newSpeciality = Mapper.Map<Domain.Entities.Speciality>(createModel);
+                var newSpeciality = Mapper.Map<Domain.Entities.Speciality>(CreateModel);
                 await SpecialityService.AddSpecialityAsync(newSpeciality);
                 Navigation.NavigateTo("/specialities");
         }

@@ -1,0 +1,67 @@
+﻿@page "/users/create"
+@using ChildCareCalendar.Utilities.Constants
+@using ChildCareCalendar.Utilities.Helper
+
+<h3>Tạo mới danh mục</h3>
+<hr />
+
+@if (ErrorMessage.Count > 0)
+{
+    @foreach(string i in ErrorMessage) {
+        <div class="alert alert-danger">@i</div>
+    }
+}
+
+<EditForm Model="userCreateViewModel" OnValidSubmit="HandleCreateDoctor" FormName="DoctorCreate">
+    <DataAnnotationsValidator />
+
+    <div class="form-group m-2">
+        <label class="control-label m-2">Email</label>
+        <InputText class="form-control" @bind-Value="userCreateViewModel.Email" />
+        <ValidationMessage For="@(() => userCreateViewModel.Email)" class="text-danger" />
+    </div>
+    <div class="form-group m-2">
+        <label class="control-label m-2">Password</label>
+        <InputText type="password" class="form-control" @bind-Value="userCreateViewModel.Password" />
+        <ValidationMessage For="@(() => userCreateViewModel.Password)" class="text-danger" />
+    </div>
+    <div class="form-group m-2">
+        <label class="control-label m-2">Xác nhận Password</label>
+        <InputText type="password" class="form-control" @bind-Value="userCreateViewModel.ConfirmPassword" />
+        <ValidationMessage For="@(() => userCreateViewModel.ConfirmPassword)" class="text-danger" />
+    </div>
+    <div class="form-group m-2">
+        <label class="control-label m-2">Tên bác sĩ</label>
+        <InputText class="form-control" @bind-Value="userCreateViewModel.FullName" />
+        <ValidationMessage For="@(() => userCreateViewModel.FullName)" class="text-danger" />
+    </div>
+    <div class="form-group m-2">
+        <label class="control-label m-2">Role</label>
+        <InputSelect class="form-control" @bind-Value="userCreateViewModel.Role">
+            @foreach (var role in Enum.GetValues<SystemConstant.AccountsRole>())
+            {
+                <option value="@role">@EnumHelper.GetRoleDisplay(role.ToString())</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => userCreateViewModel.Role)" class="text-danger" />
+    </div>
+
+
+    <div class="form-group m-2">
+        <label class="control-label m-2">Số điện thoại</label>
+        <InputText class="form-control" @bind-Value="userCreateViewModel.PhoneNumber" />
+        <ValidationMessage For="@(() => userCreateViewModel.PhoneNumber)" class="text-danger" />
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-success">Tạo mới</button>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-secondary" href="/">
+                Về trang quản lí người dùng
+            </a>
+        </div>
+    </div>
+</EditForm>
+

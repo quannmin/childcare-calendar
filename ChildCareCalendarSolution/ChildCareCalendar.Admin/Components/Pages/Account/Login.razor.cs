@@ -1,7 +1,8 @@
-﻿using ChildCareCalendar.Domain.ViewModels;
+﻿using ChildCareCalendar.Domain.ViewModels.Account;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Account
@@ -18,10 +19,12 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         private NavigationManager navigationManager { get; set; }
 
         private string? errorMessage;
+
+        [IgnoreAntiforgeryToken]
         private async Task Authenticate()
         {
-            var userAccount = appDbContext.Users.Where(x => x.Email == loginModel.Email).FirstOrDefault();
-            if (userAccount is null || userAccount.Password != loginModel.Password)
+            var userAccount = appDbContext.Users.Where(x => x.Email == loginModel.Email && x.Role != null).FirstOrDefault();
+            if (userAccount is null || !BCrypt.Net.BCrypt.Verify(loginModel.Password, userAccount.Password))
             {
                 errorMessage = "Invalid Username or Password";
                 return;

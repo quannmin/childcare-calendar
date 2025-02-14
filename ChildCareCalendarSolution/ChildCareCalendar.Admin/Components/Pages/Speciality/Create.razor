@@ -9,19 +9,19 @@
     <div class="alert alert-danger">@ErrorMessage</div>
 }
 
-<EditForm Model="createModel" OnValidSubmit="HandleCreate" FormName="SpecialityCreate">
+<EditForm Model="CreateModel" OnValidSubmit="HandleCreate" FormName="SpecialityCreate">
     <DataAnnotationsValidator />
 
     <div class="form-group m-2">
         <label class="control-label m-2">Tên chuyên khoa</label>
-        <InputText class="form-control" @bind-Value="createModel.SpecialtyName" />
-        <ValidationMessage For="@(() => createModel.SpecialtyName)" class="text-danger" />
+        <InputText class="form-control" @bind-Value="CreateModel.SpecialtyName" />
+        <ValidationMessage For="@(() => CreateModel.SpecialtyName)" class="text-danger" />
     </div>
 
     <div class="form-group m-2">
         <label class="control-label m-2">Loại danh mục</label>
-        <InputText class="form-control" @bind-Value="createModel.Description" />
-        <ValidationMessage For="@(() => createModel.Description)" class="text-danger" />
+        <InputText class="form-control" @bind-Value="CreateModel.Description" />
+        <ValidationMessage For="@(() => CreateModel.Description)" class="text-danger" />
     </div>
 
     <div class="form-group row">

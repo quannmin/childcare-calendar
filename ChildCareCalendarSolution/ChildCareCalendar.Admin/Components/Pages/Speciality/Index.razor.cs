@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ChildCareCalendar.Domain.ViewModels;
+using ChildCareCalendar.Domain.ViewModels.Specility;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 

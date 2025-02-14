@@ -1,14 +1,12 @@
 using ChildCareCalendar.Admin.Components;
 using ChildCareCalendar.Admin.Extensions;
 using ChildCareCalendar.Domain.EF;
-using ChildCareCalendar.Infrastructure.Repository;
-using ChildCareCalendar.Infrastructure.Services;
-using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Pubs.BackendApi.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddAntiforgery(options => { options.HeaderName = "X-CSRF-TOKEN"; });
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 Console.WriteLine($"Connection String: {connectionString}");
@@ -44,6 +42,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+app.UseRouting();
 app.UseAntiforgery();
 app.UseAuthentication();
 app.UseAuthorization();

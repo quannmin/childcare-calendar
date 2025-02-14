@@ -1,0 +1,44 @@
+﻿@page "/users/index"
+
+<h3>Quản lý người dùng</h3>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <NavLink class="btn btn-success" href="/users/create">Tạo mới</NavLink>
+    </div>
+    <div class="col-md-5 offset-md-3">
+        <form @onsubmit="SearchUsers" class="d-flex">
+            <input type="text" @bind="Keyword" class="form-control me-2" placeholder="Tìm kiếm chuyên khoa" />
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        </form>
+    </div>
+</div>
+
+<table class="table table-bordered table-hover text-center">
+    <thead class="table-dark">
+        <tr>
+            @* <th @onclick="() => SortTable(0)">Mã chuyênn khoa<span class="fa fa-sort"></span></th> *@
+            <th>Họ và tên</th>
+            <th>Ngày tháng năm sinh</th>
+            <th>Email</th>
+            <th>Ngày tạo</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in UserViewModels)
+        {
+            <tr>
+                @* <td>@item.SpecialityId</td> *@
+                <td>@item.FullName</td>
+                <td>@item.Dob</td>
+                <td>@item.Email</td>
+                <td>@item.CreatedAt</td>
+                <td>@item.RoleDisplay</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" @onclick="() => DeleteCategory(item.UserId)">Xóa</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

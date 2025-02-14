@@ -11,6 +11,7 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
     {
         Task<IEnumerable<AppUser>> GetAllUsersAsync();
         Task<AppUser> GetUserByIdAsync(int id);
+        Task<IEnumerable<AppUser>> GetAllUsersByNameAsync(string name);
         Task AddUserAsync(AppUser user);
         Task UpdateUserAsync(AppUser user);
         Task DeleteUserAsync(int id);
