@@ -11,28 +11,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--===============================================================================================-->
-    @* <link rel="icon" type="image/png" href="~/images/LOGO_black.png" /> *@
+    <link rel="icon" type="image/png" href="/Admin/images/logo.jpg" />
     <!--===============================================================================================-->
     <link rel="stylesheet"
           type="text/css"
-          href="~/Admin/vendor/bootstrap/css/bootstrap.min.css" />
+          href="Admin/vendor/bootstrap/css/bootstrap.min.css" 
+          asp-append-version="true"/>
     <!--===============================================================================================-->
     <link rel="stylesheet"
           type="text/css"
-          href="~/Admin/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+          href="Admin/fonts/font-awesome-4.7.0/css/font-awesome.css" />
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/admin/vendor/animate/animate.css" />
-    <!--===============================================================================================-->
-    <link rel="stylesheet"
-          type="text/css"
-          href="~/Admin/vendor/css-hamburgers/hamburgers.min.css" />
+    <link rel="stylesheet" type="text/css" href="Admin/vendor/animate/animate.css" />
     <!--===============================================================================================-->
     <link rel="stylesheet"
           type="text/css"
-          href="~/Admin/vendor/select2/select2.min.css" />
+          href="Admin/vendor/css-hamburgers/hamburgers.css" />
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Admin/css/util.css" />
-    <link rel="stylesheet" type="text/css" href="~/Admin/css/main.css" />
+    <link rel="stylesheet"
+          type="text/css"
+          href="Admin/vendor/select2/select2.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="Admin/css/util.css" />
+    <link rel="stylesheet" type="text/css" href="Admin/css/main.css" />
     <!--===============================================================================================-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -44,14 +45,13 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <div class="login100-pic js-tilt" data-tilt>
+                <div class="login100-pic js-tilt justify-content-center align-items-center" data-tilt>
                     <a href="/Login/Index">
-                        <img src="~/admin/images/LOGO_While.png" alt="IMG" />
+                        <img src="Admin/images/logo.jpg" alt="IMG" />
                     </a>
                 </div>
 
                 <EditForm Model="loginModel" OnValidSubmit="Authenticate" FormName="HandleLogin">
-                    <AntiforgeryToken />
                     <DataAnnotationsValidator />
 
                     <span class="login100-form-title"> Đăng nhập </span>
@@ -73,8 +73,7 @@
                         </span>
                     </div>
                     <div class="container-login100-form-btn">
-                        <button type="submit" class="btn btn-success">Đăng nhập</button>
-                        <button class="login100-form-btn"></button
+                        <button type="submit" class="btn btn-success login100-form-btn">Đăng nhập</button>
                     </div>
                     @* <div class="text-center"> *@
                     @*     <a class="txt2" href="/Login/ForgotPassword">Quên mật khẩu </a> *@
@@ -84,21 +83,21 @@
         </div>
     </div>
     <!--===============================================================================================-->
-    <script src="~/Admin/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!--===============================================================================================-->
-    <script src="~/Admin/vendor/bootstrap/js/popper.js"></script>
-    <script src="~/Admin/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="Admin/vendor/bootstrap/js/popper.js"></script>
+    <script src="Admin/vendor/bootstrap/js/bootstrap.js"></script>
     <!--===============================================================================================-->
-    <script src="~/Admin/vendor/select2/select2.min.js"></script>
+    <script src="Admin/vendor/select2/select2.min.js"></script>
     <!--===============================================================================================-->
-    <script src="~/Admin/vendor/tilt/tilt.jquery.min.js"></script>
+    <script src="Admin/vendor/tilt/tilt.jquery.min.js"></script>
     <script>
         $(".js-tilt").tilt({
             scale: 1.1,
         });
     </script>
     <!--===============================================================================================-->
-    <script src="~/Admin/js/main.js"></script>
+    <script src="Admin/js/main.js"></script>
 
 </body>
 </html>
