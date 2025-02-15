@@ -1,5 +1,5 @@
 # Thư mục hệ thống của Visual Studio
-*.vs/
+.vs/
 /ChildCareCalendarSolution/.vs/
 .idea/
 *.suo
