@@ -3,41 +3,53 @@
 <h3>Quản lý Chuyên khoa</h3>
 
 <div class="row mb-4">
-    <div class="col-md-4">
-        <NavLink class="btn btn-success" href="/specialities/create">Tạo mới</NavLink>
-    </div>
-    <div class="col-md-5 offset-md-3">
-        <form @onsubmit="SearchCategories" class="d-flex">
-            <input type="text" @bind="Keyword" class="form-control me-2" placeholder="Tìm kiếm chuyên khoa" />
-            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-        </form>
-    </div>
+	<div class="col-md-4">
+		<NavLink class="btn btn-success" href="/specialities/create">Tạo mới</NavLink>
+	</div>
+	<div class="col-md-5 offset-md-3">
+		<EditForm Model="SearchData" OnValidSubmit="HandleSearch" FormName="SearchSpecialy">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+
+			<div class="d-flex">
+				<InputText class="form-control me-2" @bind-Value="SearchData.Keyword" placeholder="Tìm kiếm chuyên khoa..." />
+				<button type="submit" class="btn btn-primary">Tìm kiếm</button>
+			</div>
+		</EditForm>
+	</div>
 </div>
 
+@if (Specialities.Count == 0)
+{
+	<p class="text-center">Không có dữ liệu</p>
+}
+else
+{
 <table class="table table-bordered table-hover text-center">
-    <thead class="table-dark">
-        <tr>
-            @* <th @onclick="() => SortTable(0)">Mã chuyênn khoa<span class="fa fa-sort"></span></th> *@
-            <th>Tên chuyên khoa</th>
-            <th>Mô tả</th>
-            <th>Người tạo</th>
-            <th>Ngày tạo</th>
-            <th>Thao tác</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Categories)
-        {
-            <tr>
-                @* <td>@item.SpecialityId</td> *@
-                <td>@item.SpecialtyName</td>
-                <td>@item.Description</td>
-                <td>@item.CreatedBy</td>
-                <td>@item.CreatedAt</td>
-                <td>
-                    <button class="btn btn-danger btn-sm" @onclick="() => DeleteCategory(item.SpecialityId)">Xóa</button>
-                </td>
-            </tr>
-        }
-    </tbody>
+	<thead class="table-dark">
+		<tr>
+			<th>Tên chuyên khoa</th>
+			<th>Mô tả</th>
+			<th>Người tạo</th>
+			<th>Ngày tạo</th>
+			<th>Thao tác</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Specialities)
+		{
+			<tr>
+				<td>@item.SpecialtyName</td>
+				<td>@item.Description</td>
+				<td>@item.CreatedBy</td>
+				<td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
+				<td>
+					<button class="btn btn-warning btn-sm">Chỉnh sửa</button>
+					<button class="btn btn-danger btn-sm" @onclick="() => DeleteCategory(item.SpecialityId)">Xóa</button>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>
+}
+

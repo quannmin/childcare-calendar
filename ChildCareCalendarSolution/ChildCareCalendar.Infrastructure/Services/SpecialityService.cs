@@ -37,9 +37,9 @@ namespace ChildCareCalendar.Infrastructure.Services
             return await _specialityRepository.GetByIdAsync(id);
         }
 
-        public async Task<IEnumerable<Speciality>> GetSpecialityByNameAsync(string name)
+        public async Task<IEnumerable<Speciality>> FindSpeciallityAsync(string findString)
         {
-            return await _specialityRepository.FindAsync(x => x.SpecialtyName.ToLower().Equals(name.ToLower()));
+            return await _specialityRepository.FindAsync(x => x.SpecialtyName.ToLower().Contains(findString.ToLower()) || x.Description.ToLower().Contains(findString.ToLower()));
         }
 
         public async Task UpdateSpecialityAsync(Speciality speciality)
