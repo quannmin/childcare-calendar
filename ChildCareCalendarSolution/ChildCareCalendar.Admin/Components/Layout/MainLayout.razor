@@ -1,34 +1,228 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<nav class="pc-sidebar">
+	<div class="navbar-wrapper">
+		<div class="m-header">
+			<a href="/" class="b-brand text-primary">
+				<img src="" class="img-fluid Logo-Main" alt="logo" />
+			</a>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-            <AuthorizeView>
-                <Authorized>
-                    <a href="logout">Logout</a>
-                </Authorized>
-                <Authorized>
-                    <a href="/specialities">Speciality</a>
-                </Authorized>
-                <Authorized>
-                    <a href="/specialities/create">Create - Speciality</a>
-                </Authorized>
-            </AuthorizeView>
-        </div>
+		</div>
+		<div class="navbar-content">
+			<div class="card pc-user-card">
+				<div class="card-body" style="padding:10px">
+					<div class="d-flex align-items-center">
+						<div class="flex-shrink-0">
+							<img src=""
+								 class="user-avtar wid-45 rounded-circle preventImageModal preventCursorImageModal" />
+						</div>
+						<div class="flex-grow-1 ms-3 me-2 text-center">
+							<h6 class="mb-0">UserName</h6>
+							<small></small>
+						</div>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+					</div>
+
+				</div>
+			</div>
+
+			<ul class="pc-navbar">
+				<li class="pc-item">
+					<a href="/" class="pc-link">
+						<span class="pc-micon">
+							<svg class="pc-icon">
+								<use xlink:href="/"></use>
+							</svg>
+						</span>
+						<span class="pc-mtext">Dashboard</span>
+					</a>
+				</li>
+
+				<li class="pc-item">
+					<a href="/" class="pc-link">
+						<span class="pc-micon">
+							<svg class="pc-icon">
+								<use xlink:href="/"></use>
+							</svg>
+						</span>
+						<span class="pc-mtext">Trang Chủ</span>
+					</a>
+				</li>
+
+				<li class="pc-item pc-hasmenu">
+					<a href="/" class="pc-link">
+						<span class="pc-micon">
+							<svg class="pc-icon">
+								<use xlink:href="/"></use>
+							</svg>
+						</span>
+						<span class="pc-mtext">Người Dùng</span>
+						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+					</a>
+					<ul class="pc-submenu">
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Người Dùng</a>
+						</li>
+
+					</ul>
+				</li>
+
+				<li class="pc-item pc-hasmenu">
+					<a href="/" class="pc-link">
+						<span class="pc-micon">
+							<svg class="pc-icon">
+								<use xlink:href="/"></use>
+							</svg>
+						</span>
+						<span class="pc-mtext">Danh Mục</span>
+						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+					</a>
+					<ul class="pc-submenu">
+
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Nền Tảng</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Slide</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Thông Tin Liên Hệ</a>
+						</li>
+
+
+					</ul>
+				</li>
+
+				<li class="pc-item pc-hasmenu">
+					<a href="/" class="pc-link">
+						<span class="pc-micon">
+							<svg class="pc-icon">
+								<use xlink:href="/"></use>
+							</svg>
+						</span>
+						<span class="pc-mtext">Sản Phẩm</span>
+						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+					</a>
+					<ul class="pc-submenu">
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Sản Phẩm</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lí Bộ Sưu Tập</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Kim Cương</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Kim Cương Phụ</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Giá Kim Cương</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Vật Liệu</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Khung</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Giấy Chứng Nhận</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Loại Sản Phẩm</a>
+						</li>
+
+					</ul>
+				</li>
+
+				<li class="pc-item pc-hasmenu">
+					<a href="/" class="pc-link">
+						<span class="pc-micon">
+							<svg class="pc-icon">
+								<use xlink:href="/"></use>
+							</svg>
+						</span>
+						<span class="pc-mtext">Chương trình</span>
+						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+					</a>
+					<ul class="pc-submenu">
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Chiết Khấu</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Khuyến Mãi</a>
+						</li>
+
+					</ul>
+				</li>
+				<li class="pc-item pc-hasmenu">
+					<a href="/" class="pc-link">
+						<span class="pc-micon">
+							<svg class="pc-icon">
+								<use xlink:href="/"></use>
+							</svg>
+						</span>
+						<span class="pc-mtext">Đơn Hàng</span>
+						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+					</a>
+					<ul class="pc-submenu">
+
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Đơn Hàng</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Phiếu Bảo Hành</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Xem Các Phương Thức Thanh Toán</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Bảo Hành</a>
+						</li>
+
+
+					</ul>
+				</li>
+
+				<li class="pc-item pc-hasmenu">
+					<a href="/" class="pc-link">
+						<span class="pc-micon">
+							<svg class="pc-icon">
+								<use xlink:href="/"></use>
+							</svg>
+						</span>
+						<span class="pc-mtext">Tin Tức</span>
+						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+					</a>
+					<ul class="pc-submenu">
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Tin Tức</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Kiến Thức Tin Tức</a>
+						</li>
+						<li class="pc-item">
+							<a class="pc-link" href="/">Quản Lý Loại Kiến Thức Tin Tức</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="pc-container">
+	<div class="pc-content">
+		<div class="card">
+			<div class="card-body">
+				@Body
+			</div>
+		</div>
+	</div>
 </div>
 
 <div id="blazor-error-ui">
-    An unhandled error has occurred.
-    <a href="" class="reload">Reload</a>
-    <a class="dismiss">🗙</a>
+	An unhandled error has occurred.
+	<a href="/login" class="reload">Reload</a>
+	<a class="dismiss">🗙</a>
 </div>

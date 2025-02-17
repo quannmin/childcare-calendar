@@ -2,7 +2,6 @@
 using ChildCareCalendar.Domain.ViewModels.Specility;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 {
