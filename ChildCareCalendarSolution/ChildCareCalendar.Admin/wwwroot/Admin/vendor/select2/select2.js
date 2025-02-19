@@ -109,14 +109,14 @@ var requirejs, require, define;
                     if (part === ".") {
                         name.splice(i, 1);
                         i -= 1;
-                    } else if (part === "..") {
-                        if (i === 1 && (name[2] === '..' || name[0] === '..')) {
+                    } else if (part === "/") {
+                        if (i === 1 && (name[2] === '/' || name[0] === '/')) {
                             //End of the line. Keep at least one non-dot
                             //path segment at the front so it can be mapped
                             //correctly to disk. Otherwise, there is likely
-                            //no path mapping for a path starting with '..'.
+                            //no path mapping for a path starting with '/'.
                             //This can still fail, but catches the most reasonable
-                            //uses of ..
+                            //uses of /
                             break;
                         } else if (i > 0) {
                             name.splice(i - 1, 2);
@@ -386,7 +386,7 @@ var requirejs, require, define;
             //Just return the module wanted. In this scenario, the
             //deps arg is the module name, and second arg (if passed)
             //is just the relName.
-            //Normalize module name, if it contains . or ..
+            //Normalize module name, if it contains . or /
             return callDep(makeMap(deps, callback).f);
         } else if (!deps.splice) {
             //deps is a config object, not an array.
@@ -1323,8 +1323,8 @@ S2.define('select2/keys',[
 
 S2.define('select2/selection/base',[
   'jquery',
-  '../utils',
-  '../keys'
+  '//utils',
+  '//keys'
 ], function ($, Utils, KEYS) {
   function BaseSelection ($element, options) {
     this.$element = $element;
@@ -1483,8 +1483,8 @@ S2.define('select2/selection/base',[
 S2.define('select2/selection/single',[
   'jquery',
   './base',
-  '../utils',
-  '../keys'
+  '//utils',
+  '//keys'
 ], function ($, BaseSelection, Utils, KEYS) {
   function SingleSelection () {
     SingleSelection.__super__.constructor.apply(this, arguments);
@@ -1583,7 +1583,7 @@ S2.define('select2/selection/single',[
 S2.define('select2/selection/multiple',[
   'jquery',
   './base',
-  '../utils'
+  '//utils'
 ], function ($, BaseSelection, Utils) {
   function MultipleSelection ($element, options) {
     MultipleSelection.__super__.constructor.apply(this, arguments);
@@ -1691,7 +1691,7 @@ S2.define('select2/selection/multiple',[
 });
 
 S2.define('select2/selection/placeholder',[
-  '../utils'
+  '//utils'
 ], function (Utils) {
   function Placeholder (decorated, $element, options) {
     this.placeholder = this.normalizePlaceholder(options.get('placeholder'));
@@ -1742,7 +1742,7 @@ S2.define('select2/selection/placeholder',[
 
 S2.define('select2/selection/allowClear',[
   'jquery',
-  '../keys'
+  '//keys'
 ], function ($, KEYS) {
   function AllowClear () { }
 
@@ -1840,8 +1840,8 @@ S2.define('select2/selection/allowClear',[
 
 S2.define('select2/selection/search',[
   'jquery',
-  '../utils',
-  '../keys'
+  '//utils',
+  '//keys'
 ], function ($, Utils, KEYS) {
   function Search (decorated, $element, options) {
     decorated.call(this, $element, options);
@@ -2992,7 +2992,7 @@ S2.define('select2/diacritics',[
 });
 
 S2.define('select2/data/base',[
-  '../utils'
+  '//utils'
 ], function (Utils) {
   function BaseAdapter ($element, options) {
     BaseAdapter.__super__.constructor.call(this);
@@ -3034,7 +3034,7 @@ S2.define('select2/data/base',[
 
 S2.define('select2/data/select',[
   './base',
-  '../utils',
+  '//utils',
   'jquery'
 ], function (BaseAdapter, Utils, $) {
   function SelectAdapter ($element, options) {
@@ -3320,7 +3320,7 @@ S2.define('select2/data/select',[
 
 S2.define('select2/data/array',[
   './select',
-  '../utils',
+  '//utils',
   'jquery'
 ], function (SelectAdapter, Utils, $) {
   function ArrayAdapter ($element, options) {
@@ -3400,7 +3400,7 @@ S2.define('select2/data/array',[
 
 S2.define('select2/data/ajax',[
   './array',
-  '../utils',
+  '//utils',
   'jquery'
 ], function (ArrayAdapter, Utils, $) {
   function AjaxAdapter ($element, options) {
@@ -3894,7 +3894,7 @@ S2.define('select2/dropdown',[
 
 S2.define('select2/dropdown/search',[
   'jquery',
-  '../utils'
+  '//utils'
 ], function ($, Utils) {
   function Search () { }
 
@@ -4129,7 +4129,7 @@ S2.define('select2/dropdown/infiniteScroll',[
 
 S2.define('select2/dropdown/attachBody',[
   'jquery',
-  '../utils'
+  '//utils'
 ], function ($, Utils) {
   function AttachBody (decorated, $element, options) {
     this.$dropdownParent = options.get('dropdownParent') || $(document.body);

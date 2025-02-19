@@ -2,6 +2,7 @@
 using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Domain.ViewModels.Account;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using ChildCareCalendar.Utilities.Helper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -23,6 +24,9 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         [Inject]
         IMapper mapper { get; set; }
 
+        [Inject]
+        CloudinaryService cloudinaryService { get; set; }
+
         protected override void OnInitialized()
         {
             userCreateViewModel ??= new();
@@ -39,6 +43,15 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
             }
             await userService.AddUserAsync(doctor);
             navigationManager.NavigateTo("/");
+        }
+        private string UploadedImageUrl;
+        private async Task HandleFileUpload(InputFileChangeEventArgs e)
+        {
+            var file = e.File;
+            using var stream = file.OpenReadStream();
+
+            // Gọi service upload ảnh
+            UploadedImageUrl = await cloudinaryService.UploadImageAsync(stream, file.Name);
         }
     }
 }

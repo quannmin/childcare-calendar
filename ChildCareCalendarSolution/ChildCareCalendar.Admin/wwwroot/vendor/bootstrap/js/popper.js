@@ -193,7 +193,7 @@ function getOffsetParent(element) {
   }
 
   // .offsetParent will return the closest TD or TABLE in case
-  // no offsetParent is present, I hate this job...
+  // no offsetParent is present, I hate this job/.
   if (['TD', 'TABLE'].indexOf(offsetParent.nodeName) !== -1 && getStyleComputedProperty(offsetParent, 'position') === 'static') {
     return getOffsetParent(offsetParent);
   }
@@ -443,7 +443,7 @@ function getBoundingClientRect(element) {
   var rect = {};
 
   // IE10 10 FIX: Please, don't ask, the element isn't
-  // considered in DOM in some circumstances...
+  // considered in DOM in some circumstances/.
   // This isn't reproducible in IE10 compatibility mode of IE11
   if (isIE10$1()) {
     try {

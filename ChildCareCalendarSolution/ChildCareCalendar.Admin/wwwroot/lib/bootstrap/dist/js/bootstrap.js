@@ -354,8 +354,8 @@
    * ------------------------------------------------------------------------
    */
 
-  const namespaceRegex = /[^.]*(?=\..*)\.|.*/;
-  const stripNameRegex = /\..*/;
+  const namespaceRegex = /[^.]*(?=\/*)\.|.*/;
+  const stripNameRegex = /\/*/;
   const stripUidRegex = /::\d+$/;
   const eventRegistry = {}; // Events storage
 
@@ -1020,7 +1020,7 @@
   const NODE_TEXT = 3;
   const SelectorEngine = {
     find(selector, element = document.documentElement) {
-      return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
+      return [].concat(/.Element.prototype.querySelectorAll.call(element, selector));
     },
 
     findOne(selector, element = document.documentElement) {
@@ -1028,7 +1028,7 @@
     },
 
     children(element, selector) {
-      return [].concat(...element.children).filter(child => child.matches(selector));
+      return [].concat(/.element.children).filter(child => child.matches(selector));
     },
 
     parents(element, selector) {
@@ -1267,9 +1267,9 @@
 
 
     _getConfig(config) {
-      config = { ...Default$a,
-        ...Manipulator.getDataAttributes(this._element),
-        ...(typeof config === 'object' ? config : {})
+      config = { /.Default$a,
+        /.Manipulator.getDataAttributes(this._element),
+        /.(typeof config === 'object' ? config : {})
       };
       typeCheckConfig(NAME$b, config, DefaultType$a);
       return config;
@@ -1549,8 +1549,8 @@
       } = data;
 
       if (typeof config === 'object') {
-        _config = { ..._config,
-          ...config
+        _config = { /._config,
+          /.config
         };
       }
 
@@ -1583,8 +1583,8 @@
         return;
       }
 
-      const config = { ...Manipulator.getDataAttributes(target),
-        ...Manipulator.getDataAttributes(this)
+      const config = { /.Manipulator.getDataAttributes(target),
+        /.Manipulator.getDataAttributes(this)
       };
       const slideIndex = this.getAttribute('data-bs-slide-to');
 
@@ -1846,9 +1846,9 @@
 
 
     _getConfig(config) {
-      config = { ...Default$9,
-        ...Manipulator.getDataAttributes(this._element),
-        ...config
+      config = { /.Default$9,
+        /.Manipulator.getDataAttributes(this._element),
+        /.config
       };
       config.toggle = Boolean(config.toggle); // Coerce string values
 
@@ -2066,7 +2066,7 @@
 
 
       if ('ontouchstart' in document.documentElement && !parent.closest(SELECTOR_NAVBAR_NAV)) {
-        [].concat(...document.body.children).forEach(elem => EventHandler.on(elem, 'mouseover', noop));
+        [].concat(/.document.body.children).forEach(elem => EventHandler.on(elem, 'mouseover', noop));
       }
 
       this._element.focus();
@@ -2119,7 +2119,7 @@
 
 
       if ('ontouchstart' in document.documentElement) {
-        [].concat(...document.body.children).forEach(elem => EventHandler.off(elem, 'mouseover', noop));
+        [].concat(/.document.body.children).forEach(elem => EventHandler.off(elem, 'mouseover', noop));
       }
 
       if (this._popper) {
@@ -2137,9 +2137,9 @@
     }
 
     _getConfig(config) {
-      config = { ...this.constructor.Default,
-        ...Manipulator.getDataAttributes(this._element),
-        ...config
+      config = { /.this.constructor.Default,
+        /.Manipulator.getDataAttributes(this._element),
+        /.config
       };
       typeCheckConfig(NAME$9, config, this.constructor.DefaultType);
 
@@ -2248,8 +2248,8 @@
         }];
       }
 
-      return { ...defaultBsPopperConfig,
-        ...(typeof this._config.popperConfig === 'function' ? this._config.popperConfig(defaultBsPopperConfig) : this._config.popperConfig)
+      return { /.defaultBsPopperConfig,
+        /.(typeof this._config.popperConfig === 'function' ? this._config.popperConfig(defaultBsPopperConfig) : this._config.popperConfig)
       };
     }
 
@@ -2594,8 +2594,8 @@
     }
 
     _getConfig(config) {
-      config = { ...Default$7,
-        ...(typeof config === 'object' ? config : {})
+      config = { /.Default$7,
+        /.(typeof config === 'object' ? config : {})
       }; // use getElement() with the default "body" to get a fresh Element on each instantiation
 
       config.rootElement = getElement(config.rootElement);
@@ -2728,8 +2728,8 @@
     }
 
     _getConfig(config) {
-      config = { ...Default$6,
-        ...(typeof config === 'object' ? config : {})
+      config = { /.Default$6,
+        /.(typeof config === 'object' ? config : {})
       };
       typeCheckConfig(NAME$7, config, DefaultType$6);
       return config;
@@ -2918,9 +2918,9 @@
     }
 
     _getConfig(config) {
-      config = { ...Default$5,
-        ...Manipulator.getDataAttributes(this._element),
-        ...(typeof config === 'object' ? config : {})
+      config = { /.Default$5,
+        /.Manipulator.getDataAttributes(this._element),
+        /.(typeof config === 'object' ? config : {})
       };
       typeCheckConfig(NAME$6, config, DefaultType$5);
       return config;
@@ -3320,9 +3320,9 @@
 
 
     _getConfig(config) {
-      config = { ...Default$4,
-        ...Manipulator.getDataAttributes(this._element),
-        ...(typeof config === 'object' ? config : {})
+      config = { /.Default$4,
+        /.Manipulator.getDataAttributes(this._element),
+        /.(typeof config === 'object' ? config : {})
       };
       typeCheckConfig(NAME$5, config, DefaultType$4);
       return config;
@@ -3504,7 +3504,7 @@
     const domParser = new window.DOMParser();
     const createdDocument = domParser.parseFromString(unsafeHtml, 'text/html');
     const allowlistKeys = Object.keys(allowList);
-    const elements = [].concat(...createdDocument.body.querySelectorAll('*'));
+    const elements = [].concat(/.createdDocument.body.querySelectorAll('*'));
 
     for (let i = 0, len = elements.length; i < len; i++) {
       const el = elements[i];
@@ -3515,7 +3515,7 @@
         continue;
       }
 
-      const attributeList = [].concat(...el.attributes);
+      const attributeList = [].concat(/.el.attributes);
       const allowedAttributes = [].concat(allowList['*'] || [], allowList[elName] || []);
       attributeList.forEach(attr => {
         if (!allowedAttribute(attr, allowedAttributes)) {
@@ -3764,7 +3764,7 @@
       const customClass = this._resolvePossibleFunction(this._config.customClass);
 
       if (customClass) {
-        tip.classList.add(...customClass.split(' '));
+        tip.classList.add(/.customClass.split(' '));
       } // If this is a touch-enabled device we add extra
       // empty mouseover listeners to the body's immediate children;
       // only needed because of broken event delegation on iOS
@@ -3772,7 +3772,7 @@
 
 
       if ('ontouchstart' in document.documentElement) {
-        [].concat(...document.body.children).forEach(element => {
+        [].concat(/.document.body.children).forEach(element => {
           EventHandler.on(element, 'mouseover', noop);
         });
       }
@@ -3831,7 +3831,7 @@
       // empty mouseover listeners we added for iOS support
 
       if ('ontouchstart' in document.documentElement) {
-        [].concat(...document.body.children).forEach(element => EventHandler.off(element, 'mouseover', noop));
+        [].concat(/.document.body.children).forEach(element => EventHandler.off(element, 'mouseover', noop));
       }
 
       this._activeTrigger[TRIGGER_CLICK] = false;
@@ -3994,8 +3994,8 @@
           }
         }
       };
-      return { ...defaultBsPopperConfig,
-        ...(typeof this._config.popperConfig === 'function' ? this._config.popperConfig(defaultBsPopperConfig) : this._config.popperConfig)
+      return { /.defaultBsPopperConfig,
+        /.(typeof this._config.popperConfig === 'function' ? this._config.popperConfig(defaultBsPopperConfig) : this._config.popperConfig)
       };
     }
 
@@ -4030,7 +4030,7 @@
       EventHandler.on(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIDE, this._hideModalHandler);
 
       if (this._config.selector) {
-        this._config = { ...this._config,
+        this._config = { /.this._config,
           trigger: 'manual',
           selector: ''
         };
@@ -4125,9 +4125,9 @@
           delete dataAttributes[dataAttr];
         }
       });
-      config = { ...this.constructor.Default,
-        ...dataAttributes,
-        ...(typeof config === 'object' && config ? config : {})
+      config = { /.this.constructor.Default,
+        /.dataAttributes,
+        /.(typeof config === 'object' && config ? config : {})
       };
       config.container = config.container === false ? document.body : getElement(config.container);
 
@@ -4242,14 +4242,14 @@
   const DATA_KEY$3 = 'bs.popover';
   const EVENT_KEY$3 = `.${DATA_KEY$3}`;
   const CLASS_PREFIX = 'bs-popover';
-  const Default$2 = { ...Tooltip.Default,
+  const Default$2 = { /.Tooltip.Default,
     placement: 'right',
     offset: [0, 8],
     trigger: 'click',
     content: '',
     template: '<div class="popover" role="tooltip">' + '<div class="popover-arrow"></div>' + '<h3 class="popover-header"></h3>' + '<div class="popover-body"></div>' + '</div>'
   };
-  const DefaultType$2 = { ...Tooltip.DefaultType,
+  const DefaultType$2 = { /.Tooltip.DefaultType,
     content: '(string|element|function)'
   };
   const Event$1 = {
@@ -4443,9 +4443,9 @@
 
 
     _getConfig(config) {
-      config = { ...Default$1,
-        ...Manipulator.getDataAttributes(this._element),
-        ...(typeof config === 'object' && config ? config : {})
+      config = { /.Default$1,
+        /.Manipulator.getDataAttributes(this._element),
+        /.(typeof config === 'object' && config ? config : {})
       };
       config.target = getElement(config.target) || document.documentElement;
       typeCheckConfig(NAME$2, config, DefaultType$1);
@@ -4910,9 +4910,9 @@
 
 
     _getConfig(config) {
-      config = { ...Default,
-        ...Manipulator.getDataAttributes(this._element),
-        ...(typeof config === 'object' && config ? config : {})
+      config = { /.Default,
+        /.Manipulator.getDataAttributes(this._element),
+        /.(typeof config === 'object' && config ? config : {})
       };
       typeCheckConfig(NAME, config, this.constructor.DefaultType);
       return config;

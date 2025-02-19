@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ChildCareCalendar.Domain\ChildCareCalendar.Domain.csproj" />
+    <ProjectReference Include="/\ChildCareCalendar.Domain\ChildCareCalendar.Domain.csproj" />
   </ItemGroup>
 
 </Project>
