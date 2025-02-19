@@ -1,6 +1,7 @@
 ﻿@page "/users/create"
 @using ChildCareCalendar.Utilities.Constants
 @using ChildCareCalendar.Utilities.Helper
+@rendermode InteractiveServer
 
 <h3>Tạo mới danh mục</h3>
 <hr />
@@ -47,21 +48,23 @@
         <ValidationMessage For="@(() => userCreateViewModel.Role)" class="text-danger" />
     </div>
 
-
     <div class="form-group m-2">
         <label class="control-label m-2">Số điện thoại</label>
         <InputText class="form-control" @bind-Value="userCreateViewModel.PhoneNumber" />
         <ValidationMessage For="@(() => userCreateViewModel.PhoneNumber)" class="text-danger" />
     </div>
+
+    <!-- Chọn file nhưng chưa upload -->
     <div class="form-group m-2">
-        <label class="control-label m-2">Upload Ảnh lên</label>
-        <InputFile OnChange="HandleFileUpload" />
+        <label class="control-label m-2">Upload Ảnh</label>
+        <InputFile OnChange="HandleFileSelection" accept="image/*" />
     </div>
     @if (!string.IsNullOrEmpty(UploadedImageUrl))
     {
-        <p>Ảnh đã upload:</p>
-        <img src="@UploadedImageUrl" alt="Uploaded Image" width="300" />
+        <p>Ảnh đã chọn:</p>
+        <img src="@UploadedImageUrl" alt="Uploaded Image" width="300" height="300" />
     }
+
     <div class="form-group row">
         <div class="col-md-8">
             <button type="submit" class="btn btn-success">Tạo mới</button>
@@ -73,4 +76,3 @@
         </div>
     </div>
 </EditForm>
-

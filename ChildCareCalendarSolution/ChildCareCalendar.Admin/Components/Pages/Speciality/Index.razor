@@ -12,8 +12,8 @@
 			<ValidationSummary />
 
 			<div class="d-flex">
-				<InputText class="form-control me-2" @bind-Value="SearchData.Keyword" placeholder="Tìm kiếm chuyên khoa/." />
-				<button type="submit" class="btn btn-primary">Tìm kiếm</button>
+				<InputText class="form-control me-2" @bind-Value="SearchData.Keyword" placeholder="Tìm kiếm chuyên khoa..." />
+				<button type="submit" class="btn btn-primary searchBtn" style="width: 20%;">Tìm kiếm</button>
 			</div>
 		</EditForm>
 	</div>
@@ -25,31 +25,41 @@
 }
 else
 {
-<table class="table table-bordered table-hover text-center">
-	<thead class="table-dark">
-		<tr>
-			<th>Tên chuyên khoa</th>
-			<th>Mô tả</th>
-			<th>Người tạo</th>
-			<th>Ngày tạo</th>
-			<th>Thao tác</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Specialities)
-		{
-			<tr>
-				<td>@item.SpecialtyName</td>
-				<td>@item.Description</td>
-				<td>@item.CreatedBy</td>
-				<td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
-				<td>
-					<button class="btn btn-warning btn-sm">Chỉnh sửa</button>
-					<button class="btn btn-danger btn-sm" @onclick="() => DeleteCategory(item.SpecialityId)">Xóa</button>
-				</td>
+	<table class="table table-bordered table-hover text-center">
+		<thead class="table-dark">
+			<tr style="background-color: white; border: 2px solid gray">
+				<th>Tên chuyên khoa</th>
+				<th>Mô tả</th>
+				<th>Người tạo</th>
+				<th>Ngày tạo</th>
+				<th>Trạng thái</th>
+				<th>Thao tác</th>
 			</tr>
-		}
-	</tbody>
-</table>
-}
+		</thead>
+		<tbody>
+			@foreach (var item in Specialities)
+			{
+				<tr>
+					<td>@item.SpecialtyName</td>
+					<td>@item.Description</td>
+					<td>@item.CreatedBy</td>
+					<td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
+					<td style="color:@(item.IsDelete ? "red" : "green")">
+						@(item.IsDelete ? "Đã xóa" : "Đang hoạt động")
+						@* <div class="form-check form-switch">
+							<InputCheckbox class="form-check-input" id="switch_@item.SpecialityId" disabled @(item.IsDelete ? checked : null) />
+							<label class="form-check-label" for="switch_@item.SpecialityId">
+								@(item.IsDelete ? "Đã xóa" : "Đang hoạt động")
+							</label>
+						</div> *@
+					</td>
 
+					<td>
+						<button class="btn btn-warning btn-sm">Chỉnh sửa</button>
+						<button class="btn btn-danger btn-sm" @onclick="() => DeleteCategory(item.SpecialityId)">Xóa</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}

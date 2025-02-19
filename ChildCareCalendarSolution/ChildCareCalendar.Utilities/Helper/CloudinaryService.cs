@@ -10,10 +10,20 @@ namespace ChildCareCalendar.Utilities.Helper
 
         public CloudinaryService(IConfiguration configuration)
         {
-            var cloudName = configuration["Cloudinary:CloudName"];
-            var apiKey = configuration["Cloudinary:ApiKey"];
-            var apiSecret = configuration["Cloudinary:ApiSecret"];
+            var config = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
 
+            var cloudName = config["Cloudinary:CloudName"];
+            var apiKey = config["Cloudinary:ApiKey"];
+            var apiSecret = config["Cloudinary:ApiSecret"];
+            Console.WriteLine($"CloudName: {cloudName}, ApiKey: {apiKey}, ApiSecret: {apiSecret}");
+
+            if (string.IsNullOrEmpty(cloudName) || string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(apiSecret))
+            {
+                throw new ArgumentException("Cloudinary configuration is missing or invalid.");
+            }
             var account = new Account(cloudName, apiKey, apiSecret);
             _cloudinary = new Cloudinary(account);
         }
