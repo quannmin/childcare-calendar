@@ -9,5 +9,7 @@ namespace ChildCareCalendar.Domain.ViewModels.Specility
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public string? CreatedBy { get; set; }
-    }
+		public bool IsDelete { get; set; }
+
+	}
 }
