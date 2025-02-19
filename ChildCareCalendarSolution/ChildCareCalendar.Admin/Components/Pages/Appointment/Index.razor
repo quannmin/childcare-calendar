@@ -1,0 +1,82 @@
+﻿@page "/appointments"
+@using ChildCareCalendar.Domain.ViewModels.Appointment
+@using AutoMapper
+@inject ChildCareCalendar.Infrastructure.Services.Interfaces.IAppointmentService AppointmentService
+
+<h3>Danh sách lịch khám</h3>
+<hr />
+
+@if (Appointments == null)
+{
+    <p>Đang tải dữ liệu...</p>
+}
+else if (!Appointments.Any())
+{
+    <p>Không có lịch hẹn nào.</p>
+}
+else
+{
+    <table class="table-auto w-full border-collapse border border-gray-300">
+        <thead>
+            <tr class="bg-gray-200">
+                <th class="border p-2">ID</th>
+                <th class="border p-2">Phụ huynh</th>
+                <th class="border p-2">Trẻ em</th>
+                <th class="border p-2">Dịch vụ</th>
+                <th class="border p-2">Tổng tiền</th>
+                <th class="border p-2">Trạng thái</th>
+                <th class="border p-2">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointment in Appointments)
+            {
+                <tr class="border">
+                    <td class="border p-2">@appointment.AppointmentId</td>
+                    <td class="border p-2">@appointment.ParentName</td>
+                    <td class="border p-2">@appointment.ChildName</td>
+                    <td class="border p-2">@appointment.ServiceName</td>
+                    <td class="border p-2">@appointment.TotalAmount.ToString("VND")</td>
+                    <td class="border p-2">@appointment.Status</td>
+                    @* <td class="border p-2"> *@
+                    @*     @if (appointment.Status == AppointmentStatus.Ordered) *@
+                    @*     { *@
+                    @*         <button class="btn-blue" @onclick="() => UpdateStatus(appointment.Id, AppointmentStatus.CheckedIn)"> *@
+                    @*             Check-in *@
+                    @*         </button> *@
+                    @*     } *@
+                    @*     else if (appointment.Status == AppointmentStatus.CheckedIn) *@
+                    @*     { *@
+                    @*         <button class="btn-green" @onclick="() => UpdateStatus(appointment.Id, AppointmentStatus.Completed)"> *@
+                    @*             Hoàn thành *@
+                    @*         </button> *@
+                    @*     } *@
+                    @* </td> *@
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private List<AppointmentViewModel> Appointments = new();
+    // {
+    //     new AppointmentViewModel { AppointmentId = 1, ParentName = "Nguyễn Văn A", ChildName = "Bé Bảo", ServiceName = "Khám Nhi", TotalAmount = 500000, Status = "Đã check in" },
+    //     new AppointmentViewModel { AppointmentId = 2, ParentName = "Trần Thị B", ChildName = "Bé Hà", ServiceName = "Khám Răng", TotalAmount = 300000, Status = "Đã khám" }
+    // };
+
+    [Inject]
+    IMapper Mapper { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Appointments = Mapper.Map<List<AppointmentViewModel>>(await AppointmentService.GetAllAppointmentsAsync());
+    }
+
+    private async Task UpdateStatus(int appointmentId, string newStatus)
+    {
+        
+    }
+
+}

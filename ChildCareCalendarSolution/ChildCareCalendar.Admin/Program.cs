@@ -1,6 +1,8 @@
 using ChildCareCalendar.Admin.Components;
 using ChildCareCalendar.Admin.Extensions;
 using ChildCareCalendar.Domain.EF;
+using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using ChildCareCalendar.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Pubs.BackendApi.Mappings;
@@ -27,6 +29,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+builder.Services.AddScoped<IRefundReportService, RefundReportService>();
+
+
 
 var app = builder.Build();
 
