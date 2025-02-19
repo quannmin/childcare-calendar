@@ -4,34 +4,38 @@
 <h3>Tạo mới danh mục</h3>
 <hr />
 
-@if (!string.IsNullOrEmpty(ErrorMessage))
-{
-    <div class="alert alert-danger">@ErrorMessage</div>
-}
+<EditForm Model="CreateModel" OnValidSubmit="HandleCreate" FormName="SpecialityCreate" style="width: 50%;">
+	<DataAnnotationsValidator />
 
-<EditForm Model="CreateModel" OnValidSubmit="HandleCreate" FormName="SpecialityCreate">
-    <DataAnnotationsValidator />
+	<div class="form-group m-2">
+		<label class="control-label m-2">
+			Tên chuyên khoa 
+			<span class="text-danger">*</span>
+		</label>
+		<InputText class="form-control"
+				   @bind-Value="CreateModel.SpecialtyName"
+				   placeholder="Nhập tên chuyên khoa..."
+				   />
+		<ValidationMessage For="@(() => CreateModel.SpecialtyName)" class="text-danger" />
+	</div>
 
-    <div class="form-group m-2">
-        <label class="control-label m-2">Tên chuyên khoa</label>
-        <InputText class="form-control" @bind-Value="CreateModel.SpecialtyName" placeholder="Nhập tên chuyên khoa..." />
-        <ValidationMessage For="@(() => CreateModel.SpecialtyName)" class="text-danger" />
-    </div>
+	<div class="form-group m-2">
+		<label class="control-label m-2">Mô tả</label>
+		<InputTextArea class="form-control"
+				   @bind-Value="CreateModel.Description"
+				   placeholder="Nhập mô tả chuyên khoa..."
+				   />
+		<ValidationMessage For="@(() => CreateModel.Description)" class="text-danger" />
+	</div>
 
-    <div class="form-group m-2">
-        <label class="control-label m-2">Mô tả</label>
-        <InputText class="form-control" @bind-Value="CreateModel.Description" placeholder="Nhập mô tả chuyên khoa..." />
-        <ValidationMessage For="@(() => CreateModel.Description)" class="text-danger" />
-    </div>
-
-    <div class="form-group row">
-        <div class="col-md-8">
-            <button type="submit" class="btn btn-success">Tạo mới</button>
-        </div>
-        <div class="col-md-4">
-            <a class="btn btn-secondary" href="/specialities">
-                Về trang quản lí chuyên khoa
-            </a>
-        </div>
-    </div>
+	<div class="form-group row">
+		<div class="col-md-8">
+			<button type="submit" class="btn btn-success">Tạo mới</button>
+		</div>
+		<div class="col-md-4">
+			<a class="btn btn-secondary" href="/specialities">
+				Về trang quản lí chuyên khoa
+			</a>
+		</div>
+	</div>
 </EditForm>
