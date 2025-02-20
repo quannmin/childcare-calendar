@@ -18,7 +18,7 @@ namespace ChildCareCalendar.Domain.ViewModels.Account
         public string? GenderDisplay { get; set; }
         public string? Address { get; set; }
         public DateTime? Dob { get; set; }
-        public string? RoleDisplay { get; set; }
+        public string? Role { get; set; }
         public DateTime CreatedAt { get; set; }
         public string? CreatedBy { get; set; }
     }

@@ -8,71 +8,78 @@
 
 @if (ErrorMessage.Count > 0)
 {
-    @foreach (string i in ErrorMessage)
+    @foreach (string error in ErrorMessage)
     {
-        <div class="alert alert-danger">@i</div>
+        <div class="alert alert-danger">@error</div>
     }
 }
 
-<EditForm Model="userCreateViewModel" OnValidSubmit="HandleCreateDoctor" FormName="DoctorCreate">
+<EditForm Model="userCreateViewModel" OnValidSubmit="HandleCreateDoctor">
     <DataAnnotationsValidator />
 
-    <div class="form-group m-2">
-        <label class="control-label m-2">Email</label>
-        <InputText class="form-control" @bind-Value="userCreateViewModel.Email" />
-        <ValidationMessage For="@(() => userCreateViewModel.Email)" class="text-danger" />
-    </div>
-    <div class="form-group m-2">
-        <label class="control-label m-2">Password</label>
-        <InputText type="password" class="form-control" @bind-Value="userCreateViewModel.Password" />
-        <ValidationMessage For="@(() => userCreateViewModel.Password)" class="text-danger" />
-    </div>
-    <div class="form-group m-2">
-        <label class="control-label m-2">Xác nhận Password</label>
-        <InputText type="password" class="form-control" @bind-Value="userCreateViewModel.ConfirmPassword" />
-        <ValidationMessage For="@(() => userCreateViewModel.ConfirmPassword)" class="text-danger" />
-    </div>
-    <div class="form-group m-2">
-        <label class="control-label m-2">Tên bác sĩ</label>
-        <InputText class="form-control" @bind-Value="userCreateViewModel.FullName" />
-        <ValidationMessage For="@(() => userCreateViewModel.FullName)" class="text-danger" />
-    </div>
-    <div class="form-group m-2">
-        <label class="control-label m-2">Role</label>
-        <InputSelect class="form-control" @bind-Value="userCreateViewModel.Role">
-            @foreach (var role in Enum.GetValues<SystemConstant.AccountsRole>())
+    <div class="row">
+        <!-- Cột 1 -->
+        <div class="col-md-6">
+            <div class="form-group m-2">
+                <label>Email</label>
+                <InputText class="form-control" @bind-Value="userCreateViewModel.Email" />
+                <ValidationMessage For="@(() => userCreateViewModel.Email)" class="text-danger" />
+            </div>
+
+            <div class="form-group m-2">
+                <label>Password</label>
+                <InputText type="password" class="form-control" @bind-Value="userCreateViewModel.Password" />
+                <ValidationMessage For="@(() => userCreateViewModel.Password)" class="text-danger" />
+            </div>
+
+            <div class="form-group m-2">
+                <label>Xác nhận Password</label>
+                <InputText type="password" class="form-control" @bind-Value="userCreateViewModel.ConfirmPassword" />
+                <ValidationMessage For="@(() => userCreateViewModel.ConfirmPassword)" class="text-danger" />
+            </div>
+
+            <div class="form-group m-2">
+                <label>Tên bác sĩ</label>
+                <InputText class="form-control" @bind-Value="userCreateViewModel.FullName" />
+                <ValidationMessage For="@(() => userCreateViewModel.FullName)" class="text-danger" />
+            </div>
+            <div class="form-group m-2">
+                <label>Số điện thoại</label>
+                <InputText class="form-control" @bind-Value="userCreateViewModel.PhoneNumber" />
+                <ValidationMessage For="@(() => userCreateViewModel.PhoneNumber)" class="text-danger" />
+            </div>
+        </div>
+
+        <!-- Cột 2 -->
+        <div class="col-md-6 p-2">
+            <div class="text-center w-100">
+                <label class="w-100 text-start">Ảnh người dùng</label>
+            </div>
+            <div class="col-md-12">
+                <div class="input-group w-100">
+                    <label class="btn btn-primary w-100">
+                        <i class="bi bi-upload"></i> Chọn ảnh
+                        <InputFile OnChange="HandleFileSelection" accept="image/*" class="d-none" />
+                    </label>
+                </div>
+            </div>
+            @if (!string.IsNullOrEmpty(PreviewImageUrl))
             {
-                <option value="@role">@EnumHelper.GetRoleDisplay(role.ToString())</option>
+                <div class="form-group m-2 text-center" style="margin-left: 19px">
+                    <p class="fw-bold">Ảnh xem trước:</p>
+                    <img src="@PreviewImageUrl" alt="Preview Image" class="img-thumbnail shadow" style="width: 250px; height: 250px; object-fit: cover; border-radius: 10px;" />
+                </div>
             }
-        </InputSelect>
-        <ValidationMessage For="@(() => userCreateViewModel.Role)" class="text-danger" />
+        </div>
     </div>
 
-    <div class="form-group m-2">
-        <label class="control-label m-2">Số điện thoại</label>
-        <InputText class="form-control" @bind-Value="userCreateViewModel.PhoneNumber" />
-        <ValidationMessage For="@(() => userCreateViewModel.PhoneNumber)" class="text-danger" />
-    </div>
-
-    <!-- Chọn file nhưng chưa upload -->
-    <div class="form-group m-2">
-        <label class="control-label m-2">Upload Ảnh</label>
-        <InputFile OnChange="HandleFileSelection" accept="image/*" />
-    </div>
-    @if (!string.IsNullOrEmpty(UploadedImageUrl))
-    {
-        <p>Ảnh đã chọn:</p>
-        <img src="@UploadedImageUrl" alt="Uploaded Image" width="300" height="300" />
-    }
-
-    <div class="form-group row">
+    <!-- Nút Tạo Mới và Quay Lại -->
+    <div class="form-group row mt-3">
         <div class="col-md-8">
             <button type="submit" class="btn btn-success">Tạo mới</button>
         </div>
         <div class="col-md-4">
-            <a class="btn btn-secondary" href="/">
-                Về trang quản lí người dùng
-            </a>
+            <a class="btn btn-secondary" href="/">Về trang quản lí người dùng</a>
         </div>
     </div>
 </EditForm>
