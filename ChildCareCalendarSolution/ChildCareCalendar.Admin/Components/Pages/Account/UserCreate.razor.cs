@@ -23,12 +23,12 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         [Inject]
         IMapper mapper { get; set; }
 
-        protected override void OnInitialized()
-        {
-            userCreateViewModel ??= new();
-        }
+		protected override void OnInitialized()
+		{
+			userCreateViewModel ??= new();
+		}
 
-        public async Task HandleCreateDoctor()
+		public async Task HandleCreateDoctor()
         {
             AppUser doctor = mapper.Map<AppUser>(userCreateViewModel);
             if (doctor == null)

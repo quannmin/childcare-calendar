@@ -4,7 +4,7 @@ using ChildCareCalendar.Infrastructure.Services.Interfaces;
 
 namespace ChildCareCalendar.Infrastructure.Services
 {
-    public class SpecialityService : ISpecialityService
+	public class SpecialityService : ISpecialityService
     {
         private readonly IRepository<Speciality> _specialityRepository;
 
@@ -46,5 +46,10 @@ namespace ChildCareCalendar.Infrastructure.Services
         {
             await _specialityRepository.UpdateAsync(speciality);
         }
-    }
+
+		public async Task<bool> CheckDuplicateSpecialtyNameAsync(string name)
+		{
+            return await _specialityRepository.FindAsync(x => x.SpecialtyName.ToLower().Equals(name.ToLower())) != null;
+		}
+	}
 }
