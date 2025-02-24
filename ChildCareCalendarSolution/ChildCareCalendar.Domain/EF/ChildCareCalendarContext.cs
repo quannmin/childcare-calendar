@@ -149,6 +149,11 @@ namespace ChildCareCalendar.Domain.EF
                       .HasForeignKey<ExaminationReport>(er => er.AppointmentId)
                       .OnDelete(DeleteBehavior.Restrict);
 
+                entity.HasOne(a => a.Service)
+                      .WithMany(p => p.Appointments)
+                      .HasForeignKey(a => a.ServiceId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
                 entity.HasOne(a => a.Parent)
                       .WithMany(p => p.ParentAppointments)
                       .HasForeignKey(a => a.ParentId)
