@@ -1,6 +1,7 @@
 ﻿using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using System.Linq.Expressions;
 
 namespace ChildCareCalendar.Infrastructure.Services
 {
@@ -84,6 +85,11 @@ namespace ChildCareCalendar.Infrastructure.Services
         public async Task<IEnumerable<Appointment>> GetAllAppointmentsAsync()
         {
             return await _appointmentRepository.GetAllAsync();
+        }
+
+        public Task<IEnumerable<Appointment>> GetAllAppointmentsAsync(params Expression<Func<Appointment, object>>[] includes)
+        {
+            return _appointmentRepository.GetAllAsync(includes);
         }
 
         public async Task<Appointment> GetAppointmentByIdAsync(int id)
