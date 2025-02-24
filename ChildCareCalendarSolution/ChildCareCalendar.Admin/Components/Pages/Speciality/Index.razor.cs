@@ -14,9 +14,11 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
         private List<SpecialityViewModel> Specialities = new();
         [SupplyParameterFromForm]
         private SpecialitySearchViewModel SearchData { get; set; } = new();
+		[Inject]
+		private NavigationManager Navigation { get; set; }
 
 
-        protected override async Task OnInitializedAsync()
+		protected override async Task OnInitializedAsync()
         {
             await LoadSpecialities();
         }
@@ -44,5 +46,5 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
             var specialities = await SpecialityService.GetAllSpecialitiesAsync();
             Specialities = Mapper.Map<List<SpecialityViewModel>>(specialities);
         }
-    }
+	}
 }
