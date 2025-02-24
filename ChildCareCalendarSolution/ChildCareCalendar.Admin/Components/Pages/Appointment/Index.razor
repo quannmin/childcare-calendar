@@ -1,6 +1,6 @@
 ﻿@page "/appointments"
 
-<h3>Danh sách lịch khám</h3>
+<h3>Quản lý lịch khám</h3>
 <hr />
 
 @if (Appointments == null)
@@ -35,20 +35,16 @@ else
                     <td class="border p-2">@appointment.ServiceName</td>
                     <td class="border p-2">@appointment.TotalAmount.ToString("VND")</td>
                     <td class="border p-2">@appointment.Status</td>
-                    @* <td class="border p-2"> *@
-                    @*     @if (appointment.Status == AppointmentStatus.Ordered) *@
-                    @*     { *@
-                    @*         <button class="btn-blue" @onclick="() => UpdateStatus(appointment.Id, AppointmentStatus.CheckedIn)"> *@
-                    @*             Check-in *@
-                    @*         </button> *@
-                    @*     } *@
-                    @*     else if (appointment.Status == AppointmentStatus.CheckedIn) *@
-                    @*     { *@
-                    @*         <button class="btn-green" @onclick="() => UpdateStatus(appointment.Id, AppointmentStatus.Completed)"> *@
-                    @*             Hoàn thành *@
-                    @*         </button> *@
-                    @*     } *@
-                    @* </td> *@
+                    <td class="border p-2">
+                        @if (appointment.Status.Equals("ORDERED"))
+                        {
+                            <button class="btn-blue" @onclick="() => {}">check-in</button>
+                        }
+                        else if (appointment.Status.Equals("CHECKED_IN"))
+                        {
+                            <button class="btn-green" @onclick="() => {}">hoàn thành</button>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>
