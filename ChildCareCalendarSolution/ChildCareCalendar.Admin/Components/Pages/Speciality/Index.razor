@@ -55,7 +55,7 @@ else
 					</td>
 
 					<td>
-						<button class="btn btn-warning btn-sm">Chỉnh sửa</button>
+						<NavLink class="btn btn-warning btn-sm" href="@($"/specialities/edit/{item.SpecialityId}")">Chỉnh sửa</NavLink>
 						<button class="btn btn-danger btn-sm" @onclick="() => DeleteCategory(item.SpecialityId)">Xóa</button>
 					</td>
 				</tr>

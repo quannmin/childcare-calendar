@@ -1,8 +1,14 @@
 ﻿@page "/specialities/create"
-@using ChildCareCalendar.Domain.ViewModels
 
 <h3>Tạo mới danh mục</h3>
 <hr />
+
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+	<div class="alert alert-danger" style="width: 50%;">
+		@ErrorMessage
+	</div>
+}
 
 <EditForm Model="CreateModel" OnValidSubmit="HandleCreate" FormName="SpecialityCreate" style="width: 50%;">
 	<DataAnnotationsValidator />

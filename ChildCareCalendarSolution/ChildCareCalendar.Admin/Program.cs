@@ -11,7 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 Console.WriteLine($"Connection String: {connectionString}");
 
-builder.Services.AddDbContext<ChildCareCalendarContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<ChildCareCalendarContext>(options => {
+    options.UseSqlServer(connectionString);
+	options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
 // Add services to the container.
 builder.Services.AddDependencyInjection();
 builder.Services.AddAutoMapper(typeof(MappingProfile));

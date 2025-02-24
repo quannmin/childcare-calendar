@@ -10,5 +10,7 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task AddSpecialityAsync(Speciality speciality); 
         Task UpdateSpecialityAsync(Speciality speciality);
         Task DeleteSpecialityAsync(int id);
-    }
+        Task<bool> CheckDuplicateSpecialtyNameAsync(string name);
+
+	}
 }
