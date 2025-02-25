@@ -57,7 +57,7 @@ namespace ChildCareCalendar.Infrastructure.Repository
             return await query.ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id, Func<IQueryable<T>, IQueryable<T>> include = null)
         {
             return await _dbSet.FindAsync(id);
         }
