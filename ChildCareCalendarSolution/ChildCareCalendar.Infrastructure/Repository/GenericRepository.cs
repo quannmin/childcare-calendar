@@ -57,6 +57,7 @@ namespace ChildCareCalendar.Infrastructure.Repository
             return await query.ToListAsync();
         }
 
+
         public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _dbSet;

@@ -1,0 +1,45 @@
+﻿@page "/specialities/detail/{id:int}"
+
+<h3>Chi tiết chuyên khoa</h3>
+<hr />
+
+<dl class="row">
+	<dt class="col-sm-3">Mã chuyên khoa:</dt>
+	<dd class="col-sm-9">@DetailViewModel.SpecialityId</dd>
+
+	<dt class="col-sm-3">Tên chuyên khoa:</dt>
+	<dd class="col-sm-9">@DetailViewModel.SpecialtyName</dd>
+
+	<dt class="col-sm-3">Mô tả:</dt>
+	<dd class="col-sm-9">@DetailViewModel.Description</dd>
+
+	<dt class="col-sm-3">Ngày tạo:</dt>
+	<dd class="col-sm-9">@DetailViewModel.CreatedAt.ToString("dd/MM/yyyy HH:mm")</dd>
+
+	<dt class="col-sm-3">Người tạo:</dt>
+	<dd class="col-sm-9">@DetailViewModel.CreatedBy</dd>
+
+	<dt class="col-sm-3">Trạng thái:</dt>
+	<dd class="col-sm-9">
+		<p style="color: @(DetailViewModel.IsDelete ? "red" : "green")">
+			@(DetailViewModel.IsDelete ? "Đã xóa" : "Đang hoạt động")
+		</p>
+	</dd>
+</dl>
+
+@if (DetailViewModel.Services != null && DetailViewModel.Services.Any())
+{
+	<h4>Danh sách dịch vụ liên quan</h4>
+	<ul>
+		@foreach (var service in DetailViewModel.Services)
+		{
+			<li>@service.ServiceName</li>
+		}
+	</ul>
+}
+else
+{
+	<p>Chưa có dịch vụ</p>
+}
+
+<button class="btn btn-secondary">Quay lại</button>
