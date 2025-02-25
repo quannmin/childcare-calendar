@@ -1,54 +1,60 @@
 ﻿@page "/appointments"
 
-<h3>Danh sách lịch khám</h3>
-<hr />
+<h3>Quản lý lịch khám</h3>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <NavLink class="btn btn-success" href="/appointments/create">Tạo mới</NavLink>
+    </div>
+    <div class="col-md-5 offset-md-3">
+        <EditForm Model="SearchData" OnValidSubmit="HandleSearch" FormName="SearchAppointment">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="d-flex">
+                <InputText class="form-control me-2" @bind-Value="SearchData.Keyword" placeholder="Tìm kiếm lịch hẹn..." />
+                <button type="submit" class="btn btn-primary searchBtn" style="width: 20%;">Tìm kiếm</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
 
 @if (Appointments == null)
 {
-    <p>Đang tải dữ liệu...</p>
+    <p class="text-center">Đang tải dữ liệu...</p>
 }
 else if (!Appointments.Any())
 {
-    <p>Không có lịch hẹn nào.</p>
+    <p class="text-center">Không có dữ liệu</p>
 }
 else
 {
-    <table class="table-auto w-full border-collapse border border-gray-300">
-        <thead>
-            <tr class="bg-gray-200">
-                <th class="border p-2">ID</th>
-                <th class="border p-2">Phụ huynh</th>
-                <th class="border p-2">Trẻ em</th>
-                <th class="border p-2">Dịch vụ</th>
-                <th class="border p-2">Tổng tiền</th>
-                <th class="border p-2">Trạng thái</th>
-                <th class="border p-2">Thao tác</th>
+    <table class="table table-bordered table-hover text-center">
+        <thead class="table-dark">
+            <tr style="background-color: white; border: 2px solid gray">
+                <th>ID</th>
+                <th>Phụ huynh</th>
+                <th>Trẻ em</th>
+                <th>Dịch vụ</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var appointment in Appointments)
             {
                 <tr class="border">
-                    <td class="border p-2">@appointment.AppointmentId</td>
-                    <td class="border p-2">@appointment.ParentName</td>
-                    <td class="border p-2">@appointment.ChildName</td>
-                    <td class="border p-2">@appointment.ServiceName</td>
-                    <td class="border p-2">@appointment.TotalAmount.ToString("VND")</td>
-                    <td class="border p-2">@appointment.Status</td>
-                    @* <td class="border p-2"> *@
-                    @*     @if (appointment.Status == AppointmentStatus.Ordered) *@
-                    @*     { *@
-                    @*         <button class="btn-blue" @onclick="() => UpdateStatus(appointment.Id, AppointmentStatus.CheckedIn)"> *@
-                    @*             Check-in *@
-                    @*         </button> *@
-                    @*     } *@
-                    @*     else if (appointment.Status == AppointmentStatus.CheckedIn) *@
-                    @*     { *@
-                    @*         <button class="btn-green" @onclick="() => UpdateStatus(appointment.Id, AppointmentStatus.Completed)"> *@
-                    @*             Hoàn thành *@
-                    @*         </button> *@
-                    @*     } *@
-                    @* </td> *@
+                    <td>@appointment.AppointmentId</td>
+                    <td>@appointment.ParentName</td>
+                    <td>@appointment.ChildName</td>
+                    <td>@appointment.ServiceName</td>
+                    <td>@appointment.TotalAmount.ToString() VND</td>
+                    <td>@appointment.Status</td>
+                    <td>
+                        <NavLink class="btn btn-warning btn-sm" href="@($"/appointments/edit/{appointment.AppointmentId}")">Chỉnh sửa</NavLink>
+                        <button class="btn btn-danger btn-sm" @onclick="() => DeleteCategory(appointment.AppointmentId)">Xóa</button>
+                    </td>
                 </tr>
             }
         </tbody>

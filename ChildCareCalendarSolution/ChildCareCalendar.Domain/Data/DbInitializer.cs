@@ -1,4 +1,5 @@
-﻿using ChildCareCalendar.Domain.EF;
+﻿using BCrypt.Net;
+using ChildCareCalendar.Domain.EF;
 using ChildCareCalendar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,9 +24,9 @@ namespace ChildCareCalendar.Domain.Data
             if (!context.Users.Any())
             {
                 context.Users.AddRange(
-                    new AppUser { Email = "manager@example.com", FullName = "Ông sếp", Password = "hashedpassword", Role = "Manager" },
-                    new AppUser { Email = "doctor1@example.com", FullName = "Bác sĩ Hans", Password = "hashedpassword", Role = "Doctor" },
-                    new AppUser { Email = "parent1@example.com", FullName = "Chị Ba", Password = "hashedpassword", Role = "Parent" }
+                    new AppUser { Email = "manager@example.com", FullName = "Ông sếp", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "Manager" },
+                    new AppUser { Email = "doctor1@example.com", FullName = "Bác sĩ Hans", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "Doctor" },
+                    new AppUser { Email = "parent1@example.com", FullName = "Chị Ba", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "Parent" }
                 );
                 context.SaveChanges();
             }
@@ -59,8 +60,8 @@ namespace ChildCareCalendar.Domain.Data
             if (!context.Appointments.Any())
             {
                 context.Appointments.AddRange(
-                    new Appointment { DoctorId = 2, ParentId = 3, ServiceId = 1, ChildrenRecordId = 1, Status = "ORDERED", TotalAmount = 50, CreatedAt = DateTime.Now },
-                    new Appointment { DoctorId = 2, ParentId = 3, ServiceId = 2, ChildrenRecordId = 1, Status = "CHECKED_IN", TotalAmount = 70, CreatedAt = DateTime.Now }
+                    new Appointment { DoctorId = 2, ParentId = 3, ServiceId = 1, ChildrenRecordId = 1, Status = "ORDERED", TotalAmount = 500_000, CreatedAt = DateTime.Now },
+                    new Appointment { DoctorId = 2, ParentId = 3, ServiceId = 2, ChildrenRecordId = 1, Status = "CHECKED_IN", TotalAmount = 700_000, CreatedAt = DateTime.Now }
                 );
                 context.SaveChanges();
             }
@@ -87,7 +88,7 @@ namespace ChildCareCalendar.Domain.Data
             if (!context.Payments.Any())
             {
                 context.Payments.AddRange(
-                    new Payment { PaymentDate = DateTime.Now, Amount = 50, PaymentMethod = "VNPAY", Status = "Completed", CreatedAt = DateTime.Now }
+                    new Payment { PaymentDate = DateTime.Now, Amount = 500_000, PaymentMethod = "VNPAY", Status = "Completed", CreatedAt = DateTime.Now }
                 );
                 context.SaveChanges();
             }
