@@ -3,16 +3,26 @@
 <h3>Chỉnh sửa chuyên khoa</h3>
 <hr />
 
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="alert alert-danger" style="width: 50%;">
+        @ErrorMessage
+    </div>
+}
+
 <EditForm Model="@EditModel" OnValidSubmit="HandleUpdate" FormName="SpecialityUpdate" style="width: 50%;">
     <DataAnnotationsValidator />
 
-    <InputNumber hidden @bind-Value="EditModel.SpecialityId"/>
+    <InputNumber hidden @bind-Value="EditModel.Id" />
 
     <div class="form-group m-2">
         <label class="control-label m-2">
             Tên chuyên khoa
             <span class="text-danger">*</span>
         </label>
+
+        <InputNumber hidden @bind-Value="EditModel.Id" />
+
         <InputText class="form-control"
                    @bind-Value="EditModel.SpecialtyName"
                    placeholder="Nhập tên chuyên khoa..." />

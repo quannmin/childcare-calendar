@@ -1,6 +1,7 @@
 ﻿using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using System.Linq.Expressions;
 
 namespace ChildCareCalendar.Infrastructure.Services
 {
@@ -49,7 +50,24 @@ namespace ChildCareCalendar.Infrastructure.Services
 
 		public async Task<bool> CheckDuplicateSpecialtyNameAsync(string name)
 		{
-            return await _specialityRepository.FindAsync(x => x.SpecialtyName.ToLower().Equals(name.ToLower())) != null;
+            var checkSpeciality = await _specialityRepository.FindAsync(x => x.SpecialtyName.ToLower().Equals(name.ToLower()));
+			return checkSpeciality.Count() > 0;
 		}
-	}
+
+		public async Task<IEnumerable<Speciality>> GetAllSpecialitiesAsync(params Expression<Func<Speciality, object>>[] includes)
+		{
+			return await _specialityRepository.GetAllAsync(includes);
+		}
+
+		public async Task<Speciality> GetSpecialityByIdAsync(int id, params Expression<Func<Speciality, object>>[] includes)
+		{
+			return await _specialityRepository.GetByIdAsync(id, includes);
+		}
+
+        public async Task<bool> CheckDuplicateSpecialtyNameWithNotIdAsync(int id, string name)
+        {
+            var checkSpeciality = await _specialityRepository.FindAsync(x => x.SpecialtyName.ToLower().Equals(name.ToLower()) && x.Id != id);
+            return checkSpeciality.Count() > 0;
+        }
+    }
 }

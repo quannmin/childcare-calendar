@@ -55,9 +55,9 @@ else
 					</td>
 
 					<td>
-						<NavLink class="btn btn-info btn-sm" href="@($"/specialities/detail/{item.SpecialityId}")">Chi tiết</NavLink>
-						<NavLink class="btn btn-warning btn-sm" href="@($"/specialities/edit/{item.SpecialityId}")">Chỉnh sửa</NavLink>
-						<button class="btn btn-danger btn-sm" @onclick="() => DeleteCategory(item.SpecialityId)">Xóa</button>
+						<NavLink class="btn btn-info btn-sm" href="@($"/specialities/detail/{item.Id}")">Chi tiết</NavLink>
+						<NavLink class="btn btn-warning btn-sm" href="@($"/specialities/edit/{item.Id}")">Chỉnh sửa</NavLink>
+						<button class="btn btn-danger btn-sm" @onclick="() => DeleteCategory(item.Id)">Xóa</button>
 					</td>
 				</tr>
 			}

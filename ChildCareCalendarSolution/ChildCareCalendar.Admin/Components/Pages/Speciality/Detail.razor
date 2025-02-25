@@ -5,7 +5,7 @@
 
 <dl class="row">
 	<dt class="col-sm-3">Mã chuyên khoa:</dt>
-	<dd class="col-sm-9">@DetailViewModel.SpecialityId</dd>
+	<dd class="col-sm-9">@DetailViewModel.Id</dd>
 
 	<dt class="col-sm-3">Tên chuyên khoa:</dt>
 	<dd class="col-sm-9">@DetailViewModel.SpecialtyName</dd>
@@ -27,15 +27,48 @@
 	</dd>
 </dl>
 
+<div class="row mb-4">
+	<div class="col-md-4">
+		<NavLink class="btn btn-success" href="@($"/specialities/detail/{id}/services/create")">Tạo mới</NavLink>
+	</div>
+</div>
+
 @if (DetailViewModel.Services != null && DetailViewModel.Services.Any())
 {
 	<h4>Danh sách dịch vụ liên quan</h4>
-	<ul>
-		@foreach (var service in DetailViewModel.Services)
-		{
-			<li>@service.ServiceName</li>
-		}
-	</ul>
+	<table class="table table-bordered table-hover text-center">
+		<thead class="table-dark">
+			<tr style="background-color: white; border: 2px solid gray">
+				<th>Tên dịch vụ</th>
+				<th>Mô tả</th>
+				<th>Giá</th>
+				<th>Ngày tạo</th>
+				<th>Người tạo</th>
+				<th>Trạng thái</th>
+				<th>Thao tác</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in DetailViewModel.Services)
+			{
+				<tr>
+					<td>@item.ServiceName</td>
+					<td>@item.Description</td>
+					<td>@item.Price</td>
+					<td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
+					<td>@item.CreatedBy</td>
+					<td style="color:@(item.IsDelete ? "red" : "green")">
+						@(item.IsDelete ? "Đã xóa" : "Đang hoạt động")
+					</td>
+
+					<td>
+						<NavLink class="btn btn-warning btn-sm" href="@($"/specialities/detail/{id}/services/{item.Id}")">Chỉnh sửa</NavLink>
+						<button class="btn btn-danger btn-sm">Xóa</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 }
 else
 {
