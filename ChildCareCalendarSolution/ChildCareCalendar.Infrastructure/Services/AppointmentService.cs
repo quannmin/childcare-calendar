@@ -82,6 +82,15 @@ namespace ChildCareCalendar.Infrastructure.Services
             }
         }
 
+        public async Task<IEnumerable<Appointment>> FindAppointmentAsync(string keyword)
+        {
+            return await _appointmentRepository.FindAsync(a => keyword.Contains(a.Parent.FullName) || keyword.Contains(a.ChildrenRecord.FullName), 
+                a => a.Doctor, 
+                a => a.Parent,
+                a => a.ChildrenRecord);
+            
+        }
+
         public async Task<IEnumerable<Appointment>> GetAllAppointmentsAsync()
         {
             return await _appointmentRepository.GetAllAsync();

@@ -21,5 +21,6 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task<IEnumerable<Appointment>> GetAppointmentsByParentIdAsync(int parentId);
         Task ChangeAppointmentStatusAsync(int appointmentId, string status);
         Task CancelAppointmentAsync(int appointmentId);
+        Task<IEnumerable<Appointment>> FindAppointmentAsync(string keyword);
     }
 }

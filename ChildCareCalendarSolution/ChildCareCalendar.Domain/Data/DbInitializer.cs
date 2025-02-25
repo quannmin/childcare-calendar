@@ -60,8 +60,8 @@ namespace ChildCareCalendar.Domain.Data
             if (!context.Appointments.Any())
             {
                 context.Appointments.AddRange(
-                    new Appointment { DoctorId = 2, ParentId = 3, ServiceId = 1, ChildrenRecordId = 1, Status = "ORDERED", TotalAmount = 50, CreatedAt = DateTime.Now },
-                    new Appointment { DoctorId = 2, ParentId = 3, ServiceId = 2, ChildrenRecordId = 1, Status = "CHECKED_IN", TotalAmount = 70, CreatedAt = DateTime.Now }
+                    new Appointment { DoctorId = 2, ParentId = 3, ServiceId = 1, ChildrenRecordId = 1, Status = "ORDERED", TotalAmount = 500_000, CreatedAt = DateTime.Now },
+                    new Appointment { DoctorId = 2, ParentId = 3, ServiceId = 2, ChildrenRecordId = 1, Status = "CHECKED_IN", TotalAmount = 700_000, CreatedAt = DateTime.Now }
                 );
                 context.SaveChanges();
             }
@@ -88,7 +88,7 @@ namespace ChildCareCalendar.Domain.Data
             if (!context.Payments.Any())
             {
                 context.Payments.AddRange(
-                    new Payment { PaymentDate = DateTime.Now, Amount = 50, PaymentMethod = "VNPAY", Status = "Completed", CreatedAt = DateTime.Now }
+                    new Payment { PaymentDate = DateTime.Now, Amount = 500_000, PaymentMethod = "VNPAY", Status = "Completed", CreatedAt = DateTime.Now }
                 );
                 context.SaveChanges();
             }
