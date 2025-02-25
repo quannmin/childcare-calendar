@@ -30,6 +30,7 @@ namespace ChildCareCalendar.Domain.EF
                 entity.HasKey(e => e.UserId);
                 entity.Property(e => e.UserId).UseIdentityColumn();
                 entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.Avatar).HasMaxLength(255);
                 entity.Property(e => e.PhoneNumber).HasMaxLength(15);
                 entity.Property(e => e.Password).IsRequired();
                 entity.Property(e => e.Gender).HasConversion<String>().HasMaxLength(10);

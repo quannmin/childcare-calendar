@@ -15,6 +15,7 @@ namespace ChildCareCalendar.Domain.Entities
         public string? FullName { get; set; }
         public string? Password { get; set; }
         public string? Gender { get; set; }
+        public string? Avatar {  get; set; }
         public string? Address { get; set; }
         [DefaultValue(false)]
         public bool IsDelete { get; set; } = false; public DateTime Dob { get; set; }

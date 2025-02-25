@@ -5,8 +5,6 @@ using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using ChildCareCalendar.Utilities.Helper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Account
 {
@@ -63,7 +61,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
                     return false;
                 }
 
-                userCreateViewModel.ProfilePictureUrl = UploadedImageUrl;
+                userCreateViewModel.Avatar = UploadedImageUrl;
                 return true;
             }
             catch (Exception ex)

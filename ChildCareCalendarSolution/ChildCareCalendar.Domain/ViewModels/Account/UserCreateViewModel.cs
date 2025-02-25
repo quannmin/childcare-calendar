@@ -28,12 +28,10 @@ namespace ChildCareCalendar.Domain.ViewModels.Account
         [Required(AllowEmptyStrings = false, ErrorMessage = "Số điện thoại không thể trống")]
         [ValidPhoneNumber(ErrorMessage = "Phone number must start with 09, 03, 07, 08, or 05 and have 8 to 9 digits.")]
         public string? PhoneNumber { get; set; }
-
+        public string? Avatar { get; set; }
         public string? GenderDisplay { get; set; }
         public string? Address { get; set; }
         public DateTime? Dob { get; set; }
         public string? RoleDisplay { get; set; }
-
-        public string? ProfilePictureUrl { get; set; }
     }
 }
