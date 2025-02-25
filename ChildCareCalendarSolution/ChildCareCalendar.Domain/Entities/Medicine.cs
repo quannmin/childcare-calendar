@@ -9,7 +9,7 @@ namespace ChildCareCalendar.Domain.Entities
 {
     public class Medicine
     {
-        public int MedicineId { get; set; }
+        public int Id { get; set; }
         public string? Name { get; set; }
         public decimal Price { get; set; }
         [DefaultValue(false)]

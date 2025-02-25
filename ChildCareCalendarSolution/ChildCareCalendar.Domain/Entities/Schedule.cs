@@ -9,7 +9,7 @@ namespace ChildCareCalendar.Domain.Entities
 {
     public class Schedule
     {
-        public int ScheduleId { get; set; }
+        public int Id { get; set; }
         public int SpecialityId { get; set; }
         public Speciality? Speciality { get; set; }
         public DateTime? WorkDay { get; set; }

@@ -9,13 +9,17 @@ namespace ChildCareCalendar.Domain.Entities
 {
     public class Appointment
     {
-        public int AppointmentId { get; set; }
+        public int Id { get; set; }
         public string? Status { get; set; }
+        public DateTime CheckupDateTime { get; set; }
         public decimal TotalAmount { get; set; }
 
         [DefaultValue(false)]
         public bool IsDelete { get; set; } = false; public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public int ServiceId { get; set; }
+        public Service? Service { get; set; }
+
         public int ParentId { get; set; }
         public AppUser? Parent { get; set; }
         public int DoctorId { get; set; }

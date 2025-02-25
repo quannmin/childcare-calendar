@@ -9,7 +9,7 @@ namespace ChildCareCalendar.Domain.Entities
 {
     public class WorkHour
     {
-        public int WorkHourId { get; set; }
+        public int Id { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
         [DefaultValue(false)]
