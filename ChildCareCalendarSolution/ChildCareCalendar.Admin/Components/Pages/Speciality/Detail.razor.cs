@@ -23,7 +23,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
         {
             if (id != 0 && DetailViewModel.SpecialityId == 0)
             {
-                var speciality = await SpecialityService.GetSpecialityByIdAsync(id, x => x.Include(s => s.Services));
+                var speciality = await SpecialityService.GetSpecialityByIdAsync(id);
                 DetailViewModel = Mapper.Map<SpecialityDetailViewModel>(speciality);
             }
         }

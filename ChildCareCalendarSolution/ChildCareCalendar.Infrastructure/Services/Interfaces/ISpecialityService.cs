@@ -6,7 +6,7 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
     public interface ISpecialityService
     {
         Task<IEnumerable<Speciality>> GetAllSpecialitiesAsync();
-        Task<Speciality> GetSpecialityByIdAsync(int id, Func<IQueryable<Speciality>, IQueryable<Speciality>> include = null);
+        Task<Speciality> GetSpecialityByIdAsync(int id);
         Task<IEnumerable<Speciality>> FindSpeciallityAsync(string findString);
         Task AddSpecialityAsync(Speciality speciality);
         Task UpdateSpecialityAsync(Speciality speciality);

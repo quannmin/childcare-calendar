@@ -32,9 +32,9 @@ namespace ChildCareCalendar.Infrastructure.Services
             return await _specialityRepository.GetAllAsync();
         }
 
-        public async Task<Speciality> GetSpecialityByIdAsync(int id, Func<IQueryable<Speciality>, IQueryable<Speciality>> include = null)
+        public async Task<Speciality> GetSpecialityByIdAsync(int id)
         {
-            return await _specialityRepository.GetByIdAsync(id, include);
+            return await _specialityRepository.GetByIdAsync(id);
         }
 
         public async Task<IEnumerable<Speciality>> FindSpeciallityAsync(string findString)
