@@ -13,7 +13,7 @@
 //        {
 //            // Xác định đường dẫn đến appsettings.json trong Application.Web
 //            string basePath = Directory.GetCurrentDirectory(); // Thư mục hiện tại
-//            string appSettingsPath = Path.Combine(basePath, "..", "ChildCareCalendar.Web", "appsettings.json");
+//            string appSettingsPath = Path.Combine(basePath, "/", "ChildCareCalendar.Web", "appsettings.json");
 
 //            if (!File.Exists(appSettingsPath))
 //            {

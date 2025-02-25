@@ -49,27 +49,6 @@ namespace ChildCareCalendar.Infrastructure.Repository
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(
-    Expression<Func<T, bool>> predicate = null,
-    Func<IQueryable<T>, IQueryable<T>> include = null
-)
-        {
-            IQueryable<T> query = _context.Set<T>();
-
-            if (include != null)
-            {
-                query = include(query);
-            }
-
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
-
-            return await query.ToListAsync();
-        }
-
-
         public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _dbSet;

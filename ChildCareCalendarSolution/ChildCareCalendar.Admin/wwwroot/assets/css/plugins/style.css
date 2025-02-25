@@ -6,6 +6,10 @@
 	border-bottom: 1px solid #d9d9d9;
 }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 3f705a8cf0f710bbadc8abd7d2397d4b12013faf
 .datatable-top,
 .datatable-bottom {
 	padding: 8px 10px;
@@ -231,3 +235,10 @@ table.datatable-table:focus {
 	outline: solid 1px black;
     outline-offset: -1px;
 }
+<<<<<<< HEAD
+.img-fluid logo-lg{
+	max-width: 100%;
+	height:auto;
+}
+=======
+>>>>>>> 3f705a8cf0f710bbadc8abd7d2397d4b12013faf

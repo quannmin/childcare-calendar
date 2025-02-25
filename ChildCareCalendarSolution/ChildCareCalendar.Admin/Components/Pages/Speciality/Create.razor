@@ -15,7 +15,7 @@
 
 	<div class="form-group m-2">
 		<label class="control-label m-2">
-			Tên chuyên khoa 
+			Tên chuyên khoa
 			<span class="text-danger">*</span>
 		</label>
 		<InputText class="form-control"
@@ -27,9 +27,8 @@
 	<div class="form-group m-2">
 		<label class="control-label m-2">Mô tả</label>
 		<InputTextArea class="form-control"
-				   @bind-Value="CreateModel.Description"
-				   placeholder="Nhập mô tả chuyên khoa..."
-				   />
+					   @bind-Value="CreateModel.Description"
+					   placeholder="Nhập mô tả chuyên khoa..." />
 		<ValidationMessage For="@(() => CreateModel.Description)" class="text-danger" />
 	</div>
 

@@ -3125,7 +3125,7 @@ tbody.collapse.show {
 }
 
 .custom-file-control:lang(en):empty::after {
-  content: "Choose file...";
+  content: "Choose file/.";
 }
 
 .custom-file-control::before {

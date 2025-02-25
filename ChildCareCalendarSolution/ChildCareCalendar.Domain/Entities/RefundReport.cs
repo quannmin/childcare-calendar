@@ -9,7 +9,7 @@ namespace ChildCareCalendar.Domain.Entities
 {
     public class RefundReport
     {
-        public int RefundReportId { get; set; } 
+        public int Id { get; set; } 
         public decimal RefundAmount { get; set; }
         public DateTime RefundDate { get; set; }
         public string? RefundPercentage { get; set; }
