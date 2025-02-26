@@ -1,10 +1,5 @@
 ﻿using ChildCareCalendar.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChildCareCalendar.Infrastructure.Services.Interfaces
 {
@@ -18,5 +13,7 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task ChangeAppointmentStatusAsync(int appointmentId, string status);
         Task CancelAppointmentAsync(int appointmentId);
         Task<IEnumerable<Appointment>> FindAppointmentAsync(string keyword);
+        Task<IEnumerable<Appointment>> FindAppointmentsAsync(Expression<Func<Appointment, bool>> predicate,
+                                                                params Expression<Func<Appointment, object>>[] includes);
     }
 }

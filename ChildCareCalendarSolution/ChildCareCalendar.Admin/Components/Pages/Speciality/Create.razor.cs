@@ -29,8 +29,9 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 		private async Task HandleCreate()
 		{
 			ErrorMessage = "";
-			bool isDuplicate = await SpecialityService.CheckDuplicateSpecialtyNameAsync(CreateModel.SpecialtyName);
-			if (isDuplicate)
+			var listDuplicate = await SpecialityService
+				.FindSpecialitiesAsync(x => x.SpecialtyName.Trim().ToLower().Equals(CreateModel.SpecialtyName.Trim().ToLower()));
+			if (listDuplicate.Count() > 0)
 			{
 				ErrorMessage = "Tên chuyên khoa đã tồn tại.";
 				return;

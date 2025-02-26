@@ -29,16 +29,18 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 		{
 			if (id != 0 && EditModel.Id == 0)
 			{
-				var speciality = await SpecialityService.GetSpecialityByIdAsync(id);
-				EditModel = Mapper.Map<SpecialityEditViewModel>(speciality);
+				var speciality = await SpecialityService.FindSpecialitiesAsync(x => x.Id == id);
+				EditModel = Mapper.Map<SpecialityEditViewModel>(speciality.FirstOrDefault());
 			}
 		}
 
 		private async Task HandleUpdate()
 		{
 			ErrorMessage = "";
-			bool isDuplicate = await SpecialityService.CheckDuplicateSpecialtyNameWithNotIdAsync(EditModel.Id, EditModel.SpecialtyName);
-			if (isDuplicate)
+			var listDuplicate = await SpecialityService.FindSpecialitiesAsync(x =>
+				x.SpecialtyName.Trim().ToLower().Equals(EditModel.SpecialtyName.Trim().ToLower()) &&
+				x.Id != EditModel.Id);
+			if (listDuplicate.Count() > 0)
 			{
 				ErrorMessage = "Tên chuyên khoa đã tồn tại.";
 				return;

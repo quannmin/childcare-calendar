@@ -19,7 +19,11 @@ namespace ChildCareCalendar.Infrastructure.Services
         {
             await _appointmentRepository.AddAsync(appointment);
         }
-
+        public async Task<IEnumerable<Appointment>> FindAppointmentsAsync(Expression<Func<Appointment, bool>> predicate,
+                                                                   params Expression<Func<Appointment, object>>[] includes)
+        {
+            return await _appointmentRepository.FindAsync(predicate, includes);
+        }
         public async Task CancelAppointmentAsync(int appointmentId)
         {
             var appointment = await GetAppointmentByIdAsync(appointmentId);
@@ -88,7 +92,6 @@ namespace ChildCareCalendar.Infrastructure.Services
                 a => a.Doctor, 
                 a => a.Parent,
                 a => a.ChildrenRecord);
-            
         }
 
         public Task<IEnumerable<Appointment>> GetAllAppointmentsAsync(params Expression<Func<Appointment, object>>[] includes)
