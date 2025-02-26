@@ -1,0 +1,43 @@
+﻿@page "/appointments/detail/{id:int}"
+
+<h3>Chi tiết lịch hẹn</h3>
+<hr />
+
+<dl class="row d-flex align-items-center">
+	<dt class="col-sm-3 mb-4">Mã lịch hẹn</dt>
+	<dd class="col-sm-9 mb-4">@AppointmentViewModel.Id</dd>
+
+	<dt class="col-sm-3 mb-4">Tên phụ huynh</dt>
+	<dd class="col-sm-9 mb-4">@AppointmentViewModel.ParentName</dd>
+
+	<dt class="col-sm-3 mb-4">Tên bé</dt>
+	<dd class="col-sm-9 mb-4">@AppointmentViewModel.ChildName</dd>
+
+	<dt class="col-sm-3 mb-4">Tên bác sĩ khám</dt>
+	<dd class="col-sm-9 mb-4">@AppointmentViewModel.DoctorName</dd>
+
+	<dt class="col-sm-3 mb-4">Ngày khám</dt>
+	<dd class="col-sm-9 mb-4">@AppointmentViewModel.CheckupDateTime</dd>
+
+	<dt class="col-sm-3 mb-4">Tổng phí</dt>
+	<dd class="col-sm-9 mb-4">@AppointmentViewModel.TotalAmount.ToString() VND</dd>
+
+	<dt class="col-sm-3 mb-4">Mã kết quả khám</dt>
+	<dd class="col-sm-9 mb-4">@AppointmentViewModel.ExaminationReportId</dd>
+
+	<dt class="col-sm-3 mb-4">Hẹn tái khám</dt>
+	<dd class="col-sm-9 mb-4">@AppointmentViewModel.FollowUpAppointment</dd>
+
+	<dt class="col-sm-3 mb-4">Ngày tạo</dt>
+	<dd class="col-sm-9 mb-4">@AppointmentViewModel.CreatedAt.ToString("dd/MM/yyyy")</dd>
+
+	<dt class="col-sm-3 mb-4">Cập nhật lần cuối</dt>
+	<dd class="col-sm-9 mb-4">@AppointmentViewModel.UpdatedAt</dd>
+
+	<dt class="col-sm-3 mb-4">Trạng thái</dt>
+	<dd class="col-sm-9 mb-4">
+		@AppointmentViewModel.Status
+	</dd>
+</dl>
+
+<NavLink href="/appointments" class="btn btn-secondary">Quay lại trang quản lý lịch hẹn</NavLink>

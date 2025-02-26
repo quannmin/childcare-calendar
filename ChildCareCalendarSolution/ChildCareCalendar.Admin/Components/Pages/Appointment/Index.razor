@@ -52,6 +52,7 @@ else
                     <td>@appointment.TotalAmount.ToString() VND</td>
                     <td>@appointment.Status</td>
                     <td>
+                        <NavLink class="btn btn-info btn-sm" href="@($"/appointments/detail/{appointment.AppointmentId}")">Chi tiết</NavLink>
                         <NavLink class="btn btn-warning btn-sm" href="@($"/appointments/edit/{appointment.AppointmentId}")">Chỉnh sửa</NavLink>
                         <button class="btn btn-danger btn-sm" @onclick="() => DeleteCategory(appointment.AppointmentId)">Xóa</button>
                     </td>

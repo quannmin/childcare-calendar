@@ -99,24 +99,9 @@ namespace ChildCareCalendar.Infrastructure.Services
             return _appointmentRepository.GetAllAsync(includes);
         }
 
-        public async Task<Appointment> GetAppointmentByIdAsync(int id)
+        public async Task<Appointment> GetAppointmentByIdAsync(int id, params Expression<Func<Appointment, object>>[] includes)
         {
-            return await _appointmentRepository.GetByIdAsync(id);
-        }
-
-        public async Task<IEnumerable<Appointment>> GetAppointmentsByChildrenRecordIdAsync(int childrenRecordId)
-        {
-            return await _appointmentRepository.FindAsync(a => a.ChildrenRecordId.Equals(childrenRecordId));
-        }
-
-        public async Task<IEnumerable<Appointment>> GetAppointmentsByDoctorIdAsync(int doctorId)
-        {
-            return await _appointmentRepository.FindAsync(a => a.DoctorId.Equals(doctorId));
-        }
-
-        public async Task<IEnumerable<Appointment>> GetAppointmentsByParentIdAsync(int parentId)
-        {
-            return await _appointmentRepository.FindAsync(a => a.ParentId.Equals(parentId));
+            return await _appointmentRepository.GetByIdAsync(id, includes);
         }
 
         public async Task UpdateAppointmentAsync(Appointment appointment)

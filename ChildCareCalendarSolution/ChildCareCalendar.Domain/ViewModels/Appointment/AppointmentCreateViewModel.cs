@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ChildCareCalendar.Domain.ViewModels.Appointment
 {
-    public class AppoinmentCreateViewModel
+    public class AppointmentCreateViewModel
     {
         public int ParentId { get; set; }
         public int DoctorId { get; set; }
