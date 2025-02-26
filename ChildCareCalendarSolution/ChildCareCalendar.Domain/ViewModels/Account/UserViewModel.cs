@@ -7,7 +7,7 @@ namespace ChildCareCalendar.Domain.ViewModels.Account
 {
     public class UserViewModel
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
 
         public string? Email { get; set; }
 

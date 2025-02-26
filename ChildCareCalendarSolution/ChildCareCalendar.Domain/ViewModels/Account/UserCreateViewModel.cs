@@ -1,7 +1,6 @@
 ﻿using ChildCareCalendar.Utilities.CheckValidInput;
 using ChildCareCalendar.Utilities.Constants;
 using System.ComponentModel.DataAnnotations;
-using ChildCareCalendar.Utilities.Helper.CustomeValidation;
 
 namespace ChildCareCalendar.Domain.ViewModels.Account
 {
@@ -22,7 +21,7 @@ namespace ChildCareCalendar.Domain.ViewModels.Account
         public SystemConstant.AccountsRole Role { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Số điện thoại không thể trống")]
-        [ValidPhoneNumber(ErrorMessage = "Phone number must start with 09, 03, 07, 08, or 05 and have 8 to 9 digits.")]
+        [ValidPhoneNumber(ErrorMessage = "Số điện thoại phải bắt đầu 09, 03, 07, 08, or 05 và có 10 đến 11 số.")]
         public string? PhoneNumber { get; set; }
         public string? Avatar { get; set; }
         public SystemConstant.Gender Gender { get; set; }

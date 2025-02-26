@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ChildCareCalendar.Utilities.Helper.CustomeValidation
+namespace ChildCareCalendar.Utilities.CheckValidInput
 {
     public class UserDobValidation : ValidationAttribute
     {

@@ -16,7 +16,7 @@ namespace ChildCareCalendar.Infrastructure.Repository
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
         Task<T?> GetByIdAsync(int id, params Expression<Func<T, object>>[] includes);
         Task AddAsync(T entity);
-        Task UpdateAsync(T entity);
+        Task UpdateAsync(T entity, object key);
         Task DeleteAsync(T entity);
     }
 }

@@ -1,0 +1,71 @@
+﻿@page "/users/edit/{id:int}"
+
+<h3>Chỉnh sửa chuyên khoa</h3>
+<hr />
+
+@if (ErrorMessage.Count > 0)
+{
+    @foreach (string error in ErrorMessage)
+    {
+        <div class="alert alert-danger">@error</div>
+    }
+}
+
+<EditForm Model="@userEditViewModel" OnValidSubmit="HandleUpdate" FormName="UserUpdate">
+    <DataAnnotationsValidator />
+                    <InputNumber hidden @bind-Value="userEditViewModel.Id" />
+
+    <div class="row">
+        <!-- Cột 1 -->
+        <div class="col-md-6">
+            <div class="form-group m-2">
+                <InputNumber hidden @bind-Value="userEditViewModel.Id" />
+                <label class="control-label m-2">
+                    Họ và tên
+                    <span class="text-danger">*</span>
+                </label>
+                <InputText class="form-control"
+                           @bind-Value="userEditViewModel.FullName"
+                           placeholder="Nhập họ và tên..." />
+                <ValidationMessage For="@(() => userEditViewModel.FullName)" class="text-danger" />
+            </div>
+
+            <div class="form-group m-2">
+                <label class="control-label m-2">Số điện thoại</label>
+                <InputTextArea class="form-control"
+                               @bind-Value="userEditViewModel.PhoneNumber"
+                               placeholder="Nhập số điện thoại..." />
+                <ValidationMessage For="@(() => userEditViewModel.PhoneNumber)" class="text-danger" />
+            </div>
+
+            <div class="form-group m-2">
+                <label class="control-label m-2">Địa chỉ</label>
+                <InputTextArea class="form-control"
+                               @bind-Value="userEditViewModel.Address"
+                               placeholder="Nhập địa chỉ..." />
+                <ValidationMessage For="@(() => userEditViewModel.Address)" class="text-danger" />
+            </div>
+
+            <div class="form-group m-2">
+                <label class="control-label m-2">Ngày tháng năm sinh</label>
+                <InputDate class="form-control"
+                           @bind-Value="userEditViewModel.Dob"
+                           placeholder="Nhập ngày tháng năm sinh..." />
+                <ValidationMessage For="@(() => userEditViewModel.Dob)" class="text-danger" />
+            </div>
+        </div>
+        <!-- Cột 2 -->
+
+    </div>
+    <div class="form-group row">
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-success">Cập nhật</button>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-secondary" href="/users/index">
+                Về trang quản lí chuyên khoa
+            </a>
+        </div>
+    </div>
+</EditForm>
+

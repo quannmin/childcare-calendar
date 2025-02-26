@@ -1,4 +1,5 @@
 ﻿using ChildCareCalendar.Domain.EF;
+using ChildCareCalendar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -82,6 +83,15 @@ namespace ChildCareCalendar.Infrastructure.Repository
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+        public async Task UpdateAsync(T entity, object key)
+        {
+            var existingEntity = await _dbSet.FindAsync(key);
+            if (existingEntity == null) throw new Exception($"{typeof(T).Name} không tồn tại");
+
+            _context.Entry(existingEntity).CurrentValues.SetValues(entity);
+            _context.Entry(existingEntity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
     }
