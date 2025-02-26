@@ -5,12 +5,12 @@
 
 @if (!string.IsNullOrEmpty(ErrorMessage))
 {
-    <div class="alert alert-danger" style="width: 50%;">
+    <div class="alert alert-danger w-50">
         @ErrorMessage
     </div>
 }
 
-<EditForm Model="@EditModel" OnValidSubmit="HandleUpdate" FormName="SpecialityUpdate" style="width: 50%;">
+<EditForm Model="@EditModel" OnValidSubmit="HandleUpdate" FormName="SpecialityUpdate" class="w-50">
     <DataAnnotationsValidator />
 
     <InputNumber hidden @bind-Value="EditModel.Id" />

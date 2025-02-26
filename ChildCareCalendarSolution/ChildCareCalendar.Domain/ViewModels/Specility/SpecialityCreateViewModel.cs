@@ -9,5 +9,7 @@ namespace ChildCareCalendar.Domain.ViewModels.Specility
         public string? SpecialtyName { get; set; }
         [MaxLength(255, ErrorMessage = "Mô tả không được quá 255 ký tự.")]
         public string? Description { get; set; }
-    }
+		public DateTime CreatedAt { get; set; }
+
+	}
 }

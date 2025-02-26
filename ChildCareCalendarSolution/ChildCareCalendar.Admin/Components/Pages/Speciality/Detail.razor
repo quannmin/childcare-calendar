@@ -3,42 +3,46 @@
 <h3>Chi tiết chuyên khoa</h3>
 <hr />
 
-<dl class="row">
-	<dt class="col-sm-3">Mã chuyên khoa:</dt>
-	<dd class="col-sm-9">@DetailViewModel.Id</dd>
+<dl class="row d-flex align-items-center">
+	<dt class="col-sm-3 mb-4">Mã chuyên khoa</dt>
+	<dd class="col-sm-9 mb-4">@DetailViewModel.Id</dd>
 
-	<dt class="col-sm-3">Tên chuyên khoa:</dt>
-	<dd class="col-sm-9">@DetailViewModel.SpecialtyName</dd>
+	<dt class="col-sm-3 mb-4">Tên chuyên khoa</dt>
+	<dd class="col-sm-9 mb-4">@DetailViewModel.SpecialtyName</dd>
 
-	<dt class="col-sm-3">Mô tả:</dt>
-	<dd class="col-sm-9">@DetailViewModel.Description</dd>
+	<dt class="col-sm-3 mb-4">Mô tả</dt>
+	<dd class="col-sm-9 mb-4">@DetailViewModel.Description</dd>
 
-	<dt class="col-sm-3">Ngày tạo:</dt>
-	<dd class="col-sm-9">@DetailViewModel.CreatedAt.ToString("dd/MM/yyyy HH:mm")</dd>
+	<dt class="col-sm-3 mb-4">Ngày tạo</dt>
+	<dd class="col-sm-9 mb-4">@DetailViewModel.CreatedAt.ToString("dd/MM/yyyy")</dd>
 
-	<dt class="col-sm-3">Người tạo:</dt>
-	<dd class="col-sm-9">@DetailViewModel.CreatedBy</dd>
+	<dt class="col-sm-3 mb-4">Người tạo</dt>
+	<dd class="col-sm-9 mb-4">@DetailViewModel.CreatedBy</dd>
 
-	<dt class="col-sm-3">Trạng thái:</dt>
-	<dd class="col-sm-9">
-		<p style="color: @(DetailViewModel.IsDelete ? "red" : "green")">
+	<dt class="col-sm-3 mb-4">Trạng thái</dt>
+	<dd class="col-sm-9 mb-4">
+		<p class="@(DetailViewModel.IsDelete ? "text-danger" : "text-success") mb-0">
 			@(DetailViewModel.IsDelete ? "Đã xóa" : "Đang hoạt động")
 		</p>
 	</dd>
 </dl>
 
+
 <div class="row mb-4">
-	<div class="col-md-4">
-		<NavLink class="btn btn-success" href="@($"/specialities/detail/{id}/services/create")">Tạo mới</NavLink>
-	</div>
+	<h4 class="col-md-3 text-center align-content-between">Danh sách dịch vụ liên quan</h4>
+	@if (DetailViewModel.Services != null && DetailViewModel.Services.Any())
+	{
+		<div class="col-md-4">
+			<NavLink class="btn btn-success" href="@($"/specialities/detail/{id}/services/create")">Tạo dịch vụ</NavLink>
+		</div>
+	}
 </div>
 
 @if (DetailViewModel.Services != null && DetailViewModel.Services.Any())
 {
-	<h4>Danh sách dịch vụ liên quan</h4>
-	<table class="table table-bordered table-hover text-center">
+	<table class="table table-bordered table-hover text-center border-2">
 		<thead class="table-dark">
-			<tr style="background-color: white; border: 2px solid gray">
+			<tr class="bg-white">
 				<th>Tên dịch vụ</th>
 				<th>Mô tả</th>
 				<th>Giá</th>
@@ -57,12 +61,12 @@
 					<td>@item.Price</td>
 					<td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
 					<td>@item.CreatedBy</td>
-					<td style="color:@(item.IsDelete ? "red" : "green")">
+					<td class="@(item.IsDelete ? "text-danger" : "text-success")">
 						@(item.IsDelete ? "Đã xóa" : "Đang hoạt động")
 					</td>
 
-					<td>
-						<NavLink class="btn btn-warning btn-sm" href="@($"/specialities/detail/{id}/services/{item.Id}")">Chỉnh sửa</NavLink>
+					<td class="d-flex justify-content-evenly">
+						<NavLink class="btn btn-warning btn-sm" href="@($"/specialities/detail/{id}/services/edit/{item.Id}")">Chỉnh sửa</NavLink>
 						<button class="btn btn-danger btn-sm">Xóa</button>
 					</td>
 				</tr>
@@ -72,7 +76,18 @@
 }
 else
 {
-	<p>Chưa có dịch vụ</p>
+	<div class="text-center mt-5">
+		<i class="bi bi-exclamation-circle text-secondary display-3"></i>
+		<h3 class="text-muted mt-3">Không có dữ liệu.</h3>
+		<div class="mt-4">
+			<NavLink href="@($"/specialities/detail/{id}/services/create")" class="btn btn-success me-2">
+				<i class="bi bi-plus-circle"></i> Tạo dịch vụ
+			</NavLink>
+			<NavLink href="/" class="btn btn-outline-secondary">
+				<i class="bi bi-house-door"></i> Về trang chủ
+			</NavLink>
+		</div>
+	</div>
 }
 
-<button class="btn btn-secondary">Quay lại</button>
+<NavLink href="/specialities" class="btn btn-secondary">Quay lại trang quản lý chuyên khoa</NavLink>

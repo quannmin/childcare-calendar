@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Domain.ViewModels.ServiceVM;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
@@ -27,6 +26,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Service
 		protected override void OnInitialized()
 		{
 			CreateModel.SpecialityId = id;
+			CreateModel.CreatedAt = DateTime.UtcNow;
 		}
 
 		private async Task HandleCreate()

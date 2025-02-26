@@ -16,6 +16,7 @@ namespace Pubs.BackendApi.Mappings
             CreateMap<Speciality, SpecialityDetailViewModel>();
             CreateMap<SpecialityEditViewModel, Speciality>().ReverseMap();
             CreateMap<ServiceCreateViewModel, Service>();
+            CreateMap<ServiceEditViewModel, Service>().ReverseMap();
 
             CreateMap<UserViewModel, AppUser>().ReverseMap();
             CreateMap<UserCreateViewModel, AppUser>()
