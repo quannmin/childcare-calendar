@@ -3,10 +3,11 @@
 <h3>Tạo mới dịch vụ</h3>
 <hr />
 
-<EditForm Model="CreateModel" OnValidSubmit="HandleCreate" FormName="ServiceCreate" style="width: 50%;">
+<EditForm Model="CreateModel" OnValidSubmit="HandleCreate" FormName="ServiceCreate" class="w-50">
 	<DataAnnotationsValidator />
 
 	<InputNumber hidden @bind-Value="CreateModel.SpecialityId" />
+	<InputDate hidden @bind-Value="CreateModel.CreatedAt" />
 
 	<div class="form-group m-2">
 		<label class="control-label m-2">

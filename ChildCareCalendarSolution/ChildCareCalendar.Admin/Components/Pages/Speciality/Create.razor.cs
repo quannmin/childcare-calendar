@@ -21,6 +21,11 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 
 		private string ErrorMessage = "";
 
+		protected override void OnInitialized()
+		{
+			CreateModel.CreatedAt = DateTime.UtcNow;
+		}
+
 		private async Task HandleCreate()
 		{
 			ErrorMessage = "";
