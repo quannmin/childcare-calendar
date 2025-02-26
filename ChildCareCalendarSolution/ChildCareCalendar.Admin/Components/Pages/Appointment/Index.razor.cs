@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
-using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Domain.ViewModels.Appointment;
-using ChildCareCalendar.Domain.ViewModels.Specility;
-using ChildCareCalendar.Infrastructure.Services;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
-using System.Linq.Expressions;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Appointment
 {
@@ -26,7 +22,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
 
         protected override async Task OnInitializedAsync()
         {
-            Appointments = Mapper.Map<List<AppointmentViewModel>>(await AppointmentService.GetAllAppointmentsAsync(
+            Appointments = Mapper.Map<List<AppointmentViewModel>>(await AppointmentService.FindAppointmentsAsync(a => !a.IsDelete,
                 a => a.Parent, a => a.ChildrenRecord, a => a.Service
                 ));
         }
@@ -34,8 +30,10 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
         private async Task HandleSearch()
         {
             var appointments = string.IsNullOrWhiteSpace(SearchData.Keyword)
-                ? await AppointmentService.GetAllAppointmentsAsync(a => a.Parent, a => a.ChildrenRecord, a => a.Service)
-                : await AppointmentService.FindAppointmentAsync(SearchData.Keyword);
+                ? await AppointmentService.FindAppointmentsAsync(a => !a.IsDelete, a => a.Parent, a => a.ChildrenRecord, a => a.Service)
+            : await AppointmentService.FindAppointmentsAsync(a => SearchData.Keyword.Equals(a.Parent.FullName) 
+                                                                || SearchData.Keyword.Equals(a.ChildrenRecord.FullName), 
+                                                                a => a.Parent, a => a.ChildrenRecord, a => a.Service);
 
             Appointments = Mapper.Map<List<AppointmentViewModel>>(appointments);
             StateHasChanged();

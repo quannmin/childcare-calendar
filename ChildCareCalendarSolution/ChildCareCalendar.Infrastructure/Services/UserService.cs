@@ -1,6 +1,7 @@
 ﻿using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using System.Linq.Expressions;
 
 namespace ChildCareCalendar.Infrastructure.Services
 {
@@ -30,20 +31,10 @@ namespace ChildCareCalendar.Infrastructure.Services
             }
             return id > 0 ? id : 0;
         }
-
-        public async Task<IEnumerable<AppUser>> GetAllUsersAsync()
+        public async Task<IEnumerable<AppUser>> FindUsersAsync(Expression<Func<AppUser, bool>> predicate,
+                                                                        params Expression<Func<AppUser, object>>[] includes)
         {
-            return await _userRepository.GetAllAsync();
-        }
-
-        public async Task<IEnumerable<AppUser>> GetAllUsersByNameAsync(string name)
-        {
-            return await _userRepository.FindAsync(x => x.FullName.ToLower().Equals(name.ToLower()));
-        }
-
-        public async Task<AppUser> GetUserByIdAsync(int id)
-        {
-            return await _userRepository.GetByIdAsync(id);
+            return await _userRepository.FindAsync(predicate, includes);
         }
 
         public async Task UpdateUserAsync(AppUser user)

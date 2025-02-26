@@ -4,6 +4,7 @@ using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using ChildCareCalendar.Utilities.Helper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Account
 {
@@ -31,9 +32,13 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
             {
                 if (id != 0 && userEditViewModel.Id == 0)
                 {
-                    var userEdit = await userService.GetUserByIdAsync(id);
-                    userEditViewModel = mapper.Map<UserEditViewModel>(userEdit);
-                    PreviewImageUrl = userEdit.Avatar;
+                    var userEdit = await userService.FindUsersAsync(u => u.Id == id && !u.IsDelete);
+                    userEditViewModel = mapper.Map<UserEditViewModel>(userEdit.FirstOrDefault());
+                    PreviewImageUrl = userEditViewModel.Avatar;
+                }
+                if (userEditViewModel.Dob == default)
+                {
+                    userEditViewModel.Dob = DateTime.Today;
                 }
             }
             catch (Exception ex)
@@ -96,39 +101,17 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
                 return;
             }
 
-            var userEntity = await userService.GetUserByIdAsync(userEditViewModel.Id);
-            if (userEntity == null)
+            var userEntity = await userService.FindUsersAsync(u => u.Id == id && !u.IsDelete);
+            if (userEntity.IsNullOrEmpty())
             {
                 isSubmitting = false;
                 ErrorMessage.Add("Người dùng không tồn tại.");
                 return;
             }
 
-            mapper.Map(userEditViewModel, userEntity);
-            await userService.UpdateUserAsync(userEntity);
+            mapper.Map(userEditViewModel, userEntity.FirstOrDefault());
+            await userService.UpdateUserAsync(userEntity.FirstOrDefault());
             navigationManager.NavigateTo("/users/index");
         }
-
-
     }
 }
-        //< div class= "col-md-6 p-2" >
-        //    < div class= "text-center w-100" >
-        //        < label class= "w-100 text-start" > Ảnh người dùng</label>
-        //    </div>
-        //    <div class= "col-md-12" >
-        //        < div class= "input-group w-100" >
-        //            < label class= "btn btn-primary w-100" >
-        //                < i class= "bi bi-upload" ></ i > Chọn ảnh
-        //                <InputFile OnChange = "HandleFileSelection" accept="image/*" class= "d-none" />
-        //            </ label >
-        //        </ div >
-        //    </ div >
-        //    @if(!string.IsNullOrEmpty(PreviewImageUrl))
-        //    {
-        //        < div class= "form-group m-2 text-center" style = "margin-left: 19px" >
-        //            < p class= "fw-bold" > Ảnh xem trước:</ p >
-        //            < img src = "@PreviewImageUrl" alt = "Preview Image" class= "img-thumbnail shadow" style = "width: 250px; height: 250px; object-fit: cover; border-radius: 10px;" />
-        //        </ div >
-        //    }
-        //</ div >

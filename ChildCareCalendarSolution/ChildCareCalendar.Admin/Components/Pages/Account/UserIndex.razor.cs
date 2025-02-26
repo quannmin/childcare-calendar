@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using ChildCareCalendar.Admin.Extensions;
-using ChildCareCalendar.Domain.ViewModels;
 using ChildCareCalendar.Domain.ViewModels.Account;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using ChildCareCalendar.Utilities.Constants;
@@ -35,14 +34,14 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
 
         private async Task LoadUsers()
         {
-            UserViewModels = Mapper.Map<List<UserViewModel>>(await userService.GetAllUsersAsync());
+            UserViewModels = Mapper.Map<List<UserViewModel>>(await userService.FindUsersAsync(u => u.IsDelete == false));
         }
 
         private async Task SearchUsers()
         {
             var users = string.IsNullOrEmpty(Keyword)
-                ? await userService.GetAllUsersAsync()
-                : await userService.GetAllUsersByNameAsync(Keyword);
+                ? await userService.FindUsersAsync(u => u.IsDelete == false)
+                : await userService.FindUsersAsync(u => u.FullName.Equals(Keyword));
 
             UserViewModels = Mapper.Map<List<UserViewModel>>(users);
         }
