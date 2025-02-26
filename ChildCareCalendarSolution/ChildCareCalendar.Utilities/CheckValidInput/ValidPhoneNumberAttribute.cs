@@ -16,7 +16,7 @@ namespace ChildCareCalendar.Utilities.CheckValidInput
             if (value == null) return false;
 
             var phoneNumber = value.ToString();
-            return Regex.IsMatch(phoneNumber, "^(09|03|07|08|05)[0-9]{10,11}$");
+            return Regex.IsMatch(phoneNumber, "^(09|03|07|08|05)[0-9]{8,9}$");
         }
     }
 }

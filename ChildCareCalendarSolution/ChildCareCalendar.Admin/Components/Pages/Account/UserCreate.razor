@@ -107,7 +107,9 @@
     <!-- Nút Tạo Mới và Quay Lại -->
     <div class="form-group row mt-3">
         <div class="col-md-8">
-            <button type="submit" class="btn btn-success">Tạo mới</button>
+            <button type="submit" class="btn btn-success" disabled="@isSubmitting">
+                @(isSubmitting ? "Đang xử lý..." : "Tạo mới")
+            </button>
         </div>
         <div class="col-md-4">
             <a class="btn btn-secondary" href="/">Về trang quản lí người dùng</a>

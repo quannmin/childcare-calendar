@@ -21,7 +21,7 @@ namespace ChildCareCalendar.Domain.Entities
         public bool IsDelete { get; set; } = false; public DateTime Dob { get; set; }
         public string? Role { get; set; }
         public bool Status { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public string? CreatedBy { get; set; }
         public ICollection<Appointment>? ParentAppointments { get; set; }
         public ICollection<Appointment>? DoctorAppointments { get; set; }
