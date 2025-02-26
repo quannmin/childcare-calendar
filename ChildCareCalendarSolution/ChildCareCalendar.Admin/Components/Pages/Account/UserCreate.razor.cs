@@ -5,6 +5,7 @@ using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using ChildCareCalendar.Utilities.Helper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Account
 {
@@ -23,7 +24,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         [Inject] private IMapper mapper { get; set; } = default!;
         [Inject] private CloudinaryService cloudinaryService { get; set; } = default!;
         private EditContext editContext;
-
+        private bool isSubmitting = false;
         protected override void OnInitialized()
         {
             editContext = new EditContext(userCreateViewModel);
@@ -83,11 +84,15 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         /// </summary>
         private async Task HandleCreateDoctor()
         {
+            if (isSubmitting) return;
+            isSubmitting = true;
+
             ErrorMessage.Clear();
 
             // Upload ảnh nếu có file được chọn
             if (selectedFile != null && !await UploadImage())
             {
+                isSubmitting = false;
                 return;
             }
 
@@ -96,11 +101,12 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
             if (doctor == null)
             {
                 ErrorMessage.Add("Không thể tạo tài khoản bác sĩ.");
+                isSubmitting = false;
                 return;
             }
-
+            isSubmitting = false;
             await userService.AddUserAsync(doctor);
-            navigationManager.NavigateTo("/");
+            navigationManager.NavigateTo("/users/index");
         }
     }
 }

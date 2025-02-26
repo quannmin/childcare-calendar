@@ -24,7 +24,8 @@ namespace ChildCareCalendar.Infrastructure.Services
             var user = await _userRepository.GetByIdAsync(id);
             if (user != null)
             {
-                await _userRepository.DeleteAsync(user);
+                user.IsDelete = true;
+                await _userRepository.UpdateAsync(user, user.Id);
                 id = user.Id;
             }
             return id > 0 ? id : 0;

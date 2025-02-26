@@ -13,6 +13,8 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         private IBrowserFile? selectedFile;
         private string? PreviewImageUrl;
         private string? UploadedImageUrl;
+        private bool isSubmitting = false;
+
         [Parameter]
         public int id { get; set; }
 
@@ -86,20 +88,24 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         }
         private async Task HandleUpdate()
         {
+            isSubmitting = true;
+
             if (selectedFile != null && !await UploadImage())
             {
+                isSubmitting = false;
                 return;
             }
 
             var userEntity = await userService.GetUserByIdAsync(userEditViewModel.Id);
             if (userEntity == null)
             {
+                isSubmitting = false;
                 ErrorMessage.Add("Người dùng không tồn tại.");
                 return;
             }
 
-            mapper.Map(userEditViewModel, userEntity); // Cập nhật dữ liệu vào entity
-            await userService.UpdateUserAsync(userEntity); // Chỉ lưu những trường thay đổi
+            mapper.Map(userEditViewModel, userEntity);
+            await userService.UpdateUserAsync(userEntity);
             navigationManager.NavigateTo("/users/index");
         }
 
