@@ -19,7 +19,9 @@ namespace Pubs.BackendApi.Mappings
             CreateMap<ServiceCreateViewModel, Service>();
 
             CreateMap<UserViewModel, AppUser>().ReverseMap();
-            CreateMap<UserCreateViewModel, AppUser>();
+            CreateMap<UserCreateViewModel, AppUser>()
+                .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender.ToString()))
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()));
             CreateMap<AppoinmentCreateViewModel, Appointment>();
             CreateMap<Appointment, AppointmentViewModel>()
             .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent.FullName))

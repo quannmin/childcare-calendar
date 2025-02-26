@@ -14,6 +14,8 @@ namespace ChildCareCalendar.Admin.Extensions
             services.AddTransient<ISpecialityService, SpecialityService>();
             services.AddTransient<IServiceService, ServiceService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAppointmentService, AppointmentService>();
+            services.AddTransient<IRefundReportService, RefundReportService>();
             services.AddSingleton<CloudinaryService>();
             return services;
         }

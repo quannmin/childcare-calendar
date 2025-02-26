@@ -33,11 +33,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
-builder.Services.AddScoped<IAppointmentService, AppointmentService>();
-builder.Services.AddScoped<IRefundReportService, RefundReportService>();
-
-
-
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
