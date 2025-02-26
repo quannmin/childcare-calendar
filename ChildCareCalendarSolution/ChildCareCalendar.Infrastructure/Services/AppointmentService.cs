@@ -123,7 +123,7 @@ namespace ChildCareCalendar.Infrastructure.Services
 
         public async Task UpdateAppointmentAsync(Appointment appointment)
         {
-            await _appointmentRepository.UpdateAsync(appointment);
+            await _appointmentRepository.UpdateAsync(appointment, appointment.Id);
         }
     }
 }

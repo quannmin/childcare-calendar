@@ -39,7 +39,7 @@ namespace ChildCareCalendar.Infrastructure.Services
 
         public async Task UpdateServiceAsync(Service service)
         {
-            await _serviceRepository.UpdateAsync(service);
+            await _serviceRepository.UpdateAsync(service, service.Id);
         }
     }
 }

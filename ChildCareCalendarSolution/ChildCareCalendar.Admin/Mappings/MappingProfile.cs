@@ -15,13 +15,14 @@ namespace Pubs.BackendApi.Mappings
             CreateMap<SpecialityCreateViewModel, Speciality>();
             CreateMap<Speciality, SpecialityDetailViewModel>();
             CreateMap<SpecialityEditViewModel, Speciality>().ReverseMap();
-
             CreateMap<ServiceCreateViewModel, Service>();
 
             CreateMap<UserViewModel, AppUser>().ReverseMap();
             CreateMap<UserCreateViewModel, AppUser>()
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender.ToString()))
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()));
+            CreateMap<UserEditViewModel, AppUser>().ReverseMap();
+
             CreateMap<AppoinmentCreateViewModel, Appointment>();
             CreateMap<Appointment, AppointmentViewModel>()
             .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent.FullName))

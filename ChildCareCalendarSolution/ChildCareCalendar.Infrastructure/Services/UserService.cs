@@ -19,13 +19,15 @@ namespace ChildCareCalendar.Infrastructure.Services
             await _userRepository.AddAsync(user);
         }
 
-        public async Task DeleteUserAsync(int id)
+        public async Task<int> DeleteUserAsync(int id)
         {
             var user = await _userRepository.GetByIdAsync(id);
             if (user != null)
             {
-                await _userRepository.DeleteAsync(user);    
+                await _userRepository.DeleteAsync(user);
+                id = user.Id;
             }
+            return id > 0 ? id : 0;
         }
 
         public async Task<IEnumerable<AppUser>> GetAllUsersAsync()
@@ -45,7 +47,7 @@ namespace ChildCareCalendar.Infrastructure.Services
 
         public async Task UpdateUserAsync(AppUser user)
         {
-            await _userRepository.UpdateAsync(user);    
+            await _userRepository.UpdateAsync(user, user.Id);
         }
     }
 }

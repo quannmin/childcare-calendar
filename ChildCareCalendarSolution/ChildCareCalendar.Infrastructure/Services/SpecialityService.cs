@@ -45,7 +45,7 @@ namespace ChildCareCalendar.Infrastructure.Services
 
         public async Task UpdateSpecialityAsync(Speciality speciality)
         {
-            await _specialityRepository.UpdateAsync(speciality);
+            await _specialityRepository.UpdateAsync(speciality, speciality.Id);
         }
 
 		public async Task<bool> CheckDuplicateSpecialtyNameAsync(string name)
