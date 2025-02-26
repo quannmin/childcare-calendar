@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,16 +11,20 @@ namespace ChildCareCalendar.Utilities.Constants
     {
         public enum Gender
         {
-            Male,
-            Female,
-            Other
+            Nam,
+            Nữ,
+            Khác
         }
-
         public enum AccountsRole
         {
-            Manager,
-            Doctor,
-            Parent
+            [Display(Name = "Quản lý")]
+            QuanLy,
+
+            [Display(Name = "Bác sĩ")]
+            BacSi,
+
+            [Display(Name = "Phụ huynh")]
+            PhuHuynh
         }
 
         public enum AppointmentStatus

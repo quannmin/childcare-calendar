@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using ChildCareCalendar.Admin.Extensions;
 using ChildCareCalendar.Domain.ViewModels;
 using ChildCareCalendar.Domain.ViewModels.Account;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using ChildCareCalendar.Utilities.Constants;
 using Microsoft.AspNetCore.Components;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Account
@@ -16,6 +18,15 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         private string Keyword = "";
         private NavigationManager navigationManager { get; set; }
 
+        private string GetRoleDisplayName(string role)
+        {
+            if (Enum.TryParse(role, out SystemConstant.AccountsRole parsedRole))
+            {
+                return parsedRole.GetDisplayName();
+            }
+
+            return role;
+        }
 
         protected override async Task OnInitializedAsync()
         {
@@ -24,7 +35,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
 
         private async Task SearchUsers()
         {
-            var users = string.IsNullOrEmpty(Keyword) 
+            var users = string.IsNullOrEmpty(Keyword)
                 ? await userService.GetAllUsersAsync() : await userService.GetAllUsersByNameAsync(Keyword);
 
             UserViewModels = Mapper.Map<List<UserViewModel>>(users);

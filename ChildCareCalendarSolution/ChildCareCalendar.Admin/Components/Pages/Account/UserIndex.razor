@@ -34,8 +34,7 @@
                 <td>@item.FullName</td>
                 <td>@item.Dob</td>
                 <td>@item.Email</td>
-                <td>@item.CreatedAt</td>
-                <td>@item.Role</td>
+                <td>@GetRoleDisplayName(item.Role)</td>
                 <td>
                     <button class="btn btn-danger btn-sm" @onclick="() => DeleteCategory(item.UserId)">Xóa</button>
                 </td>

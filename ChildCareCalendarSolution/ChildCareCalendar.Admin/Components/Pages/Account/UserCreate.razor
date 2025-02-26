@@ -1,4 +1,5 @@
 ﻿@page "/users/create"
+@using ChildCareCalendar.Admin.Extensions
 @using ChildCareCalendar.Utilities.Constants
 @using ChildCareCalendar.Utilities.Helper
 @rendermode InteractiveServer
@@ -14,7 +15,7 @@
     }
 }
 
-<EditForm Model="userCreateViewModel" OnValidSubmit="HandleCreateDoctor">
+<EditForm EditContext="editContext" OnValidSubmit="HandleCreateDoctor">
     <DataAnnotationsValidator />
 
     <div class="row">
@@ -28,18 +29,18 @@
 
             <div class="form-group m-2">
                 <label>Password</label>
-                <InputText type="password" class="form-control" @bind-Value="userCreateViewModel.Password" />
+                <InputText type="password" class="form-control" @bind-Value="userCreateViewModel.Password" @oninput="ValidateConfirmPassword" />
                 <ValidationMessage For="@(() => userCreateViewModel.Password)" class="text-danger" />
             </div>
 
             <div class="form-group m-2">
                 <label>Xác nhận Password</label>
-                <InputText type="password" class="form-control" @bind-Value="userCreateViewModel.ConfirmPassword" />
+                <InputText type="password" class="form-control" @bind-Value="userCreateViewModel.ConfirmPassword" @oninput="ValidateConfirmPassword" />
                 <ValidationMessage For="@(() => userCreateViewModel.ConfirmPassword)" class="text-danger" />
             </div>
 
             <div class="form-group m-2">
-                <label>Tên bác sĩ</label>
+                <label>Tên người dùng</label>
                 <InputText class="form-control" @bind-Value="userCreateViewModel.FullName" />
                 <ValidationMessage For="@(() => userCreateViewModel.FullName)" class="text-danger" />
             </div>
@@ -47,6 +48,36 @@
                 <label>Số điện thoại</label>
                 <InputText class="form-control" @bind-Value="userCreateViewModel.PhoneNumber" />
                 <ValidationMessage For="@(() => userCreateViewModel.PhoneNumber)" class="text-danger" />
+            </div>
+            <div class="form-group m-2">
+                <label>Ngày tháng năm sinh</label>
+                <InputDate class="form-control" @bind-Value="userCreateViewModel.Dob" />
+                <ValidationMessage For="@(() => userCreateViewModel.Dob)" class="text-danger" />
+            </div>
+            <div class="form-group m-2">
+                <label>Địa chỉ</label>
+                <InputText class="form-control" @bind-Value="userCreateViewModel.Address" />
+                <ValidationMessage For="@(() => userCreateViewModel.Address)" class="text-danger" />
+            </div>
+            <div class="form-group m-2">
+                <label>Giới tính</label>
+                <InputSelect class="form-control" @bind-Value="userCreateViewModel.Gender">
+                    @foreach (var gender in Enum.GetValues<SystemConstant.Gender>())
+                    {
+                        <option value="@gender">@gender.ToString()</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => userCreateViewModel.Gender)" class="text-danger" />
+            </div>
+            <div class="form-group m-2">
+                <label>Vai trò</label>
+                <InputSelect class="form-control" @bind-Value="userCreateViewModel.Role">
+                    @foreach (var role in Enum.GetValues<SystemConstant.AccountsRole>())
+                    {
+                        <option value="@role">@role.GetDisplayName()</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => userCreateViewModel.Role)" class="text-danger" />
             </div>
         </div>
 

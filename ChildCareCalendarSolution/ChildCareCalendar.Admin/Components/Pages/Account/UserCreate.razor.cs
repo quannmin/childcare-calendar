@@ -12,8 +12,8 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
     {
         private List<string> ErrorMessage = new();
         private IBrowserFile? selectedFile;
-        private string? PreviewImageUrl;  // Hiển thị ảnh xem trước
-        private string? UploadedImageUrl; // URL ảnh sau khi upload
+        private string? PreviewImageUrl;
+        private string? UploadedImageUrl;
 
         [SupplyParameterFromForm]
         public UserCreateViewModel userCreateViewModel { get; set; } = new();
@@ -22,10 +22,17 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         [Inject] private NavigationManager navigationManager { get; set; } = default!;
         [Inject] private IMapper mapper { get; set; } = default!;
         [Inject] private CloudinaryService cloudinaryService { get; set; } = default!;
+        private EditContext editContext;
 
-        /// <summary>
-        /// Xử lý khi người dùng chọn file
-        /// </summary>
+        protected override void OnInitialized()
+        {
+            editContext = new EditContext(userCreateViewModel);
+        }
+        private void ValidateConfirmPassword()
+        {
+            editContext.NotifyFieldChanged(FieldIdentifier.Create(() => userCreateViewModel.ConfirmPassword));
+        }
+
         private async Task HandleFileSelection(InputFileChangeEventArgs e)
         {
             selectedFile = e.File;
