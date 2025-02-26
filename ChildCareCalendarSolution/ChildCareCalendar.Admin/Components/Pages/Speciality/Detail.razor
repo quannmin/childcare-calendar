@@ -1,4 +1,5 @@
 ﻿@page "/specialities/detail/{id:int}"
+@rendermode InteractiveServer
 
 <h3>Chi tiết chuyên khoa</h3>
 <hr />
@@ -30,7 +31,7 @@
 
 <div class="row mb-4">
 	<h4 class="col-md-3 text-center align-content-between">Danh sách dịch vụ liên quan</h4>
-	@if (DetailViewModel.Services != null && DetailViewModel.Services.Any())
+	@if (ServiceViewModel != null && ServiceViewModel.Any())
 	{
 		<div class="col-md-4">
 			<NavLink class="btn btn-success" href="@($"/specialities/detail/{id}/services/create")">Tạo dịch vụ</NavLink>
@@ -38,7 +39,7 @@
 	}
 </div>
 
-@if (DetailViewModel.Services != null && DetailViewModel.Services.Any())
+@if (ServiceViewModel != null && ServiceViewModel.Any())
 {
 	<table class="table table-bordered table-hover text-center border-2">
 		<thead class="table-dark">
@@ -53,7 +54,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var item in DetailViewModel.Services)
+			@foreach (var item in ServiceViewModel)
 			{
 				<tr>
 					<td>@item.ServiceName</td>
@@ -67,7 +68,7 @@
 
 					<td class="d-flex justify-content-evenly">
 						<NavLink class="btn btn-warning btn-sm" href="@($"/specialities/detail/{id}/services/edit/{item.Id}")">Chỉnh sửa</NavLink>
-						<button class="btn btn-danger btn-sm">Xóa</button>
+						<button class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(item.Id)">Xóa</button>
 					</td>
 				</tr>
 			}
@@ -91,3 +92,43 @@ else
 }
 
 <NavLink href="/specialities" class="btn btn-secondary">Quay lại trang quản lý chuyên khoa</NavLink>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Bạn có chắc chắn muốn xóa dịch vụ này không?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+				<button type="button" class="btn btn-danger" @onclick="DeleteService">Xóa</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	function showDeleteModal() {
+		var modalElement = document.getElementById('deleteModal');
+		if (!modalElement) {
+			console.error("Lỗi: Không tìm thấy modal với id 'deleteModal'.");
+			return;
+		}
+		var modal = new bootstrap.Modal(modalElement);
+		modal.show();
+	}
+
+	function hideDeleteModal() {
+		var modalElement = document.getElementById('deleteModal');
+		if (!modalElement) {
+			console.error("Lỗi: Không tìm thấy modal với id 'deleteModal'.");
+			return;
+		}
+		var modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+		modal.hide();
+	}
+</script>
