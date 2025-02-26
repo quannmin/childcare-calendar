@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Domain.ViewModels.Specility;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 {
-    public partial class Detail
+	public partial class Detail
     {
         [Parameter]
         public int id { get; set; }
@@ -21,9 +19,9 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 
         protected override async Task OnInitializedAsync()
         {
-            if (id != 0 && DetailViewModel.SpecialityId == 0)
+            if (id != 0 && DetailViewModel.Id == 0)
             {
-                var speciality = await SpecialityService.GetSpecialityByIdAsync(id);
+                var speciality = await SpecialityService.GetSpecialityByIdAsync(id, s => s.Services);
                 DetailViewModel = Mapper.Map<SpecialityDetailViewModel>(speciality);
             }
         }

@@ -23,7 +23,7 @@ namespace ChildCareCalendar.Infrastructure.Services
             examinationReport.CreatedAt = DateTime.UtcNow;
             examinationReport.UpdatedAt = DateTime.UtcNow;
             var prescriptionDetails = await _prescriptionDetailRepository
-                            .GetAllAsync(pd => pd.ExaminationReportId == examinationReport.ExaminationReportId);
+                            .GetAllAsync(pd => pd.ExaminationReportId == examinationReport.Id);
 
             examinationReport.TotalAmount = prescriptionDetails.Sum(pd => pd.TotalAmount);
 
