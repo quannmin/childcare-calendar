@@ -1,6 +1,7 @@
 ﻿using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using System.Linq.Expressions;
 
 namespace ChildCareCalendar.Infrastructure.Services
 {
@@ -39,6 +40,12 @@ namespace ChildCareCalendar.Infrastructure.Services
         public async Task UpdateMedicineAsync(Medicine medicine)
         {
             await _medicineRepository.UpdateAsync(medicine, medicine.Id);
+        }
+        public async Task<IEnumerable<Medicine>> FindMedicinesAsync(
+        Expression<Func<Medicine, bool>> predicate,
+        params Expression<Func<Medicine, object>>[] includes)
+        {
+            return await _medicineRepository.FindAsync(predicate, includes);
         }
     }
 }
