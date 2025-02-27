@@ -1,0 +1,122 @@
+﻿@page "/register"
+@using ChildCareCalendar.Admin.Components.Layout
+@using ChildCareCalendar.Utilities.Constants
+@layout EmptyLayout
+@rendermode InteractiveServer
+<link rel="stylesheet" href="/assets/css/Registration.css">
+
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+<div class="container">
+    <header>Đăng ký</header>
+    <EditForm Model="userViewModel" OnValidSubmit="HandleCreateDoctor">
+        <DataAnnotationsValidator />
+        <div class="form first">
+            <div class="details personal">
+                <span class="title">Thông tin cá nhân</span>
+                <div class="fields">
+                    <div class="input-field">
+                        <label>Họ và tên</label>
+                        <InputText class="form-control" placeholder="Nhập họ và tên của bạn" @bind-Value="userViewModel.FullName" />
+                        <ValidationMessage For="@(() => userViewModel.FullName)" class="text-danger" />
+                    </div>
+                    <div class="input-field">
+                        <label>Ngày tháng năm sinh</label>
+                        <InputDate class="form-control" @bind-Value="userViewModel.Dob" />
+                        <ValidationMessage For="@(() => userViewModel.Dob)" class="text-danger" />
+                    </div>
+                    <div class="input-field">
+                        <label>Email</label>
+                        <InputText class="form-control" placeholder="Nhập email của bạn" @bind-Value="userViewModel.Email" />
+                        <ValidationMessage For="@(() => userViewModel.Email)" class="text-danger" />
+                    </div>
+                    <div class="input-field">
+                        <label>Số điện thoại</label>
+                        <InputText class="form-control" placeholder="Nhập số điện thoại của bạn" @bind-Value="userViewModel.PhoneNumber" />
+                        <ValidationMessage For="@(() => userViewModel.PhoneNumber)" class="text-danger" />
+                    </div>
+                    <div class="input-field">
+                        <label>Giới tính</label>
+                        <InputSelect class="form-control" @bind-Value="userViewModel.Gender">
+                            @foreach (var gender in Enum.GetValues<SystemConstant.Gender>())
+                            {
+                                <option value="@gender">@gender.ToString()</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => userViewModel.Gender)" class="text-danger" />
+                    </div>
+                    <div class="input-field">
+                        <label>Địa chỉ</label>
+                        <InputText class="form-control" placeholder="Nhập địa chỉ của bạn" @bind-Value="userViewModel.Address" />
+                        <ValidationMessage For="@(() => userViewModel.Address)" class="text-danger" />
+                    </div>
+                    <div class="row w-100" style="min-height: 200px">
+                        <div class="col-md-4 mt-5">
+                            <label class="lable-avatar">Ảnh người dùng</label>
+                            <label class="btn btn-primary custom-file-button">
+                                <i class="bi bi-upload"></i> Chọn ảnh
+                                <InputFile OnChange="HandleFileSelection" accept="image/*" class="d-none" />
+                            </label>
+                        </div>
+                        <div class="col-md-4" style="text-align: center">
+                            @if (!string.IsNullOrEmpty(PreviewImageUrl))
+                            {
+                                <img src="@PreviewImageUrl" alt="Preview Image" class="img-thumbnail shadow" style="width: 200px; height: 200px; object-fit: fill; border-radius: 10px;" />
+                            }
+                        </div>
+                        <div class="col-md-4 center-container">
+                            <button class="nextBtn">
+                                <span class="btnText">Next</span>
+                                <i class="uil uil-navigator"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="form second">
+            <div class="details address">
+                <span class="title">Hồ sơ bênh án của trẻ nhỏ</span>
+                <div class="fields">
+                    <div class="input-field">
+                        <label>Address Type</label>
+                        <input type="text" placeholder="Permanent or Temporary" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Nationality</label>
+                        <input type="text" placeholder="Enter nationality" required>
+                    </div>
+                    <div class="input-field">
+                        <label>State</label>
+                        <input type="text" placeholder="Enter your state" required>
+                    </div>
+                    <div class="input-field">
+                        <label>District</label>
+                        <input type="text" placeholder="Enter your district" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Block Number</label>
+                        <input type="number" placeholder="Enter block number" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Ward Number</label>
+                        <input type="number" placeholder="Enter ward number" required>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <div class="backBtn">
+                        <i class="uil uil-navigator"></i>
+                        <span class="btnText">Back</span>
+                    </div>
+
+                    <button class="sumbit">
+                        <span class="btnText">Submit</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+</div>
+<script src="/assets/js/Registration.js"></script>
