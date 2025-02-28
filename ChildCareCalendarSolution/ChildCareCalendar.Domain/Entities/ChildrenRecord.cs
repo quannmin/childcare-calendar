@@ -13,7 +13,8 @@ namespace ChildCareCalendar.Domain.Entities
         public int UserId { get; set; }
         public AppUser? Parent { get; set; }
         [DefaultValue(false)]
-        public bool IsDelete { get; set; } = false; public string? FullName { get; set; }
+        public bool IsDelete { get; set; } = false; 
+        public string? FullName { get; set; }
         public DateTime Dob { get; set; }
         public string? Gender { get; set; }
         public string? MedicalHistory { get; set; }

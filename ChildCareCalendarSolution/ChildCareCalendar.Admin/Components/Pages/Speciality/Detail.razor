@@ -19,13 +19,6 @@
 
 	<dt class="col-sm-3 mb-4">Người tạo</dt>
 	<dd class="col-sm-9 mb-4">@DetailViewModel.CreatedBy</dd>
-
-	<dt class="col-sm-3 mb-4">Trạng thái</dt>
-	<dd class="col-sm-9 mb-4">
-		<p class="@(DetailViewModel.IsDelete ? "text-danger" : "text-success") mb-0">
-			@(DetailViewModel.IsDelete ? "Đã xóa" : "Đang hoạt động")
-		</p>
-	</dd>
 </dl>
 
 
@@ -49,7 +42,6 @@
 				<th>Giá</th>
 				<th>Ngày tạo</th>
 				<th>Người tạo</th>
-				<th>Trạng thái</th>
 				<th>Thao tác</th>
 			</tr>
 		</thead>
@@ -62,10 +54,6 @@
 					<td>@item.Price</td>
 					<td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
 					<td>@item.CreatedBy</td>
-					<td class="@(item.IsDelete ? "text-danger" : "text-success")">
-						@(item.IsDelete ? "Đã xóa" : "Đang hoạt động")
-					</td>
-
 					<td class="d-flex justify-content-evenly">
 						<NavLink class="btn btn-warning btn-sm" href="@($"/specialities/detail/{id}/services/edit/{item.Id}")">Chỉnh sửa</NavLink>
 						<button class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(item.Id)">Xóa</button>
