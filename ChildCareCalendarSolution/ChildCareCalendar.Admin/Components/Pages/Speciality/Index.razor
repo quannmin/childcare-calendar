@@ -48,7 +48,6 @@ else
 				<th>Mô tả</th>
 				<th>Người tạo</th>
 				<th>Ngày tạo</th>
-				<th>Trạng thái</th>
 				<th>Thao tác</th>
 			</tr>
 		</thead>
@@ -60,10 +59,6 @@ else
 					<td>@item.Description</td>
 					<td>@item.CreatedBy</td>
 					<td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
-					<td class="@(item.IsDelete ? "text-danger" : "text-success")">
-						@(item.IsDelete ? "Đã xóa" : "Đang hoạt động")
-					</td>
-
 					<td class="d-flex justify-content-evenly">
 						<NavLink class="btn btn-info btn-sm" href="@($"/specialities/detail/{item.Id}")">Chi tiết</NavLink>
 						<NavLink class="btn btn-warning btn-sm" href="@($"/specialities/edit/{item.Id}")">Chỉnh sửa</NavLink>

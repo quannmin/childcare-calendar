@@ -1,0 +1,41 @@
+﻿@page "/users/detail/{id:int}"
+
+<h3>Chi tiết người dùng</h3>
+<hr />
+
+<dl class="row d-flex align-items-center">
+
+    <dt class="col-sm-3 mb-4">User email</dt>
+    <dd class="col-sm-9 mb-4">@DetailViewModel.Email</dd>
+
+    <dt class="col-sm-3 mb-4">Họ và tên</dt>
+    <dd class="col-sm-9 mb-4">@DetailViewModel.FullName</dd>
+
+    <dt class="col-sm-3 mb-4">Số điện thoại</dt>
+    <dd class="col-sm-9 mb-4">@DetailViewModel.PhoneNumber</dd>
+
+    <dt class="col-sm-3 mb-4">Ngày tháng năm sinh</dt>
+    <dd class="col-sm-9 mb-4">@DetailViewModel.Dob</dd>
+
+    <dt class="col-sm-3 mb-4">Địa chỉ</dt>
+    <dd class="col-sm-9 mb-4">@DetailViewModel.Address</dd>
+
+    <dt class="col-sm-3 mb-4">Giới tính</dt>
+    <dd class="col-sm-9 mb-4">@DetailViewModel.GenderDisplay</dd>
+
+    <dt class="col-sm-3 mb-4">Vai trò</dt>
+    <dd class="col-sm-9 mb-4">@DetailViewModel.RoleDisplay</dd>
+
+    <dt class="col-sm-3 mb-4">Ngày tạo</dt>
+    <dd class="col-sm-9 mb-4">@DetailViewModel.CreatedAt.ToString("dd/MM/yyyy")</dd>
+
+    <dt class="col-sm-3 mb-4">Người tạo</dt>
+    <dd class="col-sm-9 mb-4">@DetailViewModel.CreatedBy</dd>
+
+    <dt class="col-sm-3 mb-4">Ảnh người dùng</dt>
+    <dd class="col-sm-9 mb-4">
+        <img src="@DetailViewModel.Avatar" alt="Không có ảnh" class="img-thumbnail shadow" style="width: 250px; height: 250px; object-fit: cover; border-radius: 10px;" />
+    </dd>
+</dl>
+
+<NavLink href="/users/index" class="btn btn-secondary">Quay lại trang quản lý người dùng</NavLink>
