@@ -32,9 +32,9 @@
                 <td>@item.FullName</td>
                 <td>@item.Dob?.ToString("dd/MM/yyyy")</td>
                 <td>@item.Email</td>
-                <td>@GetRoleDisplayName(item.Role)</td>
+                <td>@GetRoleDisplayName(item.RoleDisplay)</td>
                 <td>
-                    <NavLink class="btn btn-info btn-sm" href="@($"/users/UserDetail/{item.Id}")">Chi tiết</NavLink>
+                    <NavLink class="btn btn-info btn-sm" href="@($"/users/detail/{item.Id}")">Chi tiết</NavLink>
                     <NavLink class="btn btn-warning btn-sm" href="@($"/users/edit/{item.Id}")">Chỉnh sửa</NavLink>
                     <button type="button" class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(item.Id)">Xóa</button>
                 </td>

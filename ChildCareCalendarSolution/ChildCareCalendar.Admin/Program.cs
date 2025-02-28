@@ -1,4 +1,4 @@
-using ChildCareCalendar.Admin.Components;
+﻿using ChildCareCalendar.Admin.Components;
 using ChildCareCalendar.Admin.Extensions;
 using ChildCareCalendar.Domain.EF;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Pubs.BackendApi.Mappings;
 using ChildCareCalendar.Domain.Data;
+using Microsoft.AspNetCore.Components.Server;
+using Microsoft.AspNetCore.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +35,16 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
+builder.Services.Configure<CircuitOptions>(options =>
+{
+    options.DetailedErrors = true;
+});
+builder.Services.Configure<HubOptions>(options =>
+{
+    options.ClientTimeoutInterval = TimeSpan.FromSeconds(60);
+    options.KeepAliveInterval = TimeSpan.FromSeconds(15);
+});
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

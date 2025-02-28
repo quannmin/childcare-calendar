@@ -18,7 +18,8 @@ namespace ChildCareCalendar.Domain.Entities
         public string? Avatar {  get; set; }
         public string? Address { get; set; }
         [DefaultValue(false)]
-        public bool IsDelete { get; set; } = false; public DateTime Dob { get; set; }
+        public bool IsDelete { get; set; } = false; 
+        public DateTime Dob { get; set; }
         public string? Role { get; set; }
         public bool Status { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
