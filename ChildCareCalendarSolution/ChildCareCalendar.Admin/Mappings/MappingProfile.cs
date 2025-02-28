@@ -2,7 +2,7 @@
 using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Domain.ViewModels.Account;
 using ChildCareCalendar.Domain.ViewModels.Appointment;
-using ChildCareCalendar.Domain.ViewModels.Medicie;
+using ChildCareCalendar.Domain.ViewModels.Medicine;
 using ChildCareCalendar.Domain.ViewModels.Service;
 using ChildCareCalendar.Domain.ViewModels.ServiceVM;
 using ChildCareCalendar.Domain.ViewModels.Specility;

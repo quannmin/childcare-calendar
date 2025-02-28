@@ -4,107 +4,232 @@
 <h3>Quản lý Thuốc</h3>
 
 <div class="row mb-4">
-    <div class="col-md-4">
-        @if (Medicines.Any())
-        {
-            <NavLink class="btn btn-success" href="/medicines/create">Tạo mới</NavLink>
-        }
-    </div>
+	<div class="col-md-4">
+		@if (Medicines.Any())
+		{
+			<NavLink class="btn btn-success" href="/medicines/create">Tạo mới</NavLink>
+		}
+	</div>
 
-    <div class="col-md-5 offset-md-3">
-        <EditForm Model="SearchData" OnValidSubmit="HandleSearch" FormName="SearchMedicine">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
+	<div class="col-md-5 offset-md-3">
+		<EditForm Model="SearchData" OnValidSubmit="HandleSearch" FormName="SearchMedicine">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
 
-            <div class="d-flex">
-                <InputText class="form-control me-2" @bind-Value="SearchData.Keyword" placeholder="Tìm kiếm thuốc..." />
-                <button type="submit" class="btn btn-primary searchBtn w-25">Tìm kiếm</button>
-            </div>
-        </EditForm>
-    </div>
+			<div class="d-flex">
+				<InputText class="form-control me-2" @bind-Value="SearchData.Keyword" placeholder="Tìm kiếm thuốc..." />
+				<button type="submit" class="btn btn-primary searchBtn w-25">Tìm kiếm</button>
+			</div>
+		</EditForm>
+	</div>
 </div>
 
 @if (Medicines.Count == 0)
 {
-    <div class="text-center mt-5">
-        <i class="bi bi-exclamation-circle text-secondary display-3"></i>
-        <h3 class="text-muted mt-3">Không có dữ liệu.</h3>
-        <div class="mt-4">
-            <NavLink href="/medicines/create" class="btn btn-success me-2">
-                <i class="bi bi-plus-circle"></i> Tạo thuốc
-            </NavLink>
-            <NavLink href="/" class="btn btn-outline-secondary">
-                <i class="bi bi-house-door"></i> Về trang chủ
-            </NavLink>
-        </div>
-    </div>
+	<div class="text-center mt-5">
+		<i class="bi bi-exclamation-circle text-secondary display-3"></i>
+		<h3 class="text-muted mt-3">Không có dữ liệu.</h3>
+		<div class="mt-4">
+			<NavLink href="/medicines/create" class="btn btn-success me-2">
+				<i class="bi bi-plus-circle"></i> Tạo thuốc
+			</NavLink>
+			<NavLink href="/" class="btn btn-outline-secondary">
+				<i class="bi bi-house-door"></i> Về trang chủ
+			</NavLink>
+		</div>
+	</div>
 }
 else
 {
-    <table class="table table-bordered table-hover text-center border-2">
-        <thead class="table-dark">
-            <tr class="bg-white">
-                <th>Tên thuốc</th>
-                <th>Giá</th>
-                <th>Trạng thái</th>
-                <th>Thao tác</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Medicines)
-            {
-                <tr>
-                    <td>@item.Name</td>
-                    <td>@item.Price.ToString("C")</td>
-                    <td class="@(item.IsDelete ? "text-danger" : "text-success")">
-                        @(item.IsDelete ? "Đã xóa" : "Đang hoạt động")
-                    </td>
-                    <td class="d-flex justify-content-evenly">                  
-                        <NavLink class="btn btn-warning btn-sm" href="@($"/medicines/edit/{item.Id}")">Chỉnh sửa</NavLink>
-                        <button class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(item.Id)">Xóa</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+	<table class="table table-bordered table-hover text-center border-2">
+		<thead class="table-dark">
+			<tr class="bg-white">
+				<th>Tên thuốc</th>
+				<th>Giá</th>
+				<th>Trạng thái</th>
+				<th>Thao tác</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Medicines)
+			{
+				<tr>
+					<td>@item.Name</td>
+					<td>@item.Price.ToString("C")</td>
+					<td class="@(item.IsDelete ? "text-danger" : "text-success")">
+						@(item.IsDelete ? "Đã xóa" : "Đang hoạt động")
+					</td>
+					<td class="d-flex justify-content-evenly">
+						<NavLink class="btn btn-warning btn-sm" href="@($"/medicines/edit/{item.Id}")">Chỉnh sửa</NavLink>
+						<button class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(item.Id)">Xóa</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 }
+<!-- Pagination -->
+@*     <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(CurrentPage == 1 ? "disabled" : "")">
+                <button class="page-link" @onclick="() => ChangePage(1)">Đầu</button>
+            </li>
+            <li class="page-item @(CurrentPage == 1 ? "disabled" : "")">
+                <button class="page-link" @onclick="() => ChangePage(CurrentPage - 1)">Trước</button>
+            </li>
+
+            <li class="page-item disabled">
+                <span class="page-link">Trang @CurrentPage / @TotalPages</span>
+            </li>
+
+            <li class="page-item @(CurrentPage == TotalPages ? "disabled" : "")">
+                <button class="page-link" @onclick="() => ChangePage(CurrentPage + 1)">Sau</button>
+            </li>
+            <li class="page-item @(CurrentPage == TotalPages ? "disabled" : "")">
+                <button class="page-link" @onclick="() => ChangePage(TotalPages)">Cuối</button>
+            </li>
+        </ul>
+    </nav> *@
+<!-- Pagination -->
+@*  <nav>
+	<ul class="pagination justify-content-center">
+		<!-- First Page -->
+		<li class="page-item @(CurrentPage == 1 ? "disabled" : "")">
+			<button class="page-link" @onclick="() => ChangePage(1)">«</button>
+		</li>
+		<!-- Previous Page -->
+		<li class="page-item @(CurrentPage == 1 ? "disabled" : "")">
+			<button class="page-link" @onclick="() => ChangePage(CurrentPage - 1)">‹</button>
+		</li>
+
+		<!-- Page Numbers -->
+		@for (int i = Math.Max(1, CurrentPage - 2); i <= Math.Min(TotalPages, CurrentPage + 2); i++)
+		{
+			<li class="page-item @(i == CurrentPage ? "active" : "")" @key="i">
+				<button class="page-link" @onclick="() => ChangePage(i)">@i</button>
+			</li>
+		}
+
+		<!-- Next Page -->
+		<li class="page-item @(CurrentPage == TotalPages ? "disabled" : "")">
+			<button class="page-link" @onclick="() => ChangePage(CurrentPage + 1)">›</button>
+		</li>
+		<!-- Last Page -->
+		<li class="page-item @(CurrentPage == TotalPages ? "disabled" : "")">
+			<button class="page-link" @onclick="() => ChangePage(TotalPages)">»</button>
+		</li>
+	</ul>
+</nav>  *@
+ @{
+	int maxPagesToShow = 5; // Số trang tối đa hiển thị
+	int startPage = Math.Max(1, CurrentPage - maxPagesToShow / 2);
+	int endPage = Math.Min(TotalPages, startPage + maxPagesToShow - 1);
+
+	// Đảm bảo không bị lệch nếu ở gần trang cuối
+	if (endPage - startPage < maxPagesToShow - 1)
+	{
+		startPage = Math.Max(1, endPage - maxPagesToShow + 1);
+	}
+} 
+
+ <nav>
+	<ul class="pagination justify-content-center">
+		<!-- First Page -->
+		<li class="page-item @(CurrentPage == 1 ? "disabled" : "")">
+			<button class="page-link" @onclick="() => ChangePage(1)">«</button>
+		</li>
+		<!-- Previous Page -->
+		<li class="page-item @(CurrentPage == 1 ? "disabled" : "")">
+			<button class="page-link" @onclick="() => ChangePage(CurrentPage - 1)">‹</button>
+		</li>
+
+		<!-- Nếu cần hiển thị "..." ở đầu -->
+		@if (startPage > 1)
+		{
+			<li class="page-item">
+				<button class="page-link" @onclick="() => ChangePage(1)">1</button>
+			</li>
+			@if (startPage > 2)
+			{
+				<li class="page-item disabled">
+					<span class="page-link">...</span>
+				</li>
+			}
+		}
+
+		<!-- Page Numbers -->
+		@for (int i = startPage; i <= endPage; i++)
+		{
+			<li class="page-item @(i == CurrentPage ? "active" : "")">
+				<button class="page-link" @onclick="() => ChangePage(i)">@i</button>
+			</li>
+		}
+
+		<!-- Nếu cần hiển thị "..." ở cuối -->
+		@if (endPage < TotalPages)
+		{
+			@if (endPage < TotalPages - 1)
+			{
+				<li class="page-item disabled">
+					<span class="page-link">...</span>
+				</li>
+			}
+			<li class="page-item">
+				<button class="page-link" @onclick="() => ChangePage(TotalPages)">@TotalPages</button>
+			</li>
+		}
+
+		<!-- Next Page -->
+		<li class="page-item @(CurrentPage == TotalPages ? "disabled" : "")">
+			<button class="page-link" @onclick="() => ChangePage(CurrentPage + 1)">›</button>
+		</li>
+		<!-- Last Page -->
+		<li class="page-item @(CurrentPage == TotalPages ? "disabled" : "")">
+			<button class="page-link" @onclick="() => ChangePage(TotalPages)">»</button>
+		</li>
+	</ul>
+</nav> 
+
+
+
+
 
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Bạn có chắc chắn muốn xóa thuốc này không?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-danger" @onclick="DeleteMedicine">Xóa</button>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Bạn có chắc chắn muốn xóa thuốc này không?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+				<button type="button" class="btn btn-danger" @onclick="DeleteMedicine">Xóa</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script>
-    function showDeleteModal() {
-        var modalElement = document.getElementById('deleteModal');
-        if (!modalElement) {
-            console.error("Lỗi: Không tìm thấy modal với id 'deleteModal'.");
-            return;
-        }
-        var modal = new bootstrap.Modal(modalElement);
-        modal.show();
-    }
+	function showDeleteModal() {
+		var modalElement = document.getElementById('deleteModal');
+		if (!modalElement) {
+			console.error("Lỗi: Không tìm thấy modal với id 'deleteModal'.");
+			return;
+		}
+		var modal = new bootstrap.Modal(modalElement);
+		modal.show();
+	}
 
-    function hideDeleteModal() {
-        var modalElement = document.getElementById('deleteModal');
-        if (!modalElement) {
-            console.error("Lỗi: Không tìm thấy modal với id 'deleteModal'.");
-            return;
-        }
-        var modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-        modal.hide();
-    }
+	function hideDeleteModal() {
+		var modalElement = document.getElementById('deleteModal');
+		if (!modalElement) {
+			console.error("Lỗi: Không tìm thấy modal với id 'deleteModal'.");
+			return;
+		}
+		var modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+		modal.hide();
+	}
 </script>

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using ChildCareCalendar.Domain.ViewModels.Medicie;
+using ChildCareCalendar.Domain.ViewModels.Medicine;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Medicine
 {
-	public partial class Create
+    public partial class Create
 	{
 		[SupplyParameterFromForm(FormName = "MedicineCreate")]
 		private MedicineCreateViewModel CreateModel { get; set; } = new();

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChildCareCalendar.Domain.ViewModels.Medicie
+namespace ChildCareCalendar.Domain.ViewModels.Medicine
 {
     public class MedicineViewModel
     {

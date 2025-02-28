@@ -78,6 +78,26 @@ namespace ChildCareCalendar.Infrastructure.Repository
 
             return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
         }
+
+        public async Task<(IEnumerable<T> Items, int TotalCount)> GetPagedAsync(
+            int pageIndex,
+            int pageSize,
+            Expression<Func<T, bool>> filter = null) 
+        {
+            IQueryable<T> query = _dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            int totalCount = await query.CountAsync();
+            var items = await query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            return (items, totalCount);
+        }
+
+
         public async Task UpdateAsync(T entity, object key)
         {
             var existingEntity = await _dbSet.FindAsync(key);
@@ -87,5 +107,7 @@ namespace ChildCareCalendar.Infrastructure.Repository
             _context.Entry(existingEntity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
+
+
     }
 }

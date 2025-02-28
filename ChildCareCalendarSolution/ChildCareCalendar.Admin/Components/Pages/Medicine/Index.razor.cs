@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
-using ChildCareCalendar.Domain.ViewModels.Medicie;
+using ChildCareCalendar.Domain.ViewModels.Medicine;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System.Linq.Expressions;
+using ChildCareCalendar.Domain.Entities;
+using System.Web;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Medicine
 {
@@ -12,6 +15,8 @@ namespace ChildCareCalendar.Admin.Components.Pages.Medicine
         private IMedicineService MedicineService { get; set; } = default!;
         [Inject]
         private IMapper Mapper { get; set; } = default!;
+        [Inject]
+        private NavigationManager Navigation { get; set; } = default!;
         private List<MedicineViewModel> Medicines = new();
         [SupplyParameterFromForm]
         private MedicineSearchViewModel SearchData { get; set; } = new();
@@ -20,29 +25,60 @@ namespace ChildCareCalendar.Admin.Components.Pages.Medicine
         private IJSRuntime JS { get; set; }
 
         private int? idToDelete;
+        private int CurrentPage = 1;
+        private int PageSize = 10;
+        private int TotalPages = 1;
+        private int TotalItems = 0;
 
         protected override async Task OnInitializedAsync()
         {
+            // Đọc tham số truy vấn từ URL
+            var uri = new Uri(Navigation.Uri);
+            var queryParameters = HttpUtility.ParseQueryString(uri.Query);
+            var page = queryParameters["page"];
+
+            if (int.TryParse(page, out int pageNumber) && pageNumber > 0)
+            {
+                CurrentPage = pageNumber;
+            }
+            else
+            {
+                CurrentPage = 1;
+            }
+
             await LoadMedicines();
         }
 
+
+
         private async Task LoadMedicines()
         {
-            var medicines = await MedicineService.FindMedicinesAsync(x => !x.IsDelete);
+            Console.WriteLine($"Loading data for page: {CurrentPage}");
+            var (medicines, totalCount) = await MedicineService.GetPagedMedicinesAsync(CurrentPage, PageSize, SearchData.Keyword);
             Medicines = Mapper.Map<List<MedicineViewModel>>(medicines);
-            StateHasChanged();
+            TotalItems = totalCount;
+            TotalPages = (int)Math.Ceiling((double)TotalItems / PageSize);
         }
+
 
         private async Task HandleSearch()
         {
-            var medicines = string.IsNullOrWhiteSpace(SearchData.Keyword)
-                ? await MedicineService.FindMedicinesAsync(x => !x.IsDelete)
-                : await MedicineService.FindMedicinesAsync(x =>
-                    x.Name.ToLower().Contains(SearchData.Keyword.ToLower()) &&
-                    !x.IsDelete);
+            CurrentPage = 1;
+            Navigation.NavigateTo($"/medicines?page={CurrentPage}/search={SearchData.Keyword}", forceLoad: false);
+            await LoadMedicines();
+        }
 
-            Medicines = Mapper.Map<List<MedicineViewModel>>(medicines);
-            StateHasChanged();
+        private async Task ChangePage(int newPage)
+        {
+            if (newPage >= 1 && newPage <= TotalPages && newPage != CurrentPage)
+            {
+                
+                CurrentPage = newPage;
+                await LoadMedicines();
+                Navigation.NavigateTo($"/medicines?page={CurrentPage}", forceLoad: false);              
+               
+                
+            }
         }
 
         private async void ConfirmDelete(int id)

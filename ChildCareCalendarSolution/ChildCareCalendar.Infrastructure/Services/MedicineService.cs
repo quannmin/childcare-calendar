@@ -8,6 +8,7 @@ namespace ChildCareCalendar.Infrastructure.Services
     public class MedicineService : IMedicineService
     {
         private readonly IRepository<Medicine> _medicineRepository;
+
         public MedicineService(IRepository<Medicine> repository)
         {
             _medicineRepository = repository;
@@ -21,7 +22,7 @@ namespace ChildCareCalendar.Infrastructure.Services
         {
             var medicine = await GetMedicineByIdAsync(id);
 
-           if (medicine !=  null)
+            if (medicine != null)
             {
                 await _medicineRepository.DeleteAsync(medicine);
             }
@@ -46,6 +47,23 @@ namespace ChildCareCalendar.Infrastructure.Services
         params Expression<Func<Medicine, object>>[] includes)
         {
             return await _medicineRepository.FindAsync(predicate, includes);
+        }
+        public async Task<(IEnumerable<Medicine> Medicines, int TotalCount)> GetPagedMedicinesAsync(
+    int pageIndex,
+    int pageSize,
+    string keyword = null)
+        {
+            Expression<Func<Medicine, bool>> filter = null;
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                filter = x => x.Name.Contains(keyword) && !x.IsDelete;
+            }
+            else
+            {
+                filter = x => !x.IsDelete;
+            }
+            return await _medicineRepository.GetPagedAsync(pageIndex, pageSize, filter);
         }
     }
 }

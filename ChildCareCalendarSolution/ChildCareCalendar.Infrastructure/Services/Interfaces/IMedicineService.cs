@@ -13,5 +13,9 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task<IEnumerable<Medicine>> FindMedicinesAsync(
        Expression<Func<Medicine, bool>> predicate,
        params Expression<Func<Medicine, object>>[] includes);
+        Task<(IEnumerable<Medicine> Medicines, int TotalCount)> GetPagedMedicinesAsync(
+        int pageIndex,
+        int pageSize,
+        string keyword = null);
     }
 }
