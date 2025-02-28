@@ -1,5 +1,6 @@
 ﻿/* ===== Google Font Import - Poppins ===== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
 .custom-file-button {
     width: 100%;
     max-width: 250px;
@@ -11,21 +12,27 @@
     background-color: grey
 }
 
+.error-border {
+    border: 2px solid red !important;
+}
+
 select.form-control {
     font-size: 0.85em;
 }
-    .image-button-container {
+
+.image-button-container {
     display: flex;
     align-items: center; /* Căn giữa theo chiều dọc */
     justify-content: space-between; /* Đẩy các phần tử ra hai đầu */
     width: 100%; /* Chiếm toàn bộ chiều rộng */
 }
+
 .center-container {
     display: flex;
     justify-content: center; /* Căn giữa theo chiều ngang */
     align-items: center; /* Căn giữa theo chiều dọc (nếu cần) */
 }
-    
+
 * {
     margin: 0;
     padding: 0;
@@ -90,13 +97,13 @@ body {
                 transform: translateX(100%);
             }
 
-form.secActive .form.second {
+#registrationForm.secActive .form.second {
     opacity: 1;
     pointer-events: auto;
     transform: translateX(0);
 }
 
-form.secActive .form.first {
+#registrationForm.secActive .form.first {
     opacity: 0;
     pointer-events: none;
     transform: translateX(-100%);

@@ -34,8 +34,8 @@ namespace ChildCareCalendar.Admin.Components.Pages.Service
 		{
 			if (serviceId != 0 && EditModel.Id == 0)
 			{
-				var service = await ServiceService.GetServiceByIdAsync(serviceId);
-				EditModel = Mapper.Map<ServiceEditViewModel>(service);
+				var service = await ServiceService.FindServicesAsync(x => x.Id == serviceId);
+				EditModel = Mapper.Map<ServiceEditViewModel>(service.FirstOrDefault());
 			}
 		}
 

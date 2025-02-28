@@ -1,6 +1,28 @@
 ﻿@page "/specialities"
+@rendermode InteractiveServer
 
 <h3>Quản lý Chuyên khoa</h3>
+
+<div class="row mb-4">
+	<div class="col-md-4">
+		@if (Specialities.Any())
+		{
+			<NavLink class="btn btn-success" href="/specialities/create">Tạo mới</NavLink>
+		}
+	</div>
+
+	<div class="col-md-5 offset-md-3">
+		<EditForm Model="SearchData" OnValidSubmit="HandleSearch" FormName="SearchSpecialy">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+
+			<div class="d-flex">
+				<InputText class="form-control me-2" @bind-Value="SearchData.Keyword" placeholder="Tìm kiếm chuyên khoa..." />
+				<button type="submit" class="btn btn-primary searchBtn w-25">Tìm kiếm</button>
+			</div>
+		</EditForm>
+	</div>
+</div>
 
 @if (Specialities.Count == 0)
 {
@@ -19,24 +41,6 @@
 }
 else
 {
-	<div class="row mb-4">
-		<div class="col-md-4">
-			<NavLink class="btn btn-success" href="/specialities/create">Tạo mới</NavLink>
-		</div>
-
-		<div class="col-md-5 offset-md-3">
-			<EditForm Model="SearchData" OnValidSubmit="HandleSearch" FormName="SearchSpecialy">
-				<DataAnnotationsValidator />
-				<ValidationSummary />
-
-				<div class="d-flex">
-					<InputText class="form-control me-2" @bind-Value="SearchData.Keyword" placeholder="Tìm kiếm chuyên khoa..." />
-					<button type="submit" class="btn btn-primary searchBtn w-25">Tìm kiếm</button>
-				</div>
-			</EditForm>
-		</div>
-	</div>
-
 	<table class="table table-bordered table-hover text-center border-2">
 		<thead class="table-dark">
 			<tr class="bg-white">
@@ -44,7 +48,6 @@ else
 				<th>Mô tả</th>
 				<th>Người tạo</th>
 				<th>Ngày tạo</th>
-				<th>Trạng thái</th>
 				<th>Thao tác</th>
 			</tr>
 		</thead>
@@ -56,23 +59,53 @@ else
 					<td>@item.Description</td>
 					<td>@item.CreatedBy</td>
 					<td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
-					<td class="@(item.IsDelete ? "text-danger" : "text-success")">
-						@(item.IsDelete ? "Đã xóa" : "Đang hoạt động")
-						@* <div class="form-check form-switch">
-							<InputCheckbox class="form-check-input" id="switch_@item.SpecialityId" disabled @(item.IsDelete ? checked : null) />
-							<label class="form-check-label" for="switch_@item.SpecialityId">
-								@(item.IsDelete ? "Đã xóa" : "Đang hoạt động")
-							</label>
-						</div> *@
-					</td>
-
 					<td class="d-flex justify-content-evenly">
 						<NavLink class="btn btn-info btn-sm" href="@($"/specialities/detail/{item.Id}")">Chi tiết</NavLink>
 						<NavLink class="btn btn-warning btn-sm" href="@($"/specialities/edit/{item.Id}")">Chỉnh sửa</NavLink>
-						<button class="btn btn-danger btn-sm" @onclick="() => DeleteCategory(item.Id)">Xóa</button>
+						<button class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(item.Id)">Xóa</button>
 					</td>
 				</tr>
 			}
 		</tbody>
 	</table>
 }
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Bạn có chắc chắn muốn xóa chuyên khoa này không?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+				<button type="button" class="btn btn-danger" @onclick="DeleteSpeciality">Xóa</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	function showDeleteModal() {
+		var modalElement = document.getElementById('deleteModal');
+		if (!modalElement) {
+			console.error("Lỗi: Không tìm thấy modal với id 'deleteModal'.");
+			return;
+		}
+		var modal = new bootstrap.Modal(modalElement);
+		modal.show();
+	}
+
+	function hideDeleteModal() {
+		var modalElement = document.getElementById('deleteModal');
+		if (!modalElement) {
+			console.error("Lỗi: Không tìm thấy modal với id 'deleteModal'.");
+			return;
+		}
+		var modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+		modal.hide();
+	}
+</script>

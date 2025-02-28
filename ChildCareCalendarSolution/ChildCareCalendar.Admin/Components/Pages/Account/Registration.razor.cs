@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ChildCareCalendar.Domain.Entities;
-using ChildCareCalendar.Domain.ViewModels.Account;
+using ChildCareCalendar.Domain.ViewModels.CompositeViewModels;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using ChildCareCalendar.Utilities.Helper;
 using Microsoft.AspNetCore.Components;
@@ -15,13 +15,22 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         private string? PreviewImageUrl;
         private string? UploadedImageUrl;
         [SupplyParameterFromForm]
-        public UserViewModel userViewModel { get; set; } = new();
-
+        public User_ChildrenCreateViewModel compositeViewModel { get; set; } = new();
         [Inject] private IUserService userService { get; set; } = default!;
+        [Inject] private IChildrenRecordService childrenRecordService { get; set; } = default!;
         [Inject] private NavigationManager navigationManager { get; set; } = default!;
         [Inject] private IMapper mapper { get; set; } = default!;
         [Inject] private CloudinaryService cloudinaryService { get; set; } = default!;
         private bool isSubmitting = false;
+        private EditContext editContext;
+        protected override void OnInitialized()
+        {
+            editContext = new EditContext(compositeViewModel);
+        }
+        private void ValidateConfirmPassword()
+        {
+            editContext.NotifyFieldChanged(FieldIdentifier.Create(() => compositeViewModel._userCreateViewModel.ConfirmPassword));
+        }
         private async Task HandleFileSelection(InputFileChangeEventArgs e)
         {
             selectedFile = e.File;
@@ -57,7 +66,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
                     return false;
                 }
 
-                userViewModel.Avatar = UploadedImageUrl;
+                compositeViewModel._userCreateViewModel.Avatar = UploadedImageUrl;
                 return true;
             }
             catch (Exception ex)
@@ -70,8 +79,10 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         /// <summary>
         /// Xử lý tạo tài khoản
         /// </summary>
-        private async Task HandleCreateDoctor()
+        private async Task HandleCreateUser()
         {
+            compositeViewModel._userCreateViewModel.Role = Utilities.Constants.SystemConstant.AccountsRole.PhuHuynh;
+
             if (isSubmitting) return;
             isSubmitting = true;
 
@@ -85,15 +96,29 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
             }
 
             // Mapping dữ liệu
-            AppUser doctor = mapper.Map<AppUser>(userViewModel);
-            if (doctor == null)
+            AppUser user = mapper.Map<AppUser>(compositeViewModel._userCreateViewModel);
+            if (user == null)
             {
-                ErrorMessage.Add("Không thể tạo tài khoản bác sĩ.");
+                ErrorMessage.Add("Không thể tạo tài khoản phụ huynh.");
                 isSubmitting = false;
                 return;
             }
+
+            await userService.AddUserAsync(user);
+
+            ChildrenRecord childrenRecord = mapper.Map<ChildrenRecord>(compositeViewModel._childCreateViewModel);
+            if (childrenRecord == null)
+            {
+                ErrorMessage.Add("Không thể tạo hồ sơ cho trẻ.");
+                isSubmitting = false;
+                return;
+            }
+            childrenRecord.UserId = user.Id;
+
             isSubmitting = false;
-            await userService.AddUserAsync(doctor);
+
+            await childrenRecordService.AddChildrenRecordAsync(childrenRecord);
+
             navigationManager.NavigateTo("/users/index");
         }
     }
