@@ -1,0 +1,47 @@
+﻿@page "/medicines/edit/{id:int}"
+
+<h3>Chỉnh sửa thuốc</h3>
+<hr />
+
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="alert alert-danger w-50">
+        @ErrorMessage
+    </div>
+}
+
+<EditForm Model="@EditModel" OnValidSubmit="HandleUpdate" FormName="MedicineUpdate" class="w-50">
+    <DataAnnotationsValidator />
+
+    <InputNumber hidden @bind-Value="EditModel.Id" />
+
+    <div class="form-group m-2">
+        <label class="control-label m-2">
+            Tên thuốc
+            <span class="text-danger">*</span>
+        </label>
+        <InputText class="form-control"
+                   @bind-Value="EditModel.Name"
+                   placeholder="Nhập tên thuốc..." />
+        <ValidationMessage For="@(() => EditModel.Name)" class="text-danger" />
+    </div>
+
+    <div class="form-group m-2">
+        <label class="control-label m-2">Giá thuốc</label>
+        <InputNumber class="form-control"
+                       @bind-Value="EditModel.Price"
+                       placeholder="Nhập giá thuốc..." />
+        <ValidationMessage For="@(() => EditModel.Price)" class="text-danger" />
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-success">Cập nhật</button>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-secondary" href="/medicines">
+                Quay lại quản lý thuốc
+            </a>
+        </div>
+    </div>
+</EditForm>

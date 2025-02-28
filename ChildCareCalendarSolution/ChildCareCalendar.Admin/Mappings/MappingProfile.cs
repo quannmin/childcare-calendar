@@ -2,6 +2,7 @@
 using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Domain.ViewModels.Account;
 using ChildCareCalendar.Domain.ViewModels.Appointment;
+using ChildCareCalendar.Domain.ViewModels.Medicine;
 using ChildCareCalendar.Domain.ViewModels.ChildrenRecord;
 using ChildCareCalendar.Domain.ViewModels.Service;
 using ChildCareCalendar.Domain.ViewModels.ServiceVM;
@@ -21,6 +22,10 @@ namespace Pubs.BackendApi.Mappings
             CreateMap<ServiceCreateViewModel, Service>();
             CreateMap<ServiceEditViewModel, Service>().ReverseMap();
             CreateMap<Service, ServiceViewModel>();
+
+            CreateMap<MedicineViewModel, Medicine>().ReverseMap();
+            CreateMap<MedicineEditViewModel, Medicine>().ReverseMap();
+            CreateMap<MedicineCreateViewModel, Medicine>();
 
             CreateMap<UserViewModel, AppUser>().ReverseMap();
             CreateMap<UserCreateViewModel, AppUser>()

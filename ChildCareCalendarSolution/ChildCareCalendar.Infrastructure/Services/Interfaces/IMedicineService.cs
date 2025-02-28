@@ -1,4 +1,5 @@
 ﻿using ChildCareCalendar.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace ChildCareCalendar.Infrastructure.Services.Interfaces
 {
@@ -9,5 +10,12 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task CreateMedineAsnync(Medicine medicine);
         Task UpdateMedicineAsync(Medicine medicine);
         Task DeleteMedicineAsync(int id);
+        Task<IEnumerable<Medicine>> FindMedicinesAsync(
+       Expression<Func<Medicine, bool>> predicate,
+       params Expression<Func<Medicine, object>>[] includes);
+        Task<(IEnumerable<Medicine> Medicines, int TotalCount)> GetPagedMedicinesAsync(
+        int pageIndex,
+        int pageSize,
+        string keyword = null);
     }
 }
