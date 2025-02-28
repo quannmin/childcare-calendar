@@ -10,7 +10,7 @@
 
     // Lấy nút Next và Back
     const nextBtn = document.getElementById("nextButton");
-    const backBtn = document.querySelector(".backBtn");
+    const backBtn = document.getElementById("backButton");
 
     // Lấy tất cả các input và select trong form-first, loại trừ input file
     const firstFormInputs = registrationForm.querySelectorAll(".form.first input:not([type='file']), .form.first select");
@@ -26,6 +26,7 @@
 
     // Gán sự kiện cho nút Back nếu có
     if (backBtn) {
+        console.log("backBtn button clicked!");
         backBtn.removeEventListener("click", handleBackClick);
         backBtn.addEventListener("click", handleBackClick);
     }
@@ -52,5 +53,10 @@
             // Thêm class 'secActive' vào registrationForm để chuyển sang hiển thị form-second
             registrationForm.classList.add('secActive');
         }
+    }
+
+    function handleBackClick(event) {
+        console.log("Back button clicked!");
+        registrationForm.classList.remove('secActive');
     }
 };

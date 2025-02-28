@@ -21,33 +21,21 @@
                     <div class="input-field">
                         <label>Họ và tên</label>
                         <InputText class="form-control" placeholder="Nhập họ và tên của bạn" @bind-Value="compositeViewModel._userCreateViewModel.FullName" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng nhập họ và tên.
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.FullName)" class="text-danger" />
                     </div>
                     <div class="input-field">
                         <label>Ngày tháng năm sinh</label>
                         <InputDate class="form-control" @bind-Value="compositeViewModel._userCreateViewModel.Dob" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng chọn ngày tháng năm sinh.
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.Dob)" class="text-danger" />
                     </div>
                     <div class="input-field">
                         <label>Email</label>
                         <InputText class="form-control" placeholder="Nhập email của bạn" @bind-Value="compositeViewModel._userCreateViewModel.Email" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng nhập email
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.Email)" class="text-danger" />
                     </div>
                     <div class="input-field">
                         <label>Password</label>
                         <InputText type="password" placeholder="Nhập mật khẩu của bạn" class="form-control" @bind-Value="compositeViewModel._userCreateViewModel.Password" @oninput="ValidateConfirmPassword" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng nhập mật khẩu
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.Password)" class="text-danger" />
                     </div>
 
@@ -56,17 +44,11 @@
                         <InputText type="password" class="form-control" placeholder="Xác nhận mật khẩu của bạn"
                                    @bind-Value="compositeViewModel._userCreateViewModel.ConfirmPassword" @oninput="ValidateConfirmPassword"
                                    disabled="@string.IsNullOrEmpty(compositeViewModel._userCreateViewModel.Password)" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng xác nhận mật khẩu
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.ConfirmPassword)" class="text-danger" />
                     </div>
                     <div class="input-field">
                         <label>Số điện thoại</label>
                         <InputText class="form-control" placeholder="Nhập số điện thoại của bạn" @bind-Value="compositeViewModel._userCreateViewModel.PhoneNumber" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng nhập số điện thoại.
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.PhoneNumber)" class="text-danger" />
                     </div>
                     <div class="input-field">
@@ -82,9 +64,6 @@
                     <div class="input-field">
                         <label>Địa chỉ</label>
                         <InputText class="form-control" placeholder="Nhập địa chỉ của bạn" @bind-Value="compositeViewModel._userCreateViewModel.Address" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng nhập địa chỉ.
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.Address)" class="text-danger" />
                     </div>
                     <div class="row w-100" style="min-height: 200px">
@@ -120,17 +99,11 @@
                     <div class="input-field">
                         <label>Họ và tên</label>
                         <InputText class="form-control" placeholder="Nhập họ và tên của bạn" @bind-Value="compositeViewModel._childCreateViewModel.FullName" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng nhập họ và tên.
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._childCreateViewModel.FullName)" class="text-danger" />
                     </div>
                     <div class="input-field">
                         <label>Ngày tháng năm sinh</label>
                         <InputDate class="form-control" @bind-Value="compositeViewModel._childCreateViewModel.Dob" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng chọn ngày tháng năm sinh.
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._childCreateViewModel.Dob)" class="text-danger" />
                     </div>
                     <div class="input-field">
@@ -149,10 +122,10 @@
                     </div>
                 </div>
                 <div class="buttons">
-                    <div class="backBtn">
-                        <i class="uil uil-navigator"></i>
+                    <button id="backButton" type="button">
                         <span class="btnText">Back</span>
-                    </div>
+                        <i class="uil uil-navigator"></i>
+                    </button>
                     <button type="submit" class="btn btn-success" disabled="@isSubmitting">
                         @(isSubmitting ? "Đang xử lý..." : "Tạo mới")
                     </button>
