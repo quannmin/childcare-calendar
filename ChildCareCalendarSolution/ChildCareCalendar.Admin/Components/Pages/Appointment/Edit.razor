@@ -1,3 +1,73 @@
-﻿<h3>Edit</h3>
+﻿@page "/appointments/edit/{id:int}"
+
+<h3>Chỉnh sửa lịch khám</h3>
+<hr />
+
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="alert alert-danger w-50">
+        @ErrorMessage
+    </div>
+}
+
+<EditForm Model="@EditModel" OnValidSubmit="HandleUpdate" FormName="AppointmentUpdate" class="w-50">
+    <DataAnnotationsValidator />
+
+    <InputNumber hidden @bind-Value="EditModel.Id" />
+
+    <!-- Chọn bác sĩ -->
+    <div class="form-group m-2">
+        <label class="control-label m-2">
+            Chọn bác sĩ
+            <span class="text-danger">*</span>
+        </label>
+        <InputSelect class="form-control" @bind-Value="EditModel.DoctorId">
+            <option value="">-- Chọn bác sĩ --</option>
+            @foreach (var doctor in Doctors)
+            {
+                <option value="@doctor.Id">@doctor.FullName</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => EditModel.DoctorId)" class="text-danger" />
+    </div>
+
+    <!-- Chọn ngày khám -->
+    <div class="form-group m-2">
+        <label class="control-label m-2">
+            Chọn ngày khám
+            <span class="text-danger">*</span>
+        </label>
+        <InputDate class="form-control" @bind-Value="EditModel.CheckupDateTime" />
+
+        <ValidationMessage For="@(() => EditModel.CheckupDateTime)" class="text-danger" />
+    </div>
 
 
+    <!-- Chọn trạng thái -->
+    <div class="form-group m-2">
+        <label class="control-label m-2">
+            Trạng thái
+            <span class="text-danger">*</span>
+        </label>
+        <InputSelect class="form-control" @bind-Value="EditModel.Status">
+            <option value="ORDERED">Chờ xác nhận</option>
+            <option value="CHECKED_IN">Đã xác nhận</option>
+            <option value="CANCELLED">Đã hủy</option>
+            <option value="COMPLETED">Hoàn thành</option>
+            <option value="RE_EXAMINATION">Hẹn tái khám</option>
+        </InputSelect>
+        <ValidationMessage For="@(() => EditModel.Status)" class="text-danger" />
+    </div>
+
+    <!-- Nút lưu và quay lại -->
+    <div class="form-group row">
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-success">Lưu</button>
+        </div>
+        <div class="col-md-6">
+            <a class="btn btn-secondary" href="/appointments">
+                Về danh sách lịch hẹn
+            </a>
+        </div>
+    </div>
+</EditForm>

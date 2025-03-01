@@ -1,3 +1,72 @@
-﻿<h3>Create</h3>
+﻿@page "/appointments/create"
+@rendermode InteractiveServer
 
+<h3>Tạo mới lịch hẹn</h3>
+<hr />
 
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="alert alert-danger w-50">
+        @ErrorMessage
+    </div>
+}
+
+<EditForm Model="CreateModel" OnValidSubmit="HandleCreate" FormName="AppointmentCreate" class="w-50">
+    <DataAnnotationsValidator />
+
+    <!-- Chọn Parent -->
+    <div class="form-group m-2">
+        <label class="control-label m-2">Chọn phụ huynh <span class="text-danger">*</span></label>
+        <InputSelect class="form-control" @bind-Value="CreateModel.ParentId" @oninput="LoadChildrenRecords">
+            <option value="">-- Chọn phụ huynh --</option>
+            @foreach (var parent in Parents)
+            {
+                <option value="@parent.Id">@parent.FullName</option>
+            }
+        </InputSelect>
+
+        <ValidationMessage For="@(() => CreateModel.ParentId)" class="text-danger" />
+    </div>
+
+    <!-- Chọn ChildrenRecord (Phụ thuộc vào Parent) -->
+    <div class="form-group m-2">
+        <label class="control-label m-2">Chọn hồ sơ trẻ em</label>
+        <InputSelect class="form-control" @bind-Value="CreateModel.ChildrenRecordId">
+            <option value="">-- Chọn hồ sơ --</option>
+            @foreach (var child in ChildrenRecords)
+            {
+                <option value="@child.Id">@child.FullName</option>
+            }
+        </InputSelect>
+    </div>
+
+    <!-- Chọn Doctor -->
+    <div class="form-group m-2">
+        <label class="control-label m-2">Chọn bác sĩ <span class="text-danger">*</span></label>
+        <InputSelect class="form-control" @bind-Value="CreateModel.DoctorId">
+            <option value="">-- Chọn bác sĩ --</option>
+            @foreach (var doctor in Doctors)
+            {
+                <option value="@doctor.Id">@doctor.FullName</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => CreateModel.DoctorId)" class="text-danger" />
+    </div>
+
+    <!-- Chọn ngày khám (DatetimePicker) -->
+    <div class="form-group m-2">
+        <label class="control-label m-2">Chọn ngày khám <span class="text-danger">*</span></label>
+        <InputDate class="form-control" @bind-Value="CreateModel.CheckupDateTime" />
+        <ValidationMessage For="@(() => CreateModel.CheckupDateTime)" class="text-danger" />
+    </div>
+
+    <!-- Nút tạo mới -->
+    <div class="form-group row">
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-success">Tạo mới</button>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-secondary" href="/appointments">Về danh sách lịch hẹn</a>
+        </div>
+    </div>
+</EditForm>

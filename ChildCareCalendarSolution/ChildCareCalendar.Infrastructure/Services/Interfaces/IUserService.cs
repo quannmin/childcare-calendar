@@ -10,5 +10,7 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task<int> DeleteUserAsync(int id);
         Task<IEnumerable<AppUser>> FindUsersAsync(Expression<Func<AppUser, bool>> predicate,
                                                                         params Expression<Func<AppUser, object>>[] includes);
+        Task<AppUser> FindUserAsync(Expression<Func<AppUser, bool>> predicate,
+                                                                        params Expression<Func<AppUser, object>>[] includes);
     }
 }
