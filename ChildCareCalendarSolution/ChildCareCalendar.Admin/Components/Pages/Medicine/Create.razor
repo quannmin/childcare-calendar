@@ -1,0 +1,52 @@
+﻿@page "/medicines/create"
+
+<h3>Tạo mới thuốc</h3>
+<hr />
+
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+	<div class="alert alert-danger w-50">
+		@ErrorMessage
+	</div>
+}
+
+
+<EditForm Model="CreateModel" OnValidSubmit="HandleCreate" FormName="MedicineCreate" class="w-50">
+	<DataAnnotationsValidator />
+
+
+	<div class="form-group m-2">
+		<label class="control-label m-2">
+			Tên thuốc
+			<span class="text-danger">*</span>
+		</label>
+		<InputText class="form-control"
+				   @bind-Value="CreateModel.Name"
+				   placeholder="Nhập tên thuốc..." />
+		<ValidationMessage For="@(() => CreateModel.Name)" class="text-danger" />
+	</div>
+
+	<div class="form-group m-2">
+		<label class="control-label m-2">
+			Giá thuốc
+			<span class="text-danger">*</span>
+		</label>
+		<InputNumber class="form-control"
+					 @bind-Value="CreateModel.Price"
+					 placeholder="Nhập giá thuốc..." />
+		<ValidationMessage For="@(() => CreateModel.Price)" class="text-danger" />
+
+<ValidationMessage For="@(() => CreateModel.Price)" class="text-danger" />
+	</div>
+
+	<div class="form-group row">
+		<div class="col-md-8">
+			<button type="submit" class="btn btn-success">Tạo mới</button>
+		</div>
+		<div class="col-md-4">
+			<a class="btn btn-secondary" href="/medicines">
+				Quay lại quản lí thuốc
+			</a>
+		</div>
+	</div>
+</EditForm>

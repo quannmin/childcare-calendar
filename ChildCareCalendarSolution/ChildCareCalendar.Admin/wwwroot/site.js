@@ -13,3 +13,4 @@
         reader.readAsDataURL(fileInput.files[0]);
     }
 };
+

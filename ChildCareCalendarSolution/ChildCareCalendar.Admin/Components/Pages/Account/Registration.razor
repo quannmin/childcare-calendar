@@ -1,0 +1,185 @@
+﻿@page "/register"
+@using ChildCareCalendar.Admin.Components.Layout
+@using ChildCareCalendar.Utilities.Constants
+@inject IJSRuntime JS
+@layout EmptyLayout
+@rendermode InteractiveServer
+
+<link rel="stylesheet" href="/assets/css/Registration.css">
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+<div class="container">
+    <header>Đăng ký</header>
+    <!-- Gán id cho EditForm để JS thao tác -->
+    <EditForm id="registrationForm" EditContext="editContext" OnValidSubmit="HandleCreateUser">
+        <ObjectGraphDataAnnotationsValidator />
+        <div class="form first">
+            <div class="details personal">
+                <span class="title">Thông tin cá nhân</span>
+                <div class="fields">
+                    <!-- Các input của form đầu tiên -->
+                    <div class="input-field">
+                        <label>Họ và tên</label>
+                        <InputText class="form-control" placeholder="Nhập họ và tên của bạn" @bind-Value="compositeViewModel._userCreateViewModel.FullName" />
+                        <div class="invalid-feedback text-danger">
+                            Vui lòng nhập họ và tên.
+                        </div>
+                        <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.FullName)" class="text-danger" />
+                    </div>
+                    <div class="input-field">
+                        <label>Ngày tháng năm sinh</label>
+                        <InputDate class="form-control" @bind-Value="compositeViewModel._userCreateViewModel.Dob" />
+                        <div class="invalid-feedback text-danger">
+                            Vui lòng chọn ngày tháng năm sinh.
+                        </div>
+                        <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.Dob)" class="text-danger" />
+                    </div>
+                    <div class="input-field">
+                        <label>Email</label>
+                        <InputText class="form-control" placeholder="Nhập email của bạn" @bind-Value="compositeViewModel._userCreateViewModel.Email" />
+                        <div class="invalid-feedback text-danger">
+                            Vui lòng nhập email
+                        </div>
+                        <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.Email)" class="text-danger" />
+                    </div>
+                    <div class="input-field">
+                        <label>Password</label>
+                        <InputText type="password" placeholder="Nhập mật khẩu của bạn" class="form-control" @bind-Value="compositeViewModel._userCreateViewModel.Password" @oninput="ValidateConfirmPassword" />
+                        <div class="invalid-feedback text-danger">
+                            Vui lòng nhập mật khẩu
+                        </div>
+                        <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.Password)" class="text-danger" />
+                    </div>
+
+                    <div class="input-field">
+                        <label>Xác nhận Password</label>
+                        <InputText type="password" class="form-control" placeholder="Xác nhận mật khẩu của bạn"
+                                   @bind-Value="compositeViewModel._userCreateViewModel.ConfirmPassword" @oninput="ValidateConfirmPassword"
+                                   disabled="@string.IsNullOrEmpty(compositeViewModel._userCreateViewModel.Password)" />
+                        <div class="invalid-feedback text-danger">
+                            Vui lòng xác nhận mật khẩu
+                        </div>
+                        <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.ConfirmPassword)" class="text-danger" />
+                    </div>
+                    <div class="input-field">
+                        <label>Số điện thoại</label>
+                        <InputText class="form-control" placeholder="Nhập số điện thoại của bạn" @bind-Value="compositeViewModel._userCreateViewModel.PhoneNumber" />
+                        <div class="invalid-feedback text-danger">
+                            Vui lòng nhập số điện thoại.
+                        </div>
+                        <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.PhoneNumber)" class="text-danger" />
+                    </div>
+                    <div class="input-field">
+                        <label>Giới tính</label>
+                        <InputSelect class="form-control" @bind-Value="compositeViewModel._userCreateViewModel.Gender">
+                            @foreach (var gender in Enum.GetValues<SystemConstant.Gender>())
+                            {
+                                <option value="@gender">@gender.ToString()</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.Gender)" class="text-danger" />
+                    </div>
+                    <div class="input-field">
+                        <label>Địa chỉ</label>
+                        <InputText class="form-control" placeholder="Nhập địa chỉ của bạn" @bind-Value="compositeViewModel._userCreateViewModel.Address" />
+                        <div class="invalid-feedback text-danger">
+                            Vui lòng nhập địa chỉ.
+                        </div>
+                        <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.Address)" class="text-danger" />
+                    </div>
+                    <div class="row w-100" style="min-height: 200px">
+                        <div class="col-md-4 mt-5">
+                            <label class="lable-avatar">Ảnh người dùng</label>
+                            <label class="btn btn-primary custom-file-button">
+                                <i class="bi bi-upload"></i> Chọn ảnh
+                                <InputFile OnChange="HandleFileSelection" accept="image/*" class="d-none" />
+                            </label>
+                        </div>
+                        <div class="col-md-4" style="text-align: center">
+                            @if (!string.IsNullOrEmpty(PreviewImageUrl))
+                            {
+                                <img src="@PreviewImageUrl" alt="Preview Image" class="img-thumbnail shadow" style="width: 200px; height: 200px; object-fit: fill; border-radius: 10px;" />
+                            }
+                        </div>
+                        <div class="col-md-4 center-container">
+                            <!-- Nút Next không dùng @onclick, sẽ gán sự kiện qua JS -->
+                            <button id="nextButton" type="button">
+                                <span class="btnText">Next</span>
+                                <i class="uil uil-navigator"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form second">
+            <div class="details personal">
+                <span class="title">Hồ sơ bênh án của trẻ nhỏ</span>
+                <div class="fields">
+                    <!-- Các input của form thứ hai -->
+                    <div class="input-field">
+                        <label>Họ và tên</label>
+                        <InputText class="form-control" placeholder="Nhập họ và tên của bạn" @bind-Value="compositeViewModel._childCreateViewModel.FullName" />
+                        <div class="invalid-feedback text-danger">
+                            Vui lòng nhập họ và tên.
+                        </div>
+                        <ValidationMessage For="@(() => compositeViewModel._childCreateViewModel.FullName)" class="text-danger" />
+                    </div>
+                    <div class="input-field">
+                        <label>Ngày tháng năm sinh</label>
+                        <InputDate class="form-control" @bind-Value="compositeViewModel._childCreateViewModel.Dob" />
+                        <div class="invalid-feedback text-danger">
+                            Vui lòng chọn ngày tháng năm sinh.
+                        </div>
+                        <ValidationMessage For="@(() => compositeViewModel._childCreateViewModel.Dob)" class="text-danger" />
+                    </div>
+                    <div class="input-field">
+                        <label>Giới tính</label>
+                        <InputSelect class="form-control" @bind-Value="compositeViewModel._childCreateViewModel.Gender">
+                            @foreach (var gender in Enum.GetValues<SystemConstant.Gender>())
+                            {
+                                <option value="@gender">@gender.ToString()</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => compositeViewModel._childCreateViewModel.Gender)" class="text-danger" />
+                    </div>
+                    <div class="input-field">
+                        <label>Tiền sử bệnh lý (nếu có)</label>
+                        <InputText class="form-control" placeholder="Nhập tiền sử bênh lý" @bind-Value="compositeViewModel._childCreateViewModel.MedicalHistory" />
+                    </div>
+                </div>
+                <div class="buttons">
+                    <div class="backBtn">
+                        <i class="uil uil-navigator"></i>
+                        <span class="btnText">Back</span>
+                    </div>
+                    <button type="submit" class="btn btn-success" disabled="@isSubmitting">
+                        @(isSubmitting ? "Đang xử lý..." : "Tạo mới")
+                    </button>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+</div>
+
+<!-- Đảm bảo rằng file JS được load sau khi DOM đã render -->
+<script src="/assets/js/Registration.js" defer></script>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Task.Delay(100);
+            try
+            {
+                await JS.InvokeVoidAsync("registerFormEvents");
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Error invoking JS function: {ex.Message}");
+            }
+        }
+    }
+
+}
