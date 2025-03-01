@@ -1,4 +1,5 @@
 ﻿@page "/appointments"
+@rendermode InteractiveServer
 
 <h3>Quản lý lịch khám</h3>
 
@@ -54,13 +55,53 @@ else
                     <td>
                         <NavLink class="btn btn-info btn-sm" href="@($"/appointments/detail/{appointment.AppointmentId}")">Chi tiết</NavLink>
                         <NavLink class="btn btn-warning btn-sm" href="@($"/appointments/edit/{appointment.AppointmentId}")">Chỉnh sửa</NavLink>
-                        <button class="btn btn-danger btn-sm" @onclick="() => DeleteCategory(appointment.AppointmentId)">Xóa</button>
+                        <button class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(appointment.AppointmentId)">Xóa</button>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 }
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xóa chuyên khoa này không?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" @onclick="DeleteAppointment">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showDeleteModal() {
+        var modalElement = document.getElementById('deleteModal');
+        if (!modalElement) {
+            console.error("Lỗi: Không tìm thấy modal với id 'deleteModal'.");
+            return;
+        }
+        var modal = new bootstrap.Modal(modalElement);
+        modal.show();
+    }
+
+    function hideDeleteModal() {
+        var modalElement = document.getElementById('deleteModal');
+        if (!modalElement) {
+            console.error("Lỗi: Không tìm thấy modal với id 'deleteModal'.");
+            return;
+        }
+        var modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+        modal.hide();
+    }
+</script>
 
 
 

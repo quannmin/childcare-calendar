@@ -1,10 +1,11 @@
 ﻿using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Infrastructure.Repository;
+using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using System.Linq.Expressions;
 
 namespace ChildCareCalendar.Infrastructure.Services
 {
-    public class ChildrenRecordService
+    public class ChildrenRecordService : IChildrenRecordService
     {
         private readonly IRepository<ChildrenRecord> _childrenRecordRepository;
 

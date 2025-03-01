@@ -82,7 +82,8 @@ namespace ChildCareCalendar.Infrastructure.Services
             var appointment = await GetAppointmentByIdAsync(id);
             if (appointment != null)
             {
-                await _appointmentRepository.DeleteAsync(appointment);
+                appointment.IsDelete = true;
+                await _appointmentRepository.UpdateAsync(appointment, appointment.Id);
             }
         }
 
