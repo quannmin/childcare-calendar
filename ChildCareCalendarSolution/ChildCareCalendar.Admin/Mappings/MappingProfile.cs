@@ -32,7 +32,8 @@ namespace Pubs.BackendApi.Mappings
             CreateMap<PrescriptionDetail, PrescriptionDetailViewModel>()
             .ForMember(dest => dest.MedicineName, opt => opt.MapFrom(src => src.Medicine.Name)) 
             .ForMember(dest => dest.MedicinePrice, opt => opt.MapFrom(src => src.Medicine.Price))
-            .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.Quantity * src.Medicine.Price))
+            //.ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.Quantity * src.Medicine.Price))
+            .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalAmount))
             .ForMember(dest => dest.Slot, opt => opt.MapFrom(src => src.Slot));
 
 

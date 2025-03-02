@@ -17,16 +17,19 @@ namespace ChildCareCalendar.Infrastructure.Services
             _examinationRepository = repository;
             _prescriptionDetailRepository = prescriptionDetailRepository;
         }
-        public async Task CreateExaminationReportAsync(ExaminationReport examinationReport)
+        public async Task CreateExaminationReportAsync(ExaminationReport examinationReport, List<PrescriptionDetail> prescriptionDetails)
         {
+            examinationReport.TotalAmount = prescriptionDetails.Sum(pd => pd.TotalAmount);
             examinationReport.CreatedAt = DateTime.UtcNow;
             examinationReport.UpdatedAt = DateTime.UtcNow;
-            var prescriptionDetails = await _prescriptionDetailRepository
-                            .GetAllAsync(pd => pd.ExaminationReportId == examinationReport.Id);
-
-            examinationReport.TotalAmount = prescriptionDetails.Sum(pd => pd.TotalAmount);
-
+            examinationReport.TotalAmount = 0;
             await _examinationRepository.AddAsync(examinationReport);
+      
+            foreach (var pd in prescriptionDetails)
+            {
+                pd.ExaminationReportId = examinationReport.Id;
+                await _prescriptionDetailRepository.AddAsync(pd);
+            }
         }
 
         public Task<IEnumerable<ExaminationReport>> GetAllExaminationReportsAsync()

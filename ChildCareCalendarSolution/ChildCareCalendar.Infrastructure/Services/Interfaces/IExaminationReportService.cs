@@ -12,7 +12,7 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
     {
         Task<IEnumerable<ExaminationReport>> GetAllExaminationReportsAsync();
         //Task<ExaminationReport> GetExaminationReportByIdAsync(int id);
-        Task CreateExaminationReportAsync(ExaminationReport examinationReport);
+        Task CreateExaminationReportAsync(ExaminationReport examinationReport, List<PrescriptionDetail> prescriptionDetails);
         Task<IEnumerable<ExaminationReport>> FindExaminationReportsAsync(Expression<Func<ExaminationReport, bool>> predicate, params Expression<Func<ExaminationReport, object>>[] includeProperties);
         Task DeleteExaminationReportAsync(int id);
         Task<ExaminationReport> GetExaminationReportByIdAsync(int id, params Expression<Func<ExaminationReport, object>>[] includes);
