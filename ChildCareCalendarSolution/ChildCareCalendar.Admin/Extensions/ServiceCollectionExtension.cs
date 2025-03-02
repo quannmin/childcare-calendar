@@ -11,13 +11,15 @@ namespace ChildCareCalendar.Admin.Extensions
         {
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
-            services.AddTransient<ISpecialityService, SpecialityService>();
+            services.AddTransient<ISpecialityService, SpecialityService>();      
             services.AddTransient<IServiceService, ServiceService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddTransient<IRefundReportService, RefundReportService>();
             services.AddTransient<IMedicineService, MedicineService>();
             services.AddTransient<IChildrenRecordService, ChildrenRecordService>();
+             services.AddTransient<IExaminationReportService, ExaminationReportService>();
+
             services.AddSingleton<CloudinaryService>();
             return services;
         }

@@ -24,7 +24,8 @@ namespace ChildCareCalendar.Infrastructure.Services
 
             if (medicine != null)
             {
-                await _medicineRepository.DeleteAsync(medicine);
+                medicine.IsDelete = true;
+                await _medicineRepository.UpdateAsync(medicine, medicine.Id);
             }
         }
 

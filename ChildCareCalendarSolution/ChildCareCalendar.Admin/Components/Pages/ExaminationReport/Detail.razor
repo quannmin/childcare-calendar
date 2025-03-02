@@ -1,0 +1,55 @@
+﻿@page "/examination-reports/detail/{ExaminationReportId:int}"
+@rendermode InteractiveServer
+
+@if (ReportDetail == null)
+{
+    <p class="text-center">Đang tải dữ liệu...</p>
+}
+else
+{
+    <h3>Chi tiết báo cáo khám bệnh</h3>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Thông tin bệnh nhân</h4>
+            <p><strong>Họ và tên:</strong> @ReportDetail.ChildrenName</p>
+            <p><strong>Giới tính:</strong> @ReportDetail.Gender</p>
+            <p><strong>Ngày sinh:</strong> @ReportDetail.Dob.ToString("dd/MM/yyyy")</p>
+            <p><strong>Tiền sử bệnh:</strong> @ReportDetail.MedicalHistory</p>
+        </div>
+        <div class="col-md-6">
+            <h4>Thông tin khám bệnh</h4>
+            <p><strong>Ngày hẹn khám:</strong> @ReportDetail.ExamDate.ToString("dd/MM/yyyy")</p>
+            <p><strong>Chẩn đoán:</strong> @ReportDetail.Diagnosis</p>
+            <p><strong>Ghi chú bác sĩ:</strong> @ReportDetail.Notes</p>
+            <p><strong>Tổng tiền:</strong> @ReportDetail.TotalAmount.ToString("N0") VND</p>
+            <p><strong>Người cập nhật gần nhất:</strong> @ReportDetail.UpdatedByName</p>
+            <p><strong>Ngày cập nhật gần nhất:</strong> @ReportDetail.UpdatedAt.ToString("dd/MM/yyyy")</p>
+        </div>
+    </div>
+
+    <h4>Đơn thuốc đi kèm</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Tên thuốc</th>
+                <th>Liều lượng</th>
+                <th>Bữa</th>
+                <th>Số lượng</th>
+                <th>Tổng tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var medicine in ReportDetail.PrescriptionDetails)
+            {
+                <tr>
+                    <td>@medicine.MedicineName</td>
+                    <td>@medicine.Dosage</td>
+                    <td>@medicine.Slot</td>
+                    <td>@medicine.Quantity</td>
+                    <td>@medicine.TotalAmount.ToString("N0") VND</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

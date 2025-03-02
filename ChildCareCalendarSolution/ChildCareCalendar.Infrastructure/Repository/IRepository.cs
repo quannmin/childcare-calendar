@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChildCareCalendar.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -10,6 +11,7 @@ namespace ChildCareCalendar.Infrastructure.Repository
     public interface IRepository<T> where T : class
     {
         Task<T> GetByIdAsync(int id);
+        IQueryable<T> GetQueryable();
         Task<IEnumerable<T>> GetAllAsync();
         Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includes);
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
@@ -19,6 +21,7 @@ namespace ChildCareCalendar.Infrastructure.Repository
         Task UpdateAsync(T entity, object key);
         Task DeleteAsync(T entity);
         Task<(IEnumerable<T> Items, int TotalCount)> GetPagedAsync(int pageIndex, int pageSize, Expression<Func<T, bool>> filter = null);
+       
 
     }
 }
