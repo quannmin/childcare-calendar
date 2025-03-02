@@ -9,15 +9,12 @@ namespace ChildCareCalendar.Domain.ViewModels.Appointment
 {
     public class AppointmentCreateViewModel
     {
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Phụ huynh không thể trống")]
         public int ParentId { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Bác sĩ không thể trống")]
         public int DoctorId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Sơ yếu lý lịch không thể trống")]
-        public int? ChildrenRecordId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Phương thức thanh toán không thể trống")]
-        public int? PaymentId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Dịch vụ không thể trống")]
-        public int ServiceId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ngày khám không thể trống")]
+        public int ChildrenRecordId { get; set; }
         public DateTime CheckupDateTime { get; set; }
     }
 }

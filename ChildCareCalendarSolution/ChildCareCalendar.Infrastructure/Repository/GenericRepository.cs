@@ -10,6 +10,10 @@ namespace ChildCareCalendar.Infrastructure.Repository
         private readonly ChildCareCalendarContext _context;
         private readonly DbSet<T> _dbSet;
 
+        public IQueryable<T> GetQueryable()
+        {
+            return _dbSet.AsQueryable();
+        }
         public GenericRepository(ChildCareCalendarContext context)
         {
             _context = context;
@@ -78,6 +82,7 @@ namespace ChildCareCalendar.Infrastructure.Repository
 
             return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
         }
+
 
         public async Task<(IEnumerable<T> Items, int TotalCount)> GetPagedAsync(
             int pageIndex,

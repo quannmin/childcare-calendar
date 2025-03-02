@@ -1,30 +1,30 @@
-﻿@page "/appointments"
+﻿@page "/examination-reports"
 @rendermode InteractiveServer
 
-<h3>Quản lý lịch khám</h3>
+<h3>Quản lý báo cáo khám bệnh</h3>
 
 <div class="row mb-4">
     <div class="col-md-4">
-        <NavLink class="btn btn-success" href="/appointments/create">Tạo mới</NavLink>
+        <NavLink class="btn btn-success" href="/examination-reports/create">Tạo mới</NavLink>
     </div>
     <div class="col-md-5 offset-md-3">
-        <EditForm Model="SearchData" OnValidSubmit="HandleSearch" FormName="SearchAppointment">
+        <EditForm Model="SearchData" OnValidSubmit="HandleSearch" FormName="SearchExaminationReport">
             <DataAnnotationsValidator />
             <ValidationSummary />
 
             <div class="d-flex">
-                <InputText class="form-control me-2" @bind-Value="SearchData.Keyword" placeholder="Tìm kiếm lịch hẹn..." />
+                <InputText class="form-control me-2" @bind-Value="SearchData.Keyword" placeholder="Tìm kiếm báo cáo..." />
                 <button type="submit" class="btn btn-primary searchBtn" style="width: 20%;">Tìm kiếm</button>
             </div>
         </EditForm>
     </div>
 </div>
 
-@if (Appointments == null)
+@if (ExaminationReports == null)
 {
     <p class="text-center">Đang tải dữ liệu...</p>
 }
-else if (!Appointments.Any())
+else if (!ExaminationReports.Any())
 {
     <p class="text-center">Không có dữ liệu</p>
 }
@@ -32,30 +32,27 @@ else
 {
     <table class="table table-bordered table-hover text-center">
         <thead class="table-dark">
-            <tr style="background-color: white; border: 2px solid gray">
-                <th>ID</th>
-                <th>Phụ huynh</th>
-                <th>Trẻ em</th>
-                <th>Dịch vụ</th>
-                <th>Tổng tiền</th>
-                <th>Trạng thái</th>
+            <tr style="background-color: white; border: 2px solid gray">               
+                <th>Tên trẻ em</th>
+                <th>Ngày hẹn khám</th>
+                <th>Chẩn đoán</th>               
+                <th>Ngày tạo</th>
+                <th>Ngày cập nhật</th>
                 <th>Thao tác</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var appointment in Appointments)
+            @foreach (var report in ExaminationReports)
             {
                 <tr class="border">
-                    <td>@appointment.AppointmentId</td>
-                    <td>@appointment.ParentName</td>
-                    <td>@appointment.ChildName</td>
-                    <td>@appointment.ServiceName</td>
-                    <td>@appointment.TotalAmount.ToString() VND</td>
-                    <td>@appointment.Status</td>
+                    <td>@report.ChildrenName </td>
+                    <td>@report.ExamDate.ToString("dd/MM/yyyy")</td>
+                    <td>@report.Diagnosis</td>                 
+                    <td>@report.CreatedAt.ToString("dd/MM/yyyy")</td>
+                    <td>@report.UpdatedAt.ToString("dd/MM/yyyy")</td>
                     <td>
-                        <NavLink class="btn btn-info btn-sm" href="@($"/appointments/detail/{appointment.AppointmentId}")">Chi tiết</NavLink>
-                        <NavLink class="btn btn-warning btn-sm" href="@($"/appointments/edit/{appointment.AppointmentId}")">Chỉnh sửa</NavLink>
-                        <button class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(appointment.AppointmentId)">Xóa</button>
+                        <NavLink class="btn btn-info btn-sm" href="@($"/examination-reports/detail/{report.Id}")">Chi tiết</NavLink>
+                        <button class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(report.Id)">Xóa</button>
                     </td>
                 </tr>
             }
@@ -71,11 +68,11 @@ else
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Bạn có chắc chắn muốn xóa chuyên khoa này không?
+                Bạn có chắc chắn muốn xóa báo cáo này không?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-danger" @onclick="DeleteAppointment">Xóa</button>
+                <button type="button" class="btn btn-danger" @onclick="DeleteExaminationReport">Xóa</button>
             </div>
         </div>
     </div>
@@ -102,6 +99,3 @@ else
         modal.hide();
     }
 </script>
-
-
-

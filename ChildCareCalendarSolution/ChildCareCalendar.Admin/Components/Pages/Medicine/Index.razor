@@ -55,7 +55,7 @@ else
 			{
 				<tr>
 					<td>@item.Name</td>
-					<td>@item.Price.ToString("C")</td>
+					<td>@item.Price.ToString() VND</td>
 					<td class="@(item.IsDelete ? "text-danger" : "text-success")">
 						@(item.IsDelete ? "Đã xóa" : "Đang hoạt động")
 					</td>
