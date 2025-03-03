@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Domain.ViewModels.Account;
+using ChildCareCalendar.Domain.ViewModels.Specility;
+using ChildCareCalendar.Infrastructure.Services;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using ChildCareCalendar.Utilities.Constants;
 using ChildCareCalendar.Utilities.Helper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -20,11 +23,34 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         public UserCreateViewModel userCreateViewModel { get; set; } = new();
 
         [Inject] private IUserService userService { get; set; } = default!;
+        [Inject] private ISpecialityService specialityService { get; set; } = default!;
         [Inject] private NavigationManager navigationManager { get; set; } = default!;
         [Inject] private IMapper mapper { get; set; } = default!;
         [Inject] private CloudinaryService cloudinaryService { get; set; } = default!;
-        private EditContext editContext;
+        private EditContext editContext = default!;
         private bool isSubmitting = false;
+        private bool showSpecialties = false;
+        private List<SpecialityViewModel> specialtiesViewModel = new();
+
+        private async Task OnRoleChanged(SystemConstant.AccountsRole newRole)
+        {
+            userCreateViewModel.Role = newRole; // Update the bound model
+
+            if (newRole == SystemConstant.AccountsRole.BacSi)
+            {
+                var specialties = await specialityService.FindSpecialitiesAsync(x => !x.IsDelete);
+                specialtiesViewModel = specialties.Select(s => mapper.Map<SpecialityViewModel>(s)).ToList();
+                showSpecialties = true;
+            }
+            else
+            {
+                showSpecialties = false;
+                specialtiesViewModel.Clear();
+            }
+
+            StateHasChanged(); // Ensure the UI updates
+        }
+
         protected override void OnInitialized()
         {
             editContext = new EditContext(userCreateViewModel);
@@ -78,7 +104,6 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
                 return false;
             }
         }
-
         /// <summary>
         /// Xử lý tạo tài khoản
         /// </summary>

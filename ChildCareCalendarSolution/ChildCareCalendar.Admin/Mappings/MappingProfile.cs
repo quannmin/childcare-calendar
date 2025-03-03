@@ -2,6 +2,7 @@
 using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Domain.ViewModels.Account;
 using ChildCareCalendar.Domain.ViewModels.Appointment;
+using ChildCareCalendar.Domain.ViewModels.Medicine;
 using ChildCareCalendar.Domain.ViewModels.ChildrenRecord;
 using ChildCareCalendar.Domain.ViewModels.Service;
 using ChildCareCalendar.Domain.ViewModels.ServiceVM;
@@ -22,6 +23,10 @@ namespace Pubs.BackendApi.Mappings
             CreateMap<ServiceEditViewModel, Service>().ReverseMap();
             CreateMap<Service, ServiceViewModel>();
 
+            CreateMap<MedicineViewModel, Medicine>().ReverseMap();
+            CreateMap<MedicineEditViewModel, Medicine>().ReverseMap();
+            CreateMap<MedicineCreateViewModel, Medicine>();
+
             CreateMap<UserViewModel, AppUser>().ReverseMap();
             CreateMap<UserCreateViewModel, AppUser>()
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender.ToString()))
@@ -32,14 +37,12 @@ namespace Pubs.BackendApi.Mappings
             CreateMap<Appointment, AppointmentViewModel>()
             .ForMember(dest => dest.AppointmentId, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent.FullName))
-            .ForMember(dest => dest.ChildName, opt => opt.MapFrom(src => src.ChildrenRecord.FullName))
-            .ForMember(dest => dest.ServiceName, opt => opt.MapFrom(src => src.Service.ServiceName));
+            .ForMember(dest => dest.ChildName, opt => opt.MapFrom(src => src.ChildrenRecord.FullName));
 
             CreateMap<Appointment, AppointmentDetailViewModel>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent.FullName))
             .ForMember(dest => dest.ChildName, opt => opt.MapFrom(src => src.ChildrenRecord.FullName))
-            .ForMember(dest => dest.ServiceName, opt => opt.MapFrom(src => src.Service.ServiceName))
             .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.Doctor.FullName))
             .ForMember(dest => dest.FollowUpAppointment, opt => opt.MapFrom(src => src.FollowUpAppointment.CheckupDateTime));
         }

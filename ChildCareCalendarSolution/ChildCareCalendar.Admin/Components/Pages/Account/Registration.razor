@@ -1,7 +1,6 @@
 ﻿@page "/register"
 @using ChildCareCalendar.Admin.Components.Layout
 @using ChildCareCalendar.Utilities.Constants
-@inject IJSRuntime JS
 @layout EmptyLayout
 @rendermode InteractiveServer
 
@@ -9,6 +8,7 @@
 <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
 <div class="container">
+
     <header>Đăng ký</header>
     <!-- Gán id cho EditForm để JS thao tác -->
     <EditForm id="registrationForm" EditContext="editContext" OnValidSubmit="HandleCreateUser">
@@ -83,7 +83,7 @@
                         <div class="col-md-4 center-container">
                             <!-- Nút Next không dùng @onclick, sẽ gán sự kiện qua JS -->
                             <button id="nextButton" type="button">
-                                <span class="btnText">Next</span>
+                                <span class="btnText">Tiếp tục</span>
                                 <i class="uil uil-navigator"></i>
                             </button>
                         </div>
@@ -123,36 +123,51 @@
                 </div>
                 <div class="buttons">
                     <button id="backButton" type="button">
-                        <span class="btnText">Back</span>
-                        <i class="uil uil-navigator"></i>
+                        <span class="btnText">Trở lại</span>
+                        <i class="uil uil-backward"></i>
                     </button>
                     <button type="submit" class="btn btn-success" disabled="@isSubmitting">
                         @(isSubmitting ? "Đang xử lý..." : "Tạo mới")
                     </button>
                 </div>
             </div>
+        </div>'
+        <div class="container-OTP">
+            <!-- Security Icon -->
+            <div class="security-icon">
+                <img src="/images/securityicon.png" alt="Security Icon">
+            </div>
+
+            <h2>Xác nhận OTP</h2>
+
+            <div class="otp-form">
+                <p>Nhập mã 4 chữ số chúng tôi đã gửi đến bạn thông qua email @compositeViewModel._userCreateViewModel.Email để tiếp tục</p>
+                <div class="otp-group">
+                    <input type="text" maxlength="1" class="otp-input" />
+                    <input type="text" maxlength="1" class="otp-input" />
+                    <input type="text" maxlength="1" class="otp-input" />
+                    <input type="text" maxlength="1" class="otp-input" />
+                </div>
+            </div>
+
+            <p>Email không phải của bạn / Không nhận được mã? <a href="#">Gửi lại mã</a></p>
+
+            <div class="btnNext-OTP">
+                <button id="backButtonOTP" type="button">
+                    Trở lại
+                    <i class="uil uil-backward"></i>
+                </button>
+                <button id="nextButtonOTP" type="button">
+                    Tiếp tục
+                    <i class="uil uil-navigator"></i>
+                </button>
+            </div>
         </div>
+
     </EditForm>
 </div>
 
 <!-- Đảm bảo rằng file JS được load sau khi DOM đã render -->
 <script src="/assets/js/Registration.js" defer></script>
+<script src="/site.js"></script>
 
-@code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await Task.Delay(100);
-            try
-            {
-                await JS.InvokeVoidAsync("registerFormEvents");
-            }
-            catch (Exception ex)
-            {
-                Console.Error.WriteLine($"Error invoking JS function: {ex.Message}");
-            }
-        }
-    }
-
-}

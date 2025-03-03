@@ -60,8 +60,8 @@ namespace ChildCareCalendar.Domain.Data
             if (!context.Appointments.Any())
             {
                 context.Appointments.AddRange(
-                    new Appointment { DoctorId = 2, ParentId = 3, ServiceId = 1, ChildrenRecordId = 1, Status = "ORDERED", TotalAmount = 500_000, CreatedAt = DateTime.Now },
-                    new Appointment { DoctorId = 2, ParentId = 3, ServiceId = 2, ChildrenRecordId = 1, Status = "CHECKED_IN", TotalAmount = 700_000, CreatedAt = DateTime.Now }
+                    new Appointment { DoctorId = 2, ParentId = 3, ChildrenRecordId = 1, Status = "ORDERED", TotalAmount = 500_000, CreatedAt = DateTime.Now },
+                    new Appointment { DoctorId = 2, ParentId = 3, ChildrenRecordId = 1, Status = "CHECKED_IN", TotalAmount = 700_000, CreatedAt = DateTime.Now }
                 );
                 context.SaveChanges();
             }
@@ -80,7 +80,78 @@ namespace ChildCareCalendar.Domain.Data
             {
                 context.Medicines.AddRange(
                     new Medicine { Name = "Paracetamol", Price = 5 },
-                    new Medicine { Name = "Ibuprofen", Price = 8 }
+                    new Medicine { Name = "Ibuprofen", Price = 8 },
+                    new Medicine { Name = "Aspirin", Price = 6 },
+                    new Medicine { Name = "Cetirizine", Price = 7 },
+                    new Medicine { Name = "Amoxicillin", Price = 12 },
+                    new Medicine { Name = "Metformin", Price = 10 },
+                    new Medicine { Name = "Loratadine", Price = 5 },
+                    new Medicine { Name = "Omeprazole", Price = 9 },
+                    new Medicine { Name = "Simvastatin", Price = 11 },
+                    new Medicine { Name = "Metronidazole", Price = 8 },
+                    new Medicine { Name = "Furosemide", Price = 7 },
+                    new Medicine { Name = "Prednisolone", Price = 10 },
+                    new Medicine { Name = "Paracetamol", Price = 5 },
+                    new Medicine { Name = "Ibuprofen", Price = 8 },
+                    new Medicine { Name = "Aspirin", Price = 6 },
+                    new Medicine { Name = "Cetirizine", Price = 7 },
+                    new Medicine { Name = "Amoxicillin", Price = 12 },
+                    new Medicine { Name = "Metformin", Price = 10 },
+                    new Medicine { Name = "Loratadine", Price = 5 },
+                    new Medicine { Name = "Omeprazole", Price = 9 },
+                    new Medicine { Name = "Simvastatin", Price = 11 },
+                    new Medicine { Name = "Metronidazole", Price = 8 },
+                    new Medicine { Name = "Furosemide", Price = 7 },
+                    new Medicine { Name = "Prednisolone", Price = 10 },
+                    new Medicine { Name = "Paracetamol", Price = 5 },
+                    new Medicine { Name = "Ibuprofen", Price = 8 },
+                    new Medicine { Name = "Aspirin", Price = 6 },
+                    new Medicine { Name = "Cetirizine", Price = 7 },
+                    new Medicine { Name = "Amoxicillin", Price = 12 },
+                    new Medicine { Name = "Metformin", Price = 10 },
+                    new Medicine { Name = "Loratadine", Price = 5 },
+                    new Medicine { Name = "Omeprazole", Price = 9 },
+                    new Medicine { Name = "Simvastatin", Price = 11 },
+                    new Medicine { Name = "Metronidazole", Price = 8 },
+                    new Medicine { Name = "Furosemide", Price = 7 },
+                    new Medicine { Name = "Prednisolone", Price = 10 },
+                    new Medicine { Name = "Paracetamol", Price = 5 },
+                    new Medicine { Name = "Ibuprofen", Price = 8 },
+                    new Medicine { Name = "Aspirin", Price = 6 },
+                    new Medicine { Name = "Cetirizine", Price = 7 },
+                    new Medicine { Name = "Amoxicillin", Price = 12 },
+                    new Medicine { Name = "Metformin", Price = 10 },
+                    new Medicine { Name = "Loratadine", Price = 5 },
+                    new Medicine { Name = "Omeprazole", Price = 9 },
+                    new Medicine { Name = "Simvastatin", Price = 11 },
+                    new Medicine { Name = "Metronidazole", Price = 8 },
+                    new Medicine { Name = "Furosemide", Price = 7 },
+                    new Medicine { Name = "Prednisolone", Price = 10 },
+                    new Medicine { Name = "Paracetamol", Price = 5 },
+                    new Medicine { Name = "Ibuprofen", Price = 8 },
+                    new Medicine { Name = "Aspirin", Price = 6 },
+                    new Medicine { Name = "Cetirizine", Price = 7 },
+                    new Medicine { Name = "Amoxicillin", Price = 12 },
+                    new Medicine { Name = "Metformin", Price = 10 },
+                    new Medicine { Name = "Loratadine", Price = 5 },
+                    new Medicine { Name = "Omeprazole", Price = 9 },
+                    new Medicine { Name = "Simvastatin", Price = 11 },
+                    new Medicine { Name = "Metronidazole", Price = 8 },
+                    new Medicine { Name = "Furosemide", Price = 7 },
+                    new Medicine { Name = "Prednisolone", Price = 10 },
+                    new Medicine { Name = "Paracetamol", Price = 5 },
+                    new Medicine { Name = "Ibuprofen", Price = 8 },
+                    new Medicine { Name = "Aspirin", Price = 6 },
+                    new Medicine { Name = "Cetirizine", Price = 7 },
+                    new Medicine { Name = "Amoxicillin", Price = 12 },
+                    new Medicine { Name = "Metformin", Price = 10 },
+                    new Medicine { Name = "Loratadine", Price = 5 },
+                    new Medicine { Name = "Omeprazole", Price = 9 },
+                    new Medicine { Name = "Simvastatin", Price = 11 },
+                    new Medicine { Name = "Metronidazole", Price = 8 },
+                    new Medicine { Name = "Furosemide", Price = 7 },
+                    new Medicine { Name = "Prednisolone", Price = 10 }
+
                 );
                 context.SaveChanges();
             }

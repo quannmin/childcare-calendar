@@ -28,6 +28,11 @@ namespace ChildCareCalendar.Domain.EF
             modelBuilder.Entity<AppUser>(entity =>
             {
                 entity.HasKey(e => e.Id);
+                entity.HasOne(e => e.Speciality)
+      .WithMany(s => s.AppUsers)
+      .HasForeignKey(e => e.SpecialityId)
+      .OnDelete(DeleteBehavior.Cascade);
+
                 entity.Property(e => e.Id).UseIdentityColumn();
                 entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Avatar).HasMaxLength(255);
@@ -47,8 +52,8 @@ namespace ChildCareCalendar.Domain.EF
 
             modelBuilder.Entity<Speciality>(entity =>
             {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Id).UseIdentityColumn();
+                entity.HasKey(e => e.SpecialityId);
+                entity.Property(e => e.SpecialityId).UseIdentityColumn();
                 entity.Property(e => e.SpecialtyName).HasMaxLength(255);
                 entity.Property(e => e.Description).HasMaxLength(255);
             });
@@ -77,11 +82,6 @@ namespace ChildCareCalendar.Domain.EF
                 entity.HasOne(e => e.Doctor)
                       .WithMany(u => u.Schedules)
                       .HasForeignKey(e => e.UserId)
-                      .OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasOne(e => e.Speciality)
-                      .WithMany(s => s.Schedules)
-                      .HasForeignKey(e => e.SpecialityId)
                       .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(e => e.WorkHour)
@@ -145,14 +145,14 @@ namespace ChildCareCalendar.Domain.EF
                 entity.Property(e => e.Status).HasConversion<String>().HasMaxLength(10);
                 entity.Property(e => e.TotalAmount).HasPrecision(18, 2);
 
+                entity.HasOne(a => a.Schedule)
+                      .WithMany(s => s.Appointments)
+                      .HasForeignKey(a => a.ScheduleId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
                 entity.HasOne(a => a.ExaminationReport)
                       .WithOne(er => er.Appointment)
                       .HasForeignKey<ExaminationReport>(er => er.AppointmentId)
-                      .OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasOne(a => a.Service)
-                      .WithMany(p => p.Appointments)
-                      .HasForeignKey(a => a.ServiceId)
                       .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(a => a.Parent)

@@ -26,7 +26,7 @@ namespace ChildCareCalendar.Infrastructure.Services
 			if (speciality != null && !speciality.IsDelete)
 			{
 				speciality.IsDelete = true;
-				await _specialityRepository.UpdateAsync(speciality, speciality.Id);
+				await _specialityRepository.UpdateAsync(speciality, speciality.SpecialityId);
 			}
 		}
 
@@ -39,7 +39,7 @@ namespace ChildCareCalendar.Infrastructure.Services
 
 		public async Task UpdateSpecialityAsync(Speciality speciality)
 		{
-			await _specialityRepository.UpdateAsync(speciality, speciality.Id);
+			await _specialityRepository.UpdateAsync(speciality, speciality.SpecialityId);
 		}
 
 	}

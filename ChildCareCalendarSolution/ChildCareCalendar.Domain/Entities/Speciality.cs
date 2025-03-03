@@ -9,7 +9,8 @@ namespace ChildCareCalendar.Domain.Entities
 {
     public class Speciality
     {
-        public int Id { get; set; }
+        public int SpecialityId { get; set; }
+        public ICollection<AppUser>? AppUsers { get; set; }
         public string? SpecialtyName { get; set; }
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -17,6 +18,5 @@ namespace ChildCareCalendar.Domain.Entities
         [DefaultValue(false)]
         public bool IsDelete { get; set; } = false;
         public ICollection<Service>? Services { get; set; }
-        public ICollection<Schedule>? Schedules { get; set; }
     }
 }
