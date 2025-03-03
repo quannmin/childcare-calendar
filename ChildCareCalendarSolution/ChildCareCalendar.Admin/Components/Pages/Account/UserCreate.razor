@@ -90,13 +90,13 @@
             {
                 <div class="form-group m-2">
                     <label>Chuyên khoa</label>
-                    <InputSelect class="form-control" @bind-Value="userCreateViewModel.SpecialtyId">
+                    <InputSelect class="form-control" @bind-Value="userCreateViewModel.SpecialityId">
                         @foreach (var specialty in specialtiesViewModel)
                         {
                             <option value="@specialty.Id">@specialty.SpecialtyName</option>
                         }
                     </InputSelect>
-                    <ValidationMessage For="@(() => userCreateViewModel.SpecialtyId)" class="text-danger" />
+                    <ValidationMessage For="@(() => userCreateViewModel.SpecialityId)" class="text-danger" />
                 </div>
             }
             <div class="text-center w-100">

@@ -57,24 +57,24 @@ namespace ChildCareCalendar.Domain.Data
                 context.SaveChanges();
             }
 
-            if (!context.Appointments.Any())
-            {
-                context.Appointments.AddRange(
-                    new Appointment { DoctorId = 2, ParentId = 3, ChildrenRecordId = 1, Status = "ORDERED", TotalAmount = 500_000, CreatedAt = DateTime.Now },
-                    new Appointment { DoctorId = 2, ParentId = 3, ChildrenRecordId = 1, Status = "CHECKED_IN", TotalAmount = 700_000, CreatedAt = DateTime.Now }
-                );
-                context.SaveChanges();
-            }
+            //if (!context.Appointments.Any())
+            //{
+            //    context.Appointments.AddRange(
+            //        new Appointment { DoctorId = 2, ParentId = 3, ChildrenRecordId = 1, Status = "ORDERED", TotalAmount = 500_000, CreatedAt = DateTime.Now, ScheduleId = 1 },
+            //        new Appointment { DoctorId = 2, ParentId = 3, ChildrenRecordId = 1, Status = "CHECKED_IN", TotalAmount = 700_000, CreatedAt = DateTime.Now, ScheduleId = 2 }
+            //    );
+            //    context.SaveChanges();
+            //}
 
-            
 
-            if (!context.ExaminationReports.Any())
-            {
-                context.ExaminationReports.AddRange(
-                    new ExaminationReport { AppointmentId = 1, ChildrenRecordId = 1, Diagnosis = "Khỏe", Notes = "Theo dõi thường xuyên", CreatedAt = DateTime.Now }
-                );
-                context.SaveChanges();
-            }
+
+            //if (!context.ExaminationReports.Any())
+            //{
+            //    context.ExaminationReports.AddRange(
+            //        new ExaminationReport { AppointmentId = 1, ChildrenRecordId = 1, Diagnosis = "Khỏe", Notes = "Theo dõi thường xuyên", CreatedAt = DateTime.Now }
+            //    );
+            //    context.SaveChanges();
+            //}
 
             if (!context.Medicines.Any())
             {
@@ -164,13 +164,13 @@ namespace ChildCareCalendar.Domain.Data
                 context.SaveChanges();
             }
 
-            if (!context.PrescriptionDetails.Any())
-            {
-                context.PrescriptionDetails.AddRange(
-                    new PrescriptionDetail { MedicineId = 1, ExaminationReportId = 1, Dosage = 2, Quantity = 10, TotalAmount = 50, Slot = "DAY" }
-                );
-                context.SaveChanges();
-            }
+            //if (!context.PrescriptionDetails.Any())
+            //{
+            //    context.PrescriptionDetails.AddRange(
+            //        new PrescriptionDetail { MedicineId = 1, ExaminationReportId = 1, Dosage = 2, Quantity = 10, TotalAmount = 50, Slot = "DAY" }
+            //    );
+            //    context.SaveChanges();
+            //}
 
             if (!context.WorkHours.Any())
             {

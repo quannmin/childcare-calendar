@@ -6,7 +6,7 @@ namespace ChildCareCalendar.Domain.ViewModels.Account
 {
     public class UserCreateViewModel
     {
-        public int SpecialtyId { get; set; }
+        public int SpecialityId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Email không thể trống")]
         public string? Email { get; set; }
 
