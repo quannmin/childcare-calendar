@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Domain.ViewModels.Account;
+using ChildCareCalendar.Domain.ViewModels.Specility;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using ChildCareCalendar.Utilities.Constants;
 using ChildCareCalendar.Utilities.Helper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.JSInterop;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Account
 {
@@ -20,11 +22,35 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         public UserCreateViewModel userCreateViewModel { get; set; } = new();
 
         [Inject] private IUserService userService { get; set; } = default!;
+        [Inject] private ISpecialityService specialityService { get; set; } = default!;
         [Inject] private NavigationManager navigationManager { get; set; } = default!;
         [Inject] private IMapper mapper { get; set; } = default!;
         [Inject] private CloudinaryService cloudinaryService { get; set; } = default!;
-        private EditContext editContext;
+        private EditContext editContext = default!;
         private bool isSubmitting = false;
+        private bool showSpecialties = false;
+        private List<SpecialityViewModel> specialtiesViewModel = new();
+        [Inject]
+        private IJSRuntime JS { get; set; } = default!;
+        private async Task OnRoleChanged(SystemConstant.AccountsRole newRole)
+        {
+            userCreateViewModel.Role = newRole; // Update the bound model
+
+            if (newRole == SystemConstant.AccountsRole.BacSi)
+            {
+                var specialties = await specialityService.FindSpecialitiesAsync(x => !x.IsDelete);
+                specialtiesViewModel = mapper.Map<List<SpecialityViewModel>>(specialties);
+                showSpecialties = true;
+            }
+            else
+            {
+                showSpecialties = false;
+                specialtiesViewModel.Clear();
+            }
+
+            StateHasChanged(); // Ensure the UI updates
+        }
+
         protected override void OnInitialized()
         {
             editContext = new EditContext(userCreateViewModel);
@@ -78,6 +104,15 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
                 return false;
             }
         }
+        private bool isDuplicatedEmail = false;
+        private async Task ResetInputText(ChangeEventArgs e)
+        {
+            if (isDuplicatedEmail)  // 🔴 If previously marked as duplicate
+            {
+                await JS.InvokeVoidAsync("resetInputEmail");  // Remove red border + error
+                isDuplicatedEmail = false;  // ✅ Reset the flag
+            }
+        }
 
         /// <summary>
         /// Xử lý tạo tài khoản
@@ -86,6 +121,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         {
             if (isSubmitting) return;
             isSubmitting = true;
+            isDuplicatedEmail = false;
 
             ErrorMessage.Clear();
 
@@ -96,7 +132,19 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
                 return;
             }
 
+            var checkDuplicateEmail = await userService.FindUsersAsync(x => x.Email.ToLower().Equals(userCreateViewModel.Email.ToLower()));
+
+            if (checkDuplicateEmail.Any())
+            {
+                await JS.InvokeVoidAsync("displayEmailDuplicate");
+                isSubmitting = false;
+                isDuplicatedEmail = true;
+                return;
+            }
+
             // Mapping dữ liệu
+
+            //if (userCreateViewModel.SpecialityId == 0) userCreateViewModel.SpecialityId = null;
             AppUser doctor = mapper.Map<AppUser>(userCreateViewModel);
             if (doctor == null)
             {

@@ -13,12 +13,13 @@ namespace ChildCareCalendar.Domain.ViewModels.Account
         public string? FullName { get; set; }
         public string? Avatar { get; set; }
         public string? PhoneNumber { get; set; }
-        public string? GenderDisplay { get; set; }
-        public string? RoleDisplay { get; set; }
-        public SystemConstant.Gender Gender { get; set; }
+        public string? Gender { get; set; }
+        public string? Role { get; set; }
         public string? Address { get; set; }
         public DateTime? Dob { get; set; }
         public DateTime CreatedAt { get; set; }
         public string? CreatedBy { get; set; }
-    }
+		public int? SpecialityId { get; set; }
+		public Speciality? Speciality { get; set; }
+	}
 }

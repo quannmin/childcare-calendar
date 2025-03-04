@@ -10,6 +10,8 @@ namespace ChildCareCalendar.Domain.Entities
     public class AppUser
     {
         public int Id { get; set; }
+        public int? SpecialityId { get; set; }
+        public Speciality? Speciality { get; set; }
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
         public string? FullName { get; set; }

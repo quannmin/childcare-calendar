@@ -9,37 +9,38 @@
     }
 
     // Lấy nút Next và Back
-    const nextBtn = document.getElementById("nextButton");
-    const backBtn = document.querySelector(".backBtn");
-
-    // Lấy tất cả các input và select trong form-first, loại trừ input file
+    const nextBtnFirstForm = document.getElementById("nextButton");
+    const backBtnThirdForm = document.getElementById("backButton");
+    const backBtnOTP = document.getElementById("backButtonOTP");
+    const nextBtnOTP = document.getElementById("nextButtonOTP");
     const firstFormInputs = registrationForm.querySelectorAll(".form.first input:not([type='file']), .form.first select");
 
-    if (!nextBtn) {
-        console.error("Next button not found!");
-        return;
+    // Gán sự kiện cho nút Next
+    if (nextBtnFirstForm) {
+        nextBtnFirstForm.removeEventListener("click", handleNextClickFirstForm);
+        nextBtnFirstForm.addEventListener("click", handleNextClickFirstForm);
     }
 
-    // Gán sự kiện cho nút Next
-    nextBtn.removeEventListener("click", handleNextClick);
-    nextBtn.addEventListener("click", handleNextClick);
+    if (nextBtnOTP) {
+        nextBtnOTP.removeEventListener("click", handleNextClickOTP);
+        nextBtnOTP.addEventListener("click", handleNextClickOTP);
+    }
 
     // Gán sự kiện cho nút Back nếu có
-    if (backBtn) {
-        backBtn.removeEventListener("click", handleBackClick);
-        backBtn.addEventListener("click", handleBackClick);
+    if (backBtnThirdForm) {
+        backBtnThirdForm.removeEventListener("click", handleBackClickThirdForm);
+        backBtnThirdForm.addEventListener("click", handleBackClickThirdForm);
     }
 
-    function handleNextClick(event) {
-        console.log("Next button clicked!");
+    function handleNextClickFirstForm(event) {
+        console.log("Next button first form clicked!");
 
         let isValid = true;
 
-        // Kiểm tra tất cả input và select bên form-first
+        // Validate first form inputs
         firstFormInputs.forEach(input => {
             if (!input.value.trim()) {
                 isValid = false;
-                // Thêm class Bootstrap để hiển thị thông báo lỗi
                 input.classList.add("is-invalid");
                 console.log(`Input ${input.name} is empty`);
             } else {
@@ -48,9 +49,70 @@
         });
 
         if (isValid) {
-            console.log("Form is valid, switching to second form!");
-            // Thêm class 'secActive' vào registrationForm để chuyển sang hiển thị form-second
-            registrationForm.classList.add('secActive');
+            console.log("Valid form. Transitioning to OTP form!");
+            window.invokeBlazorOtp();
         }
     }
+    if (backBtnOTP) {
+        console.error("FFFFFFF!");
+        backBtnOTP.removeEventListener("click", handleBackClickOTP);
+        backBtnOTP.addEventListener("click", handleBackClickOTP);
+    }
+    function handleNextClickOTP(event) {
+       
+    }
+
+    function handleBackClickOTP(event) {
+        console.log("Back button clicked!");
+        if (!registrationForm) {
+            console.error("Registration form not found!");
+            return;
+        }
+        registrationForm.classList.remove('otpActive');
+        registrationForm.classList.remove('secActive');
+    }
+
+    const inputs = document.querySelectorAll(".otp-input");
+    if (inputs) {
+        inputs.forEach((input, index) => {
+            input.addEventListener("input", (e) => {
+                let value = e.target.value.replace(/\D/g, ''); // Ensure only numbers
+                e.target.value = value; // Limit input to one character
+
+                // Move to next input if a number is entered
+                if (value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener("keydown", (e) => {
+                // Allow only numbers, Backspace, ArrowLeft, and ArrowRight
+                if (!/^[0-9]$/.test(e.key) && !["Backspace", "ArrowLeft", "ArrowRight"].includes(e.key)) {
+                    e.preventDefault();
+                }
+
+                // Move back on Backspace if field is empty
+                if (e.key === "Backspace" && !e.target.value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+
+                // Move left on ArrowLeft and set cursor at end
+                if (e.key === "ArrowLeft" && index > 0) {
+                    inputs[index - 1].focus();
+                    setTimeout(() => {
+                        inputs[index - 1].setSelectionRange(1, 1); // Move cursor to end
+                    }, 0);
+                }
+
+                // Move right on ArrowRight and set cursor at end
+                if (e.key === "ArrowRight" && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                    setTimeout(() => {
+                        inputs[index + 1].setSelectionRange(1, 1); // Move cursor to end
+                    }, 0);
+                }
+            });
+        });
+    }
+
 };

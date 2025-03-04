@@ -27,8 +27,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
                     a => a.Parent,
                     a => a.ChildrenRecord,
                     a => a.Doctor,
-                    a => a.FollowUpAppointment,
-                    a => a.Service
+                    a => a.FollowUpAppointment
                     );
                 AppointmentViewModel = Mapper.Map<AppointmentDetailViewModel>(appointment);
             }

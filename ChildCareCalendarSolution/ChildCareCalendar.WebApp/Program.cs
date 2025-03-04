@@ -1,8 +1,10 @@
 using ChildCareCalendar.Infrastructure.Services;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using ChildCareCalendar.Domain.EF;
 using ChildCareCalendar.WebApp.Components;
-using Microsoft.AspNetCore.Localization;
-using System.Globalization;
+using Microsoft.EntityFrameworkCore;
+using ChildCareCalendar.Infrastructure.Extensions;
+using ChildCareCalendar.Infrastructure.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,21 @@ builder.Services.AddRazorComponents()
 //var cultureInfo = new CultureInfo("vi-VN");
 //CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
 //CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine($"Connection String: {connectionString}");
+
+builder.Services.AddDbContext<ChildCareCalendarContext>(options => {
+	options.UseSqlServer(connectionString);
+	options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
+
+builder.Services.AddRazorComponents()
+	.AddInteractiveServerComponents();
+
+builder.Services.AddDependencyInjection();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 
 
 var app = builder.Build();
@@ -33,11 +50,5 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-//app.UseRequestLocalization(new RequestLocalizationOptions
-//{
-//    DefaultRequestCulture = new RequestCulture("vi-VN"),
-//    SupportedCultures = new List<CultureInfo> { cultureInfo },
-//    SupportedUICultures = new List<CultureInfo> { cultureInfo }
-//});
 
 app.Run();

@@ -5,15 +5,14 @@ using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using ChildCareCalendar.Utilities.Helper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Account
 {
     partial class Registration
     {
         private List<string> ErrorMessage = new();
-        private IBrowserFile? selectedFile;
-        private string? PreviewImageUrl;
-        private string? UploadedImageUrl;
+
         [SupplyParameterFromForm]
         public User_ChildrenCreateViewModel compositeViewModel { get; set; } = new();
         [Inject] private IUserService userService { get; set; } = default!;
@@ -21,16 +20,62 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         [Inject] private NavigationManager navigationManager { get; set; } = default!;
         [Inject] private IMapper mapper { get; set; } = default!;
         [Inject] private CloudinaryService cloudinaryService { get; set; } = default!;
+        [Inject] private IEmailService emailService { get; set; } = default!;
+        [Inject] private IJSRuntime JS { get; set; } = default!;
+        private DotNetObjectReference<Registration> objRef;
+        private bool _jsInitialized;
+
         private bool isSubmitting = false;
         private EditContext editContext;
         protected override void OnInitialized()
         {
             editContext = new EditContext(compositeViewModel);
         }
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender && !_jsInitialized)
+            {
+                _jsInitialized = true; // Prevent multiple calls
+
+                objRef = DotNetObjectReference.Create(this);
+
+                try
+                {
+                    await JS.InvokeVoidAsync("GLOBAL.SetDotnetReference", objRef);
+                }
+                catch (JSDisconnectedException)
+                {
+                    Console.WriteLine("Blazor JS runtime disconnected.");
+                }
+
+                // Ensure JS has DotNetReference before triggering JS event bindings
+                await Task.Delay(100);
+
+                try
+                {
+                    await JS.InvokeVoidAsync("registerFormEvents");
+                }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine($"Error invoking JS function: {ex.Message}");
+                }
+            }
+        }
+
+        // Dispose to prevent memory leaks
+        public void Dispose()
+        {
+            objRef?.Dispose();
+        }
+
         private void ValidateConfirmPassword()
         {
             editContext.NotifyFieldChanged(FieldIdentifier.Create(() => compositeViewModel._userCreateViewModel.ConfirmPassword));
         }
+
+        private IBrowserFile? selectedFile;
+        private string? PreviewImageUrl;
+        private string? UploadedImageUrl;
         private async Task HandleFileSelection(InputFileChangeEventArgs e)
         {
             selectedFile = e.File;
@@ -120,6 +165,49 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
             await childrenRecordService.AddChildrenRecordAsync(childrenRecord);
 
             navigationManager.NavigateTo("/users/index");
+        }
+
+        private string generatedOtp = string.Empty;
+        private string otpInput = string.Empty;
+        private bool isOtpSent = false;
+        private bool isOtpConfirmed = false;
+        private void VerifyOtp()
+        {
+            if (otpInput == generatedOtp)
+            {
+                isOtpConfirmed = true;
+                ErrorMessage.Clear();
+            }
+            else
+            {
+                ErrorMessage.Add("Mã OTP không chính xác, vui lòng thử lại!");
+            }
+        }
+
+        private async Task SendOtp()
+        {
+            if (string.IsNullOrEmpty(compositeViewModel._userCreateViewModel.Email))
+            {
+                ErrorMessage.Add("Vui lòng nhập email!");
+                return;
+            }
+
+            generatedOtp = new Random().Next(1000, 9999).ToString();
+
+            string subject = "Mã xác nhận OTP của bạn";
+            string body = $"Mã OTP của bạn là: <b>{generatedOtp}</b>. Vui lòng nhập mã này để xác nhận.";
+
+            await emailService.SendEmailAsync(compositeViewModel._userCreateViewModel.Email, subject, body);
+            isOtpSent = true;
+
+            // Call JavaScript function after OTP is sent
+            await JS.InvokeVoidAsync("otpSentSuccess");
+        }
+
+        [JSInvokable("HandleNextClick")]
+        public async Task HandleNextClick()
+        {
+            await SendOtp();
         }
     }
 }
