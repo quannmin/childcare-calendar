@@ -41,26 +41,26 @@ namespace ChildCareCalendar.WebApp.Components.Pages.Appointment
 
         private string ErrorMessage = "";
 
-        protected override async Task OnInitializedAsync()
-        {
-            Specialities = (await SpecialityService.FindSpecialitiesAsync(s => s.IsDelete.Equals(false))).ToList();
-            //Doctors = (await UserService.FindUsersAsync(u => u.Role.Equals("Doctor") && u.IsDelete.Equals(false))).ToList();
-        }
+        //protected override async Task OnInitializedAsync()
+        //{
+        //    Specialities = (await SpecialityService.FindSpecialitiesAsync(s => s.IsDelete.Equals(false))).ToList();
+        //    //Doctors = (await UserService.FindUsersAsync(u => u.Role.Equals("Doctor") && u.IsDelete.Equals(false))).ToList();
+        //}
 
-        private async Task LoadDoctors(ChangeEventArgs e)
-        {
-            if (int.TryParse(e.Value?.ToString(), out int specialityid))
-            {
-                try
-                {
-                    //Doctors = (await UserService.FindUsersAsync(cr => )).ToList();
-                    StateHasChanged();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Lỗi khi tải Doctors: {ex.Message}");
-                }
-            }
-        }
+        //private async Task LoadDoctors(ChangeEventArgs e)
+        //{
+        //    if (int.TryParse(e.Value?.ToString(), out int specialityid))
+        //    {
+        //        try
+        //        {
+        //            //Doctors = (await UserService.FindUsersAsync(cr => )).ToList();
+        //            StateHasChanged();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Console.WriteLine($"Lỗi khi tải Doctors: {ex.Message}");
+        //        }
+        //    }
+        //}
     }
 }

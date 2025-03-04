@@ -1,0 +1,130 @@
+﻿:root {
+    --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --heading-font: "Poppins", sans-serif;
+    --nav-font: "Raleway", sans-serif;
+}
+
+:root {
+    --background-color: #ffffff; /* Background color for the entire website, including individual sections */
+    --default-color: #444444; /* Default color used for the majority of the text content across the entire website */
+    --heading-color: #2c4964; /* Color for headings, subheadings and title throughout the website */
+    --accent-color: #1977cc; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+    --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+    --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+}
+
+:root {
+    --nav-color: #2c4964; /* The default color of the main navmenu links */
+    --nav-hover-color: #1977cc; /* Applied to main navmenu links when they are hovered over or active */
+    --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
+    --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
+    --nav-dropdown-color: #2c4964; /* Used for navigation links of the dropdown items in the navigation menu. */
+    --nav-dropdown-hover-color: #1977cc; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+}
+
+
+.light-background {
+    --background-color: #f1f7fc;
+    --surface-color: #ffffff;
+}
+
+.dark-background {
+    --background-color: #060606;
+    --default-color: #ffffff;
+    --heading-color: #ffffff;
+    --surface-color: #252525;
+    --contrast-color: #ffffff;
+}
+
+:root {
+    scroll-behavior: smooth;
+}
+
+.left-panel {
+    background-color: var(--surface-color);
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    border-radius: 10px;
+    height: 100%;
+    padding: 20px;
+}
+
+.info-title {
+    padding-top: 10px;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.right-panel {
+    background-color: var(--surface-color);
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid;
+    border-color: grey;
+    border-radius: 20px;
+    padding: 5px 20px;
+    transition: 0.3s;
+}
+
+    .search-box input {
+        border: none;
+        outline: none;
+        flex: 1;
+        font-size: 16px;
+        padding: 5px;
+        font-family: var(--default-font)
+    }
+
+    .search-box .icon {
+        color: gray;
+        font-size: 18px;
+    }
+
+    .search-box:hover {
+        border-color: var(--surface-color);
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+.list-specialty-container {
+    width: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.list-specialty-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .list-specialty-item:last-child {
+        border-bottom: none;
+    }
+
+    .list-specialty-item:hover {
+        background-color: #f0f8ff;
+    }
+
+.list-specialty-title {
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+.list-specialty-description {
+    font-style: italic;
+    color: grey;
+}

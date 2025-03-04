@@ -29,6 +29,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddDependencyInjection();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAntDesign();
 
 
 
