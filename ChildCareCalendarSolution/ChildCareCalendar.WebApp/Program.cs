@@ -1,3 +1,5 @@
+using ChildCareCalendar.Infrastructure.Services;
+using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using ChildCareCalendar.Domain.EF;
 using ChildCareCalendar.WebApp.Components;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+//var cultureInfo = new CultureInfo("vi-VN");
+//CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+//CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 Console.WriteLine($"Connection String: {connectionString}");
@@ -23,6 +29,8 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddDependencyInjection();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAntDesign();
+
 
 
 var app = builder.Build();
