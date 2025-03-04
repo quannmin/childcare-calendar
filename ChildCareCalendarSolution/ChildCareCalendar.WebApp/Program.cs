@@ -1,3 +1,5 @@
+using ChildCareCalendar.Infrastructure.Services;
+using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using ChildCareCalendar.WebApp.Components;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
@@ -7,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
 
 //var cultureInfo = new CultureInfo("vi-VN");
 //CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
