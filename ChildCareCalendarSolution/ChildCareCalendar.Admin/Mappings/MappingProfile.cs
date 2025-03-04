@@ -9,6 +9,7 @@ using ChildCareCalendar.Domain.ViewModels.ServiceVM;
 using ChildCareCalendar.Domain.ViewModels.Specility;
 using ChildCareCalendar.Domain.ViewModels.ExaminationReport;
 using ChildCareCalendar.Domain.ViewModels.PrescriptionDetail;
+using ChildCareCalendar.Domain.ViewModels.WorkHour
 
 namespace Pubs.BackendApi.Mappings
 {
@@ -81,6 +82,10 @@ namespace Pubs.BackendApi.Mappings
                 .ForMember(dest => dest.DoctorId, opt => opt.MapFrom(src => src.DoctorId))
                 .ForMember(dest => dest.CheckupDateTime, opt => opt.MapFrom(src => src.CheckupDateTime))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status));
+
+            CreateMap<WorkHour, WorkHourViewModel>();
+            CreateMap<WorkHourCreateViewModel, WorkHour>();
+            CreateMap<WorkHourEditViewModel, WorkHour>().ReverseMap();
         }
     }
 }
