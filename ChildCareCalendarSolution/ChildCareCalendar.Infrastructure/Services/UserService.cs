@@ -31,6 +31,12 @@ namespace ChildCareCalendar.Infrastructure.Services
             }
             return id > 0 ? id : 0;
         }
+
+        public async Task<AppUser> FindUserAsync(Expression<Func<AppUser, bool>> predicate, params Expression<Func<AppUser, object>>[] includes)
+        {
+            return (AppUser)await _userRepository.FindAsync(predicate, includes);
+        }
+
         public async Task<IEnumerable<AppUser>> FindUsersAsync(Expression<Func<AppUser, bool>> predicate,
                                                                         params Expression<Func<AppUser, object>>[] includes)
         {

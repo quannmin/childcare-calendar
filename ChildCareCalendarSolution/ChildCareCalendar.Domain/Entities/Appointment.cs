@@ -15,7 +15,8 @@ namespace ChildCareCalendar.Domain.Entities
         public decimal TotalAmount { get; set; }
 
         [DefaultValue(false)]
-        public bool IsDelete { get; set; } = false; public DateTime CreatedAt { get; set; }
+        public bool IsDelete { get; set; } = false; 
+        public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public int ParentId { get; set; }
         public AppUser? Parent { get; set; }

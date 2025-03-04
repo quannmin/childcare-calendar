@@ -1,4 +1,5 @@
-﻿using ChildCareCalendar.Infrastructure.Repository;
+﻿using ChildCareCalendar.Domain.Entities;
+using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using ChildCareCalendar.Utilities.Helper;
@@ -11,7 +12,7 @@ namespace ChildCareCalendar.Admin.Extensions
         {
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
-            services.AddTransient<ISpecialityService, SpecialityService>();
+            services.AddTransient<ISpecialityService, SpecialityService>();      
             services.AddTransient<IServiceService, ServiceService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAppointmentService, AppointmentService>();
@@ -19,7 +20,10 @@ namespace ChildCareCalendar.Admin.Extensions
             services.AddTransient<IMedicineService, MedicineService>();
             services.AddTransient<IChildrenRecordService, ChildrenRecordService>();
             services.AddTransient<IEmailService, EmailService>();
+             services.AddTransient<IExaminationReportService, ExaminationReportService>();
             services.AddSingleton<CloudinaryService>();
+			services.AddTransient<IWorkHourService, WorkHourService>();
+			services.AddSingleton<CloudinaryService>();
             return services;
         }
     }

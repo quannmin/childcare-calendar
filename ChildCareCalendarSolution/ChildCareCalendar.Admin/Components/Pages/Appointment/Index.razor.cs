@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using ChildCareCalendar.Domain.ViewModels.Appointment;
+using ChildCareCalendar.Infrastructure.Services;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Appointment
 {
@@ -20,11 +22,22 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
         [Inject]
         private NavigationManager Navigation { get; set; }
 
+        [Inject]
+        private IJSRuntime JS { get; set; }
+
+        private int? idToDelete;
+
         protected override async Task OnInitializedAsync()
         {
+            await LoadAppointmentsAsync();
+        }
+
+        private async Task LoadAppointmentsAsync()
+        {
             Appointments = Mapper.Map<List<AppointmentViewModel>>(await AppointmentService.FindAppointmentsAsync(a => !a.IsDelete,
-                a => a.Parent, a => a.ChildrenRecord
-                ));
+
+                            a => a.Parent, a => a.ChildrenRecord, a => a.Service
+                            ));
         }
 
         private async Task HandleSearch()
@@ -39,9 +52,21 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
             StateHasChanged();
         }
 
-        private async Task DeleteCategory(int id)
+        private async void ConfirmDelete(int id)
         {
-            
+            idToDelete = id;
+            await JS.InvokeVoidAsync("showDeleteModal");
+        }
+
+        private async Task DeleteAppointment()
+        {
+            if (idToDelete.HasValue)
+            {
+                await AppointmentService.DeleteAppointmentAsync(idToDelete.Value);
+                idToDelete = null;
+                await LoadAppointmentsAsync();
+            }
+            await JS.InvokeVoidAsync("hideDeleteModal");
         }
     }
 }
