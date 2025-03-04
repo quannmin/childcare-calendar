@@ -70,15 +70,13 @@ namespace ChildCareCalendar.Domain.Data
                 context.SaveChanges();
             }
 
-            
-
-            if (!context.ExaminationReports.Any())
-            {
-                context.ExaminationReports.AddRange(
-                    new ExaminationReport { AppointmentId = 1, ChildrenRecordId = 1, Diagnosis = "Khỏe", Notes = "Theo dõi thường xuyên", CreatedAt = DateTime.Now }
-                );
-                context.SaveChanges();
-            }
+            //if (!context.ExaminationReports.Any())
+            //{
+            //    context.ExaminationReports.AddRange(
+            //        new ExaminationReport { AppointmentId = 1, ChildrenRecordId = 1, Diagnosis = "Khỏe", Notes = "Theo dõi thường xuyên", CreatedAt = DateTime.Now }
+            //    );
+            //    context.SaveChanges();
+            //}
 
             if (!context.Medicines.Any())
             {
@@ -168,13 +166,13 @@ namespace ChildCareCalendar.Domain.Data
                 context.SaveChanges();
             }
 
-            if (!context.PrescriptionDetails.Any())
-            {
-                context.PrescriptionDetails.AddRange(
-                    new PrescriptionDetail { MedicineId = 1, ExaminationReportId = 1, Dosage = 2, Quantity = 10, TotalAmount = 50, Slot = "DAY" }
-                );
-                context.SaveChanges();
-            }
+            //if (!context.PrescriptionDetails.Any())
+            //{
+            //    context.PrescriptionDetails.AddRange(
+            //        new PrescriptionDetail { MedicineId = 1, ExaminationReportId = 1, Dosage = 2, Quantity = 10, TotalAmount = 50, Slot = "DAY" }
+            //    );
+            //    context.SaveChanges();
+            //}
 
             if (!context.WorkHours.Any())
             {

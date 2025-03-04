@@ -1,7 +1,6 @@
 ﻿@page "/register"
 @using ChildCareCalendar.Admin.Components.Layout
 @using ChildCareCalendar.Utilities.Constants
-@inject IJSRuntime JS
 @layout EmptyLayout
 @rendermode InteractiveServer
 
@@ -9,6 +8,7 @@
 <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
 <div class="container">
+
     <header>Đăng ký</header>
     <!-- Gán id cho EditForm để JS thao tác -->
     <EditForm id="registrationForm" EditContext="editContext" OnValidSubmit="HandleCreateUser">
@@ -21,33 +21,21 @@
                     <div class="input-field">
                         <label>Họ và tên</label>
                         <InputText class="form-control" placeholder="Nhập họ và tên của bạn" @bind-Value="compositeViewModel._userCreateViewModel.FullName" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng nhập họ và tên.
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.FullName)" class="text-danger" />
                     </div>
                     <div class="input-field">
                         <label>Ngày tháng năm sinh</label>
                         <InputDate class="form-control" @bind-Value="compositeViewModel._userCreateViewModel.Dob" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng chọn ngày tháng năm sinh.
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.Dob)" class="text-danger" />
                     </div>
                     <div class="input-field">
                         <label>Email</label>
                         <InputText class="form-control" placeholder="Nhập email của bạn" @bind-Value="compositeViewModel._userCreateViewModel.Email" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng nhập email
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.Email)" class="text-danger" />
                     </div>
                     <div class="input-field">
                         <label>Password</label>
                         <InputText type="password" placeholder="Nhập mật khẩu của bạn" class="form-control" @bind-Value="compositeViewModel._userCreateViewModel.Password" @oninput="ValidateConfirmPassword" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng nhập mật khẩu
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.Password)" class="text-danger" />
                     </div>
 
@@ -56,17 +44,11 @@
                         <InputText type="password" class="form-control" placeholder="Xác nhận mật khẩu của bạn"
                                    @bind-Value="compositeViewModel._userCreateViewModel.ConfirmPassword" @oninput="ValidateConfirmPassword"
                                    disabled="@string.IsNullOrEmpty(compositeViewModel._userCreateViewModel.Password)" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng xác nhận mật khẩu
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.ConfirmPassword)" class="text-danger" />
                     </div>
                     <div class="input-field">
                         <label>Số điện thoại</label>
                         <InputText class="form-control" placeholder="Nhập số điện thoại của bạn" @bind-Value="compositeViewModel._userCreateViewModel.PhoneNumber" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng nhập số điện thoại.
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.PhoneNumber)" class="text-danger" />
                     </div>
                     <div class="input-field">
@@ -82,9 +64,6 @@
                     <div class="input-field">
                         <label>Địa chỉ</label>
                         <InputText class="form-control" placeholder="Nhập địa chỉ của bạn" @bind-Value="compositeViewModel._userCreateViewModel.Address" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng nhập địa chỉ.
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.Address)" class="text-danger" />
                     </div>
                     <div class="row w-100" style="min-height: 200px">
@@ -104,7 +83,7 @@
                         <div class="col-md-4 center-container">
                             <!-- Nút Next không dùng @onclick, sẽ gán sự kiện qua JS -->
                             <button id="nextButton" type="button">
-                                <span class="btnText">Next</span>
+                                <span class="btnText">Tiếp tục</span>
                                 <i class="uil uil-navigator"></i>
                             </button>
                         </div>
@@ -120,17 +99,11 @@
                     <div class="input-field">
                         <label>Họ và tên</label>
                         <InputText class="form-control" placeholder="Nhập họ và tên của bạn" @bind-Value="compositeViewModel._childCreateViewModel.FullName" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng nhập họ và tên.
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._childCreateViewModel.FullName)" class="text-danger" />
                     </div>
                     <div class="input-field">
                         <label>Ngày tháng năm sinh</label>
                         <InputDate class="form-control" @bind-Value="compositeViewModel._childCreateViewModel.Dob" />
-                        <div class="invalid-feedback text-danger">
-                            Vui lòng chọn ngày tháng năm sinh.
-                        </div>
                         <ValidationMessage For="@(() => compositeViewModel._childCreateViewModel.Dob)" class="text-danger" />
                     </div>
                     <div class="input-field">
@@ -149,37 +122,52 @@
                     </div>
                 </div>
                 <div class="buttons">
-                    <div class="backBtn">
-                        <i class="uil uil-navigator"></i>
-                        <span class="btnText">Back</span>
-                    </div>
+                    <button id="backButton" type="button">
+                        <span class="btnText">Trở lại</span>
+                        <i class="uil uil-backward"></i>
+                    </button>
                     <button type="submit" class="btn btn-success" disabled="@isSubmitting">
                         @(isSubmitting ? "Đang xử lý..." : "Tạo mới")
                     </button>
                 </div>
             </div>
+        </div>'
+        <div class="container-OTP">
+            <!-- Security Icon -->
+            <div class="security-icon">
+                <img src="/images/securityicon.png" alt="Security Icon">
+            </div>
+
+            <h2>Xác nhận OTP</h2>
+
+            <div class="otp-form">
+                <p>Nhập mã 4 chữ số chúng tôi đã gửi đến bạn thông qua email @compositeViewModel._userCreateViewModel.Email để tiếp tục</p>
+                <div class="otp-group">
+                    <input type="text" maxlength="1" class="otp-input" />
+                    <input type="text" maxlength="1" class="otp-input" />
+                    <input type="text" maxlength="1" class="otp-input" />
+                    <input type="text" maxlength="1" class="otp-input" />
+                </div>
+            </div>
+
+            <p>Email không phải của bạn / Không nhận được mã? <a href="#">Gửi lại mã</a></p>
+
+            <div class="btnNext-OTP">
+                <button id="backButtonOTP" type="button">
+                    Trở lại
+                    <i class="uil uil-backward"></i>
+                </button>
+                <button id="nextButtonOTP" type="button">
+                    Tiếp tục
+                    <i class="uil uil-navigator"></i>
+                </button>
+            </div>
         </div>
+
     </EditForm>
 </div>
 
 <!-- Đảm bảo rằng file JS được load sau khi DOM đã render -->
 <script src="/assets/js/Registration.js" defer></script>
+<script src="/site.js"></script>
 
-@code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await Task.Delay(100);
-            try
-            {
-                await JS.InvokeVoidAsync("registerFormEvents");
-            }
-            catch (Exception ex)
-            {
-                Console.Error.WriteLine($"Error invoking JS function: {ex.Message}");
-            }
-        }
-    }
-
-}

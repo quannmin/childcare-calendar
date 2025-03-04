@@ -234,3 +234,150 @@ form .buttons {
         width: 100%;
     }
 }
+
+.container-OTP {
+    position: relative;
+    min-height: 500px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+    /* Activate OTP Form */
+    .container-OTP.active {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+.otp-form {
+    display: block;
+    margin: 20px 0;
+}
+
+    .otp-form p {
+        margin: 10px 0;
+        font-size: 16px;
+        color: green;
+    }
+
+.otp-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    width: fit-content;
+}
+
+.otp-input {
+    height: 55px;
+    width: 55px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    border: 2px solid #a3a3a3;
+    border-radius: 10px;
+    outline: none;
+    background-color: #f8f9fa;
+    transition: all 0.2s ease-in-out;
+}
+
+    .otp-input:focus {
+        border-color: #4070f4;
+        box-shadow: 0px 0px 10px rgba(64, 112, 244, 0.5);
+    }
+
+/* Remove spinner for number input */
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Resend Link */
+.container-OTP a {
+    color: #4070f4;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+    .container-OTP a:hover {
+        color: #3056d3;
+        text-decoration: underline;
+    }
+
+/* Button Styling */
+.btnNext-OTP {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-top: 20px;
+}
+
+    .btnNext-OTP button {
+        height: 50px;
+        max-width: 220px;
+        width: 100%;
+        border: none;
+        outline: none;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #4070f4, #3056d3);
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+        .btnNext-OTP button:hover {
+            background: linear-gradient(135deg, #3056d3, #2040a3);
+            transform: translateY(-2px);
+        }
+
+        .btnNext-OTP button i {
+            font-size: 18px;
+        }
+
+.security-icon {
+    width: 200px;
+    height: 200px;
+    background-color: #4070f4;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+    .security-icon img {
+        width: 150px;
+        height: 150px;
+    }
+
+#registrationForm.otpActive .container-OTP {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+#registrationForm.otpActive .form.first {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-100%);
+}

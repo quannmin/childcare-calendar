@@ -35,6 +35,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
         private async Task LoadAppointmentsAsync()
         {
             Appointments = Mapper.Map<List<AppointmentViewModel>>(await AppointmentService.FindAppointmentsAsync(a => !a.IsDelete,
+
                             a => a.Parent, a => a.ChildrenRecord, a => a.Service
                             ));
         }
@@ -42,10 +43,10 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
         private async Task HandleSearch()
         {
             var appointments = string.IsNullOrWhiteSpace(SearchData.Keyword)
-                ? await AppointmentService.FindAppointmentsAsync(a => !a.IsDelete, a => a.Parent, a => a.ChildrenRecord, a => a.Service)
+                ? await AppointmentService.FindAppointmentsAsync(a => !a.IsDelete, a => a.Parent, a => a.ChildrenRecord)
             : await AppointmentService.FindAppointmentsAsync(a => SearchData.Keyword.Equals(a.Parent.FullName) 
                                                                 || SearchData.Keyword.Equals(a.ChildrenRecord.FullName), 
-                                                                a => a.Parent, a => a.ChildrenRecord, a => a.Service);
+                                                                a => a.Parent, a => a.ChildrenRecord);
 
             Appointments = Mapper.Map<List<AppointmentViewModel>>(appointments);
             StateHasChanged();

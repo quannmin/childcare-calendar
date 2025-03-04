@@ -20,5 +20,8 @@ namespace ChildCareCalendar.Domain.Entities
         public AppUser? Doctor { get; set; }
         [DefaultValue(false)]
         public bool IsDelete { get; set; } = false;
+        public bool IsOccupied { get; set; } = false;
+        public ICollection<Appointment>? Appointments { get; set; }
+
     }
 }

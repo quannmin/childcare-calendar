@@ -66,14 +66,12 @@ namespace Pubs.BackendApi.Mappings
             CreateMap<Appointment, AppointmentViewModel>()
             .ForMember(dest => dest.AppointmentId, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent.FullName))
-            .ForMember(dest => dest.ChildName, opt => opt.MapFrom(src => src.ChildrenRecord.FullName))
-            .ForMember(dest => dest.ServiceName, opt => opt.MapFrom(src => src.Service.ServiceName));
+            .ForMember(dest => dest.ChildName, opt => opt.MapFrom(src => src.ChildrenRecord.FullName));
 
             CreateMap<Appointment, AppointmentDetailViewModel>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent.FullName))
             .ForMember(dest => dest.ChildName, opt => opt.MapFrom(src => src.ChildrenRecord.FullName))
-            .ForMember(dest => dest.ServiceName, opt => opt.MapFrom(src => src.Service.ServiceName))
             .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.Doctor.FullName))
             .ForMember(dest => dest.FollowUpAppointment, opt => opt.MapFrom(src => src.FollowUpAppointment.CheckupDateTime));
 
