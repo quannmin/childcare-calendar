@@ -19,5 +19,7 @@ namespace ChildCareCalendar.Domain.ViewModels.Account
         public DateTime? Dob { get; set; }
         public DateTime CreatedAt { get; set; }
         public string? CreatedBy { get; set; }
-    }
+		public int? SpecialityId { get; set; }
+		public Speciality? Speciality { get; set; }
+	}
 }

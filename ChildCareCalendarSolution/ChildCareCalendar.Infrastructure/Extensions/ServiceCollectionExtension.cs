@@ -3,8 +3,9 @@ using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using ChildCareCalendar.Utilities.Helper;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace ChildCareCalendar.Admin.Extensions
+namespace ChildCareCalendar.Infrastructure.Extensions
 {
     public static class ServiceCollectionExtension
     {
