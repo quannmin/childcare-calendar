@@ -20,7 +20,7 @@
                     <!-- Các input của form đầu tiên -->
                     <div class="input-field">
                         <label>Họ và tên</label>
-                        <InputText class="form-control" placeholder="Nhập họ và tên của bạn" @bind-Value="compositeViewModel._userCreateViewModel.FullName" />
+                        <InputText class="form-control" placeholder="Nhập họ và tên của bạn" @bind-Value="compositeViewModel._userCreateViewModel.FullName" @oninput="ResetInputEmail" />
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.FullName)" class="text-danger" />
                     </div>
                     <div class="input-field">
@@ -30,8 +30,9 @@
                     </div>
                     <div class="input-field">
                         <label>Email</label>
-                        <InputText class="form-control" placeholder="Nhập email của bạn" @bind-Value="compositeViewModel._userCreateViewModel.Email" />
+                        <InputText id="emailInput" class="form-control" placeholder="Nhập email của bạn" @bind-Value="compositeViewModel._userCreateViewModel.Email" />
                         <ValidationMessage For="@(() => compositeViewModel._userCreateViewModel.Email)" class="text-danger" />
+                        <div id="emailDuplicateError" class="text-danger" style="display: none;">Email đã tồn tại.</div>
                     </div>
                     <div class="input-field">
                         <label>Password</label>
@@ -81,8 +82,7 @@
                             }
                         </div>
                         <div class="col-md-4 center-container">
-                            <!-- Nút Next không dùng @onclick, sẽ gán sự kiện qua JS -->
-                            <button id="nextButton" type="button">
+                            <button type="button" @onclick="SendOtp">
                                 <span class="btnText">Tiếp tục</span>
                                 <i class="uil uil-navigator"></i>
                             </button>
@@ -141,7 +141,7 @@
             <h2>Xác nhận OTP</h2>
 
             <div class="otp-form">
-                <p>Nhập mã 4 chữ số chúng tôi đã gửi đến bạn thông qua email @compositeViewModel._userCreateViewModel.Email để tiếp tục</p>
+                <p>Chúng tôi đã gửi đến bạn mã otp qua email <span style="color: blue">@compositeViewModel._userCreateViewModel.Email</span>, vui lòng xác nhận mã để tiếp tục</p>
                 <div class="otp-group">
                     <input type="text" maxlength="1" class="otp-input" />
                     <input type="text" maxlength="1" class="otp-input" />
@@ -150,7 +150,10 @@
                 </div>
             </div>
 
-            <p>Email không phải của bạn / Không nhận được mã? <a href="#">Gửi lại mã</a></p>
+            <p>
+                Email không phải của bạn / Không nhận được mã?
+                <span class="btn-resendOTP" @onclick="ResendOTP">Gửi lại mã</span>
+            </p>
 
             <div class="btnNext-OTP">
                 <button id="backButtonOTP" type="button">
@@ -163,10 +166,35 @@
                 </button>
             </div>
         </div>
-
     </EditForm>
 </div>
 
 <!-- Đảm bảo rằng file JS được load sau khi DOM đã render -->
-<script src="/assets/js/Registration.js" defer></script>
-<script src="/site.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function displayEmailDuplicate() {
+        let errorDiv = document.getElementById("emailDuplicateError");
+        let emailInput = document.getElementById("emailInput")
+        if (errorDiv) {
+            errorDiv.style.display = "block";
+            emailInput.style.outline = "1px solid red";
+        }
+    }
+    function resetInputEmail() {
+        let errorDiv = document.getElementById("emailDuplicateError");
+        let emailInput = document.getElementById("emailInput");
+        if (errorDiv && emailInput) {
+            errorDiv.style.display = "none";
+            emailInput.style.outline = "none";
+        }
+    }
+    function showAlertResendOTP() {
+         Swal.fire({
+             icon: 'success',
+             title: 'Gửi lại OTP thành công!',
+             text: 'Vui lòng kiểm tra email của bạn.',
+             confirmButtonText: 'OK'
+         });
+     }
+</script>
