@@ -1,13 +1,13 @@
 ﻿using ChildCareCalendar.Admin.Components;
-using ChildCareCalendar.Admin.Extensions;
 using ChildCareCalendar.Domain.EF;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using Pubs.BackendApi.Mappings;
 using ChildCareCalendar.Domain.Data;
 using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.SignalR;
 using ChildCareCalendar.Domain.ViewModels;
+using ChildCareCalendar.Infrastructure.Extensions;
+using ChildCareCalendar.Infrastructure.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 

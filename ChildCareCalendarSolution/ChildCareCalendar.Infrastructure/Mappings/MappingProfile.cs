@@ -9,9 +9,9 @@ using ChildCareCalendar.Domain.ViewModels.ServiceVM;
 using ChildCareCalendar.Domain.ViewModels.Specility;
 using ChildCareCalendar.Domain.ViewModels.ExaminationReport;
 using ChildCareCalendar.Domain.ViewModels.PrescriptionDetail;
-using ChildCareCalendar.Domain.ViewModels.WorkHour
+using ChildCareCalendar.Domain.ViewModels.WorkHour;
 
-namespace Pubs.BackendApi.Mappings
+namespace ChildCareCalendar.Infrastructure.Mappings
 {
     public class MappingProfile : Profile
     {

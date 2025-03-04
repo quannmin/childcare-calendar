@@ -36,7 +36,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
         {
             Appointments = Mapper.Map<List<AppointmentViewModel>>(await AppointmentService.FindAppointmentsAsync(a => !a.IsDelete,
 
-                            a => a.Parent, a => a.ChildrenRecord, a => a.Service
+                            a => a.Parent, a => a.ChildrenRecord
                             ));
         }
 
