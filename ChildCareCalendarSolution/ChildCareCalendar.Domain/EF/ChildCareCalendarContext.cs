@@ -34,6 +34,7 @@ namespace ChildCareCalendar.Domain.EF
       .OnDelete(DeleteBehavior.Cascade);
 
                 entity.Property(e => e.Id).UseIdentityColumn();
+                entity.Property(e => e.SpecialityId).IsRequired(false);
                 entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Avatar).HasMaxLength(255);
                 entity.Property(e => e.PhoneNumber).HasMaxLength(15);
@@ -52,8 +53,8 @@ namespace ChildCareCalendar.Domain.EF
 
             modelBuilder.Entity<Speciality>(entity =>
             {
-                entity.HasKey(e => e.SpecialityId);
-                entity.Property(e => e.SpecialityId).UseIdentityColumn();
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).UseIdentityColumn();
                 entity.Property(e => e.SpecialtyName).HasMaxLength(255);
                 entity.Property(e => e.Description).HasMaxLength(255);
             });

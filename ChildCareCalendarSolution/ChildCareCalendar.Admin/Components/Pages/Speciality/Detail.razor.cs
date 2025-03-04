@@ -37,7 +37,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
         {
 			if (id != 0 && DetailViewModel.Id == 0)
 			{
-				var speciality = await SpecialityService.FindSpecialitiesAsync(x => x.SpecialityId == id);
+				var speciality = await SpecialityService.FindSpecialitiesAsync(x => x.Id == id);
 				if (speciality.Any())
 				{
 					var firstSpeciality = speciality.FirstOrDefault();

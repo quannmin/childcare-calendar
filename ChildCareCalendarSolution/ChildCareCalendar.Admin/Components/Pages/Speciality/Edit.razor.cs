@@ -29,7 +29,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 		{
 			if (id != 0 && EditModel.Id == 0)
 			{
-				var speciality = await SpecialityService.FindSpecialitiesAsync(x => x.SpecialityId == id);
+				var speciality = await SpecialityService.FindSpecialitiesAsync(x => x.Id == id);
 				EditModel = Mapper.Map<SpecialityEditViewModel>(speciality.FirstOrDefault());
 			}
 		}
@@ -39,7 +39,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 			ErrorMessage = "";
 			var listDuplicate = await SpecialityService.FindSpecialitiesAsync(x =>
 				x.SpecialtyName.Trim().ToLower().Equals(EditModel.SpecialtyName.Trim().ToLower()) &&
-				x.SpecialityId != EditModel.Id);
+				x.Id != EditModel.Id);
 			if (listDuplicate.Count() > 0)
 			{
 				ErrorMessage = "Tên chuyên khoa đã tồn tại.";
