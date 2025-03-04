@@ -22,6 +22,5 @@ namespace ChildCareCalendar.Domain.Entities
         public bool IsDelete { get; set; } = false;
         public bool IsOccupied { get; set; } = false;
         public ICollection<Appointment>? Appointments { get; set; }
-
     }
 }

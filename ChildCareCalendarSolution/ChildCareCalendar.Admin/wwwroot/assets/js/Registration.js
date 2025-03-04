@@ -15,8 +15,14 @@
     const nextBtnOTP = document.getElementById("nextButtonOTP");
     const firstFormInputs = registrationForm.querySelectorAll(".form.first input:not([type='file']), .form.first select");
 
+    if (backBtnOTP) {
+        console.log("backBtnOTP!");
+        backBtnOTP.removeEventListener("click", handleBackClickOTP);
+        backBtnOTP.addEventListener("click", handleBackClickOTP);
+    }
     // Gán sự kiện cho nút Next
     if (nextBtnFirstForm) {
+        console.log("nextBtnFirstForm!");
         nextBtnFirstForm.removeEventListener("click", handleNextClickFirstForm);
         nextBtnFirstForm.addEventListener("click", handleNextClickFirstForm);
     }
@@ -53,11 +59,7 @@
             window.invokeBlazorOtp();
         }
     }
-    if (backBtnOTP) {
-        console.error("FFFFFFF!");
-        backBtnOTP.removeEventListener("click", handleBackClickOTP);
-        backBtnOTP.addEventListener("click", handleBackClickOTP);
-    }
+   
     function handleNextClickOTP(event) {
        
     }
