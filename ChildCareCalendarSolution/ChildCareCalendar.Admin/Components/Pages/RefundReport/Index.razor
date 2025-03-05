@@ -1,0 +1,41 @@
+﻿@page "/refundreports"
+@rendermode InteractiveServer
+
+<h3>Quản lý lịch sử hoàn tiền</h3>
+
+@if (RefundReports == null)
+{
+    <p class="text-center">Đang tải dữ liệu...</p>
+}
+else if (!RefundReports.Any())
+{
+    <p class="text-center">Không có dữ liệu</p>
+}
+else
+{
+    <table class="table table-bordered table-hover text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Số tiền hoàn</th>
+                <th>Ngày hoàn</th>
+                <th>Phần trăm hoàn</th>
+                <th>Khách hàng</th>
+                <th>Số điện thoại</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var refund in RefundReports)
+            {
+                <tr>
+                    <td>@refund.RefundReportId</td>
+                    <td>@refund.RefundAmount.ToString("N0") VND</td>
+                    <td>@refund.RefundDate.ToString("dd/MM/yyyy")</td>
+                    <td>@refund.RefundPercentage %</td>
+                    <td>@refund.UserName</td>
+                    <td>@refund.PhoneNumber</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

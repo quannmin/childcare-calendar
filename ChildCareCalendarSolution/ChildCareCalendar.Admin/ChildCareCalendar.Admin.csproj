@@ -30,9 +30,13 @@
     <Content Update="Components\Pages\Account\Login.razor">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
+    <Content Update="Components\Pages\RefundReport\Index.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Components\Pages\RefundReport\" />
     <Folder Include="wwwroot\assets\js\plugins\tinymce\icons\" />
   </ItemGroup>
 
