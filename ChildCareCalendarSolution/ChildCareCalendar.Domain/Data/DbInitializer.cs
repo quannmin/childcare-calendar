@@ -65,7 +65,15 @@ namespace ChildCareCalendar.Domain.Data
 			if (!context.WorkHours.Any())
 			{
 				context.WorkHours.AddRange(
-					new WorkHour { StartTime = new TimeSpan(8, 0, 0), EndTime = new TimeSpan(12, 0, 0) }
+					new WorkHour { StartTime = new TimeSpan(8, 0, 0), EndTime = new TimeSpan(9, 0, 0) },
+					new WorkHour { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(10, 0, 0) },
+					new WorkHour { StartTime = new TimeSpan(10, 0, 0), EndTime = new TimeSpan(11, 0, 0) },
+					new WorkHour { StartTime = new TimeSpan(11, 0, 0), EndTime = new TimeSpan(12, 0, 0) },
+					new WorkHour { StartTime = new TimeSpan(12, 0, 0), EndTime = new TimeSpan(13, 0, 0) },
+					new WorkHour { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(14, 0, 0) },
+					new WorkHour { StartTime = new TimeSpan(14, 0, 0), EndTime = new TimeSpan(15, 0, 0) },
+					new WorkHour { StartTime = new TimeSpan(15, 0, 0), EndTime = new TimeSpan(16, 0, 0) },
+					new WorkHour { StartTime = new TimeSpan(16, 0, 0), EndTime = new TimeSpan(17, 0, 0) }
 				);
 				context.SaveChanges();
 			}
@@ -73,7 +81,8 @@ namespace ChildCareCalendar.Domain.Data
 			if (!context.Schedules.Any())
 			{
 				context.Schedules.AddRange(
-					new Schedule { UserId = 2, SpecialityId = 1, WorkDay = DateTime.Now, WorkHourId = 1 }
+					new Schedule { UserId = 2, WorkDay = DateTime.Now, WorkHourId = 1 },
+					new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(1), WorkHourId = 1 }
 				);
 				context.SaveChanges();
 			}
