@@ -7,10 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\vendor\**" />
-    <Content Remove="wwwroot\vendor\**" />
-    <EmbeddedResource Remove="wwwroot\vendor\**" />
-    <None Remove="wwwroot\vendor\**" />
+    <None Include="wwwroot\vendor\bootstrap-icons\bootstrap-icons.scss" />
+    <None Include="wwwroot\vendor\bootstrap-icons\fonts\bootstrap-icons.woff2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AntDesign" Version="1.2.1" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>

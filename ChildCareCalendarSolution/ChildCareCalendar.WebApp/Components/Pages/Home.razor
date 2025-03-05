@@ -2,6 +2,141 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+@* Banner *@
+<section id="hero" class="hero section light-background">
 
-Welcome to your new app.
+	<img src="/hero-bg.jpg" alt="Hình ảnh nền">
+
+	<div class="container position-relative">
+
+		<div class="welcome position-relative">
+			<h2>CHÀO MỪNG ĐẾN VỚI CHILDCARE</h2>
+			<p>Hệ thống đặt lịch khám nhi nhanh chóng, tiện lợi, đảm bảo sự chăm sóc tốt nhất cho bé yêu của bạn.</p>
+		</div>
+
+		<div class="content row gy-4">
+			<div class="col-lg-4 d-flex align-items-stretch">
+				<div class="why-box">
+					<h3>Tại sao chọn ChildCare?</h3>
+					<p>
+						Chúng tôi cung cấp nền tảng đặt lịch khám nhi đơn giản, tiện lợi, giúp phụ huynh dễ dàng tìm kiếm bác sĩ phù hợp cho bé.
+						Hệ thống hỗ trợ nhắc lịch, quản lý hồ sơ sức khỏe và cung cấp thông tin y tế hữu ích.
+					</p>
+					<div class="text-center">
+						<a href="#about" class="more-btn"><span>Tìm hiểu thêm</span> <i class="bi bi-chevron-right"></i></a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-8 d-flex align-items-stretch">
+				<div class="d-flex flex-column justify-content-center">
+					<div class="row gy-4">
+
+						<div class="col-xl-4 d-flex align-items-stretch">
+							<div class="icon-box">
+								<i class="bi bi-calendar-check"></i>
+								<h4>Đặt lịch nhanh chóng</h4>
+								<p>Dễ dàng chọn bác sĩ, đặt lịch khám cho bé chỉ trong vài bước đơn giản.</p>
+							</div>
+						</div>
+
+						<div class="col-xl-4 d-flex align-items-stretch">
+							<div class="icon-box">
+								<i class="bi bi-shield-check"></i>
+								<h4>Đội ngũ bác sĩ uy tín</h4>
+								<p>Hợp tác với các bác sĩ chuyên khoa nhi có kinh nghiệm và chuyên môn cao.</p>
+							</div>
+						</div>
+
+						<div class="col-xl-4 d-flex align-items-stretch">
+							<div class="icon-box">
+								<i class="bi bi-bell"></i>
+								<h4>Nhắc lịch tự động</h4>
+								<p>Hệ thống tự động nhắc lịch để bạn không bỏ lỡ bất kỳ buổi khám quan trọng nào của bé.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+@* Abount us *@
+<section id="about" class="about section">
+
+	<div class="container">
+
+		<div class="row gy-4 gx-5">
+
+			<div class="col-lg-6 position-relative align-self-start">
+				<h3>Về Chúng Tôi</h3>
+				<p>
+					ChildCare là nền tảng đặt lịch khám nhi trực tuyến, giúp phụ huynh dễ dàng tìm kiếm bác sĩ, theo dõi hồ sơ sức khỏe và nhận tư vấn chuyên môn. Chúng tôi cam kết mang lại sự thuận tiện và an tâm trong việc chăm sóc sức khỏe cho bé yêu của bạn.
+				</p>
+			</div>
+
+			<div class="col-lg-6 content">
+				<ul>
+					<li>
+						<i class="fa-solid fa-calendar-check"></i>
+						<div>
+							<h5>Đặt lịch khám nhanh chóng</h5>
+							<p>Dễ dàng chọn bác sĩ, đặt lịch khám và theo dõi lịch trình chăm sóc sức khỏe cho bé.</p>
+						</div>
+					</li>
+					<li>
+						<i class="fa-solid fa-user-doctor"></i>
+						<div>
+							<h5>Đội ngũ bác sĩ chuyên khoa nhi</h5>
+							<p>Hợp tác với các bác sĩ giàu kinh nghiệm, đảm bảo bé được tư vấn và điều trị tốt nhất.</p>
+						</div>
+					</li>
+					<li>
+						<i class="fa-solid fa-bell"></i>
+						<div>
+							<h5>Nhắc lịch tự động</h5>
+							<p>Hệ thống sẽ gửi thông báo nhắc lịch giúp bạn không bỏ lỡ buổi khám quan trọng của bé.</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="doctors" class="doctors section">
+	<div class="container section-title">
+		<h2>Đội Ngũ Bác Sĩ</h2>
+		<p>Những bác sĩ chuyên khoa nhi giàu kinh nghiệm, tận tâm với trẻ em</p>
+	</div>
+
+	<div class="container">
+
+		<div class="row gy-4">
+			@foreach (var doctor in Doctors)
+			{
+				<div class="col-lg-3 rounded-1">
+					<div class="team-member text-center d-flex flex-column align-items-center">
+						<div class="pic w-100">
+							<img src="@doctor.Avatar" class="img-fluid rounded-2 object-fit-cover"
+								 alt="@doctor.FullName">
+						</div>
+						<div class="member-info mt-3">
+							<h4>BS. @doctor.FullName</h4>
+						</div>
+						<div class="member-info mt-3">
+							<h4>Chuyên khoa @doctor.Speciality.SpecialtyName</h4>
+						</div>
+						<div class="member-info mt-3">
+							<h4>Email: @doctor.Email</h4>
+						</div>
+						<div class="member-info mt-3">
+							<h4>SĐT: @doctor.PhoneNumber</h4>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</section>

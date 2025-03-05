@@ -1,6 +1,10 @@
 ﻿using ChildCareCalendar.Domain.Entities;
+using ChildCareCalendar.Domain.ViewModels.ExaminationReport;
+using ChildCareCalendar.Domain.ViewModels.PrescriptionDetail;
 using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChildCareCalendar.Infrastructure.Services
 {
@@ -13,16 +17,19 @@ namespace ChildCareCalendar.Infrastructure.Services
             _examinationRepository = repository;
             _prescriptionDetailRepository = prescriptionDetailRepository;
         }
-        public async Task CreateExaminationReportAsync(ExaminationReport examinationReport)
+        public async Task CreateExaminationReportAsync(ExaminationReport examinationReport, List<PrescriptionDetail> prescriptionDetails)
         {
+            examinationReport.TotalAmount = prescriptionDetails.Sum(pd => pd.TotalAmount);
             examinationReport.CreatedAt = DateTime.UtcNow;
             examinationReport.UpdatedAt = DateTime.UtcNow;
-            var prescriptionDetails = await _prescriptionDetailRepository
-                            .GetAllAsync(pd => pd.ExaminationReportId == examinationReport.Id);
-
-            examinationReport.TotalAmount = prescriptionDetails.Sum(pd => pd.TotalAmount);
-
+            examinationReport.TotalAmount = 0;
             await _examinationRepository.AddAsync(examinationReport);
+      
+            foreach (var pd in prescriptionDetails)
+            {
+                pd.ExaminationReportId = examinationReport.Id;
+                await _prescriptionDetailRepository.AddAsync(pd);
+            }
         }
 
         public Task<IEnumerable<ExaminationReport>> GetAllExaminationReportsAsync()
@@ -30,9 +37,39 @@ namespace ChildCareCalendar.Infrastructure.Services
             return _examinationRepository.GetAllAsync();
         }
 
-        public async Task<ExaminationReport> GetExaminationReportByIdAsync(int id)
+        public async Task<ExaminationReport> GetExaminationReportByIdAsync(int id, params Expression<Func<ExaminationReport, object>>[] includes)
         {
-            return await _examinationRepository.GetByIdAsync(id);
+            var query = _examinationRepository.GetQueryable(); // Lấy IQueryable từ repository
+
+        
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+            
+            query = query
+            .Include(r => r.ChildrenRecord) 
+            .Include(r => r.Appointment)  
+            .Include(r => r.PrescriptionDetails)
+            .ThenInclude(pd => pd.Medicine); 
+
+            return await query.FirstOrDefaultAsync(r => r.Id == id);
+        }
+
+
+        public async Task<IEnumerable<ExaminationReport>> FindExaminationReportsAsync(Expression<Func<ExaminationReport, bool>> predicate, params Expression<Func<ExaminationReport, object>>[] includeProperties)
+        {
+            return await _examinationRepository.FindAsync(predicate, includeProperties);
+        }
+        public async Task DeleteExaminationReportAsync(int id)
+        {
+            var report = await GetExaminationReportByIdAsync(id);
+            if (report != null)
+            {
+                report.IsDelete = true; 
+                report.UpdatedAt = DateTime.UtcNow;
+                await _examinationRepository.UpdateAsync(report, report.Id);
+            }
         }
 
     }

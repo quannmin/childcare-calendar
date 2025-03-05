@@ -10,8 +10,6 @@ namespace ChildCareCalendar.Domain.Entities
     public class Schedule
     {
         public int Id { get; set; }
-        public int SpecialityId { get; set; }
-        public Speciality? Speciality { get; set; }
         public DateTime? WorkDay { get; set; }
         public string? day { get; set; }
         public int WorkHourId { get; set; }
@@ -20,5 +18,7 @@ namespace ChildCareCalendar.Domain.Entities
         public AppUser? Doctor { get; set; }
         [DefaultValue(false)]
         public bool IsDelete { get; set; } = false;
+        public bool IsOccupied { get; set; } = false;
+        public ICollection<Appointment>? Appointments { get; set; }
     }
 }

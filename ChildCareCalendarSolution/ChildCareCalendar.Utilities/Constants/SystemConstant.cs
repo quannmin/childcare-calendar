@@ -37,7 +37,7 @@ namespace ChildCareCalendar.Utilities.Constants
         }
 
         public enum PaymentMethod
-        {
+        {   
             VNPAY,
             PayPal,
             MoMo

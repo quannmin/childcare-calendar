@@ -1253,7 +1253,7 @@ section,
 .doctors .team-member .pic {
     overflow: hidden;
     width: 150px;
-    border-radius: 50%;
+    border-radius: 5%;
     flex-shrink: 0;
 }
 
