@@ -7,6 +7,7 @@ using ChildCareCalendar.Domain.ViewModels.ChildrenRecord;
 using ChildCareCalendar.Domain.ViewModels.Service;
 using ChildCareCalendar.Domain.ViewModels.ServiceVM;
 using ChildCareCalendar.Domain.ViewModels.Specility;
+using ChildCareCalendar.Domain.ViewModels.Refundreport;
 using ChildCareCalendar.Domain.ViewModels.ExaminationReport;
 using ChildCareCalendar.Domain.ViewModels.PrescriptionDetail;
 using ChildCareCalendar.Domain.ViewModels.WorkHour;
@@ -81,6 +82,14 @@ namespace ChildCareCalendar.Infrastructure.Mappings
                 .ForMember(dest => dest.DoctorId, opt => opt.MapFrom(src => src.DoctorId))
                 .ForMember(dest => dest.CheckupDateTime, opt => opt.MapFrom(src => src.CheckupDateTime))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status));
+
+            CreateMap<RefundReport, RefundReportViewModel>()
+    .ForMember(dest => dest.RefundReportId, opt => opt.MapFrom(src => src.Id))
+    .ForMember(dest => dest.RefundAmount, opt => opt.MapFrom(src => src.RefundAmount))
+    .ForMember(dest => dest.RefundDate, opt => opt.MapFrom(src => src.RefundDate))
+    .ForMember(dest => dest.RefundPercentage, opt => opt.MapFrom(src => src.RefundPercentage))
+    .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Appointment.Parent.FullName))
+    .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Appointment.Parent.PhoneNumber)); 
 
             CreateMap<WorkHour, WorkHourViewModel>();
             CreateMap<WorkHourCreateViewModel, WorkHour>();

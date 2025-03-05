@@ -1,6 +1,7 @@
 ﻿using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using System.Linq.Expressions;
 
 namespace ChildCareCalendar.Infrastructure.Services
 {
@@ -16,6 +17,15 @@ namespace ChildCareCalendar.Infrastructure.Services
         public async Task AddRefundReportAsync(RefundReport newRefundReport)
         {
             await _refundReportRepository.AddAsync(newRefundReport);
+        }
+
+        public async Task<IEnumerable<RefundReport>> FindAppointmentsAsync(Expression<Func<RefundReport, bool>> predicate, params Expression<Func<RefundReport, object>>[] includes)
+        {
+            return await _refundReportRepository.FindAsync(
+           r => !r.IsDelete,
+           r => r.Appointment,
+           r => r.Appointment.Parent
+       );
         }
 
         public async Task<IEnumerable<RefundReport>> GetAllRefundReportsAsync()
