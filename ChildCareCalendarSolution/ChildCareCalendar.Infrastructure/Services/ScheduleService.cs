@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace ChildCareCalendar.Infrastructure.Services
 {
-    public class ScheduleService : ISchedule
+    public class ScheduleService : IScheduleService
     {
         private readonly IRepository<Schedule> _repository;
         public ScheduleService(IRepository<Schedule> repository)
@@ -34,7 +34,7 @@ namespace ChildCareCalendar.Infrastructure.Services
 
         public async Task UpdateScheduleAsync(Schedule schedule)
         {
-            throw new NotImplementedException();
-        }
+			await _repository.UpdateAsync(schedule, schedule.Id);
+		}
     }
 }

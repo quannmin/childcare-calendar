@@ -13,7 +13,7 @@ a, .btn-link {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 .content {
@@ -138,3 +138,113 @@ body {
     text-align: left;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+/* PopupCreate Schedule */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Làm mờ nền */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+    .modal-content h3 {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .modal-content .form-group {
+        margin-bottom: 15px;
+    }
+
+    .modal-content button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    .modal-content .btn-success {
+        background-color: #28a745;
+        color: white;
+    }
+
+        .modal-content .btn-success:hover {
+            background-color: #218838;
+        }
+
+    .modal-content .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+        .modal-content .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+}
+
+    .close-btn:hover {
+        color: red;
+    }
+
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 500px;
+    border: 2px solid gray;
+}
+
+.appointment {
+    font-size: 12px;
+    background: #e3f2fd;
+    padding: 2px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.popup-mini {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border-radius: 100px;
+}
+

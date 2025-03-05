@@ -10,6 +10,7 @@ using ChildCareCalendar.Domain.ViewModels.Specility;
 using ChildCareCalendar.Domain.ViewModels.ExaminationReport;
 using ChildCareCalendar.Domain.ViewModels.PrescriptionDetail;
 using ChildCareCalendar.Domain.ViewModels.WorkHour;
+using ChildCareCalendar.Domain.ViewModels.Schedule;
 
 namespace ChildCareCalendar.Infrastructure.Mappings
 {
@@ -84,6 +85,10 @@ namespace ChildCareCalendar.Infrastructure.Mappings
             CreateMap<WorkHour, WorkHourViewModel>();
             CreateMap<WorkHourCreateViewModel, WorkHour>();
             CreateMap<WorkHourEditViewModel, WorkHour>().ReverseMap();
+
+            CreateMap<Schedule, ScheduleViewModel>().ReverseMap();
+            CreateMap<ScheduleCreateViewModel, Schedule>().ReverseMap();
+            CreateMap<ScheduleEditViewModel, Schedule>().ReverseMap();
         }
     }
 }
