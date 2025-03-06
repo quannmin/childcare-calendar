@@ -3,43 +3,45 @@
 <link href="css/AppointmentBooking/MainLayout.css" rel="stylesheet" />
 
 <div>
-    <div>
-        <h4 class="info-title">Vui lòng chọn chuyên khoa</h4>
-    </div>
+    <h4 class="info-title">Vui lòng chọn chuyên khoa</h4>
+
     <div class="search-box">
         <input type="text" id="searchInput" placeholder="Tìm nhanh chuyên khoa">
         <i class="bi bi-search"></i>
     </div>
+
     <div class="list-specialty-container">
         @foreach (var specialty in Specialties)
         {
-            <div class="list-specialty-item" @onclick="() => HandleSpecialtySelection(specialty.Id)">
+            <div class="list-specialty-item" @onclick="() => HandleSpecialtySelection(specialty)">
                 <div class="list-specialty-title">@specialty.SpecialtyName</div>
                 @if (!string.IsNullOrEmpty(specialty.Description))
                 {
-                    <div class="list-specialty-description">(@specialty.Description)</div>
+                    <div class="list-specialty-description">@specialty.Description</div>
                 }
             </div>
         }
     </div>
-
-
 </div>
 
-<script>
-    document.getElementById("searchInput").addEventListener("keyup", function () {
-    let filter = this.value.toLowerCase();
-    let items = document.querySelectorAll(".list-specialty-item");
 
-    items.forEach(function (item) {
-    let title = item.querySelector(".title").textContent.toLowerCase();
-    let description = item.querySelector(".description").textContent.toLowerCase();
-    item.style.display = title.includes(filter) || description.includes(filter) ? "" : "none";
-    });
-    });
+@* <script> *@
+@*     document.getElementById("searchInput").addEventListener("keyup", function () { *@
+@*     let title = item.querySelector(".list-specialty-title").textContent.toLowerCase(); *@
+@*     let description = item.querySelector(".list-specialty-description").textContent.toLowerCase(); *@
 
-    function handleClick(element) {
-    let title = element.querySelector(".title").textContent;
-    alert("Bạn đã chọn: " + title);
-    }
-</script>
+
+@*     items.forEach(function (item) { *@
+@*     let title = item.querySelector(".title").textContent.toLowerCase(); *@
+@*     let description = item.querySelector(".description").textContent.toLowerCase(); *@
+@*     item.style.display = title.includes(filter) || description.includes(filter) ? "" : "none"; *@
+@*     }); *@
+@*     }); *@
+
+@*     // function handleClick(element) { *@
+@*     // let title = element.querySelector(".title").textContent; *@
+@*     // alert("Bạn đã chọn: " + title); *@
+@*     // } *@
+
+  
+@* </script> *@

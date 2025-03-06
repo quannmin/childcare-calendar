@@ -1,13 +1,19 @@
 ﻿using ChildCareCalendar.Domain.Entities;
+using Microsoft.AspNetCore.Components;
 
 namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
 {
     public partial class SelectService
     {
+        [Parameter] 
+        public int SpecialtyId { get; set; }
+
+
         private List<Service> Services = new()
     {
         new Service
         {
+            Id = 1,
             ServiceName = "Khám DV Khu E - Có BHYT",
             Price = 137.900,
             SpecialityId = 1,
@@ -16,6 +22,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         },
         new Service
         {
+            Id = 2,
             ServiceName = "Khám DV Khu E - Không BHYT",
             Price = 180.000,
             SpecialityId = 1,
@@ -24,6 +31,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         },
         new Service
         {
+            Id = 3,
             ServiceName = "Khám thường - Có BHYT",
             Price = 137.900,
             SpecialityId = 1,
@@ -32,6 +40,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         },
         new Service
         {
+            Id = 4,
             ServiceName = "Khám thường - Không BHYT",
             Price = 180.000,
             SpecialityId = 1,

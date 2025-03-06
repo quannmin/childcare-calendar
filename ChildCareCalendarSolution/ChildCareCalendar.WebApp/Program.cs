@@ -24,9 +24,6 @@ builder.Services.AddDbContext<ChildCareCalendarContext>(options => {
 	options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
-builder.Services.AddRazorComponents()
-	.AddInteractiveServerComponents();
-
 builder.Services.AddDependencyInjection();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddAntDesign();
