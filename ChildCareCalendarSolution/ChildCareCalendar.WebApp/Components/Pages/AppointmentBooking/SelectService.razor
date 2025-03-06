@@ -1,5 +1,32 @@
-﻿<h3>SelectService</h3>
+﻿<link href="css/AppointmentBooking/MainLayout.css" rel="stylesheet" />
 
-@code {
+<div>
+    <h4 class="info-title">Vui lòng chọn dịch vụ</h4>
 
-}
+    <div class="service-table-container">
+        <table class="service-table">
+            <thead>
+                <tr>
+                    <th>Tên dịch vụ</th>
+                    <th>Giá tiền</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var service in Services)
+                {
+                    <tr>
+                        <td>
+                            <strong>@service.ServiceName</strong>
+                        </td>
+                        <td>@service.Price.ToString("VND")</td>
+                        <td>
+                            <button class="btn detail-btn" @onclick="() => ViewDetails(service)">Chi tiết</button>
+                            <button class="btn book-btn" @onclick="() => BookNow(service)">Đặt khám ngay</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

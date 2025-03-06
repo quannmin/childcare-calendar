@@ -1,68 +1,47 @@
-﻿<link href="css/AppointmentBooking/MainLayout.css" rel="stylesheet" />
+﻿@rendermode InteractiveServer
+
+<link href="css/AppointmentBooking/MainLayout.css" rel="stylesheet" />
 
 <div>
-    <div>
-        <h4 class="info-title">Vui lòng chọn chuyên khoa</h4>
-    </div>
+    <h4 class="info-title">Vui lòng chọn chuyên khoa</h4>
+
     <div class="search-box">
         <input type="text" id="searchInput" placeholder="Tìm nhanh chuyên khoa">
         <i class="bi bi-search"></i>
     </div>
-    <div class="list-specialty-container" id="listContainer">
-        <div class="list-specialty-item" onclick="">
-            <div class="list-specialty-title">CAN THIỆP MẠCH MÁU - U GAN</div>
-        </div>
-        <div class="list-specialty-item" onclick="">
-            <div class="list-specialty-title">CAN THIỆP TIM MẠCH - DSA</div>
-        </div>
-        <div class="list-specialty-item" onclick="">
-            <div class="list-specialty-title">CƠ XƯƠNG KHỚP</div>
-            <div class="list-specialty-description">
-                (Triệu chứng: Đau các khớp tay - chân / Đau lưng / Trật khớp / Bong gân / Gãy xương...)
-            </div>
-        </div>
-        <div class="list-specialty-item" onclick="">
-            <div class="list-specialty-title">DA LIỄU</div>
-            <div class="list-specialty-description">
-                (Triệu chứng: Ngứa ngoài da / Da tróc vảy / Nổi mẩn đỏ / Sạm da / Mụn / Nấm tóc...)
-            </div>
-        </div>
-        <div class="list-specialty-item" onclick="">
-            <div class="list-specialty-title">ĐÔNG Y</div>
-        </div>
-        <div class="list-specialty-item" onclick="">
-            <div class="list-specialty-title">GAN MẬT TỤY</div>
-        </div>
-        <div class="list-specialty-item" onclick="">
-            <div class="list-specialty-title">HEN</div>
-            <div class="list-specialty-description">
-                (Triệu chứng: Khó thở / Thở khò khè / Ho có đờm kéo dài / Thường xuyên nhiễm trung đường hô hấp...)
-            </div>
-        </div>
-        <div class="list-specialty-item" onclick="">
-            <div class="list-specialty-title">HÔ HẤP</div>
-            <div class="list-specialty-description">
-                (Triệu chứng: Ho kéo dài / Thở khò khè / Thở có tiếng rít / Đờm có máu / Tiền sử có bệnh lao phổi - hen - suyễn...)
-            </div>
-        </div>
-    </div>
 
+    <div class="list-specialty-container">
+        @foreach (var specialty in Specialties)
+        {
+            <div class="list-specialty-item" @onclick="() => HandleSpecialtySelection(specialty)">
+                <div class="list-specialty-title">@specialty.SpecialtyName</div>
+                @if (!string.IsNullOrEmpty(specialty.Description))
+                {
+                    <div class="list-specialty-description">@specialty.Description</div>
+                }
+            </div>
+        }
+    </div>
 </div>
 
-<script>
-    document.getElementById("searchInput").addEventListener("keyup", function () {
-        let filter = this.value.toLowerCase();
-        let items = document.querySelectorAll(".list-specialty-item");
 
-        items.forEach(function (item) {
-            let title = item.querySelector(".title").textContent.toLowerCase();
-            let description = item.querySelector(".description").textContent.toLowerCase();
-            item.style.display = title.includes(filter) || description.includes(filter) ? "" : "none";
-        });
-    });
+@* <script> *@
+@*     document.getElementById("searchInput").addEventListener("keyup", function () { *@
+@*     let title = item.querySelector(".list-specialty-title").textContent.toLowerCase(); *@
+@*     let description = item.querySelector(".list-specialty-description").textContent.toLowerCase(); *@
 
-    function handleClick(element) {
-        let title = element.querySelector(".title").textContent;
-        alert("Bạn đã chọn: " + title);
-    }
-</script>
+
+@*     items.forEach(function (item) { *@
+@*     let title = item.querySelector(".title").textContent.toLowerCase(); *@
+@*     let description = item.querySelector(".description").textContent.toLowerCase(); *@
+@*     item.style.display = title.includes(filter) || description.includes(filter) ? "" : "none"; *@
+@*     }); *@
+@*     }); *@
+
+@*     // function handleClick(element) { *@
+@*     // let title = element.querySelector(".title").textContent; *@
+@*     // alert("Bạn đã chọn: " + title); *@
+@*     // } *@
+
+  
+@* </script> *@
