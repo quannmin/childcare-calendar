@@ -36,9 +36,9 @@ namespace ChildCareCalendar.Domain.Data
                     new AppUser { Email = "manager@example.com", FullName = "Ông sếp", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "QuanLy" },
                     new AppUser { Email = "doctor1@example.com", FullName = "Quân", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1 },
                     new AppUser { Email = "doctor1@example.com", FullName = "Lương", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
-						SpecialityId = 1 },
+						SpecialityId = 2 },
                     new AppUser { Email = "doctor1@example.com", FullName = "Quốc", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1 },
-                    new AppUser { Email = "doctor1@example.com", FullName = "Qui", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1 },
+                    new AppUser { Email = "doctor1@example.com", FullName = "Qui", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 2 },
                     new AppUser { Email = "parent1@example.com", FullName = "Chị Ba", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "PhuHuynh" }
                 );
                 context.SaveChanges();
@@ -47,8 +47,12 @@ namespace ChildCareCalendar.Domain.Data
             if (!context.Services.Any())
             {
                 context.Services.AddRange(
-                    new Service { SpecialityId = 1, ServiceName = "Khám tổng quát", Description = "Basic health checkup", Price = 50 },
-                    new Service { SpecialityId = 2, ServiceName = "Khám da liễu", Description = "Skin disease consultation", Price = 70 }
+                    new Service { SpecialityId = 1, ServiceName = "Khám thường có BHYT", Description = "Basic health checkup", Price = 50 },
+                    new Service { SpecialityId = 2, ServiceName = "Khám thường có BHYT", Description = "Skin disease consultation", Price = 70 },
+                    new Service { SpecialityId = 1, ServiceName = "Khám thường không có BHYT", Description = "Basic health checkup", Price = 50 },
+                    new Service { SpecialityId = 2, ServiceName = "Khám thường không có BHYT", Description = "Skin disease consultation", Price = 70 },
+                    new Service { SpecialityId = 1, ServiceName = "Khám vip", Description = "Basic health checkup", Price = 50 },
+                    new Service { SpecialityId = 2, ServiceName = "Khám vip", Description = "Skin disease consultation", Price = 70 }
                 );
                 context.SaveChanges();
             }
