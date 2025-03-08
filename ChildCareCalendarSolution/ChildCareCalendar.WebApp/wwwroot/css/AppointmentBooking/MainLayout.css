@@ -97,7 +97,7 @@
 
 .list-specialty-container {
     width: 100%;
-    max-height: 400px;
+    max-height: 300px;
     overflow-y: auto;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -132,10 +132,12 @@
 
 .service-table-container {
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .service-table {
     width: 100%;
+    max-height: 300px;
     border-collapse: collapse;
     background: white;
     border-radius: 10px;
