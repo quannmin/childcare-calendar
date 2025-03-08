@@ -1,5 +1,6 @@
 ﻿using BCrypt.Net;
 using ChildCareCalendar.Domain.Entities;
+using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -10,19 +11,17 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         [Parameter]
         public EventCallback<AppUser> OnDoctorSelected { get; set; }
 
-        private List<AppUser> Doctors = new()
-        {
-            new AppUser { Id = 2, Email = "doctor1@example.com", FullName = "Quân", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1,
-            Speciality = new Speciality { Id = 1,  SpecialtyName = "Tai mũi họng" } },
-            new AppUser { Id = 3, Email = "doctor1@example.com", FullName = "Lương", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
-                        SpecialityId = 1,
-            Speciality = new Speciality { Id = 1,  SpecialtyName = "Tai mũi họng" }},
-            new AppUser { Id = 4, Email = "doctor1@example.com", FullName = "Quốc", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1,
-            Speciality = new Speciality { Id = 1,  SpecialtyName = "Tai mũi họng" }},
-            new AppUser { Id = 5, Email = "doctor1@example.com", FullName = "Qui", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1,
-            Speciality = new Speciality { Id = 1,  SpecialtyName = "Tai mũi họng" }},
-        };
+        [Inject]
+        IUserService UserService { get; set; } = default!;
 
+        private List<AppUser> Doctors = new();
+
+        protected override async Task OnInitializedAsync()
+        {
+            
+            var result = await UserService.FindUsersAsync(d => d.Role.Equals("BacSi") && !d.IsDelete, d => d.Speciality);
+            Doctors = result.ToList();
+        }
 
         private async void HandleDoctorSelection(AppUser doctor)
         {

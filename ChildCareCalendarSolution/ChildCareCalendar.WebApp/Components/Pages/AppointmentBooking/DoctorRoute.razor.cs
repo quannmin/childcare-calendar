@@ -16,7 +16,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
             selectedDoctorId = doctor.Id;
             selectedDoctorName = doctor.FullName;
             selectedSpecialtyId = doctor.Speciality.Id;
-            selectedServiceName = doctor.Speciality.SpecialtyName;
+            selectedSpecialtyName = doctor.Speciality.SpecialtyName;
             StateHasChanged();
         }
         private void HandleServiceSelection(Service service)

@@ -1,4 +1,5 @@
 ﻿using ChildCareCalendar.Domain.Entities;
+using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 
 namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
@@ -11,46 +12,18 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         [Parameter]
         public EventCallback<Service> OnServiceSelected { get; set; }
 
+        [Inject]
+        IServiceService ServiceService { get; set; } = default!;
 
-        private List<Service> Services = new()
-    {
-        new Service
+
+        private List<Service> Services = new();
+
+
+        protected override async Task OnInitializedAsync()
         {
-            Id = 1,
-            ServiceName = "Khám DV Khu E - Có BHYT",
-            Price = 137.900,
-            SpecialityId = 1,
-            Description = "Thanh toán tại Bệnh viện",
-            CreatedAt = DateTime.Now,
-        },
-        new Service
-        {
-            Id = 2,
-            ServiceName = "Khám DV Khu E - Không BHYT",
-            Price = 180.000,
-            SpecialityId = 1,
-            Description = "Thanh toán tại Bệnh viện",
-            CreatedAt = DateTime.Now,
-        },
-        new Service
-        {
-            Id = 3,
-            ServiceName = "Khám thường - Có BHYT",
-            Price = 137.900,
-            SpecialityId = 1,
-            Description = "Thanh toán tại Bệnh viện",
-            CreatedAt = DateTime.Now,
-        },
-        new Service
-        {
-            Id = 4,
-            ServiceName = "Khám thường - Không BHYT",
-            Price = 180.000,
-            SpecialityId = 1,
-            Description = "Thanh toán tại Bệnh viện",
-            CreatedAt = DateTime.Now,
+            var result = await ServiceService.FindServicesAsync(s => s.SpecialityId.Equals(SpecialtyId) && !s.IsDelete);
+            Services = result.ToList();
         }
-    };
 
         private void ViewDetails(Service service)
         {
