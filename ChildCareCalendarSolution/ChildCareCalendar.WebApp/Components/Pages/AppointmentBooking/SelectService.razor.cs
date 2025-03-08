@@ -8,6 +8,9 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         [Parameter] 
         public int SpecialtyId { get; set; }
 
+        [Parameter]
+        public EventCallback<Service> OnServiceSelected { get; set; }
+
 
         private List<Service> Services = new()
     {
@@ -54,9 +57,10 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
             Console.WriteLine($"Xem chi tiết: {service.ServiceName}");
         }
 
-        private void BookNow(Service service)
+        private async void HandleServiceSelection(Service service)
         {
-            Console.WriteLine($"Đặt khám: {service.ServiceName}");
+            Console.WriteLine("Selected Service: " + service.ServiceName);
+            await OnServiceSelected.InvokeAsync(service);
         }
     }
 }

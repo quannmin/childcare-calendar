@@ -22,7 +22,7 @@
                         <td>@service.Price.ToString("VND")</td>
                         <td>
                             <button class="btn detail-btn" @onclick="() => ViewDetails(service)">Chi tiết</button>
-                            <button class="btn book-btn" @onclick="() => BookNow(service)">Đặt khám ngay</button>
+                            <button class="btn book-btn" @onclick="() => HandleServiceSelection(service)">Đặt khám ngay</button>
                         </td>
                     </tr>
                 }
