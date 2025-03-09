@@ -22,7 +22,7 @@ else
             <h4>Thông tin bệnh nhân</h4>
             <p><strong>Họ và tên:</strong> @Appointment.ChildName</p>
             <p><strong>Ngày sinh:</strong> @Appointment.CheckupDateTime.ToString("dd/MM/yyyy")</p>
-            <p><strong>Giới tính:</strong> @Appointment.Status</p>
+            <p><strong>Giới tính:</strong> @Appointment.Gender</p>
         </div>
         <div class="col-md-6">
             <h4>Thông tin cuộc hẹn</h4>
@@ -106,21 +106,34 @@ else
             </tbody>
         </table>
 
-        <div class="form-group">
-            <label>Thêm thuốc</label>
-            <InputSelect class="form-control" @bind-Value="SelectedMedicineId">
-                <option value="">Chọn thuốc</option>
-                @foreach (var medicine in Medicines)
-                {
-                    <option value="@medicine.Id">@medicine.Name</option>
-                }
-            </InputSelect>
+        <div class="form-group">           
+            <div class="form-group">
+                <label>Tìm kiếm thuốc</label>
+                <input type="text" class="form-control" @bind="SearchTerm" @oninput="OnSearchInput" placeholder="Nhập tên thuốc..." @onclick:preventDefault @onclick:stopPropagation />
+            </div>
+
+            @if (FilteredMedicines.Any())
+            {
+                <div class="dropdown">
+                    <ul class="dropdown-menu show" style="display: block; position: static;">
+                        @foreach (var medicine in FilteredMedicines)
+                        {
+                            <li>
+                                <button class="dropdown-item" @onclick="() => SelectMedicine(medicine)" @onclick:preventDefault @onclick:stopPropagation>
+                                    @medicine.Name
+                                </button>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+
         </div>
 
         @if (SelectedMedicineId.HasValue)
         {
             <div class="form-group">
-                <label>Liều lượng (mg)</label>
+                <label>Liều lượng</label>
                 <InputNumber class="form-control" @bind-Value="CurrentMedicine.Dosage" />
             </div>
             <div class="form-group">

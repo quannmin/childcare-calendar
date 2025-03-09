@@ -47,8 +47,6 @@ namespace ChildCareCalendar.Infrastructure.Mappings
             .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalAmount))
             .ForMember(dest => dest.Slot, opt => opt.MapFrom(src => src.Slot));
 
-
-
             CreateMap<ExaminationReport, ExaminationReportViewModel>()
             .ForMember(dest => dest.ChildrenName, opt => opt.MapFrom(src => src.ChildrenRecord.FullName))
             .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.ChildrenRecord.Gender))
@@ -84,6 +82,7 @@ namespace ChildCareCalendar.Infrastructure.Mappings
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent.FullName))
             .ForMember(dest => dest.ChildName, opt => opt.MapFrom(src => src.ChildrenRecord.FullName))
+            .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.ChildrenRecord.Gender))
             .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.Doctor.FullName))
             .ForMember(dest => dest.FollowUpAppointment, opt => opt.MapFrom(src => src.FollowUpAppointment.CheckupDateTime));
 

@@ -44,6 +44,8 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
         private List<ExaminationReportViewModel> PreviousExaminationReports = new();
         private int? SelectedMedicineId;
         private PrescriptionDetailViewModel CurrentMedicine = new();
+        private string SearchTerm { get; set; } = string.Empty;
+        private List<MedicineViewModel> FilteredMedicines { get; set; } = new();
         private bool IsLoading = true;
         private string ErrorMessage = string.Empty;
 
@@ -58,7 +60,7 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
                         a => a.Doctor,
                         a => a.FollowUpAppointment
                         );
-               
+
                 Appointment = Mapper.Map<AppointmentDetailViewModel>(appointmentEntity);
 
                 // Lấy danh sách thuốc
@@ -79,8 +81,41 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
             }
         }
 
+        private void OnSearchInput(ChangeEventArgs e)
+        {
+            SearchTerm = e.Value?.ToString() ?? string.Empty;
+            FilterMedicines();
+        }
+
+        private void FilterMedicines()
+        {
+            if (string.IsNullOrWhiteSpace(SearchTerm))
+            {
+                FilteredMedicines = Medicines.Take(5).ToList(); 
+            }
+            else
+            {
+                FilteredMedicines = Medicines
+                    .Where(m => m.Name.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                    .Take(10) 
+                    .ToList();
+            }
+        }
+
+        private void SelectMedicine(MedicineViewModel medicine)
+        {
+            SelectedMedicineId = medicine.Id;
+            SearchTerm = medicine.Name;
+            FilteredMedicines.Clear(); 
+        }
+        private void ResetSearchForm()
+        {
+            SearchTerm = string.Empty;
+            FilteredMedicines.Clear();
+            SelectedMedicineId = null; 
+        }
         private void AddMedicine()
-        {         
+        {
             if (SelectedMedicineId.HasValue && CurrentMedicine.Dosage > 0 && CurrentMedicine.Quantity > 0 && !string.IsNullOrEmpty(CurrentMedicine.Slot))
             {
                 var medicine = Medicines.FirstOrDefault(m => m.Id == SelectedMedicineId.Value);
@@ -97,7 +132,7 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
                     });
 
                     // Reset form
-                    SelectedMedicineId = null;
+                    ResetSearchForm();
                     CurrentMedicine = new PrescriptionDetailViewModel();
                 }
                 else
@@ -122,11 +157,11 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
             {
                 if (PrescriptionDetails.Any())
                 {
-                   
+
                     var examinationReport = Mapper.Map<Domain.Entities.ExaminationReport>(NewExaminationReport);
                     var prescriptionDetails = Mapper.Map<List<PrescriptionDetail>>(PrescriptionDetails);
 
-                 
+
                     var appointmentEntity = await AppointmentService.GetAppointmentByIdAsync(AppointmentId);
                     if (appointmentEntity == null)
                     {
@@ -134,7 +169,7 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
                     }
 
                     examinationReport.AppointmentId = AppointmentId;
-                    examinationReport.ChildrenRecordId = (int)appointmentEntity.ChildrenRecordId; 
+                    examinationReport.ChildrenRecordId = (int)appointmentEntity.ChildrenRecordId;
 
                     foreach (var pd in prescriptionDetails)
                     {
@@ -145,10 +180,10 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
                         }
                     }
 
-             
+
                     await ExaminationReportService.CreateExaminationReportAsync(examinationReport, prescriptionDetails);
 
-    
+
                     Navigation.NavigateTo($"/examination-reports/detail/{examinationReport.Id}");
                 }
                 else
