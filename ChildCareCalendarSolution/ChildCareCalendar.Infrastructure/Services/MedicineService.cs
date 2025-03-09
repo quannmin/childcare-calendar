@@ -49,7 +49,7 @@ namespace ChildCareCalendar.Infrastructure.Services
         {
             return await _medicineRepository.FindAsync(predicate, includes);
         }
-        public async Task<(IEnumerable<Medicine> Medicines, int TotalCount)> GetPagedMedicinesAsync(
+        public async Task<(IEnumerable<Medicine> medicines, int totalCount)> GetPagedMedicinesAsync(
     int pageIndex,
     int pageSize,
     string keyword = null)

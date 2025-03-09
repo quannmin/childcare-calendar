@@ -24,7 +24,12 @@ namespace ChildCareCalendar.Domain.ViewModels.Appointment
         public string? ParentName { get; set; }
         public string? DoctorName { get; set; }
         public string? ChildName { get; set; }
+        public string? Gender { get; set; }
         public DateTime? FollowUpAppointment { get; set; }
         public int? ExaminationReportId { get; set; }
+        public int? ChildrenRecordId { get; set; }
+
+
+
     }
 }

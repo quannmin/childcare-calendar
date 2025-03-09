@@ -1,6 +1,7 @@
 ﻿using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace ChildCareCalendar.Infrastructure.Services
@@ -108,6 +109,60 @@ namespace ChildCareCalendar.Infrastructure.Services
         public async Task UpdateAppointmentAsync(Appointment appointment)
         {
             await _appointmentRepository.UpdateAsync(appointment, appointment.Id);
+        }
+        public async Task<(IEnumerable<Appointment> appointments, int totalCount)> GetPagedAppointmentsAsync(
+    int pageIndex,
+    int pageSize,
+    string keyword = null)
+        {
+            Expression<Func<Appointment, bool>> filter = null;
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                filter = x => (x.Parent.FullName.Contains(keyword) || x.ChildrenRecord.FullName.Contains(keyword)) && !x.IsDelete;
+            }
+            else
+            {
+                filter = x => !x.IsDelete;
+            }
+            return await _appointmentRepository.GetPagedAsync(pageIndex, pageSize, filter);
+        }
+
+        public async Task<(IEnumerable<Appointment> appointments, int totalCount)> GetPagedAppointmentsByDoctorIdAsync(
+    int doctorId, int pageIndex, int pageSize, string keyword = null)
+        {
+            // Tạo bộ lọc ban đầu
+            Expression<Func<Appointment, bool>> filter = x => x.DoctorId == doctorId && !x.IsDelete;
+
+            // Thêm điều kiện tìm kiếm nếu có từ khóa
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                // Sử dụng ToLower() để tìm kiếm không phân biệt hoa thường
+                string lowerKeyword = keyword.ToLower();
+                filter = x => x.DoctorId == doctorId && !x.IsDelete &&
+                              (x.Parent.FullName.ToLower().Contains(lowerKeyword) ||
+                               x.ChildrenRecord.FullName.ToLower().Contains(lowerKeyword));
+            }
+
+            // Sử dụng Include để tải thông tin liên quan đến Parent và ChildrenRecord
+            var query = _appointmentRepository.GetQueryable()
+                .Where(filter)
+                .Include(a => a.Parent) // Bao gồm thông tin Parent
+                .Include(a => a.ChildrenRecord); // Bao gồm thông tin ChildrenRecord
+
+            // Thực hiện phân trang
+            var totalCount = await query.CountAsync();
+            var appointments = await query
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (appointments, totalCount);
+        }
+
+        public async Task<IEnumerable<Appointment>> GetAppointmentsByDoctorIdAsync(int doctorId, params Expression<Func<Appointment, object>>[] includes)
+        {
+           return await _appointmentRepository.FindAsync(a => a.DoctorId == doctorId && !a.IsDelete, includes);
         }
     }
 }

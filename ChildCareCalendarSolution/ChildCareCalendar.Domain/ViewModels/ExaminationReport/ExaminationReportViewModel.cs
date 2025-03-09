@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChildCareCalendar.Domain.ViewModels.PrescriptionDetail;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,5 +24,7 @@ namespace ChildCareCalendar.Domain.ViewModels.ExaminationReport
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string? UpdatedByName { get; set; }
+
+        public List<PrescriptionDetailViewModel> PrescriptionDetails { get; set; } = new();
     }
 }

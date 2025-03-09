@@ -1,49 +1,66 @@
-﻿@page "/users/index"
+﻿@page "/appointmentsfordoctor"
 @rendermode InteractiveServer
 
-<h3>Quản lý người dùng</h3>
+<h3>Quản lý lịch khám của bác sĩ</h3>
 
 <div class="row mb-4">
     <div class="col-md-4">
-        <NavLink class="btn btn-success" href="/users/create">Tạo mới</NavLink>
+        <NavLink class="btn btn-success" href="/appointments/create">Tạo lịch khám mới</NavLink>
     </div>
     <div class="col-md-5 offset-md-3">
-        <form @onsubmit="SearchUsers" class="d-flex">
-            <input type="text" @bind="Keyword" class="form-control me-2" placeholder="Tìm kiếm chuyên khoa" />
-            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-        </form>
+        <EditForm Model="SearchData" OnValidSubmit="HandleSearch" FormName="SearchAppointment">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="d-flex">
+                <InputText class="form-control me-2" @bind-Value="SearchData.Keyword" placeholder="Tìm kiếm lịch hẹn..." />
+                <button type="submit" class="btn btn-primary searchBtn" style="width: 20%;">Tìm kiếm</button>
+            </div>
+        </EditForm>
     </div>
 </div>
 
-<table class="table table-bordered table-hover text-center">
-    <thead class="table-dark">
-        <tr>
-            <th>Họ và tên</th>
-            <th>Ngày tháng năm sinh</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in UserViewModels)
-        {
-            <tr @key="item.Id">
-                <td>@item.FullName</td>
-                <td>@item.Dob?.ToString("dd/MM/yyyy")</td>
-                <td>@item.Email</td>
-                <td>@GetRoleDisplayName(item.Role)</td>
-                <td>
-                    <NavLink class="btn btn-info btn-sm" href="@($"/users/detail/{item.Id}")">Chi tiết</NavLink>
-                    <NavLink class="btn btn-warning btn-sm" href="@($"/users/edit/{item.Id}")">Chỉnh sửa</NavLink>
-                    <button type="button" class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(item.Id)">Xóa</button>
-                </td>
+@if (Appointments == null)
+{
+    <p class="text-center">Đang tải dữ liệu...</p>
+}
+else if (!Appointments.Any())
+{
+    <p class="text-center">Không có lịch khám nào</p>
+}
+else
+{
+    <table class="table table-bordered table-hover text-center">
+        <thead class="table-dark">
+            <tr style="background-color: white; border: 2px solid gray">
+                <th>ID</th>
+                <th>Phụ huynh</th>
+                <th>Trẻ em</th>
+                <th>Dịch vụ</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
             </tr>
-        }
-    </tbody>
-</table>
-
-
+        </thead>
+        <tbody>
+            @foreach (var appointment in Appointments)
+            {
+                <tr class="border">
+                    <td>@appointment.AppointmentId</td>
+                    <td>@appointment.ParentName</td>
+                    <td>@appointment.ChildName</td>
+                    <td>@appointment.ServiceName</td>
+                    <td>@appointment.TotalAmount.ToString() VND</td>
+                    <td>@appointment.Status</td>
+                    <td>
+                        <NavLink class="btn btn-info btn-sm" href="@($"/appointments/detail/{appointment.AppointmentId}")">Chi tiết</NavLink>
+                        <NavLink class="btn btn-primary btn-sm" href="@($"/appointments/{appointment.AppointmentId}/create-examination-report")">Tạo kết quả khám</NavLink>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 <!-- Pagination -->
 @{
     int maxPagesToShow = 5; // Số trang tối đa hiển thị
@@ -116,25 +133,6 @@
     </ul>
 </nav>
 
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Bạn có chắc chắn muốn xóa người dùng này không?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-danger" @onclick="DeleteUser">Xóa</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
     function showDeleteModal() {
         var modalElement = document.getElementById('deleteModal');
@@ -142,7 +140,6 @@
             console.error("Lỗi: Không tìm thấy modal với id 'deleteModal'.");
             return;
         }
-        // Khởi tạo và hiển thị modal
         var modal = new bootstrap.Modal(modalElement);
         modal.show();
     }
@@ -153,9 +150,10 @@
             console.error("Lỗi: Không tìm thấy modal với id 'deleteModal'.");
             return;
         }
-        // Lấy instance của modal nếu có, hoặc tạo mới
         var modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
         modal.hide();
     }
 </script>
+
+
 
