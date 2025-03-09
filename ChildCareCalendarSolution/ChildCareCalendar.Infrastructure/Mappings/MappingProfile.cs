@@ -33,11 +33,20 @@ namespace ChildCareCalendar.Infrastructure.Mappings
             CreateMap<MedicineCreateViewModel, Medicine>();
 
             CreateMap<PrescriptionDetail, PrescriptionDetailViewModel>()
-            .ForMember(dest => dest.MedicineName, opt => opt.MapFrom(src => src.Medicine.Name)) 
+            .ForMember(dest => dest.MedicineName, opt => opt.MapFrom(src => src.Medicine.Name))
             .ForMember(dest => dest.MedicinePrice, opt => opt.MapFrom(src => src.Medicine.Price))
-            //.ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.Quantity * src.Medicine.Price))
+            .ForMember(dest => dest.Dosage, opt => opt.MapFrom(src => src.Dosage))
+            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
             .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalAmount))
             .ForMember(dest => dest.Slot, opt => opt.MapFrom(src => src.Slot));
+
+            CreateMap<PrescriptionDetailViewModel, PrescriptionDetail>()
+            .ForMember(dest => dest.MedicineId, opt => opt.MapFrom(src => src.MedicineId))
+            .ForMember(dest => dest.Dosage, opt => opt.MapFrom(src => src.Dosage))
+            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
+            .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalAmount))
+            .ForMember(dest => dest.Slot, opt => opt.MapFrom(src => src.Slot));
+
 
 
             CreateMap<ExaminationReport, ExaminationReportViewModel>()
@@ -45,6 +54,7 @@ namespace ChildCareCalendar.Infrastructure.Mappings
             .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.ChildrenRecord.Gender))
             .ForMember(dest => dest.ExamDate, opt => opt.MapFrom(src => src.Appointment.CheckupDateTime))
             .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalAmount))
+            .ForMember(dest => dest.PrescriptionDetails, opt => opt.MapFrom(src => src.PrescriptionDetails))
             .ReverseMap();
             CreateMap<ExaminationReport, ExaminationReportDetailViewModel>()
             .ForMember(dest => dest.ChildrenName, opt => opt.MapFrom(src => src.ChildrenRecord.FullName))

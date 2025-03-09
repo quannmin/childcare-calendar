@@ -1,0 +1,144 @@
+﻿@page "/appointments/{AppointmentId:int}/create-examination-report"
+@rendermode InteractiveServer
+
+<h3>Tạo kết quả khám</h3>
+
+@if (IsLoading)
+{
+    <p class="text-center">Đang tải dữ liệu...</p>
+}
+else if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="alert alert-danger">@ErrorMessage</div>
+}
+else if (Appointment == null)
+{
+    <p class="text-center">Không tìm thấy thông tin cuộc hẹn.</p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Thông tin bệnh nhân</h4>
+            <p><strong>Họ và tên:</strong> @Appointment.ChildName</p>
+            <p><strong>Ngày sinh:</strong> @Appointment.CheckupDateTime.ToString("dd/MM/yyyy")</p>
+            <p><strong>Giới tính:</strong> @Appointment.Status</p>
+        </div>
+        <div class="col-md-6">
+            <h4>Thông tin cuộc hẹn</h4>
+            <p><strong>Ngày hẹn:</strong> @Appointment.CheckupDateTime.ToString("dd/MM/yyyy")</p>
+            <p><strong>Trạng thái:</strong> @Appointment.Status</p>
+        </div>
+    </div>
+
+    @if (PreviousExaminationReports.Any())
+    {
+        <h4>Lịch sử khám bệnh</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Ngày khám</th>
+                    <th>Chẩn đoán</th>
+                    <th>Ghi chú</th>
+                    <th>Đơn thuốc</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var report in PreviousExaminationReports)
+                {
+                    <tr>
+                        <td>@report.CreatedAt.ToString("dd/MM/yyyy")</td>
+                        <td>@report.Diagnosis</td>
+                        <td>@report.Notes</td>
+                        <td>
+                            <ul>
+                                @foreach (var medicine in report.PrescriptionDetails)
+                                {
+                                    <li>@medicine.MedicineName - @medicine.Dosage mg x @medicine.Quantity lần/ngày</li>
+                                }
+                            </ul>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+
+    <h4>Thông tin khám mới</h4>
+    <EditForm Model="NewExaminationReport" OnValidSubmit="SaveExaminationReport">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label>Chẩn đoán</label>
+            <InputText class="form-control" @bind-Value="NewExaminationReport.Diagnosis" />
+        </div>
+        <div class="form-group">
+            <label>Ghi chú bác sĩ</label>
+            <InputTextArea class="form-control" @bind-Value="NewExaminationReport.Notes" />
+        </div>
+
+        <h5>Đơn thuốc</h5>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Tên thuốc</th>
+                    <th>Liều lượng (mg)</th>
+                    <th>Số lượng</th>
+                    <th>Bữa uống</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var medicine in PrescriptionDetails)
+                {
+                    <tr>
+                        <td>@medicine.MedicineName</td>
+                        <td>@medicine.Dosage</td>
+                        <td>@medicine.Quantity</td>
+                        <td>@medicine.Slot</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" @onclick:preventDefault @onclick:stopPropagation @onclick="() => RemoveMedicine(medicine)">Xóa</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="form-group">
+            <label>Thêm thuốc</label>
+            <InputSelect class="form-control" @bind-Value="SelectedMedicineId">
+                <option value="">Chọn thuốc</option>
+                @foreach (var medicine in Medicines)
+                {
+                    <option value="@medicine.Id">@medicine.Name</option>
+                }
+            </InputSelect>
+        </div>
+
+        @if (SelectedMedicineId.HasValue)
+        {
+            <div class="form-group">
+                <label>Liều lượng (mg)</label>
+                <InputNumber class="form-control" @bind-Value="CurrentMedicine.Dosage" />
+            </div>
+            <div class="form-group">
+                <label>Số lượng</label>
+                <InputNumber class="form-control" @bind-Value="CurrentMedicine.Quantity" />
+            </div>
+            <div class="form-group">
+                <label>Bữa uống</label>
+                <InputText class="form-control" @bind-Value="CurrentMedicine.Slot" />
+            </div>
+            <button class="btn btn-primary" @onclick="AddMedicine" @onclick:preventDefault @onclick:stopPropagation>
+                Thêm thuốc vào đơn
+            </button>
+        }
+
+        <div class="text-end mt-3">
+            <button type="submit" class="btn btn-success">Lưu kết quả khám</button>
+            <button type="button" class="btn btn-secondary" @onclick="Cancel">Hủy</button>
+        </div>
+    </EditForm>
+}
