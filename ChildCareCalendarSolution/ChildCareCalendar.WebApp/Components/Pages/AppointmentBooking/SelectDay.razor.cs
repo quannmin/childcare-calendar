@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Globalization;
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 3111a0c53bbab256c5313e1a5b5b8a0ad8e4edbe
 namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
 {
     public partial class SelectDay
