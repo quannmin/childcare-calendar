@@ -2,7 +2,6 @@
 using System.Globalization;
 
 
-
 namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
 {
     public partial class SelectDay
