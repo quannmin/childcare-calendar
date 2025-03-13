@@ -37,7 +37,22 @@ namespace ChildCareCalendar.Infrastructure.Services
 			return await _specialityRepository.FindAsync(predicate, includes);
 		}
 
-		public async Task UpdateSpecialityAsync(Speciality speciality)
+        public async Task<(IEnumerable<Speciality> medicines, int totalCount)> GetPagedSpecialitiesAsync(int pageIndex, int pageSize, string keyword = null)
+        {
+            Expression<Func<Speciality, bool>> filter = null;
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                filter = x => x.SpecialtyName.Contains(keyword) && !x.IsDelete;
+            }
+            else
+            {
+                filter = x => !x.IsDelete;
+            }
+            return await _specialityRepository.GetPagedAsync(pageIndex, pageSize, filter);
+        }
+
+        public async Task UpdateSpecialityAsync(Speciality speciality)
 		{
 			await _specialityRepository.UpdateAsync(speciality, speciality.Id);
 		}

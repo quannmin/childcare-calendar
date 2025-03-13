@@ -12,5 +12,9 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
                                                                         params Expression<Func<AppUser, object>>[] includes);
         Task<AppUser> FindUserAsync(Expression<Func<AppUser, bool>> predicate,
                                                                         params Expression<Func<AppUser, object>>[] includes);
+        Task<(IEnumerable<AppUser> users, int totalCount)> GetPagedUsersAsync(
+       int pageIndex,
+       int pageSize,
+       string keyword = null);
     }
 }

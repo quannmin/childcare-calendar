@@ -23,7 +23,8 @@ namespace ChildCareCalendar.Infrastructure.Extensions
 			services.AddTransient<IChildrenRecordService, ChildrenRecordService>();
 			services.AddTransient<IEmailService, EmailService>();
 			services.AddTransient<IExaminationReportService, ExaminationReportService>();
-			services.AddSingleton<CloudinaryService>();
+            services.AddTransient<IPrescriptionDetailService, PrescriptionDetailService>();
+            services.AddSingleton<CloudinaryService>();
 			services.AddTransient<IWorkHourService, WorkHourService>();
 			services.AddSingleton<CloudinaryService>();
 			return services;

@@ -10,13 +10,21 @@ namespace ChildCareCalendar.Domain.Entities
     public class Payment
     {
         public int Id { get; set; }
-        public DateTime PaymentDate { get; set; }
+        public string OrderDescription { get; set; }
+        public string TransactionId { get; set; }
+        public string OrderId { get; set; }
+        public string PaymentMethod { get; set; }
+        public string PaymentId { get; set; }
+        public bool Success { get; set; }
+        public string Token { get; set; }
         public decimal Amount { get; set; }
-        public string? PaymentMethod { get; set; }
-        public string? Status { get; set; }
-        [DefaultValue(false)]
-        public bool IsDelete { get; set; } = false;
-        public DateTime CreatedAt { get; set; }
-        public string? CreatedBy { get; set; }
+
+
+
+        // Thuộc tính riêng của VNPAY
+        public string? VnPayResponseCode { get; set; }
+
+        // Thuộc tính riêng của PayPal
+        public string? PayerId { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace ChildCareCalendar.Infrastructure.Services
 {
@@ -19,10 +20,13 @@ namespace ChildCareCalendar.Infrastructure.Services
         }
         public async Task CreateExaminationReportAsync(ExaminationReport examinationReport, List<PrescriptionDetail> prescriptionDetails)
         {
-            examinationReport.TotalAmount = prescriptionDetails.Sum(pd => pd.TotalAmount);
+
+            
             examinationReport.CreatedAt = DateTime.UtcNow;
             examinationReport.UpdatedAt = DateTime.UtcNow;
-            examinationReport.TotalAmount = 0;
+         
+            examinationReport.TotalAmount = prescriptionDetails.Sum(pd => pd.TotalAmount);
+
             await _examinationRepository.AddAsync(examinationReport);
       
             foreach (var pd in prescriptionDetails)
@@ -46,12 +50,12 @@ namespace ChildCareCalendar.Infrastructure.Services
             {
                 query = query.Include(include);
             }
-            
+
             query = query
-            .Include(r => r.ChildrenRecord) 
-            .Include(r => r.Appointment)  
+            .Include(r => r.ChildrenRecord)
+            .Include(r => r.Appointment)
             .Include(r => r.PrescriptionDetails)
-            .ThenInclude(pd => pd.Medicine); 
+            .ThenInclude(pd => pd.Medicine);
 
             return await query.FirstOrDefaultAsync(r => r.Id == id);
         }
@@ -70,6 +74,16 @@ namespace ChildCareCalendar.Infrastructure.Services
                 report.UpdatedAt = DateTime.UtcNow;
                 await _examinationRepository.UpdateAsync(report, report.Id);
             }
+        }
+        public async Task<IEnumerable<ExaminationReport>> GetExaminationReportsByAppointmentIdAsync(int appointmentId)
+        {
+            var query = _examinationRepository.GetQueryable()
+                .Include(r => r.Appointment)
+                .Include(r => r.PrescriptionDetails)
+                .ThenInclude(pd => pd.Medicine)
+                .Where(r => r.AppointmentId == appointmentId && !r.IsDelete);
+
+            return await query.ToListAsync();
         }
 
     }

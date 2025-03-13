@@ -46,6 +46,7 @@ else
 			<tr class="bg-white">
 				<th>Tên thuốc</th>
 				<th>Giá</th>
+				<th>Trạng thái</th>
 				<th>Thao tác</th>
 			</tr>
 		</thead>
@@ -68,57 +69,6 @@ else
 	</table>
 }
 <!-- Pagination -->
-@*     <nav>
-        <ul class="pagination justify-content-center">
-            <li class="page-item @(CurrentPage == 1 ? "disabled" : "")">
-                <button class="page-link" @onclick="() => ChangePage(1)">Đầu</button>
-            </li>
-            <li class="page-item @(CurrentPage == 1 ? "disabled" : "")">
-                <button class="page-link" @onclick="() => ChangePage(CurrentPage - 1)">Trước</button>
-            </li>
-
-            <li class="page-item disabled">
-                <span class="page-link">Trang @CurrentPage / @TotalPages</span>
-            </li>
-
-            <li class="page-item @(CurrentPage == TotalPages ? "disabled" : "")">
-                <button class="page-link" @onclick="() => ChangePage(CurrentPage + 1)">Sau</button>
-            </li>
-            <li class="page-item @(CurrentPage == TotalPages ? "disabled" : "")">
-                <button class="page-link" @onclick="() => ChangePage(TotalPages)">Cuối</button>
-            </li>
-        </ul>
-    </nav> *@
-<!-- Pagination -->
-@*  <nav>
-	<ul class="pagination justify-content-center">
-		<!-- First Page -->
-		<li class="page-item @(CurrentPage == 1 ? "disabled" : "")">
-			<button class="page-link" @onclick="() => ChangePage(1)">«</button>
-		</li>
-		<!-- Previous Page -->
-		<li class="page-item @(CurrentPage == 1 ? "disabled" : "")">
-			<button class="page-link" @onclick="() => ChangePage(CurrentPage - 1)">‹</button>
-		</li>
-
-		<!-- Page Numbers -->
-		@for (int i = Math.Max(1, CurrentPage - 2); i <= Math.Min(TotalPages, CurrentPage + 2); i++)
-		{
-			<li class="page-item @(i == CurrentPage ? "active" : "")" @key="i">
-				<button class="page-link" @onclick="() => ChangePage(i)">@i</button>
-			</li>
-		}
-
-		<!-- Next Page -->
-		<li class="page-item @(CurrentPage == TotalPages ? "disabled" : "")">
-			<button class="page-link" @onclick="() => ChangePage(CurrentPage + 1)">›</button>
-		</li>
-		<!-- Last Page -->
-		<li class="page-item @(CurrentPage == TotalPages ? "disabled" : "")">
-			<button class="page-link" @onclick="() => ChangePage(TotalPages)">»</button>
-		</li>
-	</ul>
-</nav>  *@
  @{
 	int maxPagesToShow = 5; // Số trang tối đa hiển thị
 	int startPage = Math.Max(1, CurrentPage - maxPagesToShow / 2);
@@ -157,10 +107,11 @@ else
 		}
 
 		<!-- Page Numbers -->
-		@for (int i = startPage; i <= endPage; i++)
+		@for (var i = startPage; i <= endPage; i++)
 		{
-			<li class="page-item @(i == CurrentPage ? "active" : "")">
-				<button class="page-link" @onclick="() => ChangePage(i)">@i</button>
+			var currentPageNum = i;
+			<li class="page-item @(currentPageNum == CurrentPage ? "active" : "")">
+				<button class="page-link" @onclick="() => ChangePage(currentPageNum)">@currentPageNum</button>
 			</li>
 		}
 

@@ -35,10 +35,10 @@ namespace ChildCareCalendar.Domain.Data
 				context.Users.AddRange(
                     new AppUser { Email = "manager@example.com", FullName = "Ông sếp", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "QuanLy" },
                     new AppUser { Email = "doctor1@example.com", FullName = "Quân", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1 },
-                    new AppUser { Email = "doctor1@example.com", FullName = "Lương", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
-						SpecialityId = 1 },
-                    new AppUser { Email = "doctor1@example.com", FullName = "Quốc", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1 },
-                    new AppUser { Email = "doctor1@example.com", FullName = "Qui", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1 },
+                    new AppUser { Email = "doctor2@example.com", FullName = "Lương", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
+						SpecialityId = 2 },
+                    new AppUser { Email = "doctor3@example.com", FullName = "Quốc", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1 },
+                    new AppUser { Email = "doctor4@example.com", FullName = "Qui", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 2 },
                     new AppUser { Email = "parent1@example.com", FullName = "Chị Ba", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "PhuHuynh" }
                 );
                 context.SaveChanges();
@@ -47,8 +47,12 @@ namespace ChildCareCalendar.Domain.Data
             if (!context.Services.Any())
             {
                 context.Services.AddRange(
-                    new Service { SpecialityId = 1, ServiceName = "Khám tổng quát", Description = "Basic health checkup", Price = 50 },
-                    new Service { SpecialityId = 2, ServiceName = "Khám da liễu", Description = "Skin disease consultation", Price = 70 }
+                    new Service { SpecialityId = 1, ServiceName = "Khám thường có BHYT", Description = "Basic health checkup", Price = 500000 },
+                    new Service { SpecialityId = 2, ServiceName = "Khám thường có BHYT", Description = "Skin disease consultation", Price = 700000 },
+                    new Service { SpecialityId = 1, ServiceName = "Khám thường không có BHYT", Description = "Basic health checkup", Price = 500000 },
+                    new Service { SpecialityId = 2, ServiceName = "Khám thường không có BHYT", Description = "Skin disease consultation", Price = 700000 },
+                    new Service { SpecialityId = 1, ServiceName = "Khám vip", Description = "Basic health checkup", Price = 500000 },
+                    new Service { SpecialityId = 2, ServiceName = "Khám vip", Description = "Skin disease consultation", Price = 700000 }
                 );
                 context.SaveChanges();
             }
@@ -89,10 +93,23 @@ namespace ChildCareCalendar.Domain.Data
 
 			if (!context.Appointments.Any())
             {
-                context.Appointments.AddRange(
-                    new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED", TotalAmount = 500_000, CheckupDateTime = new DateTime(2024, 10, 15), CreatedAt = DateTime.Now },
-                    new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", TotalAmount = 700_000, CheckupDateTime = new DateTime(2023, 10, 20), CreatedAt = DateTime.Now }
-                );
+                 context.Appointments.AddRange(
+                    new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED", TotalAmount = 550_000, CheckupDateTime = new DateTime(2024, 11, 10), CreatedAt = DateTime.Now },
+                    new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", TotalAmount = 750_000, CheckupDateTime = new DateTime(2023, 12, 5), CreatedAt = DateTime.Now },
+                    new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", TotalAmount = 600_000, CheckupDateTime = new DateTime(2024, 9, 15), CreatedAt = DateTime.Now },
+
+                    new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED", TotalAmount = 520_000, CheckupDateTime = new DateTime(2024, 8, 20), CreatedAt = DateTime.Now },
+                    new Appointment { DoctorId = 4, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", TotalAmount = 680_000, CheckupDateTime = new DateTime(2023, 9, 10), CreatedAt = DateTime.Now }
+                    //new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", TotalAmount = 720_000, CheckupDateTime = new DateTime(2024, 10, 1), CreatedAt = DateTime.Now },
+
+                    //new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED", TotalAmount = 530_000, CheckupDateTime = new DateTime(2024, 7, 5), CreatedAt = DateTime.Now },
+                    //new Appointment { DoctorId = 4, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", TotalAmount = 710_000, CheckupDateTime = new DateTime(2023, 8, 15), CreatedAt = DateTime.Now },
+                    //new Appointment { DoctorId = 4, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", TotalAmount = 680_000, CheckupDateTime = new DateTime(2024, 9, 25), CreatedAt = DateTime.Now },
+
+                    //new Appointment { DoctorId = 4, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED", TotalAmount = 590_000, CheckupDateTime = new DateTime(2024, 11, 30), CreatedAt = DateTime.Now },
+                    //new Appointment { DoctorId = 4, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", TotalAmount = 720_000, CheckupDateTime = new DateTime(2023, 10, 10), CreatedAt = DateTime.Now },
+                    //new Appointment { DoctorId = 4, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", TotalAmount = 650_000, CheckupDateTime = new DateTime(2024, 12, 5), CreatedAt = DateTime.Now }
+);
                 context.SaveChanges();
             }
 
@@ -130,67 +147,61 @@ namespace ChildCareCalendar.Domain.Data
                     new Medicine { Name = "Simvastatin", Price = 11 },
                     new Medicine { Name = "Metronidazole", Price = 8 },
                     new Medicine { Name = "Furosemide", Price = 7 },
+                    new Medicine { Name = "Prednisolone", Price = 10 },
+                    new Medicine { Name = "Paracetamol", Price = 5 },
+                    new Medicine { Name = "Ibuprofen", Price = 8 },
+                    new Medicine { Name = "Aspirin", Price = 6 },
+                    new Medicine { Name = "Cetirizine", Price = 7 },
+                    new Medicine { Name = "Amoxicillin", Price = 12 },
+                    new Medicine { Name = "Metformin", Price = 10 },
+                    new Medicine { Name = "Loratadine", Price = 5 },
+                    new Medicine { Name = "Omeprazole", Price = 9 },
+                    new Medicine { Name = "Simvastatin", Price = 11 },
+                    new Medicine { Name = "Metronidazole", Price = 8 },
+                    new Medicine { Name = "Furosemide", Price = 7 },
+                    new Medicine { Name = "Prednisolone", Price = 10 },
+                    new Medicine { Name = "Paracetamol", Price = 5 },
+                    new Medicine { Name = "Ibuprofen", Price = 8 },
+                    new Medicine { Name = "Aspirin", Price = 6 },
+                    new Medicine { Name = "Cetirizine", Price = 7 },
+                    new Medicine { Name = "Amoxicillin", Price = 12 },
+                    new Medicine { Name = "Metformin", Price = 10 },
+                    new Medicine { Name = "Loratadine", Price = 5 },
+                    new Medicine { Name = "Omeprazole", Price = 9 },
+                    new Medicine { Name = "Simvastatin", Price = 11 },
+                    new Medicine { Name = "Metronidazole", Price = 8 },
+                    new Medicine { Name = "Furosemide", Price = 7 },
+                    new Medicine { Name = "Prednisolone", Price = 10 },
+                    new Medicine { Name = "Paracetamol", Price = 5 },
+                    new Medicine { Name = "Ibuprofen", Price = 8 },
+                    new Medicine { Name = "Aspirin", Price = 6 },
+                    new Medicine { Name = "Cetirizine", Price = 7 },
+                    new Medicine { Name = "Amoxicillin", Price = 12 },
+                    new Medicine { Name = "Metformin", Price = 10 },
+                    new Medicine { Name = "Loratadine", Price = 5 },
+                    new Medicine { Name = "Omeprazole", Price = 9 },
+                    new Medicine { Name = "Simvastatin", Price = 11 },
+                    new Medicine { Name = "Metronidazole", Price = 8 },
+                    new Medicine { Name = "Furosemide", Price = 7 },
+                    new Medicine { Name = "Prednisolone", Price = 10 },
+                    new Medicine { Name = "Paracetamol", Price = 5 },
+                    new Medicine { Name = "Ibuprofen", Price = 8 },
+                    new Medicine { Name = "Aspirin", Price = 6 },
+                    new Medicine { Name = "Cetirizine", Price = 7 },
+                    new Medicine { Name = "Amoxicillin", Price = 12 },
+                    new Medicine { Name = "Metformin", Price = 10 },
+                    new Medicine { Name = "Loratadine", Price = 5 },
+                    new Medicine { Name = "Omeprazole", Price = 9 },
+                    new Medicine { Name = "Simvastatin", Price = 11 },
+                    new Medicine { Name = "Metronidazole", Price = 8 },
+                    new Medicine { Name = "Furosemide", Price = 7 },
                     new Medicine { Name = "Prednisolone", Price = 10 }
-                    //new Medicine { Name = "Paracetamol", Price = 5 },
-                    //new Medicine { Name = "Ibuprofen", Price = 8 },
-                    //new Medicine { Name = "Aspirin", Price = 6 },
-                    //new Medicine { Name = "Cetirizine", Price = 7 },
-                    //new Medicine { Name = "Amoxicillin", Price = 12 },
-                    //new Medicine { Name = "Metformin", Price = 10 },
-                    //new Medicine { Name = "Loratadine", Price = 5 },
-                    //new Medicine { Name = "Omeprazole", Price = 9 },
-                    //new Medicine { Name = "Simvastatin", Price = 11 },
-                    //new Medicine { Name = "Metronidazole", Price = 8 },
-                    //new Medicine { Name = "Furosemide", Price = 7 },
-                    //new Medicine { Name = "Prednisolone", Price = 10 },
-                    //new Medicine { Name = "Paracetamol", Price = 5 },
-                    //new Medicine { Name = "Ibuprofen", Price = 8 },
-                    //new Medicine { Name = "Aspirin", Price = 6 },
-                    //new Medicine { Name = "Cetirizine", Price = 7 },
-                    //new Medicine { Name = "Amoxicillin", Price = 12 },
-                    //new Medicine { Name = "Metformin", Price = 10 },
-                    //new Medicine { Name = "Loratadine", Price = 5 },
-                    //new Medicine { Name = "Omeprazole", Price = 9 },
-                    //new Medicine { Name = "Simvastatin", Price = 11 },
-                    //new Medicine { Name = "Metronidazole", Price = 8 },
-                    //new Medicine { Name = "Furosemide", Price = 7 },
-                    //new Medicine { Name = "Prednisolone", Price = 10 },
-                    //new Medicine { Name = "Paracetamol", Price = 5 },
-                    //new Medicine { Name = "Ibuprofen", Price = 8 },
-                    //new Medicine { Name = "Aspirin", Price = 6 },
-                    //new Medicine { Name = "Cetirizine", Price = 7 },
-                    //new Medicine { Name = "Amoxicillin", Price = 12 },
-                    //new Medicine { Name = "Metformin", Price = 10 },
-                    //new Medicine { Name = "Loratadine", Price = 5 },
-                    //new Medicine { Name = "Omeprazole", Price = 9 },
-                    //new Medicine { Name = "Simvastatin", Price = 11 },
-                    //new Medicine { Name = "Metronidazole", Price = 8 },
-                    //new Medicine { Name = "Furosemide", Price = 7 },
-                    //new Medicine { Name = "Prednisolone", Price = 10 },
-                    //new Medicine { Name = "Paracetamol", Price = 5 },
-                    //new Medicine { Name = "Ibuprofen", Price = 8 },
-                    //new Medicine { Name = "Aspirin", Price = 6 },
-                    //new Medicine { Name = "Cetirizine", Price = 7 },
-                    //new Medicine { Name = "Amoxicillin", Price = 12 },
-                    //new Medicine { Name = "Metformin", Price = 10 },
-                    //new Medicine { Name = "Loratadine", Price = 5 },
-                    //new Medicine { Name = "Omeprazole", Price = 9 },
-                    //new Medicine { Name = "Simvastatin", Price = 11 },
-                    //new Medicine { Name = "Metronidazole", Price = 8 },
-                    //new Medicine { Name = "Furosemide", Price = 7 },
-                    //new Medicine { Name = "Prednisolone", Price = 10 }
 
                 );
                 context.SaveChanges();
             }
 
-            if (!context.Payments.Any())
-            {
-                context.Payments.AddRange(
-                    new Payment { PaymentDate = DateTime.Now, Amount = 500_000, PaymentMethod = "VNPAY", Status = "Completed", CreatedAt = DateTime.Now }
-                );
-                context.SaveChanges();
-            }
+            
 
             if (!context.PrescriptionDetails.Any())
             {

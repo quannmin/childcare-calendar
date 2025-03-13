@@ -11,13 +11,15 @@ namespace ChildCareCalendar.Admin.Components.Pages.Medicine
 {
     public partial class Index
     {
+        private List<MedicineViewModel> Medicines = new();
+
         [Inject]
         private IMedicineService MedicineService { get; set; } = default!;
         [Inject]
         private IMapper Mapper { get; set; } = default!;
         [Inject]
         private NavigationManager Navigation { get; set; } = default!;
-        private List<MedicineViewModel> Medicines = new();
+        
         [SupplyParameterFromForm]
         private MedicineSearchViewModel SearchData { get; set; } = new();
 
@@ -46,14 +48,13 @@ namespace ChildCareCalendar.Admin.Components.Pages.Medicine
                 CurrentPage = 1;
             }
 
-            await LoadMedicines();
+            await LoadMedicinesAsync();
         }
 
 
 
-        private async Task LoadMedicines()
-        {
-            Console.WriteLine($"Loading data for page: {CurrentPage}");
+        private async Task LoadMedicinesAsync()
+        {          
             var (medicines, totalCount) = await MedicineService.GetPagedMedicinesAsync(CurrentPage, PageSize, SearchData.Keyword);
             Medicines = Mapper.Map<List<MedicineViewModel>>(medicines);
             TotalItems = totalCount;
@@ -64,8 +65,8 @@ namespace ChildCareCalendar.Admin.Components.Pages.Medicine
         private async Task HandleSearch()
         {
             CurrentPage = 1;
-            Navigation.NavigateTo($"/medicines?page={CurrentPage}/search={SearchData.Keyword}", forceLoad: false);
-            await LoadMedicines();
+            Navigation.NavigateTo($"/medicines?page={CurrentPage}&search={SearchData.Keyword}", forceLoad: false);
+            await LoadMedicinesAsync();
         }
 
         private async Task ChangePage(int newPage)
@@ -74,7 +75,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Medicine
             {
                 
                 CurrentPage = newPage;
-                await LoadMedicines();
+                await LoadMedicinesAsync();
                 Navigation.NavigateTo($"/medicines?page={CurrentPage}", forceLoad: false);              
                
                 
@@ -93,7 +94,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Medicine
             {
                 await MedicineService.DeleteMedicineAsync(idToDelete.Value);
                 idToDelete = null;
-                await LoadMedicines();
+                await LoadMedicinesAsync();
             }
             await JS.InvokeVoidAsync("hideDeleteModal");
         }
