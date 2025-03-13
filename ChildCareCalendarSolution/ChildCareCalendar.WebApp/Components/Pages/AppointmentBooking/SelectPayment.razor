@@ -1,0 +1,14 @@
+﻿
+
+
+<div class="payment-container">
+    <h4 class="info-title">Chọn phương thức thanh toán</h4>
+
+    <select class="form-select" @bind="selectedPaymentMethod">
+        <option value="">-- Chọn phương thức --</option>
+        <option value="VNPay">VNPay</option>
+        <option value="PayPal">PayPal</option>
+    </select>
+
+    <button class="btn btn-primary mt-3" @onclick="ProcessPayment" disabled="@(!CanProceed)">Thanh toán</button>
+</div>

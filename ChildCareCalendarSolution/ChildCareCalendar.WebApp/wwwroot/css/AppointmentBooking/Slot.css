@@ -1,0 +1,25 @@
+﻿.slot-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.slot-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+    .slot-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .slot-btn.disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
