@@ -11,6 +11,11 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
 		Task AddSpecialityAsync(Speciality speciality);
 		Task UpdateSpecialityAsync(Speciality speciality);
 		Task DeleteSpecialityAsync(int id);
+		Task<(IEnumerable<Speciality> medicines, int totalCount)> GetPagedSpecialitiesAsync(
+	int pageIndex,
+	int pageSize,
+	string keyword = null);
 
-	}
+
+    }
 }

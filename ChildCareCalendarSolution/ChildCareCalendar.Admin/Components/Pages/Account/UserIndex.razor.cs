@@ -4,7 +4,9 @@ using ChildCareCalendar.Domain.ViewModels.Account;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using ChildCareCalendar.Utilities.Constants;
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.JSInterop;
+using System.Web;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Account
 {
@@ -15,10 +17,17 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         [Inject]
         private IMapper Mapper { get; set; }
         [Inject]
+        private NavigationManager Navigation { get; set; } = default!;
+        [Inject]
         private IJSRuntime JS { get; set; }
         private List<UserViewModel> UserViewModels = new();
         private string Keyword = "";
         private int? userIdToDelete;
+
+        private int CurrentPage = 1;
+        private int PageSize = 10;
+        private int TotalPages = 1;
+        private int TotalItems = 0;
 
         private string GetRoleDisplayName(string role)
         {
@@ -29,22 +38,46 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
 
         protected override async Task OnInitializedAsync()
         {
+            var uri = new Uri(Navigation.Uri);
+            var queryParameters = HttpUtility.ParseQueryString(uri.Query);
+            var page = queryParameters["page"];
+
+            if (int.TryParse(page, out int pageNumber) && pageNumber > 0)
+            {
+                CurrentPage = pageNumber;
+            }
+            else
+            {
+                CurrentPage = 1;
+            }
+
             await LoadUsers();
         }
 
         private async Task LoadUsers()
         {
-            UserViewModels = Mapper.Map<List<UserViewModel>>(await userService.FindUsersAsync(u => u.IsDelete == false));
+            var (users, totalCount) = await userService.GetPagedUsersAsync(CurrentPage, PageSize, Keyword);
+            UserViewModels = Mapper.Map<List<UserViewModel>>(users);
+            TotalItems = totalCount;
+            TotalPages = (int)Math.Ceiling((double)TotalItems / PageSize);
         }
 
         private async Task SearchUsers()
         {
-            var users = string.IsNullOrEmpty(Keyword)
-                ? await userService.FindUsersAsync(u => u.IsDelete == false)
-                : await userService.FindUsersAsync(u => u.FullName.Equals(Keyword));
-
-            UserViewModels = Mapper.Map<List<UserViewModel>>(users);
+            CurrentPage = 1;
+            Navigation.NavigateTo($"/users/index?page={CurrentPage}&search={Keyword}", forceLoad: false);
+            await LoadUsers();
         }
+        private async Task ChangePage(int newPage)
+        {
+            if (newPage >= 1 && newPage <= TotalPages && newPage != CurrentPage)
+            {
+                CurrentPage = newPage;
+                Navigation.NavigateTo($"/users/index?page={CurrentPage}", forceLoad: false);
+                await LoadUsers();
+            }
+        }
+
 
         private async void ConfirmDelete(int userId)
         {
@@ -52,11 +85,6 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
             await JS.InvokeVoidAsync("showDeleteModal");
         }
 
-        //private void ConfirmDelete(int userId)
-        //{
-        //    userIdToDelete = userId;
-        //    JS.InvokeVoidAsync("showDeleteModal");
-        //}
 
         private async Task DeleteUser()
         {
@@ -66,7 +94,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
                 userIdToDelete = null;
                 await LoadUsers();
             }
-            await JS.InvokeVoidAsync("hideDeleteModal"); // Ẩn modal sau khi xóa
+            await JS.InvokeVoidAsync("hideDeleteModal"); 
         }
     }
 }
