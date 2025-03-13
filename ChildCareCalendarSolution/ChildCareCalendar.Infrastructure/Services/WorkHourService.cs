@@ -42,5 +42,15 @@ namespace ChildCareCalendar.Infrastructure.Services
 		{
 			await _workHourRepository.UpdateAsync(workHour, workHour.Id);
 		}
-	}
+
+        public async Task<IEnumerable<WorkHour>> GetAllWorkHoursAsync()
+        {
+            return await _workHourRepository.FindAsync(w => !w.IsDelete);
+        }
+
+        public async Task<WorkHour?> GetWorkHourByIdAsync(int id)
+        {
+            return await _workHourRepository.GetByIdAsync(id);
+        }
+    }
 }

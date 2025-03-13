@@ -35,10 +35,10 @@ namespace ChildCareCalendar.Domain.Data
 				context.Users.AddRange(
                     new AppUser { Email = "manager@example.com", FullName = "Ông sếp", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "QuanLy" },
                     new AppUser { Email = "doctor1@example.com", FullName = "Quân", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1 },
-                    new AppUser { Email = "doctor1@example.com", FullName = "Lương", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
+                    new AppUser { Email = "doctor2@example.com", FullName = "Lương", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
 						SpecialityId = 2 },
-                    new AppUser { Email = "doctor1@example.com", FullName = "Quốc", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1 },
-                    new AppUser { Email = "doctor1@example.com", FullName = "Qui", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 2 },
+                    new AppUser { Email = "doctor3@example.com", FullName = "Quốc", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1 },
+                    new AppUser { Email = "doctor4@example.com", FullName = "Qui", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 2 },
                     new AppUser { Email = "parent1@example.com", FullName = "Chị Ba", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "PhuHuynh" }
                 );
                 context.SaveChanges();
@@ -47,12 +47,12 @@ namespace ChildCareCalendar.Domain.Data
             if (!context.Services.Any())
             {
                 context.Services.AddRange(
-                    new Service { SpecialityId = 1, ServiceName = "Khám thường có BHYT", Description = "Basic health checkup", Price = 50 },
-                    new Service { SpecialityId = 2, ServiceName = "Khám thường có BHYT", Description = "Skin disease consultation", Price = 70 },
-                    new Service { SpecialityId = 1, ServiceName = "Khám thường không có BHYT", Description = "Basic health checkup", Price = 50 },
-                    new Service { SpecialityId = 2, ServiceName = "Khám thường không có BHYT", Description = "Skin disease consultation", Price = 70 },
-                    new Service { SpecialityId = 1, ServiceName = "Khám vip", Description = "Basic health checkup", Price = 50 },
-                    new Service { SpecialityId = 2, ServiceName = "Khám vip", Description = "Skin disease consultation", Price = 70 }
+                    new Service { SpecialityId = 1, ServiceName = "Khám thường có BHYT", Description = "Basic health checkup", Price = 500000 },
+                    new Service { SpecialityId = 2, ServiceName = "Khám thường có BHYT", Description = "Skin disease consultation", Price = 700000 },
+                    new Service { SpecialityId = 1, ServiceName = "Khám thường không có BHYT", Description = "Basic health checkup", Price = 500000 },
+                    new Service { SpecialityId = 2, ServiceName = "Khám thường không có BHYT", Description = "Skin disease consultation", Price = 700000 },
+                    new Service { SpecialityId = 1, ServiceName = "Khám vip", Description = "Basic health checkup", Price = 500000 },
+                    new Service { SpecialityId = 2, ServiceName = "Khám vip", Description = "Skin disease consultation", Price = 700000 }
                 );
                 context.SaveChanges();
             }
@@ -201,13 +201,7 @@ namespace ChildCareCalendar.Domain.Data
                 context.SaveChanges();
             }
 
-            if (!context.Payments.Any())
-            {
-                context.Payments.AddRange(
-                    new Payment { PaymentDate = DateTime.Now, Amount = 500_000, PaymentMethod = "VNPAY", Status = "Completed", CreatedAt = DateTime.Now }
-                );
-                context.SaveChanges();
-            }
+            
 
             if (!context.PrescriptionDetails.Any())
             {

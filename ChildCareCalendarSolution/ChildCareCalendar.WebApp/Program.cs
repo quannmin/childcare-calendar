@@ -5,6 +5,7 @@ using ChildCareCalendar.WebApp.Components;
 using Microsoft.EntityFrameworkCore;
 using ChildCareCalendar.Infrastructure.Extensions;
 using ChildCareCalendar.Infrastructure.Mappings;
+using Microsoft.AspNetCore.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,14 @@ builder.Services.AddDbContext<ChildCareCalendarContext>(options => {
 builder.Services.AddDependencyInjection();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddAntDesign();
+builder.Services.AddScoped(sp =>
+{
+    var navManager = sp.GetRequiredService<NavigationManager>();
+    return new HttpClient { BaseAddress = new Uri(navManager.BaseUri) };
+});
+builder.Services.AddScoped<IVnPayService, VnPayService>();
+builder.Services.AddScoped<IPayPalService, PayPalService>();
+builder.Services.AddHttpContextAccessor();
 
 
 
