@@ -3,6 +3,8 @@
 @using ChildCareCalendar.Utilities.Constants
 @layout EmptyLayout
 @rendermode InteractiveServer
+@inject IJSRuntime JS
+
 
 <link rel="stylesheet" href="/assets/css/Registration.css">
 <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
@@ -82,8 +84,8 @@
                             }
                         </div>
                         <div class="col-md-4 center-container">
-                            <button type="button" @onclick="SendOtp">
-                                <span class="btnText">Tiếp tục</span>
+                            <button type="button" @onclick="SendOtp" disabled="@isSubmitting">
+                                @(isSubmitting ? "Đang xử lý..." : "Tiếp tục")
                                 <i class="uil uil-navigator"></i>
                             </button>
                         </div>
@@ -122,7 +124,7 @@
                     </div>
                 </div>
                 <div class="buttons">
-                    <button id="backButton" type="button">
+                    <button id="backBtnThirdForm" type="button">
                         <span class="btnText">Trở lại</span>
                         <i class="uil uil-backward"></i>
                     </button>
@@ -171,7 +173,7 @@
 
 <!-- Đảm bảo rằng file JS được load sau khi DOM đã render -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<script src="../Components/Pages/Account/Registration.razor.js"></script>
 <script>
     function displayEmailDuplicate() {
         let errorDiv = document.getElementById("emailDuplicateError");
@@ -197,4 +199,36 @@
              confirmButtonText: 'OK'
          });
      }
+
+         function handleNextClickOTP(event) {
+        console.log("Next OTP button clicked!");
+        if (!registrationForm) {
+            console.error("Registration form not found!");
+            return;
+        }
+        registrationForm.classList.remove('otpActive');
+        registrationForm.classList.add('secActive');
+    }
+     function showVerifySuccessOTP() {
+         Swal.fire({
+             icon: 'success',
+             title: 'Gửi lại OTP thành công!',
+             text: 'Vui lòng kiểm tra email của bạn.',
+             confirmButtonText: 'OK'
+         }).then((result) => {
+            if (result.isConfirmed) {
+                handleNextClickOTP();
+            }
+        });
+     }
+         function showVerifyFailOTP() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Mã xác nhận không chính xác',
+            text: 'Vui lòng nhập lại mã của bạn.',
+            confirmButtonText: 'OK'
+        });
+    }
+
+   
 </script>

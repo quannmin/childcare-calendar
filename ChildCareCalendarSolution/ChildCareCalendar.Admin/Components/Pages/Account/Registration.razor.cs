@@ -21,10 +21,11 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         [Inject] private IMapper mapper { get; set; } = default!;
         [Inject] private CloudinaryService cloudinaryService { get; set; } = default!;
         [Inject] private IEmailService emailService { get; set; } = default!;
-        [Inject] private IJSRuntime JS { get; set; } = default!;
         private IJSObjectReference? module = default!;
 
         private bool isSubmitting = false;
+        private bool isSendOTP = false;
+
 
         private EditContext editContext = default!;
         protected override void OnInitialized()
@@ -37,6 +38,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
             {
                 module = await JS.InvokeAsync<IJSObjectReference>("import",
                 "./Components/Pages/Account/Registration.razor.js");
+                await module.InvokeVoidAsync("registerBlazorInstance", DotNetObjectReference.Create(this));
             }
         }
 
@@ -67,33 +69,56 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
             await emailService.SendEmailAsync(compositeViewModel._userCreateViewModel.Email, subject, body);
             await JS.InvokeVoidAsync("showAlertResendOTP");
         }
+        private string existEmail = String.Empty;
         private async void SendOtp()
         {
             bool isValid = await module.InvokeAsync<bool>("handleNextClickFirstForm");
             if (isValid)
             {
-                var checkDuplicateEmail = await userService.FindUsersAsync(x => x.Email.ToLower()
-            .Equals(compositeViewModel._userCreateViewModel.Email.ToLower()));
-
-                if (checkDuplicateEmail.Any())
+                if (isSendOTP && existEmail.Equals(compositeViewModel._userCreateViewModel.Email))
                 {
-                    await JS.InvokeVoidAsync("displayEmailDuplicate");
-                    isSubmitting = false;
-                    isDuplicatedEmail = true;
-                    return;
+                    await module.InvokeVoidAsync("showOTP");
                 }
-                generatedOtp = new Random().Next(1000, 9999).ToString();
-
-                string subject = "Mã xác nhận OTP của bạn";
-                string body = $"Mã OTP của bạn là: <b>{generatedOtp}</b>. Vui lòng nhập mã này để xác nhận.";
-                if(compositeViewModel._userCreateViewModel.Email == null)
+                else
                 {
-                    return;
+                    existEmail = compositeViewModel._userCreateViewModel.Email;
+                    var checkDuplicateEmail = await userService.FindUsersAsync(x => x.Email.ToLower()
+                .Equals(compositeViewModel._userCreateViewModel.Email.ToLower()));
+
+                    if (checkDuplicateEmail.Any())
+                    {
+                        await JS.InvokeVoidAsync("displayEmailDuplicate");
+                        isSubmitting = false;
+                        isDuplicatedEmail = true;
+                        return;
+                    }
+                    generatedOtp = new Random().Next(1000, 9999).ToString();
+
+                    string subject = "Mã xác nhận OTP của bạn";
+                    string body = $"Mã OTP của bạn là: <b>{generatedOtp}</b>. Vui lòng nhập mã này để xác nhận.";
+                    if (compositeViewModel._userCreateViewModel.Email == null)
+                    {
+                        return;
+                    }
+                    await emailService.SendEmailAsync(compositeViewModel._userCreateViewModel.Email, subject, body);
+                    await module.InvokeVoidAsync("showOTP");
+                    isSendOTP = true;
                 }
-                await emailService.SendEmailAsync(compositeViewModel._userCreateViewModel.Email, subject, body);
-                await module.InvokeVoidAsync("showOTP");   
             }
             return;
+        }
+        [JSInvokable]
+        public async Task VerifyOTP(string otpInput)
+        {
+            Console.WriteLine($"Received OTP from JS: {otpInput}");
+            if (otpInput == generatedOtp)
+            {
+                await JS.InvokeVoidAsync("showVerifySuccessOTP");
+            }
+            else
+            {
+                await JS.InvokeVoidAsync("showVerifyFailOTP");
+            }
         }
 
         private IBrowserFile? selectedFile;
@@ -189,23 +214,5 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
 
             navigationManager.NavigateTo("/users/index");
         }
-
-        //private string otpInput = string.Empty;
-        //private bool isOtpSent = false;
-        //private bool isOtpConfirmed = false;
-        //private void VerifyOtp()
-        //{
-        //    if (otpInput == generatedOtp)
-        //    {
-        //        isOtpConfirmed = true;
-        //        ErrorMessage.Clear();
-        //    }
-        //    else
-        //    {
-        //        ErrorMessage.Add("Mã OTP không chính xác, vui lòng thử lại!");
-        //    }
-        //}
-
-        
     }
 }
