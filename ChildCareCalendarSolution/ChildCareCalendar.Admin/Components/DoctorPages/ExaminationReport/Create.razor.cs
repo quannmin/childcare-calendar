@@ -202,5 +202,16 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
         {
             Navigation.NavigateTo($"/appointments/detail/{AppointmentId}");
         }
+        private bool ShowMedicineModal = false;
+
+        private void OpenMedicineModal()
+        {
+            ShowMedicineModal = true;
+        }
+
+        private void CloseMedicineModal()
+        {
+            ShowMedicineModal = false;
+        }
     }
 }
