@@ -25,11 +25,6 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
             Services = result.ToList();
         }
 
-        private void ViewDetails(Service service)
-        {
-            Console.WriteLine($"Xem chi tiết: {service.ServiceName}");
-        }
-
         private async void HandleServiceSelection(Service service)
         {
             Console.WriteLine("Selected Service: " + service.ServiceName);

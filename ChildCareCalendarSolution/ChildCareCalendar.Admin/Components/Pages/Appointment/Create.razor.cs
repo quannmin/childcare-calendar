@@ -49,8 +49,8 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
 
         protected override async Task OnInitializedAsync()
         {
-            Parents = (await UserService.FindUsersAsync(u => u.Role.Equals("Parent"))).ToList();
-            Doctors = (await UserService.FindUsersAsync(u => u.Role.Equals("Doctor"))).ToList();
+            Parents = (await UserService.FindUsersAsync(u => u.Role.Equals("PhuHuynh"))).ToList();
+            Doctors = (await UserService.FindUsersAsync(u => u.Role.Equals("BacSi"))).ToList();
         }
 
         private async Task HandleCreate()

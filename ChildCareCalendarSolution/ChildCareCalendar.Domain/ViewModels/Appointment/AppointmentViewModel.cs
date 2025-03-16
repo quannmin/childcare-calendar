@@ -10,6 +10,7 @@ namespace ChildCareCalendar.Domain.ViewModels.Appointment
     {
         public int AppointmentId { get; set; }
         public string ParentName { get; set; }
+        public string DoctorName { get; set; }
         public string ChildName { get; set; }
         public string ServiceName { get; set; }
         public decimal TotalAmount { get; set; }
