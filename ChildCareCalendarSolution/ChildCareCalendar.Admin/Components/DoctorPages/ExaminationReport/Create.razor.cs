@@ -48,6 +48,9 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
         private List<MedicineViewModel> FilteredMedicines { get; set; } = new();
         private bool IsLoading = true;
         private string ErrorMessage = string.Empty;
+        private string MedicineError { get; set; } = string.Empty;
+        private string MedicineValidationError { get; set; } = string.Empty;
+        private bool ShowMedicineModal = false;
 
         protected override async Task OnInitializedAsync()
         {
@@ -91,13 +94,13 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
         {
             if (string.IsNullOrWhiteSpace(SearchTerm))
             {
-                FilteredMedicines = Medicines.Take(5).ToList(); 
+                FilteredMedicines = Medicines.Take(5).ToList();
             }
             else
             {
                 FilteredMedicines = Medicines
                     .Where(m => m.Name.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
-                    .Take(10) 
+                    .Take(10)
                     .ToList();
             }
         }
@@ -106,14 +109,16 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
         {
             SelectedMedicineId = medicine.Id;
             SearchTerm = medicine.Name;
-            FilteredMedicines.Clear(); 
+            FilteredMedicines.Clear();
         }
+
         private void ResetSearchForm()
         {
             SearchTerm = string.Empty;
             FilteredMedicines.Clear();
-            SelectedMedicineId = null; 
+            SelectedMedicineId = null;
         }
+
         private void AddMedicine()
         {
             if (SelectedMedicineId.HasValue && CurrentMedicine.Dosage > 0 && CurrentMedicine.Quantity > 0 && !string.IsNullOrEmpty(CurrentMedicine.Slot))
@@ -134,15 +139,16 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
                     // Reset form
                     ResetSearchForm();
                     CurrentMedicine = new PrescriptionDetailViewModel();
+                    MedicineValidationError = string.Empty;
                 }
                 else
                 {
-                    ErrorMessage = "Thuốc không tồn tại.";
+                    MedicineValidationError = "Thuốc không tồn tại.";
                 }
             }
             else
             {
-                ErrorMessage = "Vui lòng điền đầy đủ thông tin thuốc.";
+                MedicineValidationError = "Vui lòng điền đầy đủ thông tin thuốc.";
             }
         }
 
@@ -157,10 +163,8 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
             {
                 if (PrescriptionDetails.Any())
                 {
-
                     var examinationReport = Mapper.Map<Domain.Entities.ExaminationReport>(NewExaminationReport);
                     var prescriptionDetails = Mapper.Map<List<PrescriptionDetail>>(PrescriptionDetails);
-
 
                     var appointmentEntity = await AppointmentService.GetAppointmentByIdAsync(AppointmentId);
                     if (appointmentEntity == null)
@@ -180,15 +184,13 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
                         }
                     }
 
-
                     await ExaminationReportService.CreateExaminationReportAsync(examinationReport, prescriptionDetails);
-
 
                     Navigation.NavigateTo($"/examination-reports/detail/{examinationReport.Id}");
                 }
                 else
                 {
-                    ErrorMessage = "Vui lòng thêm ít nhất một loại thuốc vào đơn thuốc.";
+                    MedicineError = "Vui lòng thêm ít nhất một loại thuốc vào đơn thuốc.";
                 }
             }
             catch (Exception ex)
@@ -202,7 +204,6 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
         {
             Navigation.NavigateTo($"/appointments/detail/{AppointmentId}");
         }
-        private bool ShowMedicineModal = false;
 
         private void OpenMedicineModal()
         {
@@ -212,6 +213,7 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
         private void CloseMedicineModal()
         {
             ShowMedicineModal = false;
+            MedicineValidationError = string.Empty;
         }
     }
 }
