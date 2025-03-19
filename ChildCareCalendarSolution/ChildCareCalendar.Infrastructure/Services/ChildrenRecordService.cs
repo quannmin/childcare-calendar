@@ -1,4 +1,5 @@
 ﻿using ChildCareCalendar.Domain.Entities;
+using ChildCareCalendar.Domain.ViewModels.ChildrenRecord;
 using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using System.Linq.Expressions;
@@ -36,9 +37,17 @@ namespace ChildCareCalendar.Infrastructure.Services
             return await _childrenRecordRepository.FindAsync(predicate, includes);
         }
 
-        public async Task UpdateChildrenRecordAsync(ChildrenRecord childrenRecord)
+        public async Task UpdateChildrenRecordAsync(int id, ChildrenRecordEditViewModel childrenRecord)
         {
-            await _childrenRecordRepository.UpdateAsync(childrenRecord, childrenRecord.Id);
+            var exist = await _childrenRecordRepository.GetByIdAsync(id);
+            if (exist != null)
+            {
+                exist.FullName = childrenRecord.FullName;
+                exist.Dob = (DateTime)childrenRecord.Dob;
+                exist.Gender = childrenRecord.Gender.ToString();
+                exist.MedicalHistory = childrenRecord.MedicalHistory;
+                await _childrenRecordRepository.UpdateAsync(exist, id);
+            }
         }
     }
 }

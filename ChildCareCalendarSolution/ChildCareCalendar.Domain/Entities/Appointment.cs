@@ -22,6 +22,8 @@ namespace ChildCareCalendar.Domain.Entities
         public AppUser? Parent { get; set; }
         public int DoctorId { get; set; }
         public AppUser? Doctor { get; set; }
+        public int ServiceId { get; set; }
+        public Service? Service { get; set; }    
         public int? ChildrenRecordId { get; set; }
         public ChildrenRecord? ChildrenRecord { get; set; }
         public int? FollowUpAppointmentId { get; set; }

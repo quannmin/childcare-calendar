@@ -22,6 +22,11 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         private double? selectedServicePrice;
         private string? selectedPaymentMethod;
 
+        private AppUser? selectedDoctor;
+        private Speciality? selectedSpeciality;
+        private Service? selectedService;
+        
+
         [Inject] private IVnPayService VnPayService { get; set; } = default!;
         [Inject] private IPayPalService PayPalService { get; set; } = default!;
         [Inject] private NavigationManager Navigation { get; set; } = default!;
@@ -33,6 +38,8 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
             selectedDoctorName = doctor.FullName;
             selectedSpecialtyId = doctor.Speciality.Id;
             selectedSpecialtyName = doctor.Speciality.SpecialtyName;
+            selectedDoctor = doctor;
+            selectedSpeciality = doctor.Speciality;
             StateHasChanged();
         }
 
@@ -41,6 +48,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
             selectedServiceId = service.Id;
             selectedServiceName = service.ServiceName;
             selectedServicePrice = service.Price;
+            selectedService = service;
             StateHasChanged();
         }
 
@@ -80,7 +88,9 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
             {
                 Id = 0,
                 DoctorId = selectedDoctorId ?? 0,
-                ParentId = 1,
+                ParentId = 6,
+                ChildrenRecordId = 1,
+                ServiceId = selectedServiceId ?? 0,
                 TotalAmount = (decimal)selectedServicePrice.Value,
                 CheckupDateTime = selectedDate ?? DateTime.Now
             };
@@ -124,6 +134,8 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
             selectedDoctorName = null;
             selectedSpecialtyId = null;
             selectedSpecialtyName = null;
+            selectedDoctor = null;
+            selectedSpeciality = null;
         }
 
         private void GoBackToServiceSelection()
@@ -131,6 +143,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
             selectedServiceId = null;
             selectedServiceName = null;
             selectedServicePrice = null;
+            selectedService = null;
         }
 
         private void GoBackToDateSelection()
