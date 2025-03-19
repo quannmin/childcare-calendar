@@ -60,8 +60,8 @@ namespace ChildCareCalendar.Domain.Data
             if (!context.ChildrenRecords.Any())
             {
                 context.ChildrenRecords.AddRange(
-                    new ChildrenRecord { UserId = 6, FullName = "Bé Thế Anh", Dob = new DateTime(2015, 6, 1), Gender = "Trai", MedicalHistory = "Dị ứng HSH", CreatedAt = DateTime.Now },
-                    new ChildrenRecord { UserId = 6, FullName = "Bé Lộc", Dob = new DateTime(2015, 6, 1), Gender = "Trai", MedicalHistory = "Dị ứng HSH", CreatedAt = DateTime.Now }
+                    new ChildrenRecord { UserId = 6, FullName = "Bé Thế Anh", Dob = new DateTime(2015, 6, 1), Gender = "Nam", MedicalHistory = "Dị ứng HSH", CreatedAt = DateTime.Now },
+                    new ChildrenRecord { UserId = 6, FullName = "Bé Lộc", Dob = new DateTime(2015, 6, 1), Gender = "Nam", MedicalHistory = "Dị ứng HSH", CreatedAt = DateTime.Now }
                 );
                 context.SaveChanges();
             }
@@ -97,7 +97,7 @@ namespace ChildCareCalendar.Domain.Data
                     new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED",
                         ServiceId = 1, TotalAmount = 550_000, CheckupDateTime = new DateTime(2024, 11, 10), CreatedAt = DateTime.Now },
                     new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", ServiceId = 1, TotalAmount = 750_000, CheckupDateTime = new DateTime(2023, 12, 5), CreatedAt = DateTime.Now },
-                    new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", ServiceId = 1, TotalAmount = 600_000, CheckupDateTime = new DateTime(2024, 9, 15), CreatedAt = DateTime.Now },
+                    new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", ServiceId = 1, TotalAmount = 600_000, CheckupDateTime = new DateTime(2024, 9, 15), CreatedAt = DateTime.Now, ExaminationReportId = 1 },
 
                     new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED", ServiceId = 1, TotalAmount = 520_000, CheckupDateTime = new DateTime(2024, 8, 20), CreatedAt = DateTime.Now },
                     new Appointment { DoctorId = 4, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", ServiceId = 1, TotalAmount = 680_000, CheckupDateTime = new DateTime(2023, 9, 10), CreatedAt = DateTime.Now }
@@ -117,7 +117,7 @@ namespace ChildCareCalendar.Domain.Data
             if (!context.ExaminationReports.Any())
             {
                 context.ExaminationReports.AddRange(
-                    new ExaminationReport { AppointmentId = 1, ChildrenRecordId = 1, Diagnosis = "Khỏe", Notes = "Theo dõi thường xuyên", CreatedAt = DateTime.Now }
+                    new ExaminationReport { AppointmentId = 3, ChildrenRecordId = 1, Diagnosis = "Khỏe", Notes = "Theo dõi thường xuyên", CreatedAt = DateTime.Now }
                 );
                 context.SaveChanges();
             }
@@ -207,8 +207,11 @@ namespace ChildCareCalendar.Domain.Data
             if (!context.PrescriptionDetails.Any())
             {
                 context.PrescriptionDetails.AddRange(
-                    new PrescriptionDetail { MedicineId = 1, ExaminationReportId = 1, Dosage = 2, Quantity = 10, TotalAmount = 50, Slot = "DAY" }
+                    new PrescriptionDetail { MedicineId = 1, ExaminationReportId = 1, Dosage = 2, Quantity = 10, TotalAmount = 50, Slot = "DAY" },
+                    new PrescriptionDetail { MedicineId = 2, ExaminationReportId = 1, Dosage = 2, Quantity = 10, TotalAmount = 50, Slot = "DAY" },
+                    new PrescriptionDetail { MedicineId = 3, ExaminationReportId = 1, Dosage = 2, Quantity = 10, TotalAmount = 50, Slot = "DAY" }
                 );
+
                 context.SaveChanges();
             }
         }

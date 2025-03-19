@@ -1,4 +1,5 @@
 ﻿@page "/AccountDetail"
+@rendermode InteractiveServer
 
 
 
@@ -18,7 +19,7 @@
                 <p><strong>Giới tính:</strong> @Parent.Gender</p>
             </div>
         </div>
-        <br />
+        <hr />
         <h3>Lịch hẹn của tôi</h3>
 
         @if (Appointments == null)
@@ -40,6 +41,7 @@
                         <th>Dịch vụ</th>
                         <th>Tổng tiền</th>
                         <th>Trạng thái</th>
+                        <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,17 +54,28 @@
                             <td>@appointment.ServiceName</td>
                             <td>@appointment.TotalAmount.ToString() VND</td>
                             <td>@appointment.Status</td>
+                            <td>
+                                @if ("ORDERED".Equals(@appointment.Status)) 
+                                {
+                                    <NavLink class="btn btn-info btn-sm" href="@($"/appointmentDetail/{appointment.AppointmentId}")">Chi tiết</NavLink>
+                                    <button class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(appointment.AppointmentId)">Hủy hẹn</button>
+                                }
+                                else 
+                                {
+                                    <NavLink class="btn btn-info btn-sm" href="@($"/appointmentDetail/{appointment.AppointmentId}")">Chi tiết</NavLink>
+                                }
+                            </td>
                         </tr>
                     }
                 </tbody>
             </table>
         }
 
-        <br />
+        <hr />
         <h3>Hồ sơ trẻ em</h3>
         <NavLink class="btn btn-info btn-sm" href="@($"/childrenRecords/create")">Thêm hồ sơ bé</NavLink>
         <br />
-        @if (Parent.ChildrenRecords != null && Parent.ChildrenRecords.Any())
+        @if (ChildRecords != null && ChildRecords.Any())
         {
             <table class="table table-bordered table-hover text-center">
                 <thead class="table-dark">
@@ -70,20 +83,21 @@
                         <th>Tên bé</th>
                         <th>Ngày sinh</th>
                         <th>Giới tính</th>
+                        <th>Tiền sử bệnh</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var child in Parent.ChildrenRecords)
+                    @foreach (var child in ChildRecords)
                     {
                         <tr class="border">
                             <td>@child.FullName</td>
                             <td>@child.Dob.ToString("dd/MM/yyyy")</td>
                             <td>@child.Gender</td>
+                            <td>@child.MedicalHistory</td>
                             <td>
-                                <NavLink class="btn btn-info btn-sm" href="@($"/childrenRecords/detail/{child.Id}")">Chi tiết</NavLink>
                                 <NavLink class="btn btn-warning btn-sm" href="@($"/childrenRecords/edit/{child.Id}")">Chỉnh sửa</NavLink>
-                                <button class="btn btn-danger btn-sm" >Xóa</button>
+                                <button class="btn btn-danger btn-sm" @onclick="() => ConfirmDeleteChild(child.Id)">Xóa</button>
                             </td>
                         </tr>
                     }
@@ -100,6 +114,85 @@
         <p>Đang tải thông tin...</p>
     }
 </div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xóa chuyên khoa này không?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" @onclick="DeleteAppointment">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteChildModal" tabindex="-1" aria-labelledby="deleteChildModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteChildModalLabel">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xóa hồ sơ trẻ em này không?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" @onclick="DeleteChildRecord">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showDeleteModal() {
+        var modalElement = document.getElementById('deleteModal');
+        if (!modalElement) {
+            console.error("Lỗi: Không tìm thấy modal với id 'deleteModal'.");
+            return;
+        }
+        var modal = new bootstrap.Modal(modalElement);
+        modal.show();
+    }
+
+    function hideDeleteModal() {
+        var modalElement = document.getElementById('deleteModal');
+        if (!modalElement) {
+            console.error("Lỗi: Không tìm thấy modal với id 'deleteModal'.");
+            return;
+        }
+        var modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+        modal.hide();
+    }
+
+    function showDeleteChildModal() {
+        var modalElement = document.getElementById('deleteChildModal');
+        if (!modalElement) {
+            console.error("Lỗi: Không tìm thấy modal với id 'deleteChildModal'.");
+            return;
+        }
+        var modal = new bootstrap.Modal(modalElement);
+        modal.show();
+    }
+
+    function hideDeleteChildModal() {
+        var modalElement = document.getElementById('deleteChildModal');
+        if (!modalElement) {
+            console.error("Lỗi: Không tìm thấy modal với id 'deleteChildModal'.");
+            return;
+        }
+        var modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+        modal.hide();
+    }
+</script>
+
 
 <style>
     .profile-container {

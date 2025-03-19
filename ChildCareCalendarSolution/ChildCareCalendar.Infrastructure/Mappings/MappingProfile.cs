@@ -24,6 +24,8 @@ namespace ChildCareCalendar.Infrastructure.Mappings
             CreateMap<Speciality, SpecialityDetailViewModel>();
             CreateMap<SpecialityEditViewModel, Speciality>().ReverseMap();
             CreateMap<ChildrenRecordCreateViewModel, ChildrenRecord>().ReverseMap();
+            CreateMap<ChildrenRecord, ChildrenRecordEditViewModel>();
+            CreateMap<ChildrenRecordEditViewModel, ChildrenRecord>().ReverseMap();
             CreateMap<ServiceCreateViewModel, Service>();
             CreateMap<ServiceEditViewModel, Service>().ReverseMap();
             CreateMap<Service, ServiceViewModel>();

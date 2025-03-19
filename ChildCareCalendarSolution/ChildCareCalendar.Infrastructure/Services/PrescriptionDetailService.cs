@@ -1,6 +1,7 @@
 ﻿using ChildCareCalendar.Domain.Entities;
 using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using System.Linq.Expressions;
 
 namespace ChildCareCalendar.Infrastructure.Services
 {
@@ -38,5 +39,11 @@ namespace ChildCareCalendar.Infrastructure.Services
             return await _prescriptionDetailRepository.GetByIdAsync(id);
         }
 
+        public async Task<IEnumerable<PrescriptionDetail>> FindPrescriptionDetailsAsync(
+            Expression<Func<PrescriptionDetail, bool>> predicate,
+            params Expression<Func<PrescriptionDetail, object>>[] includes)
+        {
+            return await _prescriptionDetailRepository.FindAsync(predicate, includes);
+        }
     }
 }

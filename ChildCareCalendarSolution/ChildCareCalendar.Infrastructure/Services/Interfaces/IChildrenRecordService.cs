@@ -1,4 +1,5 @@
 ﻿using ChildCareCalendar.Domain.Entities;
+using ChildCareCalendar.Domain.ViewModels.ChildrenRecord;
 using System.Linq.Expressions;
 
 namespace ChildCareCalendar.Infrastructure.Services.Interfaces
@@ -8,7 +9,7 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task<IEnumerable<ChildrenRecord>> FindUsersAsync(Expression<Func<ChildrenRecord, bool>> predicate,
                                                                         params Expression<Func<ChildrenRecord, object>>[] includes);
         Task AddChildrenRecordAsync(ChildrenRecord childrenRecord);
-        Task UpdateChildrenRecordAsync(ChildrenRecord childrenRecord);
+        Task UpdateChildrenRecordAsync(int id, ChildrenRecordEditViewModel childrenRecord);
         Task<int> DeleteChildrenRecordAsync(int id);
     }
 }
