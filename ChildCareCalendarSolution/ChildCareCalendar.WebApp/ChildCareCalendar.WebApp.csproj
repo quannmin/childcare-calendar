@@ -12,12 +12,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AntDesign" Version="1.2.1" />
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.DataAnnotations.Validation" Version="3.2.0-rc1.20223.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ChildCareCalendar.Domain\ChildCareCalendar.Domain.csproj" />
     <ProjectReference Include="..\ChildCareCalendar.Infrastructure\ChildCareCalendar.Infrastructure.csproj" />
+    <ProjectReference Include="..\ChildCareCalendar.Utilities\ChildCareCalendar.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
 </Project>

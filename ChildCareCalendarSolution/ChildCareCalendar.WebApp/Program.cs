@@ -1,14 +1,23 @@
+using ChildCareCalendar.Infrastructure.Services;
+using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using ChildCareCalendar.Domain.EF;
 using ChildCareCalendar.WebApp.Components;
 using Microsoft.EntityFrameworkCore;
 using ChildCareCalendar.Infrastructure.Extensions;
 using ChildCareCalendar.Infrastructure.Mappings;
+using Microsoft.AspNetCore.Components;
+using ChildCareCalendar.Domain.ViewModels;
+using Microsoft.AspNetCore.Components.Server;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+//var cultureInfo = new CultureInfo("vi-VN");
+//CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+//CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 Console.WriteLine($"Connection String: {connectionString}");
@@ -17,12 +26,24 @@ builder.Services.AddDbContext<ChildCareCalendarContext>(options => {
 	options.UseSqlServer(connectionString);
 	options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
-builder.Services.AddRazorComponents()
-	.AddInteractiveServerComponents();
-
+builder.Services.Configure<CircuitOptions>(options =>
+{
+    options.DetailedErrors = true;
+});
 builder.Services.AddDependencyInjection();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAntDesign();
+builder.Services.AddScoped(sp =>
+{
+    var navManager = sp.GetRequiredService<NavigationManager>();
+    return new HttpClient { BaseAddress = new Uri(navManager.BaseUri) };
+});
+builder.Services.AddScoped<IVnPayService, VnPayService>();
+builder.Services.AddScoped<IPayPalService, PayPalService>();
+builder.Services.AddHttpContextAccessor();
+
 
 
 var app = builder.Build();

@@ -7,9 +7,11 @@ using ChildCareCalendar.Domain.ViewModels.ChildrenRecord;
 using ChildCareCalendar.Domain.ViewModels.Service;
 using ChildCareCalendar.Domain.ViewModels.ServiceVM;
 using ChildCareCalendar.Domain.ViewModels.Specility;
+using ChildCareCalendar.Domain.ViewModels.Refundreport;
 using ChildCareCalendar.Domain.ViewModels.ExaminationReport;
 using ChildCareCalendar.Domain.ViewModels.PrescriptionDetail;
 using ChildCareCalendar.Domain.ViewModels.WorkHour;
+using ChildCareCalendar.Domain.ViewModels.Schedule;
 
 namespace ChildCareCalendar.Infrastructure.Mappings
 {
@@ -31,18 +33,26 @@ namespace ChildCareCalendar.Infrastructure.Mappings
             CreateMap<MedicineCreateViewModel, Medicine>();
 
             CreateMap<PrescriptionDetail, PrescriptionDetailViewModel>()
-            .ForMember(dest => dest.MedicineName, opt => opt.MapFrom(src => src.Medicine.Name)) 
+            .ForMember(dest => dest.MedicineName, opt => opt.MapFrom(src => src.Medicine.Name))
             .ForMember(dest => dest.MedicinePrice, opt => opt.MapFrom(src => src.Medicine.Price))
-            //.ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.Quantity * src.Medicine.Price))
+            .ForMember(dest => dest.Dosage, opt => opt.MapFrom(src => src.Dosage))
+            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
             .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalAmount))
             .ForMember(dest => dest.Slot, opt => opt.MapFrom(src => src.Slot));
 
+            CreateMap<PrescriptionDetailViewModel, PrescriptionDetail>()
+            .ForMember(dest => dest.MedicineId, opt => opt.MapFrom(src => src.MedicineId))
+            .ForMember(dest => dest.Dosage, opt => opt.MapFrom(src => src.Dosage))
+            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
+            .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalAmount))
+            .ForMember(dest => dest.Slot, opt => opt.MapFrom(src => src.Slot));
 
             CreateMap<ExaminationReport, ExaminationReportViewModel>()
             .ForMember(dest => dest.ChildrenName, opt => opt.MapFrom(src => src.ChildrenRecord.FullName))
             .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.ChildrenRecord.Gender))
             .ForMember(dest => dest.ExamDate, opt => opt.MapFrom(src => src.Appointment.CheckupDateTime))
             .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalAmount))
+            .ForMember(dest => dest.PrescriptionDetails, opt => opt.MapFrom(src => src.PrescriptionDetails))
             .ReverseMap();
             CreateMap<ExaminationReport, ExaminationReportDetailViewModel>()
             .ForMember(dest => dest.ChildrenName, opt => opt.MapFrom(src => src.ChildrenRecord.FullName))
@@ -72,6 +82,7 @@ namespace ChildCareCalendar.Infrastructure.Mappings
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent.FullName))
             .ForMember(dest => dest.ChildName, opt => opt.MapFrom(src => src.ChildrenRecord.FullName))
+            .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.ChildrenRecord.Gender))
             .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.Doctor.FullName))
             .ForMember(dest => dest.FollowUpAppointment, opt => opt.MapFrom(src => src.FollowUpAppointment.CheckupDateTime));
 
@@ -81,9 +92,21 @@ namespace ChildCareCalendar.Infrastructure.Mappings
                 .ForMember(dest => dest.CheckupDateTime, opt => opt.MapFrom(src => src.CheckupDateTime))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status));
 
+            CreateMap<RefundReport, RefundReportViewModel>()
+    .ForMember(dest => dest.RefundReportId, opt => opt.MapFrom(src => src.Id))
+    .ForMember(dest => dest.RefundAmount, opt => opt.MapFrom(src => src.RefundAmount))
+    .ForMember(dest => dest.RefundDate, opt => opt.MapFrom(src => src.RefundDate))
+    .ForMember(dest => dest.RefundPercentage, opt => opt.MapFrom(src => src.RefundPercentage))
+    .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Appointment.Parent.FullName))
+    .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Appointment.Parent.PhoneNumber)); 
+
             CreateMap<WorkHour, WorkHourViewModel>();
             CreateMap<WorkHourCreateViewModel, WorkHour>();
             CreateMap<WorkHourEditViewModel, WorkHour>().ReverseMap();
+
+            CreateMap<Schedule, ScheduleViewModel>().ReverseMap();
+            CreateMap<ScheduleCreateViewModel, Schedule>().ReverseMap();
+            CreateMap<ScheduleEditViewModel, Schedule>().ReverseMap();
         }
     }
 }

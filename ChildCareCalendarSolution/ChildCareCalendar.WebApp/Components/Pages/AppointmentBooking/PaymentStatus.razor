@@ -1,0 +1,62 @@
+﻿@page "/PaymentCallback"
+@inject NavigationManager Navigation
+
+<h3>Trạng thái thanh toán</h3>
+
+@if (isLoading)
+{
+    <p>Đang kiểm tra trạng thái thanh toán...</p>
+}
+else
+{
+    <div class="alert" style="background-color: @(paymentSuccess ? "#d4edda" : "#f8d7da"); padding: 15px; border-radius: 5px;">
+        <h5>@message</h5>
+        <p><strong>Mã giao dịch:</strong> @transactionId</p>
+        <p><strong>Mã đơn hàng:</strong> @orderId</p>
+        <p><strong>Số tiền:</strong> @amount VNĐ</p>
+        <p><strong>Phương thức thanh toán:</strong> @paymentMethod</p>
+        <p><strong>Mã phản hồi VNPay:</strong> @responseCode</p>
+    </div>
+    <button @onclick="GoBackToHome" class="btn btn-primary">Quay lại trang chủ</button>
+}
+
+@code {
+    private bool isLoading = true;
+    private bool paymentSuccess;
+    private string message = "Đang xử lý...";
+    private string transactionId = "";
+    private string orderId = "";
+    private string amount = "";
+    private string paymentMethod = "VNPay";
+    private string responseCode = "";
+
+    protected override void OnInitialized()
+    {
+        var uri = new Uri(Navigation.Uri);
+        var queryParams = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        if (queryParams.Count == 0)
+        {
+            message = "Không có thông tin thanh toán!";
+            isLoading = false;
+            return;
+        }
+
+        // Lấy dữ liệu từ Query String (VNPay Callback)
+        bool isSuccess = queryParams["vnp_ResponseCode"] == "00"; // 00 là thành công
+        transactionId = queryParams["vnp_TransactionNo"] ?? "Không có";
+        orderId = queryParams["vnp_TxnRef"] ?? "Không có";
+        amount = (decimal.Parse(queryParams["vnp_Amount"] ?? "0") / 100).ToString("N0");
+        responseCode = queryParams["vnp_ResponseCode"] ?? "Không có";
+
+        paymentSuccess = isSuccess;
+        message = isSuccess ? "Thanh toán VNPay thành công!" : "Thanh toán VNPay không thành công!";
+
+        isLoading = false;
+    }
+
+    private void GoBackToHome()
+    {
+        Navigation.NavigateTo("/");
+    }
+}

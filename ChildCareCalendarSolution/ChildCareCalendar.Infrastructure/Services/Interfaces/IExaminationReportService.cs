@@ -1,4 +1,5 @@
 ﻿using ChildCareCalendar.Domain.Entities;
+using ChildCareCalendar.Domain.ViewModels.ExaminationReport;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,7 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task<IEnumerable<ExaminationReport>> FindExaminationReportsAsync(Expression<Func<ExaminationReport, bool>> predicate, params Expression<Func<ExaminationReport, object>>[] includeProperties);
         Task DeleteExaminationReportAsync(int id);
         Task<ExaminationReport> GetExaminationReportByIdAsync(int id, params Expression<Func<ExaminationReport, object>>[] includes);
+        // Task<List<ExaminationReportViewModel>> GetExaminationReportsByChildIdAsync(int childId);
+        Task<IEnumerable<ExaminationReport>> GetExaminationReportsByAppointmentIdAsync(int appointmentId);
     }
 }

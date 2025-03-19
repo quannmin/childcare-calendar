@@ -10,10 +10,9 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task CreateMedineAsnync(Medicine medicine);
         Task UpdateMedicineAsync(Medicine medicine);
         Task DeleteMedicineAsync(int id);
-        Task<IEnumerable<Medicine>> FindMedicinesAsync(
-       Expression<Func<Medicine, bool>> predicate,
+        Task<IEnumerable<Medicine>> FindMedicinesAsync(Expression<Func<Medicine, bool>> predicate,
        params Expression<Func<Medicine, object>>[] includes);
-        Task<(IEnumerable<Medicine> Medicines, int TotalCount)> GetPagedMedicinesAsync(
+        Task<(IEnumerable<Medicine> medicines, int totalCount)> GetPagedMedicinesAsync(
         int pageIndex,
         int pageSize,
         string keyword = null);

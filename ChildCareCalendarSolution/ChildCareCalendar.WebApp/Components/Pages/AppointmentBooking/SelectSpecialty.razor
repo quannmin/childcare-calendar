@@ -1,0 +1,25 @@
+﻿@rendermode InteractiveServer
+
+<link href="css/AppointmentBooking/MainLayout.css" rel="stylesheet" />
+
+<div>
+    <h4 class="info-title">Vui lòng chọn chuyên khoa</h4>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Tìm nhanh chuyên khoa">
+        <i class="bi bi-search"></i>
+    </div>
+
+    <div class="list-specialty-container">
+        @foreach (var specialty in Specialties)
+        {
+            <div class="list-specialty-item" @onclick="() => HandleSpecialtySelection(specialty)">
+                <div class="list-specialty-title">@specialty.SpecialtyName</div>
+                @if (!string.IsNullOrEmpty(specialty.Description))
+                {
+                    <div class="list-specialty-description">@specialty.Description</div>
+                }
+            </div>
+        }
+    </div>
+</div>

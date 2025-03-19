@@ -47,5 +47,22 @@ namespace ChildCareCalendar.Infrastructure.Services
         {
             await _userRepository.UpdateAsync(user, user.Id);
         }
+
+        public async Task<(IEnumerable<AppUser> users, int totalCount)> GetPagedUsersAsync(int pageIndex, int pageSize, string keyword = null)
+        {
+            Expression<Func<AppUser, bool>> filter = null;
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                filter = x => x.FullName.Contains(keyword) && !x.IsDelete;
+            }
+            else
+            {
+                filter = x => !x.IsDelete;
+            }
+
+            return await _userRepository.GetPagedAsync(pageIndex, pageSize, filter);
+        }
+
     }
 }

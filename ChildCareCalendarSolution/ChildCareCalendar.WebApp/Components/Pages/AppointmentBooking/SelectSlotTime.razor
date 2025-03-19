@@ -1,0 +1,35 @@
+﻿
+
+<link href="css/AppointmentBooking/Slot.css" rel="stylesheet" />
+
+<div class="slot-container">
+    <h4 class="info-title">Vui lòng chọn khung giờ khám</h4>
+
+    @if (MorningWorkHours.Any())
+    {
+        <h5>Buổi sáng</h5>
+        <div class="slot-list">
+            @foreach (var workHour in MorningWorkHours)
+            {
+                <button class="slot-btn"
+                        @onclick="() => HandleSlotSelection(workHour)">
+                    @(workHour.StartTime.ToString(@"hh\:mm")) - @(workHour.EndTime.ToString(@"hh\:mm"))
+                </button>
+            }
+        </div>
+    }
+
+    @if (AfternoonWorkHours.Any())
+    {
+        <h5>Buổi chiều</h5>
+        <div class="slot-list">
+            @foreach (var workHour in AfternoonWorkHours)
+            {
+                <button class="slot-btn"
+                        @onclick="() => HandleSlotSelection(workHour)">
+                    @(workHour.StartTime.ToString(@"hh\:mm")) - @(workHour.EndTime.ToString(@"hh\:mm"))
+                </button>
+            }
+        </div>
+    }
+</div>

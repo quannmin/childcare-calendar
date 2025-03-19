@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ChildCareCalendar.Infrastructure.Services.Interfaces
 {
-    public interface ISchedule
+    public interface IScheduleService
     {
         Task<IEnumerable<Schedule>> FindSchedulesAsync(
             Expression<Func<Schedule, bool>> predicate,

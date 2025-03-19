@@ -1,0 +1,231 @@
+﻿@page "/appointments/{AppointmentId:int}/create-examination-report"
+@rendermode InteractiveServer
+
+<!-- Thêm container, card, row/col, v.v. để bố cục đẹp hơn -->
+<div class="container my-5">
+    <h3 class="fw-bold mb-4">Tạo kết quả khám</h3>
+
+    @if (IsLoading)
+    {
+        <p class="text-center">Đang tải dữ liệu...</p>
+    }
+    else if (!string.IsNullOrEmpty(ErrorMessage))
+    {
+        <div class="alert alert-danger">@ErrorMessage</div>
+    }
+    else if (Appointment == null)
+    {
+        <p class="text-center">Không tìm thấy thông tin cuộc hẹn.</p>
+    }
+    else
+    {
+        <!-- Thông tin bệnh nhân và cuộc hẹn -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Thông tin bệnh nhân</h4>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Họ và tên:</strong> @Appointment.ChildName</p>
+                        <p><strong>Ngày sinh:</strong> @Appointment.CheckupDateTime.ToString("dd/MM/yyyy")</p>
+                        <p><strong>Giới tính:</strong> @Appointment.Gender</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-secondary text-white">
+                        <h4 class="mb-0">Thông tin cuộc hẹn</h4>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Ngày hẹn:</strong> @Appointment.CheckupDateTime.ToString("dd/MM/yyyy")</p>
+                        <p><strong>Trạng thái:</strong> @Appointment.Status</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lịch sử khám bệnh -->
+        @if (PreviousExaminationReports.Any())
+        {
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-light">
+                    <h4 class="mb-0">Lịch sử khám bệnh</h4>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-bordered mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Ngày khám</th>
+                                <th>Chẩn đoán</th>
+                                <th>Ghi chú</th>
+                                <th>Đơn thuốc</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var report in PreviousExaminationReports)
+                            {
+                                <tr>
+                                    <td>@report.CreatedAt.ToString("dd/MM/yyyy")</td>
+                                    <td>@report.Diagnosis</td>
+                                    <td>@report.Notes</td>
+                                    <td>
+                                        <ul class="mb-0">
+                                            @foreach (var medicine in report.PrescriptionDetails)
+                                            {
+                                                <li>@medicine.MedicineName - @medicine.Dosage mg x @medicine.Quantity lần/ngày</li>
+                                            }
+                                        </ul>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+
+        <!-- Thông tin khám mới -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">Thông tin khám mới</h4>
+            </div>
+            <div class="card-body">
+                <EditForm Model="NewExaminationReport" OnValidSubmit="SaveExaminationReport">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Chẩn đoán</label>
+                        <InputText class="form-control" @bind-Value="NewExaminationReport.Diagnosis" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Ghi chú bác sĩ</label>
+                        <InputTextArea class="form-control" @bind-Value="NewExaminationReport.Notes" rows="3" />
+                    </div>
+
+                    <!-- Nút mở modal cho đơn thuốc (chỉ UI, không submit form) -->
+                    <div class="mb-3">
+                        <button type="button"
+                                class="btn btn-outline-primary"
+                                @onclick="OpenMedicineModal">
+                            Thêm/Chỉnh sửa đơn thuốc
+                        </button>
+                    </div>
+
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-success me-2">Lưu kết quả khám</button>
+                        <button type="button" class="btn btn-secondary" @onclick="Cancel">Hủy</button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+
+        <!-- Modal hiển thị phần liên quan đến thuốc -->
+        @if (ShowMedicineModal)
+        {
+            <!-- Thêm backdrop mờ thủ công bằng style -->
+            <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold">Đơn thuốc</h5>
+                            <button type="button" class="btn-close" @onclick="CloseMedicineModal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h5 class="fw-semibold">Danh sách thuốc đã thêm</h5>
+                            <table class="table table-bordered table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Tên thuốc</th>
+                                        <th>Liều lượng (mg)</th>
+                                        <th>Số lượng</th>
+                                        <th>Bữa uống</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var medicine in PrescriptionDetails)
+                                    {
+                                        <tr>
+                                            <td>@medicine.MedicineName</td>
+                                            <td>@medicine.Dosage</td>
+                                            <td>@medicine.Quantity</td>
+                                            <td>@medicine.Slot</td>
+                                            <td>
+                                                <button class="btn btn-danger btn-sm"
+                                                        @onclick="() => RemoveMedicine(medicine)"
+                                                @onclick:preventDefault
+                                                @onclick:stopPropagation>
+                                                    Xóa
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            <h5 class="mt-4 fw-semibold">Tìm kiếm thuốc</h5>
+                            <div class="form-group">
+                                <input type="text"
+                                       class="form-control"
+                                       @bind="SearchTerm"
+                                       @oninput="OnSearchInput"
+                                       placeholder="Nhập tên thuốc..."
+                                @onclick:preventDefault
+                                @onclick:stopPropagation />
+                            </div>
+
+                            @if (FilteredMedicines.Any())
+                            {
+                                <div class="dropdown mt-2">
+                                    <ul class="dropdown-menu show w-100" style="max-height: 200px; overflow-y:auto;">
+                                        @foreach (var medicine in FilteredMedicines)
+                                        {
+                                            <li>
+                                                <button class="dropdown-item"
+                                                        @onclick="() => SelectMedicine(medicine)"
+                                                @onclick:preventDefault
+                                                @onclick:stopPropagation>
+                                                    @medicine.Name
+                                                </button>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+
+                            @if (SelectedMedicineId.HasValue)
+                            {
+                                <div class="row g-3 mt-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label fw-semibold">Liều lượng (mg)</label>
+                                        <InputNumber class="form-control" @bind-Value="CurrentMedicine.Dosage" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label fw-semibold">Số lượng</label>
+                                        <InputNumber class="form-control" @bind-Value="CurrentMedicine.Quantity" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label fw-semibold">Bữa uống</label>
+                                        <InputText class="form-control" @bind-Value="CurrentMedicine.Slot" />
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary mt-3"
+                                        @onclick="AddMedicine"
+                                @onclick:preventDefault
+                                @onclick:stopPropagation>
+                                    Thêm thuốc vào đơn
+                                </button>
+                            }
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @onclick="CloseMedicineModal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

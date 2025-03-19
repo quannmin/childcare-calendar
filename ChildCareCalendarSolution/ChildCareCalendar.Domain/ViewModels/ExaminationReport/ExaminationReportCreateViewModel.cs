@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChildCareCalendar.Domain.ViewModels.PrescriptionDetail;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -23,5 +24,7 @@ namespace ChildCareCalendar.Domain.ViewModels.ExaminationReport
         public decimal TotalAmount { get; set; }
 
         public string? CreatedBy { get; set; }
+
+        public List<PrescriptionDetailCreateViewModel> PrescriptionDetails { get; set; } = new();
     }  
 }
