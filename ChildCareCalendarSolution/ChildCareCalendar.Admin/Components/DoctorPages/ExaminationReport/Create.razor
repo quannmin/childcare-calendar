@@ -1,5 +1,18 @@
 ﻿@page "/appointments/{AppointmentId:int}/create-examination-report"
 @rendermode InteractiveServer
+@using AutoMapper
+@using ChildCareCalendar.Domain.Entities
+@using ChildCareCalendar.Domain.ViewModels.Appointment
+@using ChildCareCalendar.Domain.ViewModels.ExaminationReport
+@using ChildCareCalendar.Domain.ViewModels.Medicine
+@using ChildCareCalendar.Domain.ViewModels.PrescriptionDetail
+@using ChildCareCalendar.Infrastructure.Services.Interfaces
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Web
+@using System.Collections.Generic
+@using System.Linq
+@using System.Threading.Tasks
 
 <!-- Thêm container, card, row/col, v.v. để bố cục đẹp hơn -->
 <div class="container my-5">
@@ -102,7 +115,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Ghi chú bác sĩ</label>
-                        <InputTextArea class="form-control" @bind-Value="NewExaminationReport.Notes" rows="3" />
+                        <InputTextArea class="form-control" @bind-Value="NewExaminationReport.Note" rows="3" />
                     </div>
 
                     <!-- Nút mở modal cho đơn thuốc (chỉ UI, không submit form) -->
@@ -115,6 +128,10 @@
                     </div>
 
                     <div class="text-end mt-4">
+                        @if (!string.IsNullOrEmpty(MedicineError))
+                        {
+                            <div class="alert alert-danger">@MedicineError</div>
+                        }
                         <button type="submit" class="btn btn-success me-2">Lưu kết quả khám</button>
                         <button type="button" class="btn btn-secondary" @onclick="Cancel">Hủy</button>
                     </div>
@@ -129,9 +146,9 @@
             <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header d-flex justify-content-between align-items-center">
                             <h5 class="modal-title fw-bold">Đơn thuốc</h5>
-                            <button type="button" class="btn-close" @onclick="CloseMedicineModal" aria-label="Close"></button>
+                           
                         </div>
                         <div class="modal-body">
                             <h5 class="fw-semibold">Danh sách thuốc đã thêm</h5>
@@ -212,6 +229,10 @@
                                         <InputText class="form-control" @bind-Value="CurrentMedicine.Slot" />
                                     </div>
                                 </div>
+                                @if (!string.IsNullOrEmpty(MedicineValidationError))
+                                {
+                                    <div class="alert alert-danger mt-3">@MedicineValidationError</div>
+                                }
                                 <button class="btn btn-primary mt-3"
                                         @onclick="AddMedicine"
                                 @onclick:preventDefault
