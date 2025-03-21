@@ -71,6 +71,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.UserDetail
         {
             if (idToDelete.HasValue)
             {
+
                 await AppointmentService.CancelAppointmentAsync(idToDelete.Value);
                 await AppointmentService.ChangeAppointmentStatusAsync(idToDelete.Value, "Cancelled");
                 idToDelete = null;

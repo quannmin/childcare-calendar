@@ -57,7 +57,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
             var (appointments, totalCount) = await AppointmentService.GetPagedAppointmentsAsync(CurrentPage, PageSize, SearchData.Keyword);
             Appointments = Mapper.Map<List<AppointmentViewModel>>(await AppointmentService.FindAppointmentsAsync(a => !a.IsDelete,
 
-                            a => a.Parent, a => a.ChildrenRecord
+                            a => a.Parent, a => a.ChildrenRecord, a => a.Service, a => a.Doctor
                             ));
             TotalItems = totalCount;
             TotalPages = (int)Math.Ceiling((double)TotalItems / PageSize);
