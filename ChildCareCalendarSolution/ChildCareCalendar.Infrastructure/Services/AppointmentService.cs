@@ -25,51 +25,49 @@ namespace ChildCareCalendar.Infrastructure.Services
         {
             return await _appointmentRepository.FindAsync(predicate, includes);
         }
+
         public async Task CancelAppointmentAsync(int appointmentId)
         {
             var appointment = await GetAppointmentByIdAsync(appointmentId);
-            if (appointment != null && appointment.Status.Equals("Ordered"))
+            if (appointment != null && appointment.Status.Trim().Equals("Ordered", StringComparison.OrdinalIgnoreCase))
             {
-                int hoursSinceBooking = (DateTime.Now - appointment.CreatedAt).Hours;
+                int hoursSinceBooking = (int)(DateTime.Now - appointment.CreatedAt).TotalHours;
+
+                string refundPercentage;
+                decimal refundAmount;
 
                 if (hoursSinceBooking < 24)
                 {
-                    RefundReport refundReport = new RefundReport()
-                    {
-                        Appointment = appointment,
-                        AppointmentId = appointmentId,
-                        RefundPercentage = "20",
-                        RefundDate = DateTime.Now,
-                        RefundAmount = appointment.TotalAmount / 100 * 20
-                    };
-                    await _refundReportService.AddRefundReportAsync(refundReport);
+                    refundPercentage = "20";
+                    refundAmount = appointment.TotalAmount * 0.20m;
                 }
                 else if (hoursSinceBooking < 48)
                 {
-                    RefundReport refundReport = new RefundReport()
-                    {
-                        Appointment = appointment,
-                        AppointmentId = appointmentId,
-                        RefundPercentage = "20",
-                        RefundDate = DateTime.Now,
-                        RefundAmount = appointment.TotalAmount / 100 * 50
-                    };
-                    await _refundReportService.AddRefundReportAsync(refundReport);
+                    refundPercentage = "50";
+                    refundAmount = appointment.TotalAmount * 0.50m;
                 }
                 else
                 {
-                    RefundReport refundReport = new RefundReport()
-                    {
-                        Appointment = appointment,
-                        AppointmentId = appointmentId,
-                        RefundPercentage = "20",
-                        RefundDate = DateTime.Now,
-                        RefundAmount = appointment.TotalAmount / 100 * 70
-                    };
-                    await _refundReportService.AddRefundReportAsync(refundReport);
+                    refundPercentage = "70";
+                    refundAmount = appointment.TotalAmount * 0.70m;
                 }
+
+                var refundReport = new RefundReport
+                {
+                    RefundAmount = refundAmount,
+                    RefundDate = DateTime.Now,
+                    RefundPercentage = refundPercentage,
+                    AppointmentId = appointmentId,
+                    IsDelete = false
+                };
+
+                await _refundReportService.AddRefundReportAsync(refundReport);
             }
         }
+
+
+
+
 
         public async Task ChangeAppointmentStatusAsync(int appointmentId, string status)
         {

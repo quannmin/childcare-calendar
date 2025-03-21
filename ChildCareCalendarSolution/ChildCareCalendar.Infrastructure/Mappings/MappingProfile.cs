@@ -103,7 +103,7 @@ namespace ChildCareCalendar.Infrastructure.Mappings
     .ForMember(dest => dest.RefundDate, opt => opt.MapFrom(src => src.RefundDate))
     .ForMember(dest => dest.RefundPercentage, opt => opt.MapFrom(src => src.RefundPercentage))
     .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Appointment.Parent.FullName))
-    .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Appointment.Parent.PhoneNumber)); 
+    .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Appointment.Parent.PhoneNumber));
 
             CreateMap<WorkHour, WorkHourViewModel>();
             CreateMap<WorkHourCreateViewModel, WorkHour>();
