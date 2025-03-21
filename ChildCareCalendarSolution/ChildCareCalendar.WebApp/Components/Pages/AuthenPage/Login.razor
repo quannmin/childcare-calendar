@@ -1,0 +1,106 @@
+﻿@page "/login"
+
+<div class="container-fluid p-0">
+    <div class="row g-0 vh-100">
+        <!-- Left side with image -->
+        <div class="col-md-6 position-relative d-flex flex-column">
+            <div class="p-4 z-index-1">
+                <h1 class="text-success fw-bold" style="color: #0a4a2f !important; letter-spacing: 2px;">Child Care</h1>
+            </div>
+            <div class="position-absolute top-0 start-0 w-100 h-100">
+                <img src="/doctor.jpg" alt="Hình ảnh nền" class="w-100 h-100 object-fit-cover">
+            </div>
+        </div>
+
+        <!-- Right side with form -->
+        <div class="col-md-6 d-flex align-items-center justify-content-center p-4">
+            <div class="w-100" style="max-width: 450px;">
+                <h1 class="mb-4 fw-medium fs-1 text-center" style="color: #1977cc;">ĐĂNG NHẬP</h1>
+
+                <EditForm Model="@loginModel" OnValidSubmit="@HandleValidSubmit" class="mb-3">
+                    <DataAnnotationsValidator />
+
+                    <div class="mb-4">
+                        <label for="phoneNumber" class="form-label" style="color: #1977cc;">SỐ ĐIỆN THOẠI</label>
+                        <div class="input-group">
+                            <InputText id="phoneNumber" @bind-Value="loginModel.PhoneNumber" class="form-control" style="border-color: #1977cc;" />
+                        </div>
+                        <ValidationMessage For="@(() => loginModel.PhoneNumber)" class="text-danger" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="form-label" style="color: #1977cc;">MẬT KHẨU</label>
+                        <div class="input-group">
+                         
+                            <InputText id="password"
+                                       type="@(showPassword ? "text" : "password")"
+                                       @bind-Value="loginModel.Password"
+                                       class="form-control"
+                                       style="border-color: #1977cc;" />
+
+                     
+                            <button type="button"
+                                    class="btn btn-outline-secondary"
+                                    @onclick="TogglePasswordVisibility"
+                                    style="border-color: #1977cc;">
+                           
+                                <i class="@(showPassword ? "bi bi-eye-slash" : "bi bi-eye")"
+                                   aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <ValidationMessage For="@(() => loginModel.Password)" class="text-danger" />
+                    </div>
+
+                    <button type="submit" class="btn w-100 py-3 d-flex justify-content-center align-items-center mt-4"
+                            style="background-color: #1977cc; color: white; transition: background-color 0.3s ease;">
+                        ĐĂNG NHẬP VÀO CHILD CARE
+                        <span class="ms-2">→</span>
+                    </button>
+                </EditForm>
+
+                <div class="text-center mt-4">
+                    <p>Chưa có tài khoản? <a href="/register" style="color: #1977cc; text-decoration: none; font-weight: 500;">Đăng Ký</a> ngay.</p>
+                </div>
+
+                <div class="d-flex align-items-center my-4">
+                    <div class="flex-grow-1 border-bottom" style="border-color: #1977cc;"></div>
+                    <div class="px-3 text-muted">hoặc</div>
+                    <div class="flex-grow-1 border-bottom" style="border-color: #1977cc;"></div>
+                </div>
+
+                <div class="d-grid gap-3">
+                    <button class="btn btn-outline-secondary d-flex align-items-center justify-content-center py-2" @onclick="LoginWithFacebook" style="border-color: #1977cc; transition: background-color 0.3s ease;">
+                        <img src="/images/facebook-icon.svg" alt="Facebook" width="24" height="24" class="me-3" />
+                        Đăng nhập với Facebook.
+                    </button>
+
+                    <button class="btn btn-outline-secondary d-flex align-items-center justify-content-center py-2" @onclick="LoginWithGmail" style="border-color: #1977cc; transition: background-color 0.3s ease;">
+                        <img src="/images/gmail-icon.svg" alt="Gmail" width="24" height="24" class="me-3" />
+                        Đăng nhập với Gmail.
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn:hover {
+        background-color: #1977cc;
+        color: white;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #1977cc;
+        color: white;
+    }
+
+    .form-control:focus {
+        border-color: #1977cc;
+        box-shadow: 0 0 0 0.2rem rgba(10, 74, 47, 0.25);
+    }
+
+    .btn-outline-secondary:focus {
+        box-shadow: 0 0 0 0.2rem rgba(10, 74, 47, 0.25);
+    }
+</style>
