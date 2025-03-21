@@ -1,0 +1,73 @@
+﻿@page "/doctor-list"
+@rendermode InteractiveServer
+
+<link href="css/Doctor/DoctorList.css" rel="stylesheet" />
+
+<PageTitle>Danh sách bác sĩ</PageTitle>
+
+<section class="doctor-list-container">
+    <div class="container">
+        <h2 class="page-title">Danh sách bác sĩ</h2>
+
+        <!-- Bộ lọc -->
+        <div class="filter-container">
+            <div class="search-box">
+                <input type="text" placeholder="Tìm kiếm bác sĩ" @bind="SearchTerm" @bind:event="oninput" />
+                <i class="bi bi-search"></i>
+            </div>
+        </div>
+
+        <div class="filter-dropdowns">
+            <select @bind="SelectedSpecialty">
+                <option value="">Chuyên khoa</option>
+                @foreach (var specialty in Specialties)
+                {
+                    <option value="@specialty.Id">@specialty.SpecialtyName</option>
+                }
+            </select>
+
+            <select @bind="SelectedGender">
+                <option value="">Giới tính</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+            </select>
+        </div>
+
+        <!-- Danh sách bác sĩ -->
+        <div class="doctor-list">
+            @if (PagedDoctors.Any())
+            {
+                @foreach (var doctor in PagedDoctors)
+                {
+                    <div class="doctor-card">
+                        <img src="@doctor.Avatar" alt="Ảnh bác sĩ" class="doctor-avatar" />
+                        <div class="doctor-info">
+                            <h4> Bác Sĩ @doctor.FullName</h4>
+                            <p><strong>Chuyên trị:</strong> @doctor.Speciality?.SpecialtyName</p>
+                            <p><strong>Lịch khám:</strong> Hẹn Khám</p>
+                            <p><strong>Giới tính:</strong> @doctor.Gender</p>
+                        </div>
+                        <NavLink class="btn-detail" href="@($"/doctor/{doctor.Id}")">Xem chi tiết</NavLink>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Không tìm thấy bác sĩ phù hợp.</p>
+            }
+        </div>
+
+        @if (TotalPages > 1)
+        {
+            <div class="pagination">
+                <button @onclick="PreviousPage" disabled="@(CurrentPage == 1)">❮</button>
+                @for (int i = 1; i <= TotalPages; i++)
+                {
+                    <button class="@(i == CurrentPage ? "active" : "")" @onclick="() => ChangePage(i)">@i</button>
+                }
+                <button @onclick="NextPage" disabled="@(CurrentPage == TotalPages)">❯</button>
+            </div>
+        }
+    </div>
+</section>
+

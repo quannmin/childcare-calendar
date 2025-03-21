@@ -34,7 +34,7 @@ namespace ChildCareCalendar.Infrastructure.Repository
 
         public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
         {
-            return await _dbSet.Where(predicate).ToListAsync();
+            return await _dbSet.Where(predicate).AsNoTracking().ToListAsync();
         }
 
         public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
@@ -46,7 +46,7 @@ namespace ChildCareCalendar.Infrastructure.Repository
                 query = query.Include(include);
             }
 
-            return await query.ToListAsync();
+            return await query.AsNoTracking().ToListAsync();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
