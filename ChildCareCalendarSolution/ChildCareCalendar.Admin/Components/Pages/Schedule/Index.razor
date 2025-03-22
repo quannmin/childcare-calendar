@@ -19,7 +19,10 @@
 				@if (day.Schedules.Any())
 				{
 					<div class="appointment">
-						@string.Join(", ", day.Schedules.Select(a => a.Doctor?.FullName))
+						@string.Join(", ", day.Schedules
+											.Select(a => a.Doctor?.FullName)
+											.Where(name => !string.IsNullOrEmpty(name))
+											.Distinct())
 					</div>
 				}
 			</div>
@@ -113,7 +116,7 @@
 								<td>@schedule.Doctor.FullName</td>
 								<td>@schedule.WorkHour.StartTime - @schedule.WorkHour.EndTime</td>
 								<td class="d-flex justify-content-evenly">
-									<NavLink class="btn btn-warning btn-sm" @onclick="() => OpenEditPopupAsync(schedule.Id)">Chỉnh sửa</NavLink>
+									<NavLink class="btn btn-warning btn-sm text-white" @onclick="() => OpenEditPopupAsync(schedule.Id)">Chỉnh sửa</NavLink>
 									<button class="btn btn-danger btn-sm" @onclick="() => OpenDeletePopup(schedule.Id)">Xóa</button>
 								</td>
 							</tr>
@@ -121,6 +124,39 @@
 						}
 					</tbody>
 				</table>
+
+				<div>
+					<nav aria-label="Page navigation">
+						<ul class="pagination">
+							@if (PageNumber > 1)
+							{
+								<li class="page-item">
+									<a class="page-link" @onclick="() => ChangePage(PageNumber - 1)">
+										Trước
+									</a>
+								</li>
+							}
+
+							@for (int i = 1; i <= TotalPages; i++)
+							{
+								int page = i;
+								<li class="page-item @(i == PageNumber ? "active" : "")">
+									<a class="page-link" value="@i" @onclick="() => ChangePage(page)">@i</a>
+								</li>
+							}
+
+							@if (PageNumber < TotalPages)
+							{
+								<li class="page-item">
+									<a class="page-link" @onclick="() => ChangePage(PageNumber + 1)">
+										Sau
+									</a>
+								</li>
+							}
+						</ul>
+					</nav>
+				</div>
+
 			}
 			else
 			{
@@ -177,9 +213,9 @@
 {
 	<div class="popup-overlay">
 		<div class="popup">
-				<p>Bạn có chắc chắn muốn xóa lịch này?</p>
-				<button type="button" class="btn btn-danger" @onclick="DeleteSchedule">Xóa</button>
-				<button type="button" class="btn" @onclick="ClosePopup">Hủy</button>
+			<p>Bạn có chắc chắn muốn xóa lịch này?</p>
+			<button type="button" class="btn btn-danger" @onclick="DeleteSchedule">Xóa</button>
+			<button type="button" class="btn" @onclick="ClosePopup">Hủy</button>
 		</div>
 	</div>
 }
