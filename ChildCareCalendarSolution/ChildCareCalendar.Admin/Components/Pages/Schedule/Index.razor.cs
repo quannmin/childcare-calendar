@@ -5,6 +5,7 @@ using ChildCareCalendar.Domain.ViewModels.WorkHour;
 using ChildCareCalendar.Infrastructure.Services;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.JSInterop;
 using static ChildCareCalendar.Utilities.Constants.SystemConstant;
 
@@ -42,6 +43,12 @@ namespace ChildCareCalendar.Admin.Components.Pages.Schedule
 		private bool isPopupDeleteOpen = false;
 
 		private int? idToDelete;
+
+		[BindProperty(SupportsGet = true)]
+		public int PageNumber { get; set; } = 1;
+
+		public int PageSize { get; set; } = 5;
+		public int TotalPages { get; set; }
 
 		private List<CalendarDay> DaysInMonth => GetDaysInMonth(currentDate);
 		protected override async Task OnInitializedAsync()
@@ -127,10 +134,18 @@ namespace ChildCareCalendar.Admin.Components.Pages.Schedule
 
 		private async void OpenDetailPopupAsync()
 		{
-			var listSchedules = await ScheduleService.FindSchedulesAsync(x =>
+			var query = await ScheduleService.FindSchedulesAsync(x =>
 				!x.IsDelete &&
 				x.WorkDay.Value.Date == selectedDate.Value.Date,
 				x => x.WorkHour, x => x.Doctor);
+			int totalRecords = query.Count();
+			TotalPages = (int)Math.Ceiling(totalRecords / (double)PageSize);
+
+			var listSchedules = query
+				.Skip((PageNumber - 1) * PageSize)
+				.Take(PageSize)
+				.ToList();
+
 			DetailViewModel = Mapper.Map<List<ScheduleViewModel>>(listSchedules);
 			isPopupDetailOpen = true;
 			isPopupOpen = false;
@@ -138,6 +153,21 @@ namespace ChildCareCalendar.Admin.Components.Pages.Schedule
 			isPopupDeleteOpen = false;
 			isPopupEditOpen = false;
 			StateHasChanged();
+		}
+
+		private void ChangePage(int newPageNumber)
+		{
+			PageNumber = newPageNumber;
+			if (PageNumber > TotalPages)
+			{
+				PageNumber = TotalPages;
+			}
+
+			if (PageNumber < 1)
+			{
+				PageNumber = 1;
+			}
+			OpenDetailPopupAsync();
 		}
 		private async void OpenEditPopupAsync(int id)
 		{
@@ -219,6 +249,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Schedule
 			isPopupEditOpen = false;
 			isPopupDeleteOpen = false;
 			await LoadData();
+			OpenDetailPopupAsync();
 			StateHasChanged();
 		}
 
