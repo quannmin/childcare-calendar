@@ -17,18 +17,6 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AuthenPage
         [Inject]
         private IJSRuntime JS { get; set; } = default!;
 
-        protected override async Task OnInitializedAsync()
-        {
-            try
-            {
-                await Task.CompletedTask;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error initializing login page: {ex.Message}");
-            }
-        }
-
         private void TogglePasswordVisibility()
         {
             showPassword = !showPassword;
@@ -38,42 +26,25 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AuthenPage
         {
             try
             {
-            
                 await JS.InvokeVoidAsync("console.log", "Login attempted with:", loginModel.PhoneNumber);
 
-           
                 if (loginModel.PhoneNumber != null && loginModel.Password != null)
                 {
-                  
+                    // Thực hiện kiểm tra đăng nhập ở đây
+                    // Ví dụ đơn giản: nếu số điện thoại và mật khẩu không rỗng thì cho đăng nhập
                     await JS.InvokeVoidAsync("localStorage.setItem", "auth_token", "sample-token-123");
-
-                 
                     NavigationManager.NavigateTo("/dashboard");
                 }
                 else
                 {
-                  
                     await JS.InvokeVoidAsync("alert", "Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập.");
                 }
             }
             catch (Exception ex)
             {
                 await JS.InvokeVoidAsync("console.error", $"Login error: {ex.Message}");
+                await JS.InvokeVoidAsync("alert", $"Lỗi: {ex.Message}");
             }
-        }
-
-        private async Task LoginWithFacebook()
-        {
-      
-            await JS.InvokeVoidAsync("console.log", "Facebook login clicked");
-            await JS.InvokeVoidAsync("alert", "Đăng nhập với Facebook chưa được triển khai.");
-        }
-
-        private async Task LoginWithGmail()
-        {
-         
-            await JS.InvokeVoidAsync("console.log", "Gmail login clicked");
-            await JS.InvokeVoidAsync("alert", "Đăng nhập với Gmail chưa được triển khai.");
         }
 
         public class LoginModel
@@ -87,4 +58,3 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AuthenPage
         }
     }
 }
-
