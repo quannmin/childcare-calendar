@@ -18,18 +18,21 @@
 				<span>@(day.Day == 0 ? "" : day.Day)</span>
 				@if (day.Schedules.Any())
 				{
-					<div class="appointment">
-						@string.Join(", ", day.Schedules
+					<div class="d-flex flex-wrap gap-1">
+						@foreach (var doctorName in day.Schedules
 											.Select(a => a.Doctor?.FullName)
 											.Where(name => !string.IsNullOrEmpty(name))
 											.Distinct())
+						{
+							<span class="badge bg-primary">@doctorName</span>
+						}
 					</div>
 				}
 			</div>
 		}
 	</div>
 </div>
-
+ssss
 @if (isPopupOpen)
 {
 	<div class="popup-overlay" @onclick="ClosePopup">
@@ -46,6 +49,8 @@
 {
 	<div class="popup-overlay">
 		<EditForm FormName="ScheduleCreate" OnValidSubmit="HandleCreate" Model="CreateViewModel" class="popup">
+			<DataAnnotationsValidator />
+
 			<h3>Tạo lịch làm việc</h3>
 
 			@if (!string.IsNullOrEmpty(ErrorMessage))
@@ -62,6 +67,7 @@
 			<div class="form-group m-2">
 				<label>Giờ làm việc (Giờ bắt đầu - Giờ kết thúc)</label>
 				<InputSelect class="form-control" @bind-Value="CreateViewModel.WorkHourId">
+					<option value="">--Chọn giờ làm việc--</option>
 					@foreach (var workHour in WorkHours)
 					{
 						<option value="@workHour.Id">@workHour.StartTime - @workHour.EndTime</option>
@@ -73,12 +79,13 @@
 			<div class="form-group m-2">
 				<label>Bác sĩ</label>
 				<InputSelect class="form-control" @bind-Value="CreateViewModel.UserId">
+					<option value="">--Chọn bác sĩ--</option>
 					@foreach (var doctor in Doctors)
 					{
 						<option value="@doctor.Id">@doctor.Id - @doctor.FullName</option>
 					}
 				</InputSelect>
-				<ValidationMessage For="@(() => CreateViewModel.WorkHourId)" class="text-danger" />
+				<ValidationMessage For="@(() => CreateViewModel.UserId)" class="text-danger" />
 			</div>
 
 			<div class="form-group m-2">
@@ -170,6 +177,8 @@
 {
 	<div class="popup-overlay">
 		<EditForm FormName="ScheduleUpdate" OnValidSubmit="HandleUpdate" Model="EditViewModel" class="popup">
+			<DataAnnotationsValidator />
+
 			<h3>Chỉnh sửa lịch làm việc</h3>
 
 			@if (!string.IsNullOrEmpty(ErrorMessage))
