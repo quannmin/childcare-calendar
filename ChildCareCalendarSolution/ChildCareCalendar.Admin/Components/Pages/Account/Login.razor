@@ -3,11 +3,11 @@
 @using ChildCareCalendar.Admin.Components.Layout
 @inject ChildCareCalendar.Domain.EF.ChildCareCalendarContext appDbContext
 @layout EmptyLayout
-  
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Diamond Luxury System</title>
+    <title>Childcare System</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--===============================================================================================-->
@@ -15,12 +15,9 @@
     <!--===============================================================================================-->
     <link rel="stylesheet"
           type="text/css"
-          href="Admin/vendor/bootstrap/css/bootstrap.min.css" 
-          asp-append-version="true"/>
+          href="Admin/vendor/bootstrap/css/bootstrap.min.css"
+          asp-append-version="true" />
     <!--===============================================================================================-->
-    <link rel="stylesheet"
-          type="text/css"
-          href="Admin/fonts/font-awesome-4.7.0/css/font-awesome.css" />
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="Admin/vendor/animate/animate.css" />
     <!--===============================================================================================-->
@@ -35,10 +32,9 @@
     <link rel="stylesheet" type="text/css" href="Admin/css/util.css" />
     <link rel="stylesheet" type="text/css" href="Admin/css/main.css" />
     <!--===============================================================================================-->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&display=swap"
-          rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=Alegreya+Sans:100,300,400,500,700,800,900">
+
 
 </head>
 <body>
@@ -54,25 +50,24 @@
 
                     <span class="login100-form-title"> Đăng nhập </span>
                     <!-- Login gg fb -->
-                        <div class="wrap-input100 validate-input">
-                            <InputText class="form-control" @bind-Value="loginModel.Email" />
-                            <ValidationMessage For="@(() => loginModel.Email)" class="text-danger" />
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                            </span>
-                        </div>
-                    <div class="wrap-input100 validate-input">
-                        <InputText class="form-control" @bind-Value="loginModel.Password" />
-                        <ValidationMessage For="@(() => loginModel.Password)" class="text-danger" />
+                    <div class="wrap-input100 validate-input">  
+                        <span class="symbol-input100">
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                        </span>
+                        <InputText class="input100 form-control" @bind-Value="loginModel.Email" placeholder="Nhập email" />
+                        <ValidationMessage For="@(() => loginModel.Email)" class="text-danger" />
                         <span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input">
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
+                        <InputText class="input100 form-control" @bind-Value="loginModel.Password" placeholder="Nhập mật khẩu" />
+                        <ValidationMessage For="@(() => loginModel.Password)" class="text-danger" />
+                        <span class="focus-input100"></span>
                     </div>
                     <div class="container-login100-form-btn">
                         <button type="submit" class="btn btn-success login100-form-btn mb-2">Đăng nhập</button>
-                        <NavLink class="btn btn-primary" href="@($"/register")" login100-form-btn">Đăng ký</NavLink>
                     </div>
 
                     @* <div class="text-center"> *@

@@ -6,13 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using PayPal.Core;
 using PayPal.v1.Payments;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using Payment = PayPal.v1.Payments.Payment;
+
 
 
 namespace ChildCareCalendar.Infrastructure.Services
@@ -35,98 +30,99 @@ namespace ChildCareCalendar.Infrastructure.Services
 
         public async Task<string> CreatePaymentUrl(Appointment model, HttpContext context)
         {
-            try
+            Console.WriteLine("✅ Bắt đầu tạo PayPal Payment URL...");
+
+            var envSandbox = new SandboxEnvironment(
+                _configuration["Paypal:ClientId"],
+                _configuration["Paypal:Secret"]
+            );
+
+            Console.WriteLine($"🔍 PayPal Client ID: {_configuration["Paypal:ClientId"]}");
+            Console.WriteLine($"🔍 PayPal Secret: {_configuration["Paypal:Secret"]}");
+
+            var client = new PayPalHttpClient(envSandbox);
+            Console.WriteLine("✅ PayPal Client initialized");
+
+            var paypalOrderId = DateTime.Now.Ticks;
+            var urlCallBack = $"{context.Request.Scheme}://{context.Request.Host}/PaymentCallback";
+
+            var amountInUsd = ConvertVndToDollar((double)model.TotalAmount);
+            Console.WriteLine($"🟢 Số tiền USD: {amountInUsd}");
+
+            var payment = new PayPal.v1.Payments.Payment()
             {
-                Console.WriteLine("✅ Bắt đầu tạo PayPal Payment URL...");
-
-                var envSandbox = new SandboxEnvironment(
-                    _configuration["Paypal:ClientId"],
-                    _configuration["Paypal:Secret"]
-                );
-
-                Console.WriteLine($"🔍 PayPal Client ID: {_configuration["Paypal:ClientId"]}");
-                Console.WriteLine($"🔍 PayPal Secret: {_configuration["Paypal:Secret"]}");
-
-                var client = new PayPalHttpClient(envSandbox);
-                Console.WriteLine("✅ PayPal Client initialized");
-
-                var paypalOrderId = DateTime.Now.Ticks;
-                var urlCallBack = $"{context.Request.Scheme}://{context.Request.Host}/PaymentCallback";
-
-                var amountInUsd = ConvertVndToDollar((double)model.TotalAmount);
-                Console.WriteLine($"🟢 Số tiền USD: {amountInUsd}");
-
-                var payment = new PayPal.v1.Payments.Payment()
+                Intent = "sale",
+                Transactions = new List<Transaction>()
                 {
-                    Intent = "sale",
-                    Transactions = new List<Transaction>()
-            {
-                new Transaction()
-                {
-                    Amount = new Amount()
+                    new Transaction()
                     {
-                        Total = amountInUsd.ToString("F2"),
-                        Currency = "USD"
-                    },
-                    InvoiceNumber = paypalOrderId.ToString()
-                }
-            },
-                    RedirectUrls = new RedirectUrls()
-                    {
-                        ReturnUrl = $"{urlCallBack}?payment_method=PayPal&success=1&order_id={paypalOrderId}",
-                        CancelUrl = $"{urlCallBack}?payment_method=PayPal&success=0&order_id={paypalOrderId}"
-                    },
-                    Payer = new Payer()
-                    {
-                        PaymentMethod = "paypal"
-                    }
-                };
-
-                var request = new PaymentCreateRequest();
-                request.RequestBody(payment);
-
-                try
-                {
-                    Console.WriteLine("🟢 Gửi request đến PayPal API...");
-
-                    var response = await client.Execute(request);
-
-                    Console.WriteLine("✅ Nhận phản hồi từ PayPal API...");
-                    var statusCode = response.StatusCode;
-                    Console.WriteLine($"🟢 PayPal API Status: {statusCode}");
-
-                    if (statusCode != HttpStatusCode.Created)
-                    {
-                        Console.WriteLine("❌ PayPal API không tạo được giao dịch!");
-                        return "";
-                    }
-
-                    var result = response.Result<PayPal.v1.Payments.Payment>();
-                    Console.WriteLine($"🔍 Full PayPal Response: {System.Text.Json.JsonSerializer.Serialize(result)}");
-
-                    foreach (var link in result.Links)
-                    {
-                        Console.WriteLine($"🔗 PayPal Link: {link.Rel} - {link.Href}");
-                        if (link.Rel.Equals("approval_url", StringComparison.OrdinalIgnoreCase))
+                        Amount = new Amount()
                         {
-                            return link.Href;
-                        }
+                            Total = amountInUsd.ToString(),
+                            Currency = "USD",
+                            Details = new AmountDetails
+                            {
+                                Tax = "0",
+                                Shipping = "0",
+                                Subtotal = amountInUsd.ToString(),
+                            }
+                        },
+                        ItemList = new ItemList()
+                        {
+                            Items = new List<Item>()
+                            {
+                                new Item()
+                                {
+                                    Name = " | Order: ",
+                                    Currency = "USD",
+                                    Price = amountInUsd.ToString(),
+                                    Quantity = 1.ToString(),
+                                    Sku = "sku",
+                                    Tax = "0",
+                                    Url = "https://www.code-mega.com" // Url detail of Item
+                                }
+                            }
+                        },
+                        Description = $"Invoice #",
+                        InvoiceNumber = paypalOrderId.ToString()
                     }
-
-                    return "";
-                }
-                catch (HttpException ex)
+                },
+                RedirectUrls = new RedirectUrls()
                 {
-                    Console.WriteLine($"❌ Lỗi HTTP khi gọi PayPal API: {ex.StatusCode} - {ex.Message}");
-                    return "";
+                    ReturnUrl =
+                    $"{urlCallBack}?payment_method=PayPal&success=1&order_id={paypalOrderId}",
+                    CancelUrl =
+                    $"{urlCallBack}?payment_method=PayPal&success=0&order_id={paypalOrderId}"
+                },
+                Payer = new Payer()
+                {
+                    PaymentMethod = "paypal"
                 }
-            }
-            catch (Exception ex)
+            };
+
+            var request = new PaymentCreateRequest();
+            request.RequestBody(payment);
+
+            var paymentUrl = "";
+            Console.WriteLine("Gui request den...");
+            var response = await client.Execute(request);
+            var statusCode = response.StatusCode;
+
+            if (statusCode is not (HttpStatusCode.Accepted or HttpStatusCode.OK or HttpStatusCode.Created))
+                return paymentUrl;
+
+            var result = response.Result<PayPal.v1.Payments.Payment>();
+            using var links = result.Links.GetEnumerator();
+
+            while (links.MoveNext())
             {
-                Console.WriteLine($"❌ Lỗi trong quá trình khởi tạo PayPal Payment URL: {ex.Message}");
-                Console.WriteLine($"❌ Chi tiết lỗi: {ex.StackTrace}");
-                return "";
+                var lnk = links.Current;
+                if (lnk == null) continue;
+                if (!lnk.Rel.ToLower().Trim().Equals("approval_url")) continue;
+                paymentUrl = lnk.Href;
             }
+
+            return paymentUrl;
         }
 
         public Domain.Entities.Payment PaymentExecute(IQueryCollection collections)

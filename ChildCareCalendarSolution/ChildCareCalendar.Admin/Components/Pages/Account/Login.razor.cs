@@ -33,7 +33,8 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, loginModel.Email),
-                new Claim(ClaimTypes.Role, userAccount.Role)
+                new Claim(ClaimTypes.Role, userAccount.Role),
+                new Claim("FullName", userAccount.FullName)
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

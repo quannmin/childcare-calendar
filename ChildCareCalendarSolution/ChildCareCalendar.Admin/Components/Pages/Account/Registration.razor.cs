@@ -95,7 +95,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
                     generatedOtp = new Random().Next(1000, 9999).ToString();
 
                     string subject = "Mã xác nhận OTP của bạn";
-                    string body = $"Mã OTP của bạn là: <b>{generatedOtp}</b>. Vui lòng nhập mã này để xác nhận.";
+                    string body = GetOtpEmailTemplate(generatedOtp);
                     if (compositeViewModel._userCreateViewModel.Email == null)
                     {
                         return;
@@ -213,6 +213,103 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
             await childrenRecordService.AddChildrenRecordAsync(childrenRecord);
 
             navigationManager.NavigateTo("/users/index");
+        }
+
+        private string GetOtpEmailTemplate(string otpCode)
+        {
+            return $@"
+                    <!DOCTYPE html>
+                    <html lang='vi'>
+                    <head>
+                        <meta charset='UTF-8'>
+                        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                        <title>Xác nhận OTP</title>
+                        <style>
+                            body {{
+                                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                                line-height: 1.6;
+                                color: #333;
+                                max-width: 600px;
+                                margin: 0 auto;
+                                padding: 0;
+                                background-color: #f5f5f5;
+                            }}
+                            .container {{
+                                background-color: #ffffff;
+                                border-radius: 8px;
+                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                                overflow: hidden;
+                                margin: 20px auto;
+                            }}
+                            .header {{
+                                background-color: #2182cc;
+                                color: white;
+                                padding: 20px;
+                                text-align: center;
+                            }}
+                            .content {{
+                                padding: 30px;
+                            }}
+                            .otp-container {{
+                                background-color: #f8f9fa;
+                                border-radius: 4px;
+                                padding: 15px;
+                                text-align: center;
+                                margin: 20px 0;
+                                border: 1px dashed #dee2e6;
+                            }}
+                            .otp-code {{
+                                font-size: 28px;
+                                font-weight: bold;
+                                color: #2182cc;
+                                letter-spacing: 3px;
+                            }}
+                            .footer {{
+                                text-align: center;
+                                padding: 20px;
+                                color: #6c757d;
+                                font-size: 12px;
+                                border-top: 1px solid #e9ecef;
+                            }}
+                            .button {{
+                                display: inline-block;
+                                padding: 10px 20px;
+                                background-color: #2182cc;
+                                color: white;
+                                text-decoration: none;
+                                border-radius: 4px;
+                                margin-top: 20px;
+                            }}
+                        </style>
+                    </head>
+                    <body>
+                        <div class='container'>
+                            <div class='header'>
+                                <h1>Xác nhận đăng ký tài khoản</h1>
+                            </div>
+            
+                            <div class='content'>
+                                <p>Xin chào,</p>
+                                <p>Cảm ơn bạn đã đăng ký tài khoản tại <strong>ChildCareCalendar</strong>. Dưới đây là mã OTP của bạn:</p>
+                
+                                <div class='otp-container'>
+                                    <div class='otp-code'>{otpCode}</div>
+                                </div>
+                
+                                <p>Mã OTP có hiệu lực trong vòng <strong>10 phút</strong>. Vui lòng không chia sẻ mã này với bất kỳ ai.</p>
+                                <p>Nếu bạn không yêu cầu mã này, vui lòng bỏ qua email này.</p>
+                
+                                <p>Trân trọng,</p>
+                                <p><strong>Đội ngũ ChildCareCalendar</strong></p>
+                            </div>
+            
+                            <div class='footer'>
+                                <p>© {DateTime.Now.Year} ChildCareCalendar. All rights reserved.</p>
+                                <p>Đây là email tự động, vui lòng không trả lời.</p>
+                            </div>
+                        </div>
+                    </body>
+                    </html>";
         }
     }
 }
