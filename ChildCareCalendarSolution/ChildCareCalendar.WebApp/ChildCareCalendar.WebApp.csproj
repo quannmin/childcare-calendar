@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Components\Pages\LoginPage\" />
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
 

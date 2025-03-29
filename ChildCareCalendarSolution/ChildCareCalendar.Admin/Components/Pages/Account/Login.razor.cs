@@ -49,6 +49,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties
             );
+
             navigationManager.NavigateTo("/");
         }
     }

@@ -20,7 +20,7 @@ namespace ChildCareCalendar.Domain.ViewModels.ExaminationReport
         [MaxLength(500, ErrorMessage = "Chẩn đoán không được quá 500 ký tự.")]
         public string Diagnosis { get; set; }
         [MaxLength(1000, ErrorMessage = "Ghi chú không được quá 1000 ký tự.")]
-        public string Note { get; set; }
+        public string Notes { get; set; }
 
         [Required]
         [Range(0, double.MaxValue, ErrorMessage = "Số tiền phải lớn hơn 0")]
