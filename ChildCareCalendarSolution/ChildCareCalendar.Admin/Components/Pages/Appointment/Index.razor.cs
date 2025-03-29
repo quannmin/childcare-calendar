@@ -19,7 +19,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
         [Inject]
         IAppointmentService AppointmentService { get; set; }
 
-        [SupplyParameterFromForm]
+        [SupplyParameterFromForm (FormName = "SearchAppointment")]
         private AppointmentSearchViewModel SearchData { get; set; } = new();
         [Inject]
         private NavigationManager Navigation { get; set; }
@@ -37,9 +37,8 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
         {
             var uri = new Uri(Navigation.Uri);
             var queryParameters = HttpUtility.ParseQueryString(uri.Query);
-            var page = queryParameters["page"];
 
-            if (int.TryParse(page, out int pageNumber) && pageNumber > 0)
+            if (int.TryParse(queryParameters["page"], out int pageNumber) && pageNumber > 0)
             {
                 CurrentPage = pageNumber;
             }
@@ -48,38 +47,38 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
                 CurrentPage = 1;
             }
 
+            // Lấy từ khóa tìm kiếm từ URL khi trang tải lại
+            SearchData.Keyword = queryParameters["search"] ?? "";
+
             await LoadAppointmentsAsync();
         }
 
+
         private async Task LoadAppointmentsAsync()
         {
-            
-            var (appointments, totalCount) = await AppointmentService.GetPagedAppointmentsAsync(CurrentPage, PageSize, SearchData.Keyword);
-            Appointments = Mapper.Map<List<AppointmentViewModel>>(await AppointmentService.FindAppointmentsAsync(a => !a.IsDelete,
+            var uri = new Uri(Navigation.Uri);
+            var queryParameters = HttpUtility.ParseQueryString(uri.Query);
 
-                            a => a.Parent, a => a.ChildrenRecord, a => a.Service, a => a.Doctor
-                            ));
+            // Lấy tham số search từ URL
+            var searchKeyword = queryParameters["search"];
+            SearchData.Keyword = searchKeyword ?? ""; // Nếu không có từ khóa, đặt về ""
+
+            var (appointments, totalCount) = await AppointmentService.GetPagedAppointmentsAsync(CurrentPage, PageSize, SearchData.Keyword);
+
+            Appointments = Mapper.Map<List<AppointmentViewModel>>(appointments);
+
             TotalItems = totalCount;
             TotalPages = (int)Math.Ceiling((double)TotalItems / PageSize);
         }
 
-        //private async Task HandleSearch()
-        //{
-        //    var appointments = string.IsNullOrWhiteSpace(SearchData.Keyword)
-        //        ? await AppointmentService.FindAppointmentsAsync(a => !a.IsDelete, a => a.Parent, a => a.ChildrenRecord)
-        //    : await AppointmentService.FindAppointmentsAsync(a => SearchData.Keyword.Equals(a.Parent.FullName)
-        //                                                        || SearchData.Keyword.Equals(a.ChildrenRecord.FullName),
-        //                                                        a => a.Parent, a => a.ChildrenRecord);
 
-        //    Appointments = Mapper.Map<List<AppointmentViewModel>>(appointments);
-        //    StateHasChanged();
-        //}
         private async Task HandleSearch()
         {
             CurrentPage = 1;
-            Navigation.NavigateTo($"/appointments?page={CurrentPage}&search={SearchData.Keyword}", forceLoad: false);
+            Navigation.NavigateTo($"/appointments?page={CurrentPage}&search={SearchData.Keyword}", forceLoad: true);
             await LoadAppointmentsAsync();
         }
+
         private async Task ChangePage(int newPage)
         {
             if (newPage >= 1 && newPage <= TotalPages && newPage != CurrentPage)

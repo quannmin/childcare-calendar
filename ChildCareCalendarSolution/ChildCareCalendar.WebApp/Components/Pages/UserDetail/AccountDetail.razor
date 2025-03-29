@@ -1,26 +1,24 @@
 ﻿@page "/AccountDetail"
 @rendermode InteractiveServer
 
+<div class="container mt-5">
+    <h3 class="text-center mb-4">Thông tin tài khoản</h3>
 
-
-<div class="container">
-    <br />
-    <h3>Thông tin tài khoản</h3>
     @if (Parent != null)
     {
-        <div class="profile-container">
-            <img src="@Parent.Avatar" alt="Avatar" class="avatar" />
-            <div class="info">
-                <p><strong>Họ và tên:</strong> @Parent.FullName</p>
-                <p><strong>Email:</strong> @Parent.Email</p>
-                <p><strong>Số điện thoại:</strong> @Parent.PhoneNumber</p>
-                <p><strong>Địa chỉ:</strong> @Parent.Address</p>
-                <p><strong>Ngày sinh:</strong> @Parent.Dob.ToString("dd/MM/yyyy")</p>
-                <p><strong>Giới tính:</strong> @Parent.Gender</p>
+        <div class="d-flex justify-content-center">
+            <div class="profile-container w-75">
+                <img src="@Parent.Avatar" alt="Avatar" class="avatar" />
+                <div class="info">
+                    <p><strong>Họ và tên:</strong> @Parent.FullName</p>
+                    <p><strong>Email:</strong> @Parent.Email</p>
+                    <p><strong>Số điện thoại:</strong> @Parent.PhoneNumber</p>
+                    <p><strong>Địa chỉ:</strong> @Parent.Address</p>
+                    <p><strong>Ngày sinh:</strong> @Parent.Dob.ToString("dd/MM/yyyy")</p>
+                    <p><strong>Giới tính:</strong> @Parent.Gender</p>
+                </div>
             </div>
         </div>
-        <hr />
-        <h3>Lịch hẹn của tôi</h3>
 
         @if (Appointments == null)
         {
@@ -109,7 +107,7 @@
     }
     else
     {
-        <p>Đang tải thông tin...</p>
+        <p class="text-center">Đang tải thông tin...</p>
     }
 </div>
 

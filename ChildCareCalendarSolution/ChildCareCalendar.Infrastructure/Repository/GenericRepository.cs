@@ -87,17 +87,34 @@ namespace ChildCareCalendar.Infrastructure.Repository
         public async Task<(IEnumerable<T> Items, int TotalCount)> GetPagedAsync(
             int pageIndex,
             int pageSize,
-            Expression<Func<T, bool>> filter = null) 
+            Expression<Func<T, bool>> filter = null,
+            params Expression<Func<T, object>>[] includes) 
         {
             IQueryable<T> query = _dbSet;
 
+            // Include các bảng liên quan
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            // Áp dụng bộ lọc nếu có
             if (filter != null)
             {
                 query = query.Where(filter);
             }
 
+            // Đếm tổng số bản ghi
             int totalCount = await query.CountAsync();
-            var items = await query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            // Phân trang dữ liệu
+            var items = await query
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
 
             return (items, totalCount);
         }

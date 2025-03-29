@@ -113,18 +113,26 @@ namespace ChildCareCalendar.Infrastructure.Services
     int pageSize,
     string keyword = null)
         {
-            Expression<Func<Appointment, bool>> filter = null;
+            Expression<Func<Appointment, bool>> filter = x => !x.IsDelete;
 
             if (!string.IsNullOrEmpty(keyword))
             {
-                filter = x => (x.Parent.FullName.Contains(keyword) || x.ChildrenRecord.FullName.Contains(keyword)) && !x.IsDelete;
+                filter = x =>
+                    !x.IsDelete &&
+                    (x.Parent.FullName.Contains(keyword) || x.ChildrenRecord.FullName.Contains(keyword));
             }
-            else
-            {
-                filter = x => !x.IsDelete;
-            }
-            return await _appointmentRepository.GetPagedAsync(pageIndex, pageSize, filter);
+
+            return await _appointmentRepository.GetPagedAsync(
+                pageIndex,
+                pageSize,
+                filter,
+                x => x.Parent,
+                x => x.ChildrenRecord,
+                x => x.Doctor,
+                x => x.Service
+            );
         }
+
 
         public async Task<(IEnumerable<Appointment> appointments, int totalCount)> GetPagedAppointmentsByDoctorIdAsync(
     int doctorId, int pageIndex, int pageSize, string keyword = null)
