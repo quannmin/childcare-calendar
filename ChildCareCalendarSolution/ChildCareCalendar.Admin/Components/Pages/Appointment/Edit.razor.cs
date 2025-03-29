@@ -34,7 +34,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
 
         protected override async Task OnInitializedAsync()
         {
-            Doctors = (await UserService.FindUsersAsync(u => u.Role.Equals("Doctor"))).ToList();
+            Doctors = (await UserService.FindUsersAsync(u => u.Role.Equals("BacSi"))).ToList();
             if (!id.Equals(0) && EditModel.Id.Equals(0))
             {
                 var appointment = await AppointmentService.GetAppointmentByIdAsync(id);

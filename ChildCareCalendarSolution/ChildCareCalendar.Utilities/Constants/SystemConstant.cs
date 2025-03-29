@@ -35,7 +35,7 @@ namespace ChildCareCalendar.Utilities.Constants
             [Display(Name = "Đã đặt")]
             Ordered,
             [Display(Name = "Đã check in")]
-            CheckedIn,
+            Checked_In,
             [Display(Name = "Đã hủy")]
             Cancelled,
             [Display(Name = "Hoàn thành")]

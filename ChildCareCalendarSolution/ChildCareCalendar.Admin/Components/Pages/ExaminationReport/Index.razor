@@ -7,14 +7,14 @@
     <div class="col-md-4">
         <NavLink class="btn btn-success" href="/examination-reports/create">Tạo mới</NavLink>
     </div>
-    <div class="col-md-5 offset-md-3">
+    <div class="col-md-8">
         <EditForm Model="SearchData" OnValidSubmit="HandleSearch" FormName="SearchExaminationReport">
             <DataAnnotationsValidator />
             <ValidationSummary />
 
             <div class="d-flex">
                 <InputText class="form-control me-2" @bind-Value="SearchData.Keyword" placeholder="Tìm kiếm báo cáo..." />
-                <button type="submit" class="btn btn-primary searchBtn" style="width: 20%;">Tìm kiếm</button>
+                <button type="submit" class="btn btn-primary searchBtn w-25";">Tìm kiếm</button>
             </div>
         </EditForm>
     </div>
