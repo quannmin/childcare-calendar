@@ -2,56 +2,57 @@
 @using ChildCareCalendar.Utilities.Constants
 @rendermode InteractiveServer
 
-<h3>Tạo mới hồ sơ bé </h3>
-<hr />
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="w-50">
+        <h3 class="text-center">Tạo mới hồ sơ bé</h3>
+        <hr />
 
-@if (!string.IsNullOrEmpty(ErrorMessage))
-{
-    <div class="alert alert-danger w-50">
-        @ErrorMessage
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="alert alert-danger text-center">
+                @ErrorMessage
+            </div>
+        }
+
+        <EditForm Model="CreateModel" OnValidSubmit="HandleCreate" FormName="ChildrenRecordCreate">
+            <DataAnnotationsValidator />
+
+            <!-- Họ và tên -->
+            <div class="form-group m-2">
+                <label class="control-label">Họ và tên <span class="text-danger">*</span></label>
+                <InputText class="form-control" @bind-Value="CreateModel.FullName" />
+                <ValidationMessage For="@(() => CreateModel.FullName)" class="text-danger" />
+            </div>
+
+            <!-- Ngày tháng năm sinh -->
+            <div class="form-group m-2">
+                <label class="control-label">Ngày tháng năm sinh <span class="text-danger">*</span></label>
+                <InputDate class="form-control" @bind-Value="CreateModel.Dob" />
+                <ValidationMessage For="@(() => CreateModel.Dob)" class="text-danger" />
+            </div>
+
+            <!-- Giới tính -->
+            <div class="form-group m-2">
+                <label class="control-label">Giới tính</label>
+                <InputSelect class="form-control" @bind-Value="CreateModel.Gender">
+                    <option value="@SystemConstant.Gender.Nam">Nam</option>
+                    <option value="@SystemConstant.Gender.Nữ">Nữ</option>
+                    <option value="@SystemConstant.Gender.Khác">Khác</option>
+                </InputSelect>
+            </div>
+
+            <!-- Tiền sử bệnh -->
+            <div class="form-group m-2">
+                <label class="control-label">Tiền sử bệnh</label>
+                <InputTextArea class="form-control" @bind-Value="CreateModel.MedicalHistory" />
+            </div>
+
+            <!-- Nút tạo mới -->
+            <div class="d-flex justify-content-between m-2">
+                <button type="submit" class="btn btn-success">Tạo mới</button>
+                <a class="btn btn-secondary" href="/AccountDetail">Về trang chính</a>
+            </div>
+        </EditForm>
     </div>
-}
+</div>
 
-<EditForm Model="CreateModel" OnValidSubmit="HandleCreate" FormName="ChildrenRecordCreate" class="w-50">
-    <DataAnnotationsValidator />
-
-    <!-- Họ và tên -->
-    <div class="form-group m-2">
-        <label class="control-label m-2">Họ và tên <span class="text-danger">*</span></label>
-        <InputText class="form-control" @bind-Value="CreateModel.FullName" />
-        <ValidationMessage For="@(() => CreateModel.FullName)" class="text-danger" />
-    </div>
-
-    <!-- Ngày tháng năm sinh -->
-    <div class="form-group m-2">
-        <label class="control-label m-2">Ngày tháng năm sinh <span class="text-danger">*</span></label>
-        <InputDate class="form-control" @bind-Value="CreateModel.Dob" />
-        <ValidationMessage For="@(() => CreateModel.Dob)" class="text-danger" />
-    </div>
-
-    <!-- Giới tính -->
-    <div class="form-group m-2">
-        <label class="control-label m-2">Giới tính</label>
-        <InputSelect class="form-control" @bind-Value="CreateModel.Gender">
-            <option value="@SystemConstant.Gender.Nam">Nam</option>
-            <option value="@SystemConstant.Gender.Nữ">Nữ</option>
-            <option value="@SystemConstant.Gender.Khác">Khác</option>
-        </InputSelect>
-    </div>
-
-    <!-- Tiền sử bệnh -->
-    <div class="form-group m-2">
-        <label class="control-label m-2">Tiền sử bệnh</label>
-        <InputTextArea class="form-control" @bind-Value="CreateModel.MedicalHistory" />
-    </div>
-
-    <!-- Nút tạo mới -->
-    <div class="form-group row">
-        <div class="col-md-8">
-            <button type="submit" class="btn btn-success">Tạo mới</button>
-        </div>
-        <div class="col-md-4">
-            <a class="btn btn-secondary" href="/children-records">Về danh sách hồ sơ</a>
-        </div>
-    </div>
-</EditForm>

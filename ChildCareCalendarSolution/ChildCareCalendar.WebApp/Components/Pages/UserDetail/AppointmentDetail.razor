@@ -1,74 +1,73 @@
 ﻿@page "/appointmentDetail/{id:int}"
 
-<div class="container">
+<div class="content-container">
     <br />
-    <h3>Chi tiết lịch hẹn</h3>
+    <h3 class="text-center">Chi tiết lịch hẹn</h3>
     <hr />
-    <dl class="row d-flex align-items-center">
-        <dt class="col-sm-3 mb-4">Mã lịch hẹn</dt>
-        <dd class="col-sm-9 mb-4">@AppointmentViewModel.Id</dd>
+    <dl class="row info-container">
+        <dt class="col-sm-4">Mã lịch hẹn</dt>
+        <dd class="col-sm-8">@AppointmentViewModel.Id</dd>
 
-        <dt class="col-sm-3 mb-4">Tên phụ huynh</dt>
-        <dd class="col-sm-9 mb-4">@AppointmentViewModel.ParentName</dd>
+        <dt class="col-sm-4">Tên phụ huynh</dt>
+        <dd class="col-sm-8">@AppointmentViewModel.ParentName</dd>
 
-        <dt class="col-sm-3 mb-4">Tên bé</dt>
-        <dd class="col-sm-9 mb-4">@AppointmentViewModel.ChildName</dd>
+        <dt class="col-sm-4">Tên bé</dt>
+        <dd class="col-sm-8">@AppointmentViewModel.ChildName</dd>
 
-        <dt class="col-sm-3 mb-4">Giới tính</dt>
-        <dd class="col-sm-9 mb-4">@AppointmentViewModel.Gender</dd>
+        <dt class="col-sm-4">Giới tính</dt>
+        <dd class="col-sm-8">@AppointmentViewModel.Gender</dd>
 
-        <dt class="col-sm-3 mb-4">Tên bác sĩ khám</dt>
-        <dd class="col-sm-9 mb-4">@AppointmentViewModel.DoctorName</dd>
+        <dt class="col-sm-4">Tên bác sĩ khám</dt>
+        <dd class="col-sm-8">@AppointmentViewModel.DoctorName</dd>
 
-        <dt class="col-sm-3 mb-4">Dịch vụ khám</dt>
-        <dd class="col-sm-9 mb-4">@AppointmentViewModel.ServiceName</dd>
+        <dt class="col-sm-4">Dịch vụ khám</dt>
+        <dd class="col-sm-8">@AppointmentViewModel.ServiceName</dd>
 
-        <dt class="col-sm-3 mb-4">Ngày khám</dt>
-        <dd class="col-sm-9 mb-4">@AppointmentViewModel.CheckupDateTime</dd>
+        <dt class="col-sm-4">Ngày khám</dt>
+        <dd class="col-sm-8">@AppointmentViewModel.CheckupDateTime</dd>
 
-        <dt class="col-sm-3 mb-4">Tổng phí</dt>
-        <dd class="col-sm-9 mb-4">@AppointmentViewModel.TotalAmount.ToString() VND</dd>
+        <dt class="col-sm-4">Tổng phí</dt>
+        <dd class="col-sm-8">@AppointmentViewModel.TotalAmount.ToString() VND</dd>
 
-        <dt class="col-sm-3 mb-4">Mã kết quả khám</dt>
-        <dd class="col-sm-9 mb-4">@AppointmentViewModel.ExaminationReportId</dd>
+        <dt class="col-sm-4">Mã kết quả khám</dt>
+        <dd class="col-sm-8">@AppointmentViewModel.ExaminationReportId</dd>
 
-        <dt class="col-sm-3 mb-4">Hẹn tái khám</dt>
-        <dd class="col-sm-9 mb-4">@AppointmentViewModel.FollowUpAppointment</dd>
+        <dt class="col-sm-4">Hẹn tái khám</dt>
+        <dd class="col-sm-8">@AppointmentViewModel.FollowUpAppointment</dd>
 
-        <dt class="col-sm-3 mb-4">Ngày tạo</dt>
-        <dd class="col-sm-9 mb-4">@AppointmentViewModel.CreatedAt.ToString("dd/MM/yyyy")</dd>
+        <dt class="col-sm-4">Ngày tạo</dt>
+        <dd class="col-sm-8">@AppointmentViewModel.CreatedAt.ToString("dd/MM/yyyy")</dd>
 
-        <dt class="col-sm-3 mb-4">Cập nhật lần cuối</dt>
-        <dd class="col-sm-9 mb-4">@AppointmentViewModel.UpdatedAt</dd>
+        <dt class="col-sm-4">Cập nhật lần cuối</dt>
+        <dd class="col-sm-8">@AppointmentViewModel.UpdatedAt</dd>
 
-        <dt class="col-sm-3 mb-4">Trạng thái</dt>
-        <dd class="col-sm-9 mb-4">
-            @AppointmentViewModel.Status
-        </dd>
+        <dt class="col-sm-4">Trạng thái</dt>
+        <dd class="col-sm-8">@AppointmentViewModel.Status</dd>
     </dl>
+
     <hr />
-    <h3>Chi tiết kết quả khám</h3>
+    <h3 class="text-center">Chi tiết kết quả khám</h3>
     <hr />
     @if (Report != null)
     {
-        <dl class="row d-flex align-items-center">
-            <dt class="col-sm-3 mb-4">Mã kết quả khám</dt>
-            <dd class="col-sm-9 mb-4">@Report.Id</dd>
+        <dl class="row info-container">
+            <dt class="col-sm-4">Mã kết quả khám</dt>
+            <dd class="col-sm-8">@Report.Id</dd>
 
-            <dt class="col-sm-3 mb-4">Chẩn đoán</dt>
-            <dd class="col-sm-9 mb-4">@Report.Diagnosis</dd>
+            <dt class="col-sm-4">Chẩn đoán</dt>
+            <dd class="col-sm-8">@Report.Diagnosis</dd>
 
-            <dt class="col-sm-3 mb-4">Ghi chú</dt>
-            <dd class="col-sm-9 mb-4">@Report.Notes</dd>
+            <dt class="col-sm-4">Ghi chú</dt>
+            <dd class="col-sm-8">@Report.Notes</dd>
 
-            <dt class="col-sm-3 mb-4">Ngày tạo</dt>
-            <dd class="col-sm-9 mb-4">@Report.CreatedAt.ToString("dd/MM/yyyy")</dd>
+            <dt class="col-sm-4">Ngày tạo</dt>
+            <dd class="col-sm-8">@Report.CreatedAt.ToString("dd/MM/yyyy")</dd>
         </dl>
     }
-    <hr />
-    <h3>Chi tiết toa thuốc</h3>
-    <hr />
 
+    <hr />
+    <h3 class="text-center">Chi tiết toa thuốc</h3>
+    <hr />
     @if (PrescriptionDetails == null)
     {
         <p class="text-center">Đang tải dữ liệu...</p>
@@ -79,9 +78,9 @@
     }
     else
     {
-        <table class="table table-bordered table-hover text-center">
-            <thead class="table-dark">
-                <tr style="background-color: white; border: 2px solid gray">
+        <table class="table table-bordered table-hover text-center prescription-table">
+            <thead>
+                <tr>
                     <th>Tên thuốc</th>
                     <th>Số lượng</th>
                     <th>Liều dùng</th>
@@ -93,13 +92,13 @@
             <tbody>
                 @foreach (var prescription in PrescriptionDetails)
                 {
-                    <tr class="border">
+                    <tr>
                         <td>@prescription.MedicineName</td>
                         <td>@prescription.Quantity</td>
                         <td>@prescription.Dosage</td>
                         <td>@prescription.Slot</td>
-                        <td>@prescription.MedicinePrice</td>
-                        <td>@prescription.TotalAmount</td>
+                        <td>@prescription.MedicinePrice VND</td>
+                        <td>@prescription.TotalAmount VND</td>
                     </tr>
                 }
             </tbody>
@@ -107,8 +106,51 @@
     }
 
     <hr />
-    <NavLink href="/AccountDetail" class="btn btn-secondary">Quay lại trang quản lý lịch hẹn</NavLink>
+    <div class="text-center">
+        <NavLink href="/AccountDetail" class="btn btn-secondary">Quay lại trang quản lý lịch hẹn</NavLink>
+    </div>
     <br />
-
-
 </div>
+
+<style>
+    .content-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-container dt {
+        font-weight: bold;
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 4px;
+    }
+
+    .info-container dd {
+        padding: 10px;
+        border-radius: 4px;
+    }
+
+    .prescription-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+        .prescription-table th, .prescription-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .prescription-table thead tr {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .prescription-table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+</style>

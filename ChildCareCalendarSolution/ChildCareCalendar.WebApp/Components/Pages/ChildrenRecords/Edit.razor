@@ -1,53 +1,60 @@
 ﻿@page "/childrenRecords/edit/{id:int}"
 @rendermode InteractiveServer
 
-<h3>Chỉnh sửa hồ sơ trẻ em</h3>
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="w-50">
+        <h3 class="text-center">Chỉnh sửa hồ sơ trẻ em</h3>
 
-@if (ChildRecord == null)
-{
-    <p>Đang tải dữ liệu...</p>
-}
-else
-{
+        @if (ChildRecord == null)
+        {
+            <p class="text-center">Đang tải dữ liệu...</p>
+        }
+        else
+        {
+            @if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                <div class="alert alert-danger text-center">
+                    @ErrorMessage
+                </div>
+            }
 
-    @if (!string.IsNullOrEmpty(ErrorMessage))
-    {
-        <div class="alert alert-danger w-50">
-            @ErrorMessage
-        </div>
-    }
+            <EditForm Model="ChildRecord" OnValidSubmit="SaveChanges">
+                <DataAnnotationsValidator />
 
-    <EditForm Model="ChildRecord" OnValidSubmit="SaveChanges">
-        <DataAnnotationsValidator />
+                <div class="mb-3">
+                    <label class="form-label">Tên bé</label>
+                    <InputText class="form-control" @bind-Value="ChildRecord.FullName" />
+                    <ValidationMessage For="@(() => ChildRecord.FullName)" class="text-danger" />
+                </div>
 
-        <div class="mb-3">
-            <label class="form-label">Tên bé</label>
-            <InputText class="form-control" @bind-Value="ChildRecord.FullName" />
-            <ValidationMessage For="@(() => ChildRecord.FullName)" class="text-danger" />
-        </div>
+                <div class="mb-3">
+                    <label class="form-label">Ngày sinh</label>
+                    <InputDate class="form-control" @bind-Value="ChildRecord.Dob" />
+                    <ValidationMessage For="@(() => ChildRecord.Dob)" class="text-danger" />
+                </div>
 
-        <div class="mb-3">
-            <label class="form-label">Ngày sinh</label>
-            <InputDate class="form-control" @bind-Value="ChildRecord.Dob" />
-            <ValidationMessage For="@(() => ChildRecord.Dob)" class="text-danger" />
-        </div>
+                <div class="mb-3">
+                    <label class="form-label">Giới tính</label>
+                    <InputSelect class="form-control" @bind-Value="ChildRecord.Gender">
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                    </InputSelect>
+                </div>
 
-        <div class="mb-3">
-            <label class="form-label">Giới tính</label>
-            <InputSelect class="form-control" @bind-Value="ChildRecord.Gender">
-                <option value="Nam">Nam</option>
-                <option value="Nữ">Nữ</option>
-            </InputSelect>
-        </div>
+                <div class="mb-3">
+                    <label class="form-label">Tiền sử bệnh</label>
+                    <InputTextArea class="form-control" @bind-Value="ChildRecord.MedicalHistory" />
+                </div>
 
-        <div class="mb-3">
-            <label class="form-label">Tiền sử bệnh</label>
-            <InputTextArea class="form-control" @bind-Value="ChildRecord.MedicalHistory" />
-        </div>
+                <!-- Căn chỉnh nút hành động -->
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="button" class="btn btn-secondary" @onclick="Cancel">Hủy</button>
+                </div>
+            </EditForm>
+        }
+    </div>
+</div>
 
-        <button type="submit" class="btn btn-primary">Lưu</button>
-        <button type="button" class="btn btn-secondary" @onclick="Cancel">Hủy</button>
-    </EditForm>
-}
 
 
