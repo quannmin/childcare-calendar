@@ -4,14 +4,14 @@ using ChildCareCalendar.Domain.ViewModels.Appointment;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 
-namespace ChildCareCalendar.WebApp.Components.Pages.Appointment
+namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
 {
     public partial class Create
     {
         public AppUser Parent { get; set; }
         public List<AppUser> Doctors = new();
         public List<ChildrenRecord> ChildrenRecords = new();
-        public List<ChildCareCalendar.Domain.Entities.Service> Services = new();
+        public List<Service> Services = new();
         public List<Speciality> Specialities = new();
         public List<Schedule> Schedules = new();
 

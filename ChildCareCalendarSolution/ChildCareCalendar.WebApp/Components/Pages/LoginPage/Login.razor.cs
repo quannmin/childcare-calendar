@@ -1,18 +1,14 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using ChildCareCalendar.Domain.Entities;
-using ChildCareCalendar.Infrastructure.Services;
-using System.Linq.Expressions;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using BCrypt.Net;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using ChildCareCalendar.Domain.ViewModels.Account;
+using Microsoft.AspNetCore.Http;
 
-namespace ChildCareCalendar.Admin.Components.Pages.Account
+namespace ChildCareCalendar.WebApp.Components.Pages.LoginPage
 {
     public partial class Login
     {
@@ -25,7 +21,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
         private NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
-        private Infrastructure.Services.Interfaces.IAuthenticationService AuthService { get; set; } = default!;
+        private IHttpContextAccessor HttpContextAccessor { get; set; } = default!;
 
         [Inject]
         private IJSRuntime JS { get; set; } = default!;
@@ -45,14 +41,11 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
                 isLoading = true;
                 errorMessage = string.Empty;
 
-                // Kiểm tra người dùng tồn tại bằng email thay vì số điện thoại
-                var users = await UserService.FindUsersAsync(u =>
-                    u.Email == loginModel.Email.Trim() && !u.IsDelete);
-                var user = users.FirstOrDefault();
+                var user = (await UserService.FindUsersAsync(u =>
+            u.Email == loginModel.Email.Trim() && !u.IsDelete)).FirstOrDefault();
 
                 if (user == null)
                 {
-                    // Kiểm tra xem email có tồn tại nhưng bị xóa không
                     var deletedUser = (await UserService.FindUsersAsync(u =>
                         u.Email == loginModel.Email.Trim() && u.IsDelete)).FirstOrDefault();
 
@@ -67,7 +60,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
                     return;
                 }
 
-                // Xác thực mật khẩu
+         
                 bool isPasswordValid = BCrypt.Net.BCrypt.EnhancedVerify(
                                  loginModel.Password,
                                  user.Password,
@@ -86,26 +79,26 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
                     new Claim(ClaimTypes.Role, user.Role)
                 };
 
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var claimsIdentity = new ClaimsIdentity(
+                   claims,
+                   CookieAuthenticationDefaults.AuthenticationScheme);
+
                 var authProperties = new AuthenticationProperties
                 {
-                    IsPersistent = true,
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+                    IsPersistent = true, 
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(30) 
                 };
 
+                NavigationManager.NavigateTo("/", forceLoad: true);
 
-                //await AuthService.SignInAsync(
-                //    new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme)),
-                //    authProperties);
+                await HttpContextAccessor.HttpContext!.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
+           
 
-                if (user.Role == "PhuHuynh")
-                {
-                    NavigationManager.NavigateTo("/", replace: true);
-                }
-                else if (user.Role == "Admin")
-                {
-                    NavigationManager.NavigateTo("/", replace: true);
-                }
+             
+
             }
             catch (Exception ex)
             {
