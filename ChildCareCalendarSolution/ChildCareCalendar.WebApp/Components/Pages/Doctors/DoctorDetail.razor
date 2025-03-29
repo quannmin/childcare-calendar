@@ -1,0 +1,51 @@
+﻿@page "/doctor/{DoctorId:int}"
+
+<link href="css/Doctor/DoctorDetail.css" rel="stylesheet" />
+
+
+<PageTitle>Thông tin bác sĩ</PageTitle>
+
+@if (doctor != null)
+{
+    <section class="doctor-detail">
+        <div class="container">
+            <div class="doctor-info">
+                <img src="@doctor.Avatar" alt="Ảnh bác sĩ" class="doctor-image" />
+                <div class="doctor-details">
+                    <h2 class="doctor-name"> Bác sĩ @doctor.FullName</h2>
+                    <p><strong>Chuyên khoa:</strong> @doctor.Speciality?.SpecialtyName</p>
+                    <p><strong>Chuyên trị:</strong> @doctor.Speciality?.Description</p>
+                    <p><strong>Lịch khám:</strong> Hẹn Khám</p>
+                    <NavLink class="btn-primary" href="@($"/Appointment/Doctor?doctorId={doctor.Id}")">Đặt khám ngay</NavLink>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="related-doctors">
+        <div class="container">
+            <h3>Bác sĩ cùng chuyên khoa</h3>
+            <div class="doctor-list">
+                @if (relatedDoctors != null && relatedDoctors.Any())
+                {
+                    @foreach (var doc in relatedDoctors)
+                    {
+                        <div class="doctor-card">
+                            <img src="@doc.Avatar" alt="Ảnh bác sĩ" class="doctor-avatar" />
+                            <h4>@doc.FullName</h4>
+                            <p>@doc.Speciality?.SpecialtyName</p>
+                            <NavLink class="btn-secondary" href="@($"/doctor/{doc.Id}")">Xem chi tiết</NavLink>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Không có bác sĩ nào khác cùng chuyên khoa.</p>
+                }
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <p>Đang tải thông tin bác sĩ...</p>
+} 

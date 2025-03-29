@@ -3,11 +3,16 @@
 
 <h3>Quản lý lịch sử hoàn tiền</h3>
 
+<!-- Thanh tìm kiếm -->
+<div class="d-flex justify-content-between mb-3">
+    <input type="text" @bind="SearchTerm" class="form-control w-25" placeholder="Nhập tên phụ huynh..." @oninput="FilterReports" />
+</div>
+
 @if (RefundReports == null)
 {
     <p class="text-center">Đang tải dữ liệu...</p>
 }
-else if (!RefundReports.Any())
+else if (!PagedRefundReports.Any())
 {
     <p class="text-center">Không có dữ liệu</p>
 }
@@ -25,17 +30,24 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var refund in RefundReports)
+            @foreach (var refund in PagedRefundReports)
             {
                 <tr>
                     <td>@refund.RefundReportId</td>
                     <td>@refund.RefundAmount.ToString("N0") VND</td>
                     <td>@refund.RefundDate.ToString("dd/MM/yyyy")</td>
-                    <td>@refund.RefundPercentage %</td>
+                    <td>@refund.RefundPercentage%</td>
                     <td>@refund.UserName</td>
                     <td>@refund.PhoneNumber</td>
                 </tr>
             }
         </tbody>
     </table>
+
+    <!-- Điều hướng phân trang -->
+    <div class="d-flex justify-content-between">
+        <button class="btn btn-primary" @onclick="PreviousPage" disabled="@(CurrentPage == 1)">Trước</button>
+        <span>Trang @CurrentPage / @TotalPages</span>
+        <button class="btn btn-primary" @onclick="NextPage" disabled="@(CurrentPage == TotalPages)">Sau</button>
+    </div>
 }

@@ -1,73 +1,58 @@
 ﻿@page "/appointmentDetail/{id:int}"
 
-<div class="content-container">
-    <br />
-    <h3 class="text-center">Chi tiết lịch hẹn</h3>
-    <hr />
-    <dl class="row info-container">
-        <dt class="col-sm-4">Mã lịch hẹn</dt>
-        <dd class="col-sm-8">@AppointmentViewModel.Id</dd>
+<div class="appointment-detail-container">
+    <h3 class="section-title">Chi tiết lịch hẹn</h3>
+    <dl class="row d-flex align-items-center">
+        <dt class="col-sm-3 mb-3">Tên phụ huynh</dt>
+        <dd class="col-sm-9 mb-3">@AppointmentViewModel.ParentName</dd>
 
-        <dt class="col-sm-4">Tên phụ huynh</dt>
-        <dd class="col-sm-8">@AppointmentViewModel.ParentName</dd>
+        <dt class="col-sm-3 mb-3">Tên bé</dt>
+        <dd class="col-sm-9 mb-3">@AppointmentViewModel.ChildName</dd>
 
-        <dt class="col-sm-4">Tên bé</dt>
-        <dd class="col-sm-8">@AppointmentViewModel.ChildName</dd>
+        <dt class="col-sm-3 mb-3">Giới tính</dt>
+        <dd class="col-sm-9 mb-3">@AppointmentViewModel.Gender</dd>
 
-        <dt class="col-sm-4">Giới tính</dt>
-        <dd class="col-sm-8">@AppointmentViewModel.Gender</dd>
+        <dt class="col-sm-3 mb-3">Tên bác sĩ khám</dt>
+        <dd class="col-sm-9 mb-3">@AppointmentViewModel.DoctorName</dd>
 
-        <dt class="col-sm-4">Tên bác sĩ khám</dt>
-        <dd class="col-sm-8">@AppointmentViewModel.DoctorName</dd>
+        <dt class="col-sm-3 mb-3">Dịch vụ khám</dt>
+        <dd class="col-sm-9 mb-3">@AppointmentViewModel.ServiceName</dd>
 
-        <dt class="col-sm-4">Dịch vụ khám</dt>
-        <dd class="col-sm-8">@AppointmentViewModel.ServiceName</dd>
+        <dt class="col-sm-3 mb-3">Ngày khám</dt>
+        <dd class="col-sm-9 mb-3">@AppointmentViewModel.CheckupDateTime.ToString("dd/MM/yyyy HH:mm")</dd>
 
-        <dt class="col-sm-4">Ngày khám</dt>
-        <dd class="col-sm-8">@AppointmentViewModel.CheckupDateTime</dd>
+        <dt class="col-sm-3 mb-3">Tổng phí</dt>
+        <dd class="col-sm-9 mb-3">@AppointmentViewModel.TotalAmount.ToString("N0") VND</dd>
 
-        <dt class="col-sm-4">Tổng phí</dt>
-        <dd class="col-sm-8">@AppointmentViewModel.TotalAmount.ToString() VND</dd>
+        <dt class="col-sm-3 mb-3">Hẹn tái khám</dt>
+        <dd class="col-sm-9 mb-3">@AppointmentViewModel.FollowUpAppointment</dd>
 
-        <dt class="col-sm-4">Mã kết quả khám</dt>
-        <dd class="col-sm-8">@AppointmentViewModel.ExaminationReportId</dd>
+        <dt class="col-sm-3 mb-3">Ngày tạo</dt>
+        <dd class="col-sm-9 mb-3">@AppointmentViewModel.CreatedAt.ToString("dd/MM/yyyy HH:mm")</dd>
 
-        <dt class="col-sm-4">Hẹn tái khám</dt>
-        <dd class="col-sm-8">@AppointmentViewModel.FollowUpAppointment</dd>
-
-        <dt class="col-sm-4">Ngày tạo</dt>
-        <dd class="col-sm-8">@AppointmentViewModel.CreatedAt.ToString("dd/MM/yyyy")</dd>
-
-        <dt class="col-sm-4">Cập nhật lần cuối</dt>
-        <dd class="col-sm-8">@AppointmentViewModel.UpdatedAt</dd>
-
-        <dt class="col-sm-4">Trạng thái</dt>
-        <dd class="col-sm-8">@AppointmentViewModel.Status</dd>
+        <dt class="col-sm-3 mb-3">Trạng thái</dt>
+        <dd class="col-sm-9 mb-3">@AppointmentViewModel.Status</dd>
     </dl>
 
-    <hr />
-    <h3 class="text-center">Chi tiết kết quả khám</h3>
-    <hr />
+    <h3 class="sub-section-title">Chi tiết kết quả khám</h3>
     @if (Report != null)
     {
-        <dl class="row info-container">
-            <dt class="col-sm-4">Mã kết quả khám</dt>
-            <dd class="col-sm-8">@Report.Id</dd>
+        <dl class="row d-flex align-items-center">
+            <dt class="col-sm-3 mb-3">Chẩn đoán</dt>
+            <dd class="col-sm-9 mb-3">@Report.Diagnosis</dd>
 
-            <dt class="col-sm-4">Chẩn đoán</dt>
-            <dd class="col-sm-8">@Report.Diagnosis</dd>
+            <dt class="col-sm-3 mb-3">Ghi chú</dt>
+            <dd class="col-sm-9 mb-3">@Report.Notes</dd>
 
-            <dt class="col-sm-4">Ghi chú</dt>
-            <dd class="col-sm-8">@Report.Notes</dd>
-
-            <dt class="col-sm-4">Ngày tạo</dt>
-            <dd class="col-sm-8">@Report.CreatedAt.ToString("dd/MM/yyyy")</dd>
+            <dt class="col-sm-3 mb-3">Ngày tạo</dt>
+            <dd class="col-sm-9 mb-3">@Report.CreatedAt.ToString("dd/MM/yyyy HH:mm")</dd>
         </dl>
     }
 
-    <hr />
-    <h3 class="text-center">Chi tiết toa thuốc</h3>
-    <hr />
+    
+    <h3 class="sub-section-title">Chi tiết toa thuốc</h3>
+   
+
     @if (PrescriptionDetails == null)
     {
         <p class="text-center">Đang tải dữ liệu...</p>
@@ -78,8 +63,8 @@
     }
     else
     {
-        <table class="table table-bordered table-hover text-center prescription-table">
-            <thead>
+        <table class="table table-bordered table-hover text-center">
+            <thead class="table-dark">
                 <tr>
                     <th>Tên thuốc</th>
                     <th>Số lượng</th>
@@ -97,60 +82,89 @@
                         <td>@prescription.Quantity</td>
                         <td>@prescription.Dosage</td>
                         <td>@prescription.Slot</td>
-                        <td>@prescription.MedicinePrice VND</td>
-                        <td>@prescription.TotalAmount VND</td>
+                        <td>@prescription.MedicinePrice.ToString("N0")</td>
+                        <td>@prescription.TotalAmount.ToString("N0")</td>
                     </tr>
                 }
             </tbody>
         </table>
     }
 
-    <hr />
+    
     <div class="text-center">
-        <NavLink href="/AccountDetail" class="btn btn-secondary">Quay lại trang quản lý lịch hẹn</NavLink>
+        <NavLink href="/AccountDetail" class="btn btn-secondary return-btn">Quay lại trang quản lý lịch hẹn</NavLink>
     </div>
-    <br />
 </div>
 
 <style>
-    .content-container {
-        max-width: 800px;
+    .sub-section-title {
+        text-align: left;
+        font-size: 20px;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
+
+    .appointment-detail-container {
+        max-width: 900px;
         margin: 0 auto;
-        padding: 20px;
-        background: #fff;
+        padding: 30px 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #fff;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: 700;
+        color: #2c3e50;
+    }
+
+    /* Căn trái tiêu đề phụ */
+    .sub-section-title {
+        text-align: left;
+        font-size: 20px;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
+
+    dt {
+        font-weight: 600;
+        color: #333;
+    }
+
+    dd {
+        color: #555;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    .table th {
+        background-color: #00bcd4;
+        color: white;
+    }
+
+    .return-btn {
+        margin-top: 20px;
+        padding: 10px 24px;
+        font-size: 15px;
+        font-weight: 600;
         border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .info-container dt {
-        font-weight: bold;
-        background: #f8f9fa;
-        padding: 10px;
-        border-radius: 4px;
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        border: none;
     }
 
-    .info-container dd {
-        padding: 10px;
-        border-radius: 4px;
-    }
-
-    .prescription-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
-    }
-
-        .prescription-table th, .prescription-table td {
-            padding: 12px;
-            border: 1px solid #ddd;
+        .btn-secondary:hover {
+            background-color: #5a6268;
         }
 
-        .prescription-table thead tr {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .prescription-table tbody tr:hover {
-            background-color: #f1f1f1;
-        }
 </style>

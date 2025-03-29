@@ -9,6 +9,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
 {
     public partial class DoctorRoute
     {
+
         private int? selectedDoctorId;
         private string? selectedDoctorName;
         private int? selectedSpecialtyId;
@@ -25,12 +26,39 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         private AppUser? selectedDoctor;
         private Speciality? selectedSpeciality;
         private Service? selectedService;
+
+        [Inject] private IUserService UserService { get; set; } = default!;
         
 
         [Inject] private IVnPayService VnPayService { get; set; } = default!;
         [Inject] private IPayPalService PayPalService { get; set; } = default!;
         [Inject] private NavigationManager Navigation { get; set; } = default!;
         [Inject] private IHttpContextAccessor HttpContextAccessor { get; set; } = default!;
+
+        protected override async Task OnParametersSetAsync()
+        {
+            var uri = new Uri(Navigation.Uri);
+            var query = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query);
+
+            if (query.TryGetValue("doctorId", out var doctorIdStr) && int.TryParse(doctorIdStr, out var doctorId))
+            {
+                selectedDoctor = await UserService.FindUserAsync(
+                    u => u.Id == doctorId,
+                    u => u.Speciality // Include chuyên khoa
+                );
+
+                if (selectedDoctor != null)
+                {
+                    selectedDoctorId = selectedDoctor.Id;
+                    selectedDoctorName = selectedDoctor.FullName;
+                    selectedSpecialtyId = selectedDoctor.Speciality?.Id;
+                    selectedSpecialtyName = selectedDoctor.Speciality?.SpecialtyName;
+                }
+            }
+
+            StateHasChanged(); // Đảm bảo UI cập nhật khi doctorId thay đổi
+        }
+
 
         private void HandleDoctorSelection(AppUser doctor)
         {

@@ -11,8 +11,11 @@ namespace ChildCareCalendar.Utilities.Constants
     {
         public enum Gender
         {
+            [Display(Name = "Nam")]
             Nam,
+            [Display(Name = "Nữ")]
             Nữ,
+            [Display(Name = "Khác")]
             Khác
         }
         public enum AccountsRole
@@ -29,25 +32,44 @@ namespace ChildCareCalendar.Utilities.Constants
 
         public enum AppointmentStatus
         {
+            [Display(Name = "Đã đặt")]
             Ordered,
+            [Display(Name = "Đã check in")]
             CheckedIn,
+            [Display(Name = "Đã hủy")]
             Cancelled,
+            [Display(Name = "Hoàn thành")]
             Completed,
+            [Display(Name = "Tái khám")]
             ReExamination
         }
 
         public enum PaymentMethod
-        {   
+        {
+            [Display(Name = "VNPay")]
             VNPAY,
+            [Display(Name = "PayPal")]
             PayPal,
+            [Display(Name = "MoMo")]
             MoMo
         }
 
         public enum PrescriptionSlot
         {
+            [Display(Name = "Sáng")]
             Day,
+            [Display(Name = "Trưa")]
             Noon,
-            Night
+            [Display(Name = "Tối")]
+            Night,
+            [Display(Name = "Sáng, Trưa")]
+            DayNoon,
+            [Display(Name = "Sáng, Tối")]
+            DayNight,
+            [Display(Name = "Trưa, Tối")]
+            NoonNight,
+            [Display(Name = "Sáng, Trưa, Tối")]
+            DayNoonNight
         }
     }
 }
