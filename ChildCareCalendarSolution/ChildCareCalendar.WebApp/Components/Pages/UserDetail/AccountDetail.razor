@@ -49,7 +49,7 @@
                             <td>@appointment.ChildName</td>
                             <td>@appointment.ServiceName</td>
                             <td>@appointment.TotalAmount.ToString() VND</td>
-                            <td>@appointment.Status</td>
+                            <td>@appointment.Status.GetEnumDisplayName(typeof(SystemConstant.AppointmentStatus))</td>
                             <td>
                                 @if ("ORDERED".Equals(@appointment.Status)) 
                                 {
