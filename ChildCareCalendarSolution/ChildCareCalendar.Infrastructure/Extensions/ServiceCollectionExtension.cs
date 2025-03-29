@@ -27,7 +27,8 @@ namespace ChildCareCalendar.Infrastructure.Extensions
             services.AddSingleton<CloudinaryService>();
 			services.AddTransient<IWorkHourService, WorkHourService>();
 			services.AddSingleton<CloudinaryService>();
-			return services;
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
+            return services;
 		}
 	}
 }

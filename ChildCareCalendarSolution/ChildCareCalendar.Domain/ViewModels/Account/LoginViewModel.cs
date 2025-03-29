@@ -9,10 +9,11 @@ namespace ChildCareCalendar.Domain.ViewModels.Account
 {
     public class LoginViewModel
     {
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide email")]
+        [Required(ErrorMessage = "Vui lòng nhập email")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ")]
         public string? Email { get; set; }
-
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide password")]
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu")]
+        [MinLength(6, ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự")]
         public string? Password { get; set; }
     }
 }

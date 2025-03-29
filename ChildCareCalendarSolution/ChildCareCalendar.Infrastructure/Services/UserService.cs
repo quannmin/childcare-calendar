@@ -38,6 +38,7 @@ namespace ChildCareCalendar.Infrastructure.Services
             return user.FirstOrDefault();
         }
 
+
         public async Task<IEnumerable<AppUser>> FindUsersAsync(Expression<Func<AppUser, bool>> predicate,
                                                         params Expression<Func<AppUser, object>>[] includes)
         {

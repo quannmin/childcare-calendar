@@ -24,11 +24,13 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.Cookie.Name = "auth_token";
         options.LoginPath = "/login";
+        options.LogoutPath = "/logout";
         options.Cookie.MaxAge = TimeSpan.FromMinutes(30);
         options.AccessDeniedPath = "/access-denied";
     });
@@ -46,6 +48,11 @@ builder.Services.Configure<HubOptions>(options =>
     options.ClientTimeoutInterval = TimeSpan.FromSeconds(60);
     options.KeepAliveInterval = TimeSpan.FromSeconds(15);
 });
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
+
 
 var app = builder.Build();
 
@@ -67,6 +74,8 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+app.UseCookiePolicy();
 app.UseAuthentication();
 app.UseAuthorization();
 
