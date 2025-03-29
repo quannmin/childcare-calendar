@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace ChildCareCalendar.WebApp.Components.Pages.LoginPage
+namespace ChildCareCalendar.Admin.Components.Pages.Account
 {
     public partial class Login
     {

@@ -6,16 +6,13 @@ using Microsoft.EntityFrameworkCore;
 using ChildCareCalendar.Infrastructure.Extensions;
 using ChildCareCalendar.Infrastructure.Mappings;
 using Microsoft.AspNetCore.Components;
-<<<<<<< HEAD
 using ChildCareCalendar.Domain.ViewModels;
 using Microsoft.AspNetCore.Components.Server;
-=======
 using Microsoft.AspNetCore.Authentication.Cookies;
->>>>>>> 904b40420c3f3ea9539b6e564f83f14730b7d669
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
@@ -23,19 +20,11 @@ builder.Services.AddRazorComponents()
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 Console.WriteLine($"Connection String: {connectionString}");
 
-<<<<<<< HEAD
 builder.Services.AddDbContext<ChildCareCalendarContext>(options => {
 	options.UseSqlServer(connectionString);
 	options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
-=======
-builder.Services.AddDbContext<ChildCareCalendarContext>(options =>
-{
-    options.UseSqlServer(connectionString);
-    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-}, ServiceLifetime.Scoped);
->>>>>>> 904b40420c3f3ea9539b6e564f83f14730b7d669
 
 builder.Services.Configure<CircuitOptions>(options =>
 {
