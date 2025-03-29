@@ -27,6 +27,11 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 
 		private int? idToDelete;
 
+		private int CurrentPage = 1;
+		private int PageSize = 10;
+		private int TotalPages = 1;
+		private int TotalItems = 0;
+
 		protected override async Task OnInitializedAsync()
         {
 			await LoadData();
