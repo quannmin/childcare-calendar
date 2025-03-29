@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\assets\css\Login.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="MailKit" Version="4.10.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.DataAnnotations.Validation" Version="3.2.0-rc1.20223.4" />
@@ -39,6 +43,10 @@
   <ItemGroup>
     <Folder Include="Components\Pages\RefundReport\" />
     <Folder Include="wwwroot\assets\js\plugins\tinymce\icons\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\css\Login.css" />
   </ItemGroup>
 
 </Project>

@@ -1,12 +1,11 @@
 ﻿@page "/register"
-@using ChildCareCalendar.Admin.Components.Layout
 @using ChildCareCalendar.Utilities.Constants
+@using ChildCareCalendar.WebApp.Components.Layout
 @layout EmptyLayout
 @rendermode InteractiveServer
 @inject IJSRuntime JS
 
-
-<link rel="stylesheet" href="/assets/css/Registration.css">
+<link rel="stylesheet" href="/css/Registration.css">
 <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
 <div class="container">
@@ -173,7 +172,7 @@
 
 <!-- Đảm bảo rằng file JS được load sau khi DOM đã render -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="../Components/Pages/Account/Registration.razor.js"></script>
+<script src="../Components/Pages/Authentication/Registration.razor.js"></script>
 <script>
     function displayEmailDuplicate() {
         let errorDiv = document.getElementById("emailDuplicateError");

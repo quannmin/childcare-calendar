@@ -388,6 +388,7 @@ input::-webkit-outer-spin-button {
     pointer-events: auto;
     transform: translateY(0);
 }
+
 #registrationForm.otpActive .form.first {
     opacity: 0;
     pointer-events: none;
