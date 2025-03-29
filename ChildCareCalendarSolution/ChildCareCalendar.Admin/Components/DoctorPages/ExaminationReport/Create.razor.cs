@@ -8,9 +8,11 @@ using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static ChildCareCalendar.Utilities.Constants.SystemConstant;
 
 namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
 {
@@ -170,7 +172,7 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
                     if (appointmentEntity == null)
                     {
                         throw new Exception($"Appointment với ID {AppointmentId} không tồn tại.");
-                    }
+                    }            
 
                     examinationReport.AppointmentId = AppointmentId;
                     examinationReport.ChildrenRecordId = (int)appointmentEntity.ChildrenRecordId;
@@ -185,6 +187,9 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
                     }
 
                     await ExaminationReportService.CreateExaminationReportAsync(examinationReport, prescriptionDetails);
+
+                    appointmentEntity.Status = AppointmentStatus.Completed.ToString();
+                    await AppointmentService.UpdateAppointmentAsync(appointmentEntity);
 
                     Navigation.NavigateTo($"/examination-reports/detail/{examinationReport.Id}");
                 }
