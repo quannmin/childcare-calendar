@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 
 namespace ChildCareCalendar.Infrastructure.Services
 {
+
     public class RefundReportService : IRefundReportService
     {
         private readonly IRepository<RefundReport> _refundReportRepository;
@@ -19,13 +20,11 @@ namespace ChildCareCalendar.Infrastructure.Services
             await _refundReportRepository.AddAsync(newRefundReport);
         }
 
-        public async Task<IEnumerable<RefundReport>> FindAppointmentsAsync(Expression<Func<RefundReport, bool>> predicate, params Expression<Func<RefundReport, object>>[] includes)
+        public async Task<IEnumerable<RefundReport>> FindRefundReportsAsync(
+            Expression<Func<RefundReport, bool>> predicate,
+            params Expression<Func<RefundReport, object>>[] includes)
         {
-            return await _refundReportRepository.FindAsync(
-           r => !r.IsDelete,
-           r => r.Appointment,
-           r => r.Appointment.Parent
-       );
+            return await _refundReportRepository.FindAsync(predicate, includes);
         }
 
         public async Task<IEnumerable<RefundReport>> GetAllRefundReportsAsync()

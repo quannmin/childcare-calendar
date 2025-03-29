@@ -36,3 +36,4 @@ wwwroot/lib/
 
 /ChildCareCalendarSolution/ChildCareCalendar.Domain/Migrations/
 /ChildCareCalendar.Domain/Migrations/
+appsettings.Secret.json

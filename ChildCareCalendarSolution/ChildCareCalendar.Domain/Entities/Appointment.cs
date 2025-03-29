@@ -15,7 +15,7 @@ namespace ChildCareCalendar.Domain.Entities
         public decimal TotalAmount { get; set; }
 
         [DefaultValue(false)]
-        public bool IsDelete { get; set; } = false; 
+        public bool IsDelete { get; set; } = false;
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public int ParentId { get; set; }
@@ -23,7 +23,7 @@ namespace ChildCareCalendar.Domain.Entities
         public int DoctorId { get; set; }
         public AppUser? Doctor { get; set; }
         public int ServiceId { get; set; }
-        public Service? Service { get; set; }    
+        public Service? Service { get; set; }
         public int? ChildrenRecordId { get; set; }
         public ChildrenRecord? ChildrenRecord { get; set; }
         public int? FollowUpAppointmentId { get; set; }

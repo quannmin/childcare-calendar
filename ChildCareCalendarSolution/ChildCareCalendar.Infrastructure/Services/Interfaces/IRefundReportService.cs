@@ -8,7 +8,8 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task<IEnumerable<RefundReport>> GetAllRefundReportsAsync();
         Task<RefundReport> GetRefundReportAsync(int id);
         Task AddRefundReportAsync(RefundReport newRefundReport);
-        Task<IEnumerable<RefundReport>> FindAppointmentsAsync(Expression<Func<RefundReport, bool>> predicate,
-                                                                params Expression<Func<RefundReport, object>>[] includes);
+        Task<IEnumerable<RefundReport>> FindRefundReportsAsync(
+            Expression<Func<RefundReport, bool>> predicate,
+            params Expression<Func<RefundReport, object>>[] includes);
     }
 }

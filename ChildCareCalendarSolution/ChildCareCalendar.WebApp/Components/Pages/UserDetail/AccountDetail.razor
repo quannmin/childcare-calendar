@@ -1,26 +1,24 @@
 ﻿@page "/AccountDetail"
 @rendermode InteractiveServer
 
+<div class="container mt-5">
+    <h3 class="text-center mb-4">Thông tin tài khoản</h3>
 
-
-<div class="container">
-    <br />
-    <h3>Thông tin tài khoản</h3>
     @if (Parent != null)
     {
-        <div class="profile-container">
-            <img src="@Parent.Avatar" alt="Avatar" class="avatar" />
-            <div class="info">
-                <p><strong>Họ và tên:</strong> @Parent.FullName</p>
-                <p><strong>Email:</strong> @Parent.Email</p>
-                <p><strong>Số điện thoại:</strong> @Parent.PhoneNumber</p>
-                <p><strong>Địa chỉ:</strong> @Parent.Address</p>
-                <p><strong>Ngày sinh:</strong> @Parent.Dob.ToString("dd/MM/yyyy")</p>
-                <p><strong>Giới tính:</strong> @Parent.Gender</p>
+        <div class="d-flex justify-content-center">
+            <div class="profile-container w-75">
+                <img src="@Parent.Avatar" alt="Avatar" class="avatar" />
+                <div class="info">
+                    <p><strong>Họ và tên:</strong> @Parent.FullName</p>
+                    <p><strong>Email:</strong> @Parent.Email</p>
+                    <p><strong>Số điện thoại:</strong> @Parent.PhoneNumber</p>
+                    <p><strong>Địa chỉ:</strong> @Parent.Address</p>
+                    <p><strong>Ngày sinh:</strong> @Parent.Dob.ToString("dd/MM/yyyy")</p>
+                    <p><strong>Giới tính:</strong> @Parent.Gender</p>
+                </div>
             </div>
         </div>
-        <hr />
-        <h3>Lịch hẹn của tôi</h3>
 
         @if (Appointments == null)
         {
@@ -35,7 +33,6 @@
             <table class="table table-bordered table-hover text-center">
                 <thead class="table-dark">
                     <tr style="background-color: white; border: 2px solid gray">
-                        <th>ID</th>
                         <th>Bác sĩ</th>
                         <th>Bé</th>
                         <th>Dịch vụ</th>
@@ -48,12 +45,11 @@
                     @foreach (var appointment in Appointments)
                     {
                         <tr class="border">
-                            <td>@appointment.AppointmentId</td>
                             <td>@appointment.DoctorName</td>
                             <td>@appointment.ChildName</td>
                             <td>@appointment.ServiceName</td>
                             <td>@appointment.TotalAmount.ToString() VND</td>
-                            <td>@appointment.Status</td>
+                            <td>@appointment.Status.GetEnumDisplayName(typeof(SystemConstant.AppointmentStatus))</td>
                             <td>
                                 @if ("ORDERED".Equals(@appointment.Status)) 
                                 {
@@ -73,7 +69,7 @@
 
         <hr />
         <h3>Hồ sơ trẻ em</h3>
-        <NavLink class="btn btn-info btn-sm" href="@($"/childrenRecords/create")">Thêm hồ sơ bé</NavLink>
+        <NavLink class="btn-add-child" href="@($"/childrenRecords/create")">Thêm hồ sơ bé</NavLink>
         <br />
         @if (ChildRecords != null && ChildRecords.Any())
         {
@@ -111,7 +107,7 @@
     }
     else
     {
-        <p>Đang tải thông tin...</p>
+        <p class="text-center">Đang tải thông tin...</p>
     }
 </div>
 
@@ -123,7 +119,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Bạn có chắc chắn muốn xóa chuyên khoa này không?
+                Bạn có chắc chắn muốn xóa lịch hẹn này không? Bạn sẽ được hoàn tiền (theo chính sách của chúng tôi) dựa vào thời gian hủy.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
@@ -195,14 +191,35 @@
 
 
 <style>
+    /* ===================== */
+    /* Container & Title */
+    /* ===================== */
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h3 {
+        font-weight: bold;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    /* ===================== */
+    /* Profile người dùng */
+    /* ===================== */
     .profile-container {
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 30px;
         padding: 20px;
-        background: #f9f9f9;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
 
     .avatar {
@@ -210,23 +227,129 @@
         height: 100px;
         border-radius: 50%;
         object-fit: cover;
+        border: 2px solid #00bcd4;
     }
 
     .info p {
-        margin: 5px 0;
+        margin: 4px 0;
+        font-size: 15px;
     }
 
-    .appointment-table {
+    /* ===================== */
+    /* Table styles */
+    /* ===================== */
+    table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 10px;
+        margin-top: 15px;
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
-        .appointment-table th, .appointment-table td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: left;
+    th, td {
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+    /* Header xám đậm */
+    thead {
+        background-color: #8c8c8c !important;
+        color: white !important;
+        font-weight: bold;
+    }
+
+        thead th {
+            background-color: #8c8c8c !important;
+            color: white !important;
+            font-size: 15px;
         }
+
+    tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    /* ===================== */
+    /* Buttons */
+    /* ===================== */
+    .btn {
+        border: none;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: 0.2s ease;
+        text-decoration: none;
+    }
+
+    .btn-info {
+        background-color: #00bcd4;
+        color: white;
+    }
+
+        .btn-info:hover {
+            background-color: #00a3bb;
+        }
+
+    .btn-warning {
+        background-color: #f0ad4e;
+        color: white;
+    }
+
+        .btn-warning:hover {
+            background-color: #ec971f;
+        }
+
+    .btn-danger {
+        background-color: #d9534f;
+        color: white;
+    }
+
+        .btn-danger:hover {
+            background-color: #c9302c;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    /* ===================== */
+    /* Nút thêm hồ sơ bé */
+    /* ===================== */
+    .btn-add-child {
+        background-color: #00bcd4;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        transition: background-color 0.3s ease;
+        margin-bottom: 15px;
+    }
+
+        .btn-add-child:hover {
+            background-color: #019cad;
+            color: white;
+        }
+
+    /* ===================== */
+    /* Modal */
+    /* ===================== */
+    .modal-title {
+        font-weight: bold;
+    }
+
+    .modal-body {
+        font-size: 15px;
+    }
 
 </style>
 

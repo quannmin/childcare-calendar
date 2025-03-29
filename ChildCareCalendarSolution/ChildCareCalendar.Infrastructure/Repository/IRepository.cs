@@ -20,8 +20,7 @@ namespace ChildCareCalendar.Infrastructure.Repository
         Task AddAsync(T entity);
         Task UpdateAsync(T entity, object key);
         Task DeleteAsync(T entity);
-        Task<(IEnumerable<T> Items, int TotalCount)> GetPagedAsync(int pageIndex, int pageSize, Expression<Func<T, bool>> filter = null);
-        //Task<(IEnumerable<T> Items, int TotalCount)> GetPagedAsync(int pageIndex, int pageSize, Expression<Func<T, bool>> filter = null, params Expression<Func<T, object>>[] includes);
+        Task<(IEnumerable<T> Items, int TotalCount)> GetPagedAsync(int pageIndex, int pageSize, Expression<Func<T, bool>> filter = null, params Expression<Func<T, object>>[] includes);
        
 
     }

@@ -4,17 +4,15 @@
 <h3>Quản lý lịch khám</h3>
 
 <div class="row mb-4">
-    <div class="col-md-4">
-        <NavLink class="btn btn-success" href="/appointments/create">Tạo mới</NavLink>
-    </div>
-    <div class="col-md-5 offset-md-3">
+    <div class="col-md-4"></div>
+    <div class="col-md-8">
         <EditForm Model="SearchData" OnValidSubmit="HandleSearch" FormName="SearchAppointment">
             <DataAnnotationsValidator />
             <ValidationSummary />
 
             <div class="d-flex">
                 <InputText class="form-control me-2" @bind-Value="SearchData.Keyword" placeholder="Tìm kiếm lịch hẹn..." />
-                <button type="submit" class="btn btn-primary searchBtn" style="width: 20%;">Tìm kiếm</button>
+                <button type="submit" class="btn btn-primary searchBtn w-25" ;">Tìm kiếm</button>
             </div>
         </EditForm>
     </div>
@@ -32,7 +30,7 @@ else
 {
     <table class="table table-bordered table-hover text-center">
         <thead class="table-dark">
-            <tr style="background-color: white; border: 2px solid gray">
+            <tr style="background-color: #007fff; border: 2px solid gray">
                 <th>ID</th>
                 <th>Phụ huynh</th>
                 <th>Trẻ em</th>
@@ -53,7 +51,7 @@ else
                     <td>@appointment.DoctorName</td>
                     <td>@appointment.ServiceName</td>
                     <td>@appointment.TotalAmount.ToString() VND</td>
-                    <td>@appointment.Status</td>
+                    <td>@appointment.Status.GetEnumDisplayName(typeof(SystemConstant.AppointmentStatus))</td>
                     <td>
                         <NavLink class="btn btn-info btn-sm" href="@($"/appointments/detail/{appointment.AppointmentId}")">Chi tiết</NavLink>
                         <NavLink class="btn btn-warning btn-sm" href="@($"/appointments/edit/{appointment.AppointmentId}")">Chỉnh sửa</NavLink>
