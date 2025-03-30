@@ -1,6 +1,7 @@
 ﻿@page "/logout"
 @using Microsoft.AspNetCore.Authentication
 @inject NavigationManager navigationManager
+@attribute [Authorize(Roles = "QuanLy,BacSi")]
 
 <div class="row">
     <div class="col-12">

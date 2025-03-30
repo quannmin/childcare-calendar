@@ -1,13 +1,8 @@
-﻿
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using BCrypt.Net;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
 using ChildCareCalendar.Domain.ViewModels.Account;
-using Microsoft.AspNetCore.Http;
 
 namespace ChildCareCalendar.WebApp.Components.Pages.Authentication
 {

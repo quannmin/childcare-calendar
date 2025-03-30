@@ -2,7 +2,7 @@
 using ChildCareCalendar.Domain.ViewModels.Specility;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
-using System.Security.Cryptography.Xml;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 {
@@ -22,6 +22,19 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 
 		private string ErrorMessage = "";
 
+		[Inject]
+		AuthenticationStateProvider AuthStateProvider {  get; set; } = default!;
+
+		private string fullName = string.Empty;
+
+		protected override async Task OnInitializedAsync()
+		{
+			var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+			var user = authState.User;
+
+			fullName = user.FindFirst("FullName")?.Value ?? string.Empty;
+		}
+
 		protected override void OnInitialized()
 		{
 			CreateModel.CreatedAt = DateTime.UtcNow;
@@ -40,6 +53,8 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 			}
 
 			var newSpeciality = Mapper.Map<Domain.Entities.Speciality>(CreateModel);
+			newSpeciality.CreatedBy = fullName;
+
 			await SpecialityService.AddSpecialityAsync(newSpeciality);
 			Navigation.NavigateTo("/specialities");
 		}

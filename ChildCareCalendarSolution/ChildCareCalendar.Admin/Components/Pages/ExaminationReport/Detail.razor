@@ -1,5 +1,6 @@
 ﻿@page "/examination-reports/detail/{ExaminationReportId:int}"
 @rendermode InteractiveServer
+@attribute [Authorize(Roles = "BacSi")]
 
 @if (ReportDetail == null)
 {

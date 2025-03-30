@@ -40,7 +40,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.Authentication
                     new Claim(ClaimTypes.Email, email),
                     new Claim(ClaimTypes.Role, role ?? "User"),
                     new Claim(ClaimTypes.Name, name ?? ""),
-                      new Claim("avatar", avatar ?? "")
+                    new Claim("avatar", avatar ?? "")
                 };
 
                 var identity = new ClaimsIdentity(claims, "Custom Authentication");

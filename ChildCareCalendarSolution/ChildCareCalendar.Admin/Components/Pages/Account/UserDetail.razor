@@ -1,4 +1,6 @@
 ﻿@page "/users/detail/{id:int}"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "QuanLy")]
 
 <h3>Chi tiết người dùng</h3>
 <hr />
