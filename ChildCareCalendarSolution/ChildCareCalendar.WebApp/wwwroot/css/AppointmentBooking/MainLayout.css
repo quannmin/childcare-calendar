@@ -96,20 +96,17 @@
     }
 
 .list-specialty-container {
-    width: 100%;
-    max-height: 300px;
-    overflow-y: auto;
+    max-height: 300px; /* Giới hạn chiều cao */
+    overflow-y: auto; /* Bật thanh cuộn dọc */
     border: 1px solid #ddd;
-    border-radius: 5px;
     padding: 10px;
-    margin-top: 20px;
 }
 
 .list-specialty-item {
     padding: 10px;
     border-bottom: 1px solid #ddd;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background 0.2s;
 }
 
     .list-specialty-item:last-child {
@@ -117,7 +114,7 @@
     }
 
     .list-specialty-item:hover {
-        background-color: #f0f8ff;
+        background: #f0f0f0;
     }
 
 .list-specialty-title {
@@ -128,6 +125,33 @@
 .list-specialty-description {
     font-style: italic;
     color: grey;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+    .search-box input {
+        border: none;
+        outline: none;
+        flex: 1;
+        padding: 5px;
+    }
+
+    .search-box i {
+        margin-left: 5px;
+        color: gray;
+    }
+
+.no-results {
+    text-align: center;
+    font-style: italic;
+    color: gray;
 }
 
 .service-table-container {
