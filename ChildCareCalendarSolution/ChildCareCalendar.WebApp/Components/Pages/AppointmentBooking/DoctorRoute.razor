@@ -5,6 +5,7 @@
 
 <PageTitle>Đặt lịch</PageTitle>
 
+<<<<<<< Updated upstream
 @if (!IsAuthenticated) {
     <h3 class="alert alert-danger text-center">
         Bạn chưa đăng nhập. Vui lòng <a href="/Login">đăng nhập</a> để tiếp tục.
@@ -81,6 +82,76 @@ else
                             </div>
                         }
                     </div>
+=======
+<section id="hero" class="hero section light-background">
+    <div class="container position-relative booking-container">
+        <div class="row gy-4 align-items-start">
+            <div class="col-lg-4 d-flex">
+                <div class="left-panel">
+                    <h4 class="info-title">Thông tin lịch hẹn</h4>
+                    @if (selectedDoctorId.HasValue)
+                    {
+                        <p><strong>Bác sĩ:</strong> @(selectedDoctorName)</p>
+                    }
+                    @if (selectedSpecialtyId.HasValue)
+                    {
+                        <p><strong>Chuyên khoa:</strong> @(selectedSpecialtyName)</p>
+                    }
+                    @if (selectedServiceId.HasValue)
+                    {
+                        <p><strong>Dịch vụ:</strong> @(selectedServiceName)</p>
+                        <p><strong>Giá dịch vụ:</strong> @(selectedServicePrice?.ToString("#,##0 VNĐ"))</p>
+                    }
+                    @if (selectedDate.HasValue)
+                    {
+                        <p><strong>Ngày khám:</strong> @(selectedDate.Value.ToString("dd/MM/yyyy"))</p>
+                    }
+                    @if (selectedWorkHourId.HasValue)
+                    {
+                        <p><strong>Giờ khám:</strong> @(selectedStartTime?.ToString(@"hh\:mm")) - @(selectedEndTime?.ToString(@"hh\:mm"))</p>
+                    }
+                </div>
+            </div>
+
+            <div class="col-lg-8 d-flex">
+                <div class="right-panel">
+                    @if (!selectedDoctorId.HasValue)
+                    {
+                        <SelectDoctor OnDoctorSelected="HandleDoctorSelection" />
+                    }
+                    @if (selectedDoctorId.HasValue && !selectedServiceId.HasValue)
+                    {
+                        <SelectService SpecialtyId="selectedSpecialtyId.Value" OnServiceSelected="HandleServiceSelection" />
+                        <div class="go-back-btn" @onclick="GoBackToDoctorSelection">
+                            <i class="bi bi-arrow-return-left"></i>
+                            <span>Quay lại</span>
+                        </div>
+                    }
+                    @if (selectedServiceId.HasValue && !selectedDate.HasValue)
+                    {
+                        <SelectDay DoctorId="selectedDoctorId.Value" OnDateSelected="HandleDateSelection" />
+                        <div class="go-back-btn" @onclick="GoBackToServiceSelection">
+                            <i class="bi bi-arrow-return-left"></i>
+                            <span>Quay lại</span>
+                        </div>
+}
+                    @if (selectedDate.HasValue && !selectedWorkHourId.HasValue)
+                    {
+                        <SelectSlotTime DoctorId="selectedDoctorId.Value" SelectedDate="selectedDate.Value" OnSlotSelected="HandleSlotSelection" />
+                        <div class="go-back-btn" @onclick="GoBackToDateSelection">
+                            <i class="bi bi-arrow-return-left"></i>
+                            <span>Quay lại</span>
+                        </div>
+                    }
+                    @if (selectedWorkHourId.HasValue && string.IsNullOrEmpty(selectedPaymentMethod))
+                    {
+                        <SelectPayment OnPaymentSelected="HandlePaymentSelection" />
+                        <div class="go-back-btn" @onclick="GoBackToSlotSelection">
+                            <i class="bi bi-arrow-return-left"></i>
+                            <span>Quay lại</span>
+                        </div>
+                    }
+>>>>>>> Stashed changes
                 </div>
             </div>
         </div>

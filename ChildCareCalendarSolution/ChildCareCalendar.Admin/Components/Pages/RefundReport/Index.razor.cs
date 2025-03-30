@@ -15,15 +15,25 @@ namespace ChildCareCalendar.Admin.Components.Pages.RefundReport
         private List<RefundReportViewModel> FilteredReports = new();
         private List<RefundReportViewModel> PagedRefundReports = new();
 
-        private string SearchTerm = "";
         private int CurrentPage = 1;
-        private const int PageSize = 10; // Cố định số lượng bản ghi mỗi trang là 10
+        private const int PageSize = 10;
         private int TotalPages => (int)System.Math.Ceiling((double)FilteredReports.Count / PageSize);
 
         [Inject] private IRefundReportService RefundReportService { get; set; }
         [Inject] private IMapper Mapper { get; set; }
         [Inject] private NavigationManager Navigation { get; set; }
         [Inject] private IJSRuntime JS { get; set; }
+
+        private string _searchTerm = "";
+        private string SearchTerm
+        {
+            get => _searchTerm;
+            set
+            {
+                _searchTerm = value;
+                FilterReports(); // Tự động lọc khi người dùng gõ
+            }
+        }
 
         protected override async Task OnInitializedAsync()
         {
@@ -46,8 +56,11 @@ namespace ChildCareCalendar.Admin.Components.Pages.RefundReport
         {
             if (!string.IsNullOrWhiteSpace(SearchTerm))
             {
+                var lowerSearchTerm = SearchTerm.Trim().ToLower();
+
                 FilteredReports = RefundReports
-                    .Where(r => r.UserName.Contains(SearchTerm, System.StringComparison.OrdinalIgnoreCase))
+                    .Where(r => !string.IsNullOrEmpty(r.UserName) &&
+                                r.UserName.ToLower().Contains(lowerSearchTerm))
                     .ToList();
             }
             else
@@ -58,6 +71,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.RefundReport
             CurrentPage = 1;
             UpdatePagedData();
         }
+
 
         private void UpdatePagedData()
         {

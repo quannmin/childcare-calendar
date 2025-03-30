@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using Microsoft.AspNetCore.Components;
 using System.Globalization;
 
 
@@ -6,51 +7,49 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
 {
     public partial class SelectDay
     {
-        [Parameter]
-        public EventCallback<DateTime> OnDateSelected { get; set; }
+        [Parameter] public EventCallback<DateTime> OnDateSelected { get; set; }
+        [Parameter] public int? DoctorId { get; set; }
+        [Inject] public IScheduleService ScheduleService { get; set; } = default!;
 
         private DateTime currentMonth = DateTime.Today;
-        private List<DateTime?> DaysInMonth = new();
-        private bool isPrevDisabled = false;
-        private bool isNextDisabled = false;
+        private List<DateTime> DaysInMonth = new();
+        private List<DateTime> AvailableDates = new();
+        private bool isPrevDisabled = true;
 
-        protected override void OnInitialized()
+        protected override async Task OnParametersSetAsync()
         {
+            await LoadAvailableDates();
             GenerateCalendar();
-            UpdateNavigationState();
+        }
+
+        private async Task LoadAvailableDates()
+        {
+            if (DoctorId.HasValue)
+            {
+                var schedules = await ScheduleService.FindSchedulesAsync(s => s.UserId == DoctorId && s.WorkDay >= DateTime.Today);
+                AvailableDates = schedules.Select(s => s.WorkDay!.Value.Date).Distinct().ToList();
+            }
         }
 
         private void GenerateCalendar()
         {
             DaysInMonth.Clear();
             var firstDayOfMonth = new DateTime(currentMonth.Year, currentMonth.Month, 1);
-            var daysInMonth = DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month);
-            var firstDayOfWeek = (int)firstDayOfMonth.DayOfWeek;
+            int daysInMonth = DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month);
+            int firstDayOfWeek = (int)firstDayOfMonth.DayOfWeek;
 
             for (int i = 0; i < firstDayOfWeek; i++)
-                DaysInMonth.Add(null);
+                DaysInMonth.Add(DateTime.MinValue);
 
             for (int day = 1; day <= daysInMonth; day++)
             {
-                var date = new DateTime(currentMonth.Year, currentMonth.Month, day);
-                DaysInMonth.Add(date);
-            }
-
-            UpdateNavigationState();
-        }
-
-        private async Task SelectDate(DateTime? date)
-        {
-            if (date.HasValue && date.Value >= DateTime.Today)
-            {
-                Console.WriteLine($"🔍 Ngày đã chọn: {date.Value:dd/MM/yyyy}");
-                await OnDateSelected.InvokeAsync(date.Value);
+                DaysInMonth.Add(new DateTime(currentMonth.Year, currentMonth.Month, day));
             }
         }
 
         private void PrevMonth()
         {
-            if (currentMonth.Month > DateTime.Today.Month || currentMonth.Year > DateTime.Today.Year)
+            if (currentMonth > DateTime.Today.AddMonths(-1))
             {
                 currentMonth = currentMonth.AddMonths(-1);
                 GenerateCalendar();
@@ -59,19 +58,17 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
 
         private void NextMonth()
         {
-            if (currentMonth.Month == DateTime.Today.Month && currentMonth.Year == DateTime.Today.Year)
-            {
-                return; // Ngăn chọn tháng sau
-            }
-
             currentMonth = currentMonth.AddMonths(1);
             GenerateCalendar();
         }
 
-        private void UpdateNavigationState()
+        private async Task SelectDate(DateTime date)
         {
-            isPrevDisabled = currentMonth.Month == DateTime.Today.Month && currentMonth.Year == DateTime.Today.Year;
-            isNextDisabled = currentMonth.Month != DateTime.Today.Month || currentMonth.Year != DateTime.Today.Year;
+            if (AvailableDates.Contains(date))
+            {
+                await OnDateSelected.InvokeAsync(date);
+            }
         }
+
     }
 }
