@@ -146,6 +146,9 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
 
             //if (userCreateViewModel.SpecialityId == 0) userCreateViewModel.SpecialityId = null;
             AppUser doctor = mapper.Map<AppUser>(userCreateViewModel);
+            string fullName = UserSession.User.FindFirst("FullName")?.Value ?? string.Empty;
+            doctor.CreatedBy = fullName;
+            doctor.CreatedAt = DateTime.UtcNow;
             if (doctor == null)
             {
                 ErrorMessage.Add("Không thể tạo tài khoản bác sĩ.");
@@ -153,6 +156,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
                 return;
             }
             isSubmitting = false;
+
             await userService.AddUserAsync(doctor);
             navigationManager.NavigateTo("/users/index");
         }

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using System.Security.Claims;
 
-namespace ChildCareCalendar.WebApp.Components.Pages.LoginPage
+namespace ChildCareCalendar.WebApp.Components.Pages.Authentication
 {
     public class CustomAuthStateProvider : AuthenticationStateProvider
     {
@@ -40,7 +40,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.LoginPage
                     new Claim(ClaimTypes.Email, email),
                     new Claim(ClaimTypes.Role, role ?? "User"),
                     new Claim(ClaimTypes.Name, name ?? ""),
-                      new Claim("avatar", avatar ?? "")
+                    new Claim("avatar", avatar ?? "")
                 };
 
                 var identity = new ClaimsIdentity(claims, "Custom Authentication");

@@ -7,10 +7,11 @@ using System.Security.Claims;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Account
 {
+    [IgnoreAntiforgeryToken]
     public partial class Login
     {
-        [CascadingParameter]
-        HttpContext httpContext { get; set; }
+        [Inject]
+        IHttpContextAccessor HttpContextAccessor { get; set; }
 
         [SupplyParameterFromForm]
         private LoginViewModel loginModel { get; set; } = new();
@@ -20,11 +21,10 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
 
         private string? errorMessage;
 
-        [IgnoreAntiforgeryToken]
         private async Task Authenticate()
         {
             var userAccount = appDbContext.Users.Where(x => x.Email == loginModel.Email && x.Role != null).FirstOrDefault();
-            if (userAccount is null || !BCrypt.Net.BCrypt.Verify(loginModel.Password, userAccount.Password))
+            if (userAccount is null || !BCrypt.Net.BCrypt.EnhancedVerify(loginModel.Password, userAccount.Password, BCrypt.Net.HashType.SHA256))
             {
                 errorMessage = "Invalid Username or Password";
                 return;
@@ -34,7 +34,8 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
             {
                 new Claim(ClaimTypes.Email, loginModel.Email),
                 new Claim(ClaimTypes.Role, userAccount.Role),
-                new Claim("FullName", userAccount.FullName)
+                new Claim("FullName", userAccount.FullName),
+                new Claim("Avatar", userAccount.Avatar != null ? userAccount.Avatar : string.Empty)
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -44,12 +45,11 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
             };
 
-            await httpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties
-            );
-
+            await HttpContextAccessor.HttpContext.SignInAsync(
+    CookieAuthenticationDefaults.AuthenticationScheme,
+    new ClaimsPrincipal(claimsIdentity),
+    authProperties
+);
             navigationManager.NavigateTo("/");
         }
     }

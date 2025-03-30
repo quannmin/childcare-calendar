@@ -5,13 +5,13 @@
 
 <PageTitle>Đặt lịch</PageTitle>
 
-@if (!IsAuthenticated) 
+@if (!IsAuthenticated)
 {
     <h3 class="alert alert-danger text-center">
         Bạn chưa đăng nhập. Vui lòng <a href="/Login">đăng nhập</a> để tiếp tục.
     </h3>
 }
-else 
+else
 {
     <section id="hero" class="hero section light-background">
         <div class="container position-relative booking-container">
@@ -35,7 +35,6 @@ else
                         {
                             <SelectSpecialty OnSpecialtySelected="HandleSpecialtySelection" />
                         }
-
                         @if (selectedSpecialtyId.HasValue && !selectedServiceId.HasValue)
                         {
                             <SelectService SpecialtyId="selectedSpecialtyId.Value" OnServiceSelected="HandleServiceSelection"></SelectService>
@@ -43,7 +42,6 @@ else
                                 <i class="bi bi-arrow-return-left"></i>
                                 <span>Quay lại</span>
                             </div>
-
                         }
                         @if (selectedSpecialtyId.HasValue && selectedServiceId.HasValue)
                         {
@@ -52,10 +50,10 @@ else
                                 <i class="bi bi-arrow-return-left"></i>
                                 <span>Quay lại</span>
                             </div>
+
                         }
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 }

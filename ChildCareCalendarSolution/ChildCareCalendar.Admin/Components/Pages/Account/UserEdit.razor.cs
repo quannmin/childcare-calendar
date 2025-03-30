@@ -102,15 +102,15 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
             }
 
             var userEntity = await userService.FindUsersAsync(u => u.Id == id && !u.IsDelete);
-            if (userEntity.IsNullOrEmpty())
+            if (userEntity == null || !userEntity.Any())
             {
                 isSubmitting = false;
                 ErrorMessage.Add("Người dùng không tồn tại.");
                 return;
             }
-
-            mapper.Map(userEditViewModel, userEntity.FirstOrDefault());
-            await userService.UpdateUserAsync(userEntity.FirstOrDefault());
+            var user = userEntity.FirstOrDefault();
+            mapper.Map(userEditViewModel, user);
+            await userService.UpdateUserAsync(user);
             navigationManager.NavigateTo("/users/index");
         }
     }

@@ -1,12 +1,11 @@
 ﻿using BCrypt.Net;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
-using CloudinaryDotNet.Core;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using System.Security.Claims;
 using static ChildCareCalendar.Utilities.Constants.SystemConstant;
 
-namespace ChildCareCalendar.WebApp.Components.Pages.LoginPage
+namespace ChildCareCalendar.WebApp.Components.Pages.Authentication
 { 
         public class AuthService
         {
@@ -74,7 +73,6 @@ namespace ChildCareCalendar.WebApp.Components.Pages.LoginPage
                     Role = AccountsRole.PhuHuynh.ToString(), 
                     IsDelete = false,               
                 };
-
                 await _userService.AddUserAsync(user);
             }
 

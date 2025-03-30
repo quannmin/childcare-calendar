@@ -1,7 +1,9 @@
 ﻿@page "/users/create"
 @using ChildCareCalendar.Utilities.Constants
 @using ChildCareCalendar.Utilities.Helper
+@using Microsoft.AspNetCore.Authorization
 @rendermode InteractiveServer
+@attribute [Authorize(Roles = "QuanLy")]
 
 <h3>Tạo mới danh mục</h3>
 <hr />
