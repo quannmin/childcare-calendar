@@ -5,12 +5,13 @@
 
 <PageTitle>Đặt lịch</PageTitle>
 
-@if (!IsAuthenticated) {
+@if (!IsAuthenticated)
+{
     <h3 class="alert alert-danger text-center">
         Bạn chưa đăng nhập. Vui lòng <a href="/Login">đăng nhập</a> để tiếp tục.
     </h3>
 }
-else 
+else
 {
     <section id="hero" class="hero section light-background">
         <div class="container position-relative booking-container">
@@ -83,6 +84,6 @@ else
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
     </section>
 }
