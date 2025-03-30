@@ -3,112 +3,115 @@
 
 <div class="container mt-5">
     <h3 class="text-center mb-4">Thông tin tài khoản</h3>
-
-    @if (Parent != null)
+    @if (IsAuthenticated) 
     {
-        <div class="d-flex justify-content-center">
-            <div class="profile-container w-75">
-                <img src="@Parent.Avatar" alt="Avatar" class="avatar" />
-                <div class="info">
-                    <p><strong>Họ và tên:</strong> @Parent.FullName</p>
-                    <p><strong>Email:</strong> @Parent.Email</p>
-                    <p><strong>Số điện thoại:</strong> @Parent.PhoneNumber</p>
-                    <p><strong>Địa chỉ:</strong> @Parent.Address</p>
-                    <p><strong>Ngày sinh:</strong> @Parent.Dob.ToString("dd/MM/yyyy")</p>
-                    <p><strong>Giới tính:</strong> @Parent.Gender</p>
+        @if (Parent != null)
+        {
+            <div class="d-flex justify-content-center">
+                <div class="profile-container w-75">
+                    <img src="@Parent.Avatar" alt="Avatar" class="avatar" />
+                    <div class="info">
+                        <p><strong>Họ và tên:</strong> @Parent.FullName</p>
+                        <p><strong>Email:</strong> @Parent.Email</p>
+                        <p><strong>Số điện thoại:</strong> @Parent.PhoneNumber</p>
+                        <p><strong>Địa chỉ:</strong> @Parent.Address</p>
+                        <p><strong>Ngày sinh:</strong> @Parent.Dob.ToString("dd/MM/yyyy")</p>
+                        <p><strong>Giới tính:</strong> @Parent.Gender</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        @if (Appointments == null)
-        {
-            <p class="text-center">Đang tải dữ liệu...</p>
-        }
-        else if (!Appointments.Any())
-        {
-            <p class="text-center">Không có dữ liệu</p>
+            @if (Appointments == null)
+            {
+                <p class="text-center">Đang tải dữ liệu...</p>
+            }
+            else if (!Appointments.Any())
+            {
+                <p class="text-center">Không có dữ liệu</p>
+            }
+            else
+            {
+                <table class="table table-bordered table-hover text-center">
+                    <thead class="table-dark">
+                        <tr style="background-color: white; border: 2px solid gray">
+                            <th>Bác sĩ</th>
+                            <th>Bé</th>
+                            <th>Dịch vụ</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var appointment in Appointments)
+                        {
+                            <tr class="border">
+                                <td>@appointment.DoctorName</td>
+                                <td>@appointment.ChildName</td>
+                                <td>@appointment.ServiceName</td>
+                                <td>@appointment.TotalAmount.ToString() VND</td>
+                                <td>@appointment.Status.GetEnumDisplayName(typeof(SystemConstant.AppointmentStatus))</td>
+                                <td>
+                                    @if ("ORDERED".Equals(@appointment.Status))
+                                    {
+                                        <NavLink class="btn btn-info btn-sm" href="@($"/appointmentDetail/{appointment.AppointmentId}")">Chi tiết</NavLink>
+                                        <button class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(appointment.AppointmentId)">Hủy hẹn</button>
+                                    }
+                                    else
+                                    {
+                                        <NavLink class="btn btn-info btn-sm" href="@($"/appointmentDetail/{appointment.AppointmentId}")">Chi tiết</NavLink>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+            <hr />
+            <h3>Hồ sơ trẻ em</h3>
+            <NavLink class="btn-add-child" href="@($"/childrenRecords/create")">Thêm hồ sơ bé</NavLink>
+            <br />
+            @if (ChildRecords != null && ChildRecords.Any())
+            {
+                <table class="table table-bordered table-hover text-center">
+                    <thead class="table-dark">
+                        <tr style="background-color: white; border: 2px solid gray">
+                            <th>Tên bé</th>
+                            <th>Ngày sinh</th>
+                            <th>Giới tính</th>
+                            <th>Tiền sử bệnh</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var child in ChildRecords)
+                        {
+                            <tr class="border">
+                                <td>@child.FullName</td>
+                                <td>@child.Dob.ToString("dd/MM/yyyy")</td>
+                                <td>@child.Gender</td>
+                                <td>@child.MedicalHistory</td>
+                                <td>
+                                    <NavLink class="btn btn-warning btn-sm" href="@($"/childrenRecords/edit/{child.Id}")">Chỉnh sửa</NavLink>
+                                    <button class="btn btn-danger btn-sm" @onclick="() => ConfirmDeleteChild(child.Id)">Xóa</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>Không có hồ sơ trẻ em.</p>
+            }
         }
         else
         {
-            <table class="table table-bordered table-hover text-center">
-                <thead class="table-dark">
-                    <tr style="background-color: white; border: 2px solid gray">
-                        <th>Bác sĩ</th>
-                        <th>Bé</th>
-                        <th>Dịch vụ</th>
-                        <th>Tổng tiền</th>
-                        <th>Trạng thái</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var appointment in Appointments)
-                    {
-                        <tr class="border">
-                            <td>@appointment.DoctorName</td>
-                            <td>@appointment.ChildName</td>
-                            <td>@appointment.ServiceName</td>
-                            <td>@appointment.TotalAmount.ToString() VND</td>
-                            <td>@appointment.Status.GetEnumDisplayName(typeof(SystemConstant.AppointmentStatus))</td>
-                            <td>
-                                @if ("ORDERED".Equals(@appointment.Status)) 
-                                {
-                                    <NavLink class="btn btn-info btn-sm" href="@($"/appointmentDetail/{appointment.AppointmentId}")">Chi tiết</NavLink>
-                                    <button class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(appointment.AppointmentId)">Hủy hẹn</button>
-                                }
-                                else 
-                                {
-                                    <NavLink class="btn btn-info btn-sm" href="@($"/appointmentDetail/{appointment.AppointmentId}")">Chi tiết</NavLink>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-
-        <hr />
-        <h3>Hồ sơ trẻ em</h3>
-        <NavLink class="btn-add-child" href="@($"/childrenRecords/create")">Thêm hồ sơ bé</NavLink>
-        <br />
-        @if (ChildRecords != null && ChildRecords.Any())
-        {
-            <table class="table table-bordered table-hover text-center">
-                <thead class="table-dark">
-                    <tr style="background-color: white; border: 2px solid gray">
-                        <th>Tên bé</th>
-                        <th>Ngày sinh</th>
-                        <th>Giới tính</th>
-                        <th>Tiền sử bệnh</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var child in ChildRecords)
-                    {
-                        <tr class="border">
-                            <td>@child.FullName</td>
-                            <td>@child.Dob.ToString("dd/MM/yyyy")</td>
-                            <td>@child.Gender</td>
-                            <td>@child.MedicalHistory</td>
-                            <td>
-                                <NavLink class="btn btn-warning btn-sm" href="@($"/childrenRecords/edit/{child.Id}")">Chỉnh sửa</NavLink>
-                                <button class="btn btn-danger btn-sm" @onclick="() => ConfirmDeleteChild(child.Id)">Xóa</button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <p>Không có hồ sơ trẻ em.</p>
+            <p class="text-center">Đang tải thông tin...</p>
         }
     }
-    else
-    {
-        <p class="text-center">Đang tải thông tin...</p>
-    }
+    
 </div>
 
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
