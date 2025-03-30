@@ -23,7 +23,7 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.Appointment
         [Inject]
         IUserService UserService { get; set; }
 
-        private int? DoctorId = 3;
+        private int? DoctorId = 2;
 
         [SupplyParameterFromForm]
         private AppointmentSearchViewModel SearchData { get; set; } = new();
@@ -42,7 +42,7 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.Appointment
         protected override async Task OnInitializedAsync()
         {
             //var user = await UserService.GetCurrentUserAsync();         
-         
+
             //if (user != null && user.Role == "Bacsi")
             //{
             //    DoctorId = user.DoctorId;
@@ -76,11 +76,11 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.Appointment
 
                 Appointments = Mapper.Map<List<AppointmentViewModel>>(appointments);
                 TotalItems = totalCount;
-                TotalPages = (int)Math.Ceiling((double)TotalItems / PageSize);      
+                TotalPages = (int)Math.Ceiling((double)TotalItems / PageSize);
             }
             else
             {
-             
+
                 Appointments = new List<AppointmentViewModel>();
                 TotalItems = 0;
                 TotalPages = 1;

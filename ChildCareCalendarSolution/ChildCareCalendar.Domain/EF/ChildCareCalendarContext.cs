@@ -125,7 +125,7 @@ namespace ChildCareCalendar.Domain.EF
 			{
 				entity.HasKey(e => e.Id);
 				entity.Property(e => e.Id).UseIdentityColumn();
-				entity.Property(e => e.Slot).HasConversion<String>().HasMaxLength(10);
+				entity.Property(e => e.Slot).HasConversion<String>().HasMaxLength(50);
 				entity.Property(e => e.TotalAmount).HasPrecision(18, 2);
 				entity.HasOne(e => e.Medicine)
 					  .WithMany(m => m.PrescriptionDetails)
