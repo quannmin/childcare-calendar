@@ -44,11 +44,20 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
             };
 
+<<<<<<< HEAD
             await HttpContextAccessor.HttpContext.SignInAsync(
     CookieAuthenticationDefaults.AuthenticationScheme,
     new ClaimsPrincipal(claimsIdentity),
     authProperties
 );
+=======
+            await httpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties
+            );
+
+>>>>>>> f2bc2e84c4382ccb15e3edfda9305823f14d5481
             navigationManager.NavigateTo("/");
         }
     }

@@ -86,5 +86,33 @@ namespace ChildCareCalendar.Infrastructure.Services
             return await query.ToListAsync();
         }
 
+        public async Task<(IEnumerable<ExaminationReport> reports, int totalCount)> GetPagedExaminationReportsAsync(
+    int pageIndex,
+    int pageSize,
+    string keyword = null)
+        {
+            Expression<Func<ExaminationReport, bool>> filter = x => !x.IsDelete;
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                filter = x =>
+                    !x.IsDelete &&
+                    (x.ChildrenRecord.FullName.Contains(keyword) ||
+                     x.Appointment.Parent.FullName.Contains(keyword) ||
+                     x.Appointment.ChildrenRecord.FullName.Contains(keyword));
+            }
+
+            return await _examinationRepository.GetPagedAsync(
+                pageIndex,
+                pageSize,
+                filter,
+                x => x.ChildrenRecord,
+                x => x.Appointment,
+                x => x.Appointment.Parent,
+                x => x.Appointment.Doctor,
+                x => x.Appointment.Service
+            );
+        }
+
     }
 }

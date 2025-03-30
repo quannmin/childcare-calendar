@@ -11,7 +11,7 @@
 		}
 	</div>
 
-	<div class="col-md-5 offset-md-3">
+	<div class="col-md-8">
 		<EditForm Model="SearchData" OnValidSubmit="HandleSearch" FormName="SearchMedicine">
 			<DataAnnotationsValidator />
 			<ValidationSummary />
@@ -45,8 +45,7 @@ else
 		<thead class="table-dark">
 			 <tr style="background-color: #007fff; border: 2px solid gray">
 				<th>Tên thuốc</th>
-				<th>Giá</th>
-				<th>Trạng thái</th>
+				<th>Giá</th>			
 				<th>Thao tác</th>
 			</tr>
 		</thead>
@@ -55,10 +54,7 @@ else
 			{
 				<tr>
 					<td>@item.Name</td>
-					<td>@item.Price.ToString() VND</td>
-					<td class="@(item.IsDelete ? "text-danger" : "text-success")">
-						@(item.IsDelete ? "Đã xóa" : "Đang hoạt động")
-					</td>
+					<td>@item.Price.ToString() VND</td>				
 					<td class="d-flex justify-content-evenly">
 						<NavLink class="btn btn-warning btn-sm" href="@($"/medicines/edit/{item.Id}")">Chỉnh sửa</NavLink>
 						<button class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(item.Id)">Xóa</button>

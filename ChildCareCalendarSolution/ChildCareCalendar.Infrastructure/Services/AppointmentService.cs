@@ -3,6 +3,7 @@ using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using static ChildCareCalendar.Utilities.Constants.SystemConstant;
 
 namespace ChildCareCalendar.Infrastructure.Services
 {
@@ -137,26 +138,33 @@ namespace ChildCareCalendar.Infrastructure.Services
         public async Task<(IEnumerable<Appointment> appointments, int totalCount)> GetPagedAppointmentsByDoctorIdAsync(
     int doctorId, int pageIndex, int pageSize, string keyword = null)
         {
-            // Tạo bộ lọc ban đầu
-            Expression<Func<Appointment, bool>> filter = x => x.DoctorId == doctorId && !x.IsDelete;
 
-            // Thêm điều kiện tìm kiếm nếu có từ khóa
+            Expression<Func<Appointment, bool>> filter = x =>
+            x.DoctorId == doctorId &&
+            !x.IsDelete &&
+            (x.Status.ToLower() == AppointmentStatus.Checked_In.ToString().ToLower() ||
+             x.Status.ToLower() == AppointmentStatus.Completed.ToString().ToLower());
+
+
             if (!string.IsNullOrEmpty(keyword))
             {
-                // Sử dụng ToLower() để tìm kiếm không phân biệt hoa thường
+                
                 string lowerKeyword = keyword.ToLower();
-                filter = x => x.DoctorId == doctorId && !x.IsDelete &&
-                              (x.Parent.FullName.ToLower().Contains(lowerKeyword) ||
-                               x.ChildrenRecord.FullName.ToLower().Contains(lowerKeyword));
+                filter = x => x.DoctorId == doctorId &&
+                     !x.IsDelete &&
+                     (x.Status.ToLower() == AppointmentStatus.Checked_In.ToString().ToLower() ||
+                      x.Status.ToLower() == AppointmentStatus.Completed.ToString().ToLower()) &&
+                     (x.Parent.FullName.ToLower().Contains(lowerKeyword) ||
+                      x.ChildrenRecord.FullName.ToLower().Contains(lowerKeyword));
             }
 
-            // Sử dụng Include để tải thông tin liên quan đến Parent và ChildrenRecord
+        
             var query = _appointmentRepository.GetQueryable()
                 .Where(filter)
-                .Include(a => a.Parent) // Bao gồm thông tin Parent
-                .Include(a => a.ChildrenRecord); // Bao gồm thông tin ChildrenRecord
+                .Include(a => a.Parent) 
+                .Include(a => a.ChildrenRecord); 
 
-            // Thực hiện phân trang
+          
             var totalCount = await query.CountAsync();
             var appointments = await query
                 .Skip((pageIndex - 1) * pageSize)

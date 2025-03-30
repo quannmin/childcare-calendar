@@ -19,12 +19,6 @@
 </head>
 
 <body class="index-page">
-    <component type="typeof(App)" render-mode="ServerPrerendered" param-AdditionalAssemblies="new[] { typeof(ChildCareCalendar.Admin.Pages.AdminDashboard).Assembly }" />
-    <script>
-        function navigateToAdmin() {
-            window.location.href = '/dashboard';
-        }
-    </script>
     <Routes />
     
     <script src="_framework/blazor.server.js"></script>
