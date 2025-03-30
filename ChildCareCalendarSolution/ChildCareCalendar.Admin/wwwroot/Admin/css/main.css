@@ -212,7 +212,6 @@ iframe {
     justify-content: center;
     align-items: center;
     padding: 15px;
-    /*align-content: flex-start;*/
     background: #2eab40;
     background: -webkit-linear-gradient(-135deg, #2eab40, #5a5a5a);
     background: -o-linear-gradient(-135deg, #2eab40, #5a5a5a);
@@ -225,9 +224,7 @@ iframe {
     background: #f8f9fa;
     border-radius: 10px;
     overflow: hidden;
-    display: -webkit-box;
     display: -webkit-flex;
-    display: -moz-box;
     display: -ms-flexbox;
     flex-wrap: wrap;
     justify-content: space-between;
