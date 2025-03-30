@@ -1,14 +1,20 @@
 ﻿@rendermode InteractiveServer
 
-<link href="css/AppointmentBooking/MainLayout.css" rel="stylesheet" />
 
 <div>
     <h4 class="info-title">Vui lòng chọn bác sĩ</h4>
 
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Tìm nhanh bác sĩ">
-        <i class="bi bi-search"></i>
-    </div>
+    <EditForm Model="SearchData" OnValidSubmit="HandleSearch">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="search-box">
+            <InputText class="form-control" @bind-Value="SearchData.Keyword" placeholder="Tìm nhanh bác sĩ..." />
+            <button type="submit" class="ms-2 btn btn-primary searchBtn">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </EditForm>
 
     <div class="list-specialty-container">
         @foreach (var doctor in Doctors)
@@ -20,6 +26,11 @@
                     <div class="list-specialty-description">@doctor.Speciality.SpecialtyName</div>
                 }
             </div>
+        }
+
+        @if (!Doctors.Any())
+        {
+            <div class="no-results">Không tìm thấy bác sĩ phù hợp.</div>
         }
     </div>
 </div>
