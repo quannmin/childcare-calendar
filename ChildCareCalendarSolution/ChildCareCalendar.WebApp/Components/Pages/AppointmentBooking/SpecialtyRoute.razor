@@ -5,48 +5,55 @@
 
 <PageTitle>Đặt lịch</PageTitle>
 
-<section id="hero" class="hero section light-background">
-    <div class="container position-relative booking-container">
-        <div class="row gy-4 align-items-start">
-            <div class="col-lg-4 d-flex">
-                <div class="left-panel">
-                    <h4 class="info-title">Thông tin lịch hẹn</h4>
-                    @if (selectedSpecialtyId.HasValue)
-                    {
-                        <p>Chuyên khoa: @(selectedSpecialtyName)</p>
-                    }
-                    @if (selectedServiceId.HasValue)
-                    {
-                        <p>Dịch vụ: @(selectedServiceName)</p>
-                    }
+@if (!IsAuthenticated)
+{
+    <h3 class="alert alert-danger text-center">
+        Bạn chưa đăng nhập. Vui lòng <a href="/Login">đăng nhập</a> để tiếp tục.
+    </h3>
+}
+else
+{
+    <section id="hero" class="hero section light-background">
+        <div class="container position-relative booking-container">
+            <div class="row gy-4 align-items-start">
+                <div class="col-lg-4 d-flex">
+                    <div class="left-panel">
+                        <h4 class="info-title">Thông tin lịch hẹn</h4>
+                        @if (selectedSpecialtyId.HasValue)
+                        {
+                            <p>Chuyên khoa: @(selectedSpecialtyName)</p>
+                        }
+                        @if (selectedServiceId.HasValue)
+                        {
+                            <p>Dịch vụ: @(selectedServiceName)</p>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-8 d-flex">
+                    <div class="right-panel">
+                        @if (!selectedSpecialtyId.HasValue)
+                        {
+                            <SelectSpecialty OnSpecialtySelected="HandleSpecialtySelection" />
+                        }
+                        @if (selectedSpecialtyId.HasValue && !selectedServiceId.HasValue)
+                        {
+                            <SelectService SpecialtyId="selectedSpecialtyId.Value" OnServiceSelected="HandleServiceSelection"></SelectService>
+                            <div class="go-back-btn" @onclick="GoBackToSpecialtySelection">
+                                <i class="bi bi-arrow-return-left"></i>
+                                <span>Quay lại</span>
+                            </div>
+                        }
+                        @if (selectedSpecialtyId.HasValue && selectedServiceId.HasValue)
+                        {
+                            <SelectDay></SelectDay>
+                            <div class="go-back-btn" @onclick="GoBackToServiceSelection">
+                                <i class="bi bi-arrow-return-left"></i>
+                                <span>Quay lại</span>
+                            </div>
+
+                        }
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-8 d-flex">
-                <div class="right-panel">
-                    @if (!selectedSpecialtyId.HasValue)
-                    {
-                        <SelectSpecialty OnSpecialtySelected="HandleSpecialtySelection" />
-                    }
-
-                    @if (selectedSpecialtyId.HasValue && !selectedServiceId.HasValue)
-                    {
-                        <SelectService SpecialtyId="selectedSpecialtyId.Value" OnServiceSelected="HandleServiceSelection"></SelectService>
-                        <div class="go-back-btn" @onclick="GoBackToSpecialtySelection">
-                            <i class="bi bi-arrow-return-left"></i>
-                            <span>Quay lại</span>
-                        </div>
-                    }
-                    @if (selectedSpecialtyId.HasValue && selectedServiceId.HasValue)
-                    {
-                        <SelectDay></SelectDay>
-                        <div class="go-back-btn" @onclick="GoBackToServiceSelection">
-                            <i class="bi bi-arrow-return-left"></i>
-                            <span>Quay lại</span>
-                        </div>
-
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
+}

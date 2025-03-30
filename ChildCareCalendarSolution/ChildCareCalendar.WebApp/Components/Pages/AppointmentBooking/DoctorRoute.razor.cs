@@ -4,11 +4,15 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Threading.Tasks;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
 {
     public partial class DoctorRoute
     {
+        private bool IsAuthenticated = false;
+        private AppUser? Parent;
+        private int userIdFromSession;
 
         private int? selectedDoctorId;
         private string? selectedDoctorName;
@@ -34,6 +38,32 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         [Inject] private IPayPalService PayPalService { get; set; } = default!;
         [Inject] private NavigationManager Navigation { get; set; } = default!;
         [Inject] private IHttpContextAccessor HttpContextAccessor { get; set; } = default!;
+
+        [Inject]
+        private ProtectedSessionStorage SessionStorage { get; set; } = default!;
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                var userIdResult = await SessionStorage.GetAsync<int>("userId");
+                if (userIdResult.Success)
+                {
+                    userIdFromSession = userIdResult.Value;
+
+                    Parent = (await UserService.FindUsersAsync(a => a.Id.Equals(userIdFromSession)))?.FirstOrDefault();
+                    if (Parent != null && Parent.Role.Equals("PhuHuynh"))
+                    {
+                        IsAuthenticated = true;
+                    }
+                    else
+                    {
+                        Navigation.NavigateTo("/Login", forceLoad: true);
+                    }
+                    StateHasChanged();
+                }
+            }
+        }
 
         protected override async Task OnParametersSetAsync()
         {
