@@ -178,5 +178,13 @@ namespace ChildCareCalendar.Infrastructure.Services
         {
            return await _appointmentRepository.FindAsync(a => a.DoctorId == doctorId && !a.IsDelete, includes);
         }
+
+        public async Task<Appointment?> FindLatestAppointmentAsync(int parentId, int doctorId)
+        {
+            return (await _appointmentRepository.FindAsync(
+                a => a.ParentId == parentId && a.DoctorId == doctorId,
+                a => a.Payment
+            )).OrderByDescending(a => a.CreatedAt).FirstOrDefault();
+        }
     }
 }

@@ -50,7 +50,6 @@ namespace ChildCareCalendar.Utilities.Libraries
                 PaymentMethod = "VnPay",
                 OrderDescription = orderInfo,
                 OrderId = orderId.ToString(),
-                PaymentId = vnPayTranId.ToString(),
                 TransactionId = vnPayTranId.ToString(),
                 Token = vnpSecureHash,
                 VnPayResponseCode = vnpResponseCode,
