@@ -1,175 +1,202 @@
-﻿<nav class="pc-sidebar">
+﻿@inject AuthenticationStateProvider AuthStateProvider
+
+<nav class="pc-sidebar">
 	<div class="navbar-wrapper">
 		<div class="m-header">
-			<a href="../dashboard/index.html" class="b-brand text-primary">
+			<a class="b-brand text-primary">
 				ChildCare
 			</a>
 		</div>
 		<div class="navbar-content">
-			<div class="card pc-user-card">
-				<div class="card-body">
-					<div class="d-flex align-items-center">
-						<div class="flex-shrink-0">
-							<img src="../assets/images/user/avatar-1.jpg" alt="user-image" class="user-avtar wid-45 rounded-circle" />
+			<AuthorizeView Roles="QuanLy,BacSi">
+				<Authorized>
+					<div class="card pc-user-card">
+						<div class="card-body">
+							<div class="d-flex align-items-center">
+								<div class="flex-shrink-0">
+									<img src="../assets/images/user/avatar-1.jpg" alt="user-image" class="user-avtar wid-45 rounded-circle" />
+								</div>
+								<div class="flex-grow-1 ms-3 me-2">
+									<h6 class="mb-0">@fullName</h6>
+									<small>@role.GetEnumDisplayName(typeof(SystemConstant.AccountsRole))</small>
+								</div>
+								<a class="btn btn-icon btn-link-secondary avtar" data-bs-toggle="collapse" href="#pc_sidebar_userlink">
+									<span class="pc-micon">
+										<i class="ti ti-sort-descending"></i>
+									</span>
+								</a>
+							</div>
+							<div class="collapse pc-user-links" id="pc_sidebar_userlink">
+								<div class="pt-3">
+									<a href="#!">
+										<i class="ti ti-user"></i>
+										<span>My Account</span>
+									</a>
+									@* <a href="#!">
+									<i class="ti ti-settings"></i>
+									<span>Settings</span>
+									</a>
+									<a href="#!">
+									<i class="ti ti-lock"></i>
+									<span>Lock Screen</span>
+									</a> *@
+									<a href="#!">
+										<i class="ti ti-power"></i>
+										<span>Logout</span>
+									</a>
+								</div>
+							</div>
 						</div>
-						<div class="flex-grow-1 ms-3 me-2">
-							<h6 class="mb-0">Jonh Smith</h6>
-							<small>Administrator</small>
-						</div>
-						<a class="btn btn-icon btn-link-secondary avtar" data-bs-toggle="collapse" href="#pc_sidebar_userlink">
-							<span class="pc-micon">
-								<i class="ti ti-sort-descending"></i>
-							</span>
-						</a>
 					</div>
-					<div class="collapse pc-user-links" id="pc_sidebar_userlink">
-						<div class="pt-3">
-							<a href="#!">
-								<i class="ti ti-user"></i>
-								<span>My Account</span>
-							</a>
-							<a href="#!">
-								<i class="ti ti-settings"></i>
-								<span>Settings</span>
-							</a>
-							<a href="#!">
-								<i class="ti ti-lock"></i>
-								<span>Lock Screen</span>
-							</a>
-							<a href="#!">
-								<i class="ti ti-power"></i>
-								<span>Logout</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
+				</Authorized>
+			</AuthorizeView>
+
+
 
 			<ul class="pc-navbar">
-				<li class="pc-item pc-caption">
-					<label>Navigation</label>
-				</li>
-				<li class="pc-item pc-hasmenu">
-					<a href="#!" class="pc-link">
-						<span class="pc-micon">
-							<i class="ti ti-chart-bar"></i>
-						</span>
-						<span class="pc-mtext">Dashboard</span>
-						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-					</a>
-					<ul class="pc-submenu">
-						<li class="pc-item"><a class="pc-link" href="/">Default</a></li>
-						<li class="pc-item"><a class="pc-link" href="/">Analytics</a></li>
-						<li class="pc-item"><a class="pc-link" href="/">Finance</a></li>
-					</ul>
-				</li>
+				<AuthorizeView>
+					<Authorized>
+						<li class="pc-item pc-caption">
+							<label>Navigation</label>
+						</li>
+					</Authorized>
+				</AuthorizeView>
 
-				<li class="pc-item pc-hasmenu">
-					<a href="#!" class="pc-link">
+
+				<AuthorizeView Roles="QuanLy">
+					<Authorized>
+						<li class="pc-item pc-hasmenu">
+							<a href="/" class="pc-link">
+								<span class="pc-micon">
+									<i class="ti ti-chart-bar"></i>
+								</span>
+								<span class="pc-mtext">Dashboard</span>
+								@* <span class="pc-arrow"><i data-feather="chevron-right"></i></span> *@
+							</a>
+							@* <ul class="pc-submenu">
+							<li class="pc-item"><a class="pc-link" href="/">Default</a></li>
+							<li class="pc-item"><a class="pc-link" href="/">Analytics</a></li>
+							<li class="pc-item"><a class="pc-link" href="/">Finance</a></li>
+							</ul> *@
+						</li>
+
+						@* <li class="pc-item pc-hasmenu">
+						<a href="#!" class="pc-link">
 						<span class="pc-micon">
-							<i class="ti ti-chart-bar"></i>
+						<i class="ti ti-chart-bar"></i>
 						</span>
 						<span class="pc-mtext">Layouts</span>
 						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-					</a>
-					<ul class="pc-submenu">
+						</a>
+						<ul class="pc-submenu">
 						<li class="pc-item"><a class="pc-link" href="/">Vertical</a></li>
 						<li class="pc-item"><a class="pc-link" href="/">Horizontal</a></li>
 						<li class="pc-item"><a class="pc-link" href="/">Layouts 2</a></li>
 						<li class="pc-item"><a class="pc-link" href="/">Compact</a></li>
 						<li class="pc-item"><a class="pc-link" href="/">Tab</a></li>
-					</ul>
-				</li>
+						</ul>
+						</li> *@
 
-				<li class="pc-item">
-					<a href="/specialities" class="pc-link">
-						<span class="pc-micon">
-							<i class="ti ti-building-hospital"></i>
-						</span>
-						<span class="pc-mtext">Chuyên khoa</span>
-						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-					</a>
-				</li>
+						<li class="pc-item">
+							<a href="/specialities" class="pc-link">
+								<span class="pc-micon">
+									<i class="ti ti-building-hospital"></i>
+								</span>
+								<span class="pc-mtext">Chuyên khoa</span>
+								@* <span class="pc-arrow"><i data-feather="chevron-right"></i></span> *@
+							</a>
+						</li>
 
-				<li class="pc-item">
-					<a href="/medicines" class="pc-link">
-						<span class="pc-micon">  
-							<i class="ti ti-pill"></i>
-						</span>
-						<span class="pc-mtext">Thuốc</span>
-						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-					</a>
-				</li>
+						<li class="pc-item">
+							<a href="/medicines" class="pc-link">
+								<span class="pc-micon">
+									<i class="ti ti-pill"></i>
+								</span>
+								<span class="pc-mtext">Thuốc</span>
+								@* <span class="pc-arrow"><i data-feather="chevron-right"></i></span> *@
+							</a>
+						</li>
 
-				<li class="pc-item">
-					<a href="/examination-reports" class="pc-link">
-						<span class="pc-micon">
-							<i class="ti ti-clipboard-list"></i>
-						</span>
-						<span class="pc-mtext">Báo cáo khám bệnh</span>
-						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-					</a>
-				</li>
+						<li class="pc-item">
+							<a href="/users/index" class="pc-link">
+								<span class="pc-micon">
+									<i class="ti ti-user"></i>
+								</span>
+								<span class="pc-mtext">Người dùng</span>
+							</a>
+						</li>
 
-				<li class="pc-item">
-					<a href="/users/index" class="pc-link">
-						<span class="pc-micon">
-							<i class="ti ti-user"></i>
-						</span>
-						<span class="pc-mtext">Người dùng</span>
-					</a>
-				</li>
+						<li class="pc-item">
+							<a href="/appointments" class="pc-link">
+								<span class="pc-micon">
+									<i class="ti ti-calendar-event"></i>
+								</span>
+								<span class="pc-mtext">Lịch hẹn</span>
+								@* <span class="pc-arrow"><i data-feather="chevron-right"></i></span> *@
+							</a>
+						</li>
 
+						<li class="pc-item">
+							<a href="/refundreports" class="pc-link">
+								<span class="pc-micon">
+									<i class="ti ti-calendar-event"></i>
+								</span>
+								<span class="pc-mtext">Hoàn tiền</span>
+								@* <span class="pc-arrow"><i data-feather="chevron-right"></i></span> *@
+							</a>
+						</li>
 
-				<li class="pc-item">
-					<a href="/appointments" class="pc-link">
-						<span class="pc-micon">
-							<i class="ti ti-calendar-event"></i>
-						</span>
-						<span class="pc-mtext">Lịch hẹn</span>
-						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-					</a>
-				</li>
+						<li class="pc-item">
+							<a href="/workhours" class="pc-link">
+								<span class="pc-micon">
+									<i class="ti ti-clock"></i>
+								</span>
+								<span class="pc-mtext">Khung giờ</span>
+								@* <span class="pc-arrow"><i data-feather="chevron-right"></i></span> *@
+							</a>
+						</li>
 
-				<li class="pc-item">
-					<a href="/appointmentsfordoctor" class="pc-link">
-						<span class="pc-micon">
-							<i class="ti ti-calendar-event"></i>
-						</span>
-						<span class="pc-mtext">Lịch khám cho bác sĩ</span>
-						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-					</a>
-				</li>
+						<li class="pc-item">
+							<a href="/schedules" class="pc-link">
+								<span class="pc-micon">
+									<i class="ti ti-calendar"></i>
+								</span>
+								<span class="pc-mtext">Lịch làm việc</span>
+								@* <span class="pc-arrow"><i data-feather="chevron-right"></i></span> *@
+							</a>
+						</li>
+					</Authorized>
+				</AuthorizeView>
 
-				<li class="pc-item">
-					<a href="/refundreports" class="pc-link">
-						<span class="pc-micon">
-							<i class="ti ti-calendar-event"></i>
-						</span>
-						<span class="pc-mtext">Hoàn tiền</span>
-						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-					</a>
-				</li>
+				<AuthorizeView Roles="BacSi">
+					<Authorized>
+						<li class="pc-item">
+							<a href="/examination-reports" class="pc-link">
+								<span class="pc-micon">
+									<i class="ti ti-clipboard-list"></i>
+								</span>
+								<span class="pc-mtext">Báo cáo khám bệnh</span>
+								@* <span class="pc-arrow"><i data-feather="chevron-right"></i></span> *@
+							</a>
+						</li>
 
-				<li class="pc-item">
-					<a href="/workhours" class="pc-link">
-						<span class="pc-micon">
-							<i class="ti ti-clock"></i>
-						</span>
-						<span class="pc-mtext">Khung giờ</span>
-						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-					</a>
-				</li>
+						<li class="pc-item">
+							<a href="/appointmentsfordoctor" class="pc-link">
+								<span class="pc-micon">
+									<i class="ti ti-calendar-event"></i>
+								</span>
+								<span class="pc-mtext">Lịch khám cho bác sĩ</span>
+								@* <span class="pc-arrow"><i data-feather="chevron-right"></i></span> *@
+							</a>
+						</li>
+					</Authorized>
+				</AuthorizeView>
 
-				<li class="pc-item">
-					<a href="/schedules" class="pc-link">
-						<span class="pc-micon">
-							<i class="ti ti-calendar"></i>
-						</span>
-						<span class="pc-mtext">Lịch làm việc</span>
-						<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-					</a>
-				</li>
+				<AuthorizeView Roles="QuanLy,BacSi">
+					<Authorized>
+						
+					</Authorized>
+				</AuthorizeView>
 			</ul>
 		</div>
 	</div>
@@ -244,3 +271,17 @@
 </script>
 
 
+@code
+{
+	private string fullName = string.Empty;
+	private string role = string.Empty;
+
+	protected override async Task OnInitializedAsync()
+	{
+		var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+		var user = authState.User;
+
+		role = user.FindFirst(ClaimTypes.Role)?.Value;
+		fullName = user.FindFirst("FullName")?.Value ?? string.Empty;
+	}
+}

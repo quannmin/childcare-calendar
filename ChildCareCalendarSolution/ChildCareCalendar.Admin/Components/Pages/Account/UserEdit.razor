@@ -1,5 +1,6 @@
 ﻿@page "/users/edit/{id:int}"
 @rendermode InteractiveServer
+@attribute [Authorize(Roles = "QuanLy")]
 
 <h3>Chỉnh sửa người dùng</h3>
 <hr />

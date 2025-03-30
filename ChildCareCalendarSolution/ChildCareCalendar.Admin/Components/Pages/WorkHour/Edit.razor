@@ -1,5 +1,6 @@
 ﻿@page "/workhours/edit/{id:int}"
 @rendermode InteractiveServer
+@attribute [Authorize(Roles = "QuanLy")]
 
 <h3>Chỉnh sửa chuyên khoa</h3>
 <hr />

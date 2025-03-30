@@ -1,4 +1,5 @@
 ﻿@page "/users/detail/{id:int}"
+@attribute [Authorize(Roles = "QuanLy")]
 
 <h3>Chi tiết người dùng</h3>
 <hr />
