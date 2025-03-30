@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authentication;
 using ChildCareCalendar.Domain.ViewModels.Account;
 using Microsoft.AspNetCore.Http;
 
-namespace ChildCareCalendar.WebApp.Components.Pages.LoginPage
+namespace ChildCareCalendar.WebApp.Components.Pages.Authentication
 {
     public partial class Login
     {
@@ -77,7 +77,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.LoginPage
                     return;
                 }
 
-              
+
                 bool success = await AuthService.LoginAsync(loginModel.Email, loginModel.Password);
 
                 if (!success)
@@ -106,8 +106,8 @@ namespace ChildCareCalendar.WebApp.Components.Pages.LoginPage
             {
                 isLoading = true;
                 errorMessage = string.Empty;
-            
-                NavigationManager.NavigateTo("/signin-google", forceLoad: true);
+
+                NavigationManager.NavigateTo("/login/google", forceLoad: true);
             }
             catch (Exception ex)
             {

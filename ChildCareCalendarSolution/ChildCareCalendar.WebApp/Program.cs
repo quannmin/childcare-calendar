@@ -7,27 +7,50 @@ using ChildCareCalendar.Infrastructure.Extensions;
 using ChildCareCalendar.Infrastructure.Mappings;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server;
-using ChildCareCalendar.WebApp.Components.Pages.LoginPage;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using ChildCareCalendar.Domain.ViewModels;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using ChildCareCalendar.WebApp.Components.Pages.Authentication;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration["Authentication:Google:ClientId"] = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID");
+builder.Configuration["Authentication:Google:ClientSecret"] = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_SECRET");
+
+
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddAuthentication();
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+})
+.AddCookie()
+.AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+    googleOptions.Scope.Add("profile");
+    googleOptions.Scope.Add("email");
+});
+
+
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
-    options.MinimumSameSitePolicy = SameSiteMode.None;
+    options.MinimumSameSitePolicy = SameSiteMode.Lax;
     options.Secure = CookieSecurePolicy.Always;
 });
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
-
 
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 builder.Services.AddScoped<AuthService>();
@@ -74,8 +97,21 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
+
+
+
+
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapGet("/login/google", async (HttpContext context) =>
+{
+    var properties = new AuthenticationProperties
+    {
+        RedirectUri = "/google-callback"
+    };
+    await context.ChallengeAsync(GoogleDefaults.AuthenticationScheme, properties);
+});
 
 
 app.MapRazorComponents<App>()

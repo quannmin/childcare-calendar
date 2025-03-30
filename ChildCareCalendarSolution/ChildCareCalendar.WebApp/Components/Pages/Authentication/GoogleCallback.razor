@@ -1,0 +1,36 @@
+﻿@page "/google-callback"
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthService AuthService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+@inject ILogger<GoogleCallback> Logger
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {     
+        Logger.LogInformation("Bắt đầu xử lý Google callback");
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var principal = authState.User;
+        Logger.LogInformation("Principal authenticated: {IsAuthenticated}", principal.Identity?.IsAuthenticated);
+        foreach (var claim in principal.Claims)
+        {
+            Logger.LogInformation("Claim: {Type}: {Value}", claim.Type, claim.Value);
+        }
+        if (principal.Identity?.IsAuthenticated == true)
+        {
+         
+            var success = await AuthService.LoginWithGoogleAsync(principal);
+            if (!success)
+            {
+                Logger.LogWarning("Không thể lưu thông tin người dùng");
+            }
+
+        }
+        else
+        {
+            Console.WriteLine("Principal không được xác thực.");
+        }
+        NavigationManager.NavigateTo("/", forceLoad: true);
+    }
+}
