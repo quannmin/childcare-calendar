@@ -214,3 +214,43 @@
         border-color: var(--surface-color);
         box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
     }
+
+.go-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #007bff;
+    background-color: transparent;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+    .go-back-btn i,
+    .go-back-btn span {
+        transition: color 0.3s ease;
+    }
+
+    /* 🎯 Hover toàn bộ nút */
+    .go-back-btn:hover {
+        background-color: #e7f1ff;
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+        /* 🔄 Đảm bảo icon và chữ cũng đổi màu khi hover */
+        .go-back-btn:hover i,
+        .go-back-btn:hover span {
+            color: #0056b3;
+        }
+
+
+
+
+
+
+
+

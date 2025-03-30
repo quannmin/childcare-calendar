@@ -1,36 +1,38 @@
 ﻿@page "/PaymentCallback"
+@using ChildCareCalendar.Domain.Entities
+@using ChildCareCalendar.Infrastructure.Services.Interfaces
 @inject NavigationManager Navigation
+@inject IPaymentService PaymentService
+@inject IAppointmentService AppointmentService
 
-<h3>Trạng thái thanh toán</h3>
+<link href="css/AppointmentBooking/PaymentStatus.css" rel="stylesheet" />
 
-@if (isLoading)
-{
-    <p>Đang kiểm tra trạng thái thanh toán...</p>
-}
-else
-{
-    <div class="alert" style="background-color: @(paymentSuccess ? "#d4edda" : "#f8d7da"); padding: 15px; border-radius: 5px;">
-        <h5>@message</h5>
-        <p><strong>Mã giao dịch:</strong> @transactionId</p>
-        <p><strong>Mã đơn hàng:</strong> @orderId</p>
-        <p><strong>Số tiền:</strong> @amount VNĐ</p>
-        <p><strong>Phương thức thanh toán:</strong> @paymentMethod</p>
-        <p><strong>Mã phản hồi VNPay:</strong> @responseCode</p>
+<div class="payment-status-container">
+    <div class="status-box @(paymentSuccess ? "success" : "fail")">
+        <h2>@message</h2>
+
+        <div class="status-details">
+            <p><strong>Mã giao dịch:</strong> @transactionId</p>
+            <p><strong>Mã đơn hàng:</strong> @orderId</p>
+            <p><strong>Số tiền:</strong> @amount VNĐ</p>
+            <p><strong>Phương thức thanh toán:</strong> @paymentMethod</p>
+        </div>
+
+        <a class="btn-return" href="/AccountDetail">Quay về trang cá nhân</a>
+
     </div>
-    <button @onclick="GoBackToHome" class="btn btn-primary">Quay lại trang chủ</button>
-}
+</div>
 
 @code {
     private bool isLoading = true;
     private bool paymentSuccess;
-    private string message = "Đang xử lý...";
+    private string message = "";
     private string transactionId = "";
     private string orderId = "";
     private string amount = "";
     private string paymentMethod = "VNPay";
-    private string responseCode = "";
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         var uri = new Uri(Navigation.Uri);
         var queryParams = System.Web.HttpUtility.ParseQueryString(uri.Query);
@@ -38,25 +40,53 @@ else
         if (queryParams.Count == 0)
         {
             message = "Không có thông tin thanh toán!";
+            paymentSuccess = false;
             isLoading = false;
             return;
         }
 
-        // Lấy dữ liệu từ Query String (VNPay Callback)
-        bool isSuccess = queryParams["vnp_ResponseCode"] == "00"; // 00 là thành công
+        paymentSuccess = queryParams["vnp_ResponseCode"] == "00";
         transactionId = queryParams["vnp_TransactionNo"] ?? "Không có";
         orderId = queryParams["vnp_TxnRef"] ?? "Không có";
         amount = (decimal.Parse(queryParams["vnp_Amount"] ?? "0") / 100).ToString("N0");
-        responseCode = queryParams["vnp_ResponseCode"] ?? "Không có";
 
-        paymentSuccess = isSuccess;
-        message = isSuccess ? "Thanh toán VNPay thành công!" : "Thanh toán VNPay không thành công!";
+        message = paymentSuccess ? "Thanh toán VNPay thành công!" : "Thanh toán VNPay không thành công!";
+        var appointmentId = 0;
+        var orderInfo = queryParams["vnp_OrderInfo"];
+
+        if (!string.IsNullOrEmpty(orderInfo) && orderInfo.StartsWith("Appointment:"))
+        {
+            var parts = orderInfo.Split(':', '+');
+            if (parts.Length >= 2 && int.TryParse(parts[1], out var parsedId))
+            {
+                appointmentId = parsedId;
+            }
+        }
+
+        // 👉 Tạo Payment mới
+        var payment = new Payment
+            {
+                OrderId = orderId,
+                TransactionId = transactionId,
+                PaymentMethod = "VNPay",
+                Amount = decimal.Parse(amount.Replace(",", "")),
+                Success = paymentSuccess,
+                VnPayResponseCode = queryParams["vnp_ResponseCode"],
+                Token = Guid.NewGuid().ToString()
+            };
+
+        var savedPayment = await PaymentService.CreatePaymentAsync(payment);
+        if (appointmentId != 0)
+        {
+            var appointment = await AppointmentService.GetAppointmentByIdAsync(appointmentId);
+            if (appointment != null)
+            {
+                appointment.PaymentId = savedPayment.Id;
+                await AppointmentService.UpdateAppointmentAsync(appointment);
+            }
+        }
+        
 
         isLoading = false;
-    }
-
-    private void GoBackToHome()
-    {
-        Navigation.NavigateTo("/");
     }
 }

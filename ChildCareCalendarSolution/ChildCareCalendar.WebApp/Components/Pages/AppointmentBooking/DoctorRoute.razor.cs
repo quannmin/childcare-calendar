@@ -32,8 +32,9 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         private Service? selectedService;
 
         [Inject] private IUserService UserService { get; set; } = default!;
-        
 
+        [Inject] private IScheduleService ScheduleService { get; set; } = default!;
+        [Inject] private IAppointmentService AppointmentService { get; set; } = default!;
         [Inject] private IVnPayService VnPayService { get; set; } = default!;
         [Inject] private IPayPalService PayPalService { get; set; } = default!;
         [Inject] private NavigationManager Navigation { get; set; } = default!;
@@ -138,20 +139,40 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
 
         private async Task ProcessPayment()
         {
-            if (selectedServicePrice == null)
+            if (selectedServicePrice == null || selectedDoctorId == null || selectedDate == null || selectedWorkHourId == null)
                 return;
 
+            var schedule = (await ScheduleService.FindSchedulesAsync(
+                s => s.UserId == selectedDoctorId &&
+                     s.WorkDay.HasValue &&
+                     s.WorkDay.Value.Date == selectedDate.Value.Date &&
+                     s.WorkHourId == selectedWorkHourId,
+                s => s.WorkHour)).FirstOrDefault();
 
-            var appointment = new ChildCareCalendar.Domain.Entities.Appointment
+            if (schedule == null)
             {
-                Id = 0,
-                DoctorId = selectedDoctorId ?? 0,
-                ParentId = 6,
+                Console.WriteLine("❌ Không tìm thấy lịch làm việc tương ứng!");
+                return;
+            }
+
+            var appointment = new Appointment
+            {
+                DoctorId = selectedDoctorId.Value,
+                ParentId = userIdFromSession,
                 ChildrenRecordId = 1,
                 ServiceId = selectedServiceId ?? 0,
                 TotalAmount = (decimal)selectedServicePrice.Value,
-                CheckupDateTime = selectedDate ?? DateTime.Now
+                CheckupDateTime = selectedDate.Value.Date + selectedStartTime!.Value,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                ScheduleId = schedule.Id,
+                Status = "ORDERED"
             };
+
+            await AppointmentService.AddAppointmentAsync(appointment);
+
+            schedule.IsOccupied = true;
+            await ScheduleService.UpdateScheduleAsync(schedule);
 
             string paymentUrl = "";
 
