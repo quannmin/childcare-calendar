@@ -1,4 +1,5 @@
 ﻿@page "/appointmentsfordoctor"
+@using static ChildCareCalendar.Utilities.Constants.SystemConstant
 @rendermode InteractiveServer
 
 <h3>Quản lý lịch khám của bác sĩ</h3>
@@ -11,7 +12,7 @@
 
             <div class="d-flex">
                 <InputText class="form-control me-2" @bind-Value="SearchData.Keyword" placeholder="Tìm kiếm lịch hẹn..." />
-                <button type="submit" class="btn btn-primary searchBtn w-25";">Tìm kiếm</button>
+                <button type="submit" class="btn btn-primary searchBtn w-25" ;">Tìm kiếm</button>
             </div>
         </EditForm>
     </div>
@@ -49,9 +50,12 @@ else
                     <td>@appointment.ServiceName</td>
                     <td>@appointment.TotalAmount.ToString() VND</td>
                     <td>@appointment.Status</td>
-                    <td>
+                    <td class="d-flex justify-content-evenly">
                         <NavLink class="btn btn-info btn-sm" href="@($"/appointments/detail/{appointment.AppointmentId}")">Chi tiết</NavLink>
-                        <NavLink class="btn btn-primary btn-sm" href="@($"/appointments/{appointment.AppointmentId}/create-examination-report")">Tạo kết quả khám</NavLink>
+                        @if (appointment.Status.ToLower() == AppointmentStatus.Checked_In.ToString().ToLower())
+                        {
+                            <NavLink class="btn btn-primary btn-sm ml-2" href="@($"/appointments/{appointment.AppointmentId}/create-examination-report")">Tạo kết quả khám</NavLink>
+                        }
                     </td>
                 </tr>
             }

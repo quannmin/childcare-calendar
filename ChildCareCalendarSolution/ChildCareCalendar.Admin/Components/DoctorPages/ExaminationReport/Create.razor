@@ -13,8 +13,9 @@
 @using System.Collections.Generic
 @using System.Linq
 @using System.Threading.Tasks
+@using static ChildCareCalendar.Utilities.Constants.SystemConstant
 
-<!-- Thêm container, card, row/col, v.v. để bố cục đẹp hơn -->
+
 <div class="container my-5">
     <h3 class="fw-bold mb-4">Tạo kết quả khám</h3>
 
@@ -115,10 +116,10 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Ghi chú bác sĩ</label>
-                        <InputTextArea class="form-control" @bind-Value="NewExaminationReport.Note" rows="3" />
+                        <InputTextArea class="form-control" @bind-Value="NewExaminationReport.Notes" rows="3" />
                     </div>
 
-                    <!-- Nút mở modal cho đơn thuốc (chỉ UI, không submit form) -->
+                    <!-- Nút mở modal cho đơn thuốc-->
                     <div class="mb-3">
                         <button type="button"
                                 class="btn btn-outline-primary"
@@ -142,13 +143,13 @@
         <!-- Modal hiển thị phần liên quan đến thuốc -->
         @if (ShowMedicineModal)
         {
-            <!-- Thêm backdrop mờ thủ công bằng style -->
+            <!-- Backdrop mờ thủ công bằng style -->
             <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header d-flex justify-content-between align-items-center">
                             <h5 class="modal-title fw-bold">Đơn thuốc</h5>
-                           
+
                         </div>
                         <div class="modal-body">
                             <h5 class="fw-semibold">Danh sách thuốc đã thêm</h5>
@@ -169,7 +170,7 @@
                                             <td>@medicine.MedicineName</td>
                                             <td>@medicine.Dosage</td>
                                             <td>@medicine.Quantity</td>
-                                            <td>@medicine.Slot</td>
+                                            <td>@medicine.Slot.ToString().GetEnumDisplayName(typeof(PrescriptionSlot))</td>
                                             <td>
                                                 <button class="btn btn-danger btn-sm"
                                                         @onclick="() => RemoveMedicine(medicine)"
@@ -226,7 +227,12 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label fw-semibold">Bữa uống</label>
-                                        <InputText class="form-control" @bind-Value="CurrentMedicine.Slot" />
+                                        <InputSelect class="form-control" @bind-Value="CurrentMedicine.Slot">
+                                            @foreach (var slot in Enum.GetValues<PrescriptionSlot>())
+                                            {
+                                                <option value="@slot">@GetDisplayName(slot)</option>
+                                            }
+                                        </InputSelect>
                                     </div>
                                 </div>
                                 @if (!string.IsNullOrEmpty(MedicineValidationError))

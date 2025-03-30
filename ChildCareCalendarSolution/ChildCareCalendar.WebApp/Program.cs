@@ -6,25 +6,42 @@ using Microsoft.EntityFrameworkCore;
 using ChildCareCalendar.Infrastructure.Extensions;
 using ChildCareCalendar.Infrastructure.Mappings;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Server;
+using ChildCareCalendar.WebApp.Components.Pages.LoginPage;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using ChildCareCalendar.Domain.ViewModels;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddAuthentication();
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+    options.Secure = CookieSecurePolicy.Always;
+});
+builder.Services.AddAuthorization();
+builder.Services.AddCascadingAuthenticationState();
+
+
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
+builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<ProtectedSessionStorage>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 Console.WriteLine($"Connection String: {connectionString}");
 
-builder.Services.AddDbContext<ChildCareCalendarContext>(options =>
-{
+builder.Services.AddDbContext<ChildCareCalendarContext>(options => {
     options.UseSqlServer(connectionString);
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-}, ServiceLifetime.Scoped);
+});
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
 builder.Services.Configure<CircuitOptions>(options =>
 {
@@ -41,18 +58,6 @@ builder.Services.AddScoped(sp =>
 builder.Services.AddScoped<IVnPayService, VnPayService>();
 builder.Services.AddScoped<IPayPalService, PayPalService>();
 builder.Services.AddHttpContextAccessor();
-
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-{
-    options.Cookie.Name = "auth_token";
-    options.LoginPath = "/login";
-    options.Cookie.MaxAge = TimeSpan.FromMinutes(30);
-    options.AccessDeniedPath = "/access-denied";
-});
-
-builder.Services.AddAuthorization();
-builder.Services.AddCascadingAuthenticationState();
 
 
 var app = builder.Build();
@@ -76,6 +81,5 @@ app.UseAuthorization();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
-
 
 app.Run();

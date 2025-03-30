@@ -32,9 +32,6 @@
 
 
   <ItemGroup>
-    <Content Update="Components\Pages\Account\Login.razor">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
     <Content Update="Components\Pages\RefundReport\Index.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>

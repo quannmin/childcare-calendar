@@ -8,9 +8,12 @@ using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using static ChildCareCalendar.Utilities.Constants.SystemConstant;
 
 namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
 {
@@ -156,6 +159,12 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
         {
             PrescriptionDetails.Remove(medicine);
         }
+        private string GetDisplayName(PrescriptionSlot slot)
+        {
+            var field = slot.GetType().GetField(slot.ToString());
+            var attribute = (DisplayAttribute)Attribute.GetCustomAttribute(field, typeof(DisplayAttribute));
+            return attribute?.Name ?? slot.ToString();
+        }
 
         private async Task SaveExaminationReport()
         {
@@ -185,6 +194,9 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.ExaminationReport
                     }
 
                     await ExaminationReportService.CreateExaminationReportAsync(examinationReport, prescriptionDetails);
+
+                    appointmentEntity.Status = AppointmentStatus.Completed.ToString();
+                    await AppointmentService.UpdateAppointmentAsync(appointmentEntity);
 
                     Navigation.NavigateTo($"/examination-reports/detail/{examinationReport.Id}");
                 }
