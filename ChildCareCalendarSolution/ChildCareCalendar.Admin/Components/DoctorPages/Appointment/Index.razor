@@ -1,6 +1,7 @@
 ﻿@page "/appointmentsfordoctor"
 @using static ChildCareCalendar.Utilities.Constants.SystemConstant
 @rendermode InteractiveServer
+@attribute [Authorize(Roles = "BacSi")]
 
 <h3>Quản lý lịch khám của bác sĩ</h3>
 

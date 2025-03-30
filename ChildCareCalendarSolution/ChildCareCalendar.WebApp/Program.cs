@@ -7,7 +7,7 @@ using ChildCareCalendar.Infrastructure.Extensions;
 using ChildCareCalendar.Infrastructure.Mappings;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server;
-using ChildCareCalendar.WebApp.Components.Pages.LoginPage;
+using ChildCareCalendar.WebApp.Components.Pages.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using ChildCareCalendar.Domain.ViewModels;
@@ -43,10 +43,6 @@ builder.Services.AddDbContext<ChildCareCalendarContext>(options => {
 });
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
-builder.Services.Configure<CircuitOptions>(options =>
-{
-    options.DetailedErrors = true;
-});
 builder.Services.AddDependencyInjection();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddAntDesign();

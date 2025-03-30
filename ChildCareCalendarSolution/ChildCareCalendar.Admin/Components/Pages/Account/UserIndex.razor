@@ -1,5 +1,7 @@
 ﻿@page "/users/index"
+@using Microsoft.AspNetCore.Authorization
 @rendermode InteractiveServer
+@attribute [Authorize(Roles = "QuanLy")]
 
 <h3>Quản lý người dùng</h3>
 

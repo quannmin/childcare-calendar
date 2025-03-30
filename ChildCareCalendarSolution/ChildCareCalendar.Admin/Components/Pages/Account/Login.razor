@@ -45,11 +45,10 @@
                     <img src="Admin/images/logo.jpg" alt="IMG" />
                 </div>
 
-                <EditForm Model="loginModel" OnValidSubmit="Authenticate" FormName="HandleLogin">
+                <EditForm Model="loginModel" OnValidSubmit="Authenticate" FormName="Login">
                     <DataAnnotationsValidator />
 
                     <span class="login100-form-title"> Đăng nhập </span>
-                    <!-- Login gg fb -->
                     <div class="wrap-input100 validate-input">  
                         <span class="symbol-input100">
                             <i class="fa fa-user-circle-o" aria-hidden="true"></i>
@@ -62,17 +61,13 @@
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
-                        <InputText class="input100 form-control" @bind-Value="loginModel.Password" placeholder="Nhập mật khẩu" />
+                        <InputText type="password" class="input100 form-control" @bind-Value="loginModel.Password" placeholder="Nhập mật khẩu" />
                         <ValidationMessage For="@(() => loginModel.Password)" class="text-danger" />
                         <span class="focus-input100"></span>
                     </div>
                     <div class="container-login100-form-btn">
                         <button type="submit" class="btn btn-success login100-form-btn mb-2">Đăng nhập</button>
                     </div>
-
-                    @* <div class="text-center"> *@
-                    @*     <a class="txt2" href="/Login/ForgotPassword">Quên mật khẩu </a> *@
-                    @* </div> *@
                 </EditForm>
             </div>
         </div>

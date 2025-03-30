@@ -1,4 +1,5 @@
 ﻿@page "/specialities/detail/{id:int}"
+@attribute [Authorize(Roles = "QuanLy")]
 @rendermode InteractiveServer
 
 <h3>Chi tiết chuyên khoa</h3>
