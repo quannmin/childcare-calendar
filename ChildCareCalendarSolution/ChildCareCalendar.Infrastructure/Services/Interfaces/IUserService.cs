@@ -8,6 +8,7 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task AddUserAsync(AppUser user);
         Task UpdateUserAsync(AppUser user);
         Task<int> DeleteUserAsync(int id);
+        Task<AppUser> GetUserByEmailAsync(string email);
         Task<IEnumerable<AppUser>> FindUsersAsync(Expression<Func<AppUser, bool>> predicate,
                                                                         params Expression<Func<AppUser, object>>[] includes);
         Task<AppUser> FindUserAsync(Expression<Func<AppUser, bool>> predicate,

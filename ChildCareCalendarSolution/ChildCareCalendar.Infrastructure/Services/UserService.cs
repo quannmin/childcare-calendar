@@ -65,6 +65,19 @@ namespace ChildCareCalendar.Infrastructure.Services
 
             return await _userRepository.GetPagedAsync(pageIndex, pageSize, filter);
         }
+        public async Task<AppUser> GetUserByEmailAsync(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return null;
+            }
+
+            var users = await _userRepository.FindAsync(
+                u => u.Email != null && u.Email.ToLower() == email.ToLower().Trim()
+            );
+
+            return users.FirstOrDefault();
+        }
 
     }
 }
