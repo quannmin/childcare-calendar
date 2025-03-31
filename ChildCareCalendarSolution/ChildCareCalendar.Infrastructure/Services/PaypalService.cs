@@ -148,9 +148,6 @@ namespace ChildCareCalendar.Infrastructure.Services
                     case "success":
                         response.Success = Convert.ToInt32(value) > 0;
                         break;
-                    case "paymentid":
-                        response.PaymentId = value;
-                        break;
                     case "payerid":
                         response.PayerId = value;
                         break;

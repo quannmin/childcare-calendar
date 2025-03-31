@@ -8,18 +8,25 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-namespace ChildCareCalendar.WebApp.Components
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.AspNetCore.Components.Authorization;
+namespace ChildCareCalendar.WebApp.Components.Pages.Authentication
 {
     public class AuthController : Controller
     {
         private readonly IUserService _userService;
         public UserCreateLoginGGViewModel userCreateViewModel { get; set; } = new();
+        private readonly ProtectedSessionStorage _sessionStorage;
+        private readonly AuthenticationStateProvider _authenticationStateProvider;
+
         private IMapper _mapper { get; set; } = default!;
 
-        public AuthController(IUserService userService, IMapper mapper)
+        public AuthController(IUserService userService, IMapper mapper, ProtectedSessionStorage sessionStorage, AuthenticationStateProvider authenticationStateProvider)
         {
             _userService = userService;
             _mapper = mapper;
+            _sessionStorage = sessionStorage;
+            _authenticationStateProvider = authenticationStateProvider;
         }
 
         [HttpGet("google-login")]
@@ -70,29 +77,32 @@ namespace ChildCareCalendar.WebApp.Components
                     return LocalRedirect("/login?error=RegistrationFailed");
                 }
             }
+            var encodedFullName = Uri.EscapeDataString(existedUser.FullName);
+            return LocalRedirect($"/google-callback?userId={existedUser.Id}&email={existedUser.Email}&role={existedUser.Role}&fullname={encodedFullName}");
 
-            // Tạo claims cho người dùng đã đăng nhập
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, existedUser.Id.ToString()),
-                new Claim(ClaimTypes.Name, existedUser.FullName),
-                new Claim(ClaimTypes.Email, existedUser.Email)
-            };
 
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(identity);
+            //// Tạo claims cho người dùng đã đăng nhập
+            //var claims = new List<Claim>
+            //{
+            //    new Claim(ClaimTypes.NameIdentifier, existedUser.Id.ToString()),
+            //    new Claim(ClaimTypes.Name, existedUser.FullName),
+            //    new Claim(ClaimTypes.Email, existedUser.Email)
+            //};
 
-            // Đăng nhập người dùng
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                principal,
-                new AuthenticationProperties
-                {
-                    IsPersistent = true,
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7)
-                });
+            //var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            //var principal = new ClaimsPrincipal(identity);
 
-            return LocalRedirect("/");
+            //// Đăng nhập người dùng
+            //await HttpContext.SignInAsync(
+            //    CookieAuthenticationDefaults.AuthenticationScheme,
+            //    principal,
+            //    new AuthenticationProperties
+            //    {
+            //        IsPersistent = true,
+            //        ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7)
+            //    });
+
+            //return LocalRedirect("/");
         }
     }
 }

@@ -8,45 +8,48 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
     {
         [Parameter] public EventCallback<WorkHour> OnSlotSelected { get; set; }
 
-        [Inject] private IWorkHourService WorkHourService { get; set; } = default!;
+        [Parameter] public int DoctorId { get; set; }
+        [Parameter] public DateTime? SelectedDate { get; set; }
 
-        private List<WorkHour> MorningWorkHours = new();
-        private List<WorkHour> AfternoonWorkHours = new();
+        [Inject] public IScheduleService ScheduleService { get; set; } = default!;
 
-        protected override async Task OnInitializedAsync()
+        private List<Schedule> MorningSlots = new();
+        private List<Schedule> AfternoonSlots = new();
+
+        protected override async Task OnParametersSetAsync()
         {
-            try
+            if (SelectedDate.HasValue)
             {
-                var result = await WorkHourService.GetAllWorkHoursAsync();
+                var selectedDate = SelectedDate.Value.Date;
 
-                if (result == null || !result.Any())
-                {
-                    Console.WriteLine("❌ Không có dữ liệu WorkHour!");
-                    return;
-                }
-
-                var allWorkHours = result.OrderBy(workHour => workHour.StartTime).ToList();
-
-                MorningWorkHours = allWorkHours
-                    .Where(w => w.StartTime >= TimeSpan.FromHours(7) && w.StartTime < TimeSpan.FromHours(12))
+                var all = (await ScheduleService.FindSchedulesAsync(
+                    s => s.UserId == DoctorId &&
+                         s.WorkDay.HasValue &&
+                         s.WorkDay.Value.Date == selectedDate,
+                    s => s.WorkHour))
+                    .Where(s => s.WorkHour != null)
+                    .OrderBy(s => s.WorkHour!.StartTime)
                     .ToList();
 
-                AfternoonWorkHours = allWorkHours
-                    .Where(w => w.StartTime >= TimeSpan.FromHours(12) && w.StartTime < TimeSpan.FromHours(17))
-                    .ToList();
-
-                Console.WriteLine($"✅ WorkHours Loaded: {allWorkHours.Count}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"❌ Lỗi trong OnInitializedAsync: {ex.Message}");
+                MorningSlots = all.Where(w => w.WorkHour!.StartTime < TimeSpan.FromHours(12)).ToList();
+                AfternoonSlots = all.Where(w => w.WorkHour!.StartTime >= TimeSpan.FromHours(12)).ToList();
             }
         }
 
-        private async Task HandleSlotSelection(WorkHour workHour)
+        private bool IsSlotDisabled(Schedule s)
         {
-            Console.WriteLine($"🔍 Selected Slot: {workHour.StartTime} - {workHour.EndTime}");
-            await OnSlotSelected.InvokeAsync(workHour);
+            bool isToday = SelectedDate?.Date == DateTime.Today;
+            bool isPastTime = isToday && s.WorkHour!.StartTime <= DateTime.Now.TimeOfDay;
+
+            return s.IsOccupied || isPastTime;
+        }
+
+        private async Task HandleSlotSelection(Schedule slot)
+        {
+            if (slot.WorkHour != null)
+            {
+                await OnSlotSelected.InvokeAsync(slot.WorkHour);
+            }
         }
     }
 }

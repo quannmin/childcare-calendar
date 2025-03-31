@@ -5,12 +5,13 @@
 
 <PageTitle>Đặt lịch</PageTitle>
 
-@if (!IsAuthenticated) {
+@if (!IsAuthenticated)
+{
     <h3 class="alert alert-danger text-center">
         Bạn chưa đăng nhập. Vui lòng <a href="/Login">đăng nhập</a> để tiếp tục.
     </h3>
 }
-else 
+else
 {
     <section id="hero" class="hero section light-background">
         <div class="container position-relative booking-container">
@@ -51,23 +52,35 @@ else
                         @if (selectedDoctorId.HasValue && !selectedServiceId.HasValue)
                         {
                             <SelectService SpecialtyId="selectedSpecialtyId.Value" OnServiceSelected="HandleServiceSelection" />
-                            <div class="go-back-btn" @onclick="GoBackToDoctorSelection">
+                            <div class="go-back-btn"
+                                 @onclick="GoBackToDoctorSelection"
+                                 style="display: inline-flex; align-items: center; gap: 5px; color: #007bff; background-color: transparent; border: none; font-weight: 500; cursor: pointer; padding: 6px 10px; border-radius: 6px;"
+                                 onmouseover="this.style.backgroundColor='#e7f1ff'; this.style.color='#0056b3';"
+                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#007bff';">
                                 <i class="bi bi-arrow-return-left"></i>
                                 <span>Quay lại</span>
                             </div>
                         }
                         @if (selectedServiceId.HasValue && !selectedDate.HasValue)
                         {
-                            <SelectDay OnDateSelected="HandleDateSelection" />
-                            <div class="go-back-btn" @onclick="GoBackToServiceSelection">
+                            <SelectDay DoctorId="selectedDoctorId.Value" OnDateSelected="HandleDateSelection" />
+                            <div class="go-back-btn"
+                                 @onclick="GoBackToServiceSelection"
+                                 style="display: inline-flex; align-items: center; gap: 5px; color: #007bff; background-color: transparent; border: none; font-weight: 500; cursor: pointer; padding: 6px 10px; border-radius: 6px;"
+                                 onmouseover="this.style.backgroundColor='#e7f1ff'; this.style.color='#0056b3';"
+                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#007bff';">
                                 <i class="bi bi-arrow-return-left"></i>
                                 <span>Quay lại</span>
                             </div>
                         }
                         @if (selectedDate.HasValue && !selectedWorkHourId.HasValue)
                         {
-                            <SelectSlotTime OnSlotSelected="HandleSlotSelection" />
-                            <div class="go-back-btn" @onclick="GoBackToDateSelection">
+                            <SelectSlotTime DoctorId="selectedDoctorId.Value" SelectedDate="selectedDate.Value" OnSlotSelected="HandleSlotSelection" />
+                            <div class="go-back-btn"
+                                 @onclick="GoBackToDateSelection"
+                                 style="display: inline-flex; align-items: center; gap: 5px; color: #007bff; background-color: transparent; border: none; font-weight: 500; cursor: pointer; padding: 6px 10px; border-radius: 6px;"
+                                 onmouseover="this.style.backgroundColor='#e7f1ff'; this.style.color='#0056b3';"
+                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#007bff';">
                                 <i class="bi bi-arrow-return-left"></i>
                                 <span>Quay lại</span>
                             </div>
@@ -75,7 +88,12 @@ else
                         @if (selectedWorkHourId.HasValue && string.IsNullOrEmpty(selectedPaymentMethod))
                         {
                             <SelectPayment OnPaymentSelected="HandlePaymentSelection" />
-                            <div class="go-back-btn" @onclick="GoBackToSlotSelection">
+                            <div class="go-back-btn"
+                                 @onclick="GoBackToSlotSelection"
+                                 style="display: inline-flex; align-items: center; gap: 5px; color: #007bff; background-color: transparent; border: none; font-weight: 500; cursor: pointer; padding: 6px 10px; border-radius: 6px;"
+                                 onmouseover="this.style.backgroundColor='#e7f1ff'; this.style.color='#0056b3';"
+                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#007bff';">
+
                                 <i class="bi bi-arrow-return-left"></i>
                                 <span>Quay lại</span>
                             </div>

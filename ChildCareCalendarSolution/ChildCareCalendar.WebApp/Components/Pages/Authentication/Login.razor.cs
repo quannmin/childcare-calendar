@@ -105,11 +105,8 @@ namespace ChildCareCalendar.WebApp.Components.Pages.Authentication
                 isLoading = true;
                 errorMessage = string.Empty;
 
-                // Lưu URL hiện tại vào session để sau khi đăng nhập có thể quay lại
                 await SessionStorage.SetAsync("returnUrl", NavigationManager.Uri);
 
-                // Chuyển hướng đến controller action xử lý đăng nhập Google
-                //NavigationManager.NavigateTo("/signin-google", forceLoad: true);
                 NavigationManager.NavigateTo("/google-login", forceLoad: true);
                 //NavigationManager.NavigateTo($"authentication/challenge?provider=Google&returnUrl={Uri.EscapeDataString(NavigationManager.BaseUri + "google-login")}", forceLoad: true);
             }

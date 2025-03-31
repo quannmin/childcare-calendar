@@ -1,0 +1,39 @@
+﻿@page "/google-callback"
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Microsoft.AspNetCore.Components.Authorization;
+@inject NavigationManager Navigation
+@inject ProtectedSessionStorage SessionStorage
+@rendermode InteractiveServer
+
+@code {
+    [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            var uri = new Uri(Navigation.Uri);
+            var queryParams = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query);
+
+            if (queryParams.TryGetValue("userId", out var userId) &&
+                queryParams.TryGetValue("email", out var email) &&
+                queryParams.TryGetValue("role", out var role) &&
+                queryParams.TryGetValue("fullname", out var fullname))
+            {
+                // Lưu thông tin vào Session Storage
+                await SessionStorage.SetAsync("userId", int.Parse(userId.ToString()));
+                await SessionStorage.SetAsync("email", email.ToString());
+                await SessionStorage.SetAsync("role", role.ToString());
+                await SessionStorage.SetAsync("fullname", fullname.ToString());
+                ((CustomAuthStateProvider)AuthenticationStateProvider).NotifyAuthenticationStateChanged();
+                await Task.Delay(1000);
+
+                Navigation.NavigateTo("/", forceLoad: true);
+            }
+            else
+            {
+                Navigation.NavigateTo("/login?error=MissingData");
+            }
+        }
+    }
+}

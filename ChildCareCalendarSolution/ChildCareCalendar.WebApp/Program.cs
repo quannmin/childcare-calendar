@@ -83,6 +83,7 @@ builder.Services.AddScoped(sp =>
 });
 builder.Services.AddScoped<IVnPayService, VnPayService>();
 builder.Services.AddScoped<IPayPalService, PayPalService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 

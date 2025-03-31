@@ -22,5 +22,7 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         string keyword = null);
         Task<(IEnumerable<Appointment> appointments, int totalCount)> GetPagedAppointmentsByDoctorIdAsync(
         int doctorId, int pageIndex, int pageSize, string keyword = null);
+        Task<Appointment?> FindLatestAppointmentAsync(int parentId, int doctorId);
+
     }
 }
