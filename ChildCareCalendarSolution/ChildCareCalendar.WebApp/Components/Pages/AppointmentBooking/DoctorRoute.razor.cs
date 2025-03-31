@@ -4,11 +4,15 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Threading.Tasks;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
 {
     public partial class DoctorRoute
     {
+        private bool IsAuthenticated = false;
+        private AppUser? Parent;
+        private int userIdFromSession;
 
         private int? selectedDoctorId;
         private string? selectedDoctorName;
@@ -28,12 +32,39 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         private Service? selectedService;
 
         [Inject] private IUserService UserService { get; set; } = default!;
-        
 
+        [Inject] private IScheduleService ScheduleService { get; set; } = default!;
+        [Inject] private IAppointmentService AppointmentService { get; set; } = default!;
         [Inject] private IVnPayService VnPayService { get; set; } = default!;
         [Inject] private IPayPalService PayPalService { get; set; } = default!;
         [Inject] private NavigationManager Navigation { get; set; } = default!;
         [Inject] private IHttpContextAccessor HttpContextAccessor { get; set; } = default!;
+
+        [Inject]
+        private ProtectedSessionStorage SessionStorage { get; set; } = default!;
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                var userIdResult = await SessionStorage.GetAsync<int>("userId");
+                if (userIdResult.Success)
+                {
+                    userIdFromSession = userIdResult.Value;
+
+                    Parent = (await UserService.FindUsersAsync(a => a.Id.Equals(userIdFromSession)))?.FirstOrDefault();
+                    if (Parent != null && Parent.Role.Equals("PhuHuynh"))
+                    {
+                        IsAuthenticated = true;
+                    }
+                    else
+                    {
+                        Navigation.NavigateTo("/Login", forceLoad: true);
+                    }
+                    StateHasChanged();
+                }
+            }
+        }
 
         protected override async Task OnParametersSetAsync()
         {
@@ -108,20 +139,40 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
 
         private async Task ProcessPayment()
         {
-            if (selectedServicePrice == null)
+            if (selectedServicePrice == null || selectedDoctorId == null || selectedDate == null || selectedWorkHourId == null)
                 return;
 
+            var schedule = (await ScheduleService.FindSchedulesAsync(
+                s => s.UserId == selectedDoctorId &&
+                     s.WorkDay.HasValue &&
+                     s.WorkDay.Value.Date == selectedDate.Value.Date &&
+                     s.WorkHourId == selectedWorkHourId,
+                s => s.WorkHour)).FirstOrDefault();
 
-            var appointment = new ChildCareCalendar.Domain.Entities.Appointment
+            if (schedule == null)
             {
-                Id = 0,
-                DoctorId = selectedDoctorId ?? 0,
-                ParentId = 6,
+                Console.WriteLine("❌ Không tìm thấy lịch làm việc tương ứng!");
+                return;
+            }
+
+            var appointment = new Appointment
+            {
+                DoctorId = selectedDoctorId.Value,
+                ParentId = userIdFromSession,
                 ChildrenRecordId = 1,
                 ServiceId = selectedServiceId ?? 0,
                 TotalAmount = (decimal)selectedServicePrice.Value,
-                CheckupDateTime = selectedDate ?? DateTime.Now
+                CheckupDateTime = selectedDate.Value.Date + selectedStartTime!.Value,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                ScheduleId = schedule.Id,
+                Status = "ORDERED"
             };
+
+            await AppointmentService.AddAppointmentAsync(appointment);
+
+            schedule.IsOccupied = true;
+            await ScheduleService.UpdateScheduleAsync(schedule);
 
             string paymentUrl = "";
 

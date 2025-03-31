@@ -1,8 +1,6 @@
 ﻿@page "/login"
 @using System.Security.Claims
 @using ChildCareCalendar.WebApp.Components.Layout
-@using Microsoft.AspNetCore.Components.Authorization
-@using Microsoft.AspNetCore.Authentication
 @rendermode InteractiveServer
 @inject ChildCareCalendar.Domain.EF.ChildCareCalendarContext appDbContext
 @layout EmptyLayout
@@ -99,7 +97,7 @@
 							<i class="bi bi-facebook"></i>
 							<span>Tiếp tục với Facebook</span>
 						</button>
-						<button type="button" class="btn-social btn-google" @onclick="HandleGoogleLogin">
+						<button class="btn-social btn-google" @onclick="HandleGoogleLogin">
 							<i class="bi bi-google"></i>
 							<span>Tiếp tục với Google</span>
 						</button>

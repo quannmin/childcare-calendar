@@ -1,12 +1,15 @@
 ﻿@page "/refundreports"
 @rendermode InteractiveServer
-@attribute [Authorize(Roles = "QuanLy")]
 
 <h3>Quản lý lịch sử hoàn tiền</h3>
 
 <!-- Thanh tìm kiếm -->
 <div class="d-flex justify-content-between mb-3">
-    <input type="text" @bind="SearchTerm" class="form-control w-25" placeholder="Nhập tên phụ huynh..." @oninput="FilterReports" />
+    <input type="text"
+           @bind="SearchTerm"
+           @bind:event="oninput"
+           class="form-control w-25"
+           placeholder="Nhập tên phụ huynh..." />
 </div>
 
 @if (RefundReports == null)
@@ -21,7 +24,7 @@ else
 {
     <table class="table table-bordered table-hover text-center">
         <thead class="table-dark">
-            <tr>
+            <tr style="background-color: #007fff; border: 2px solid gray">
                 <th>ID</th>
                 <th>Số tiền hoàn</th>
                 <th>Ngày hoàn</th>

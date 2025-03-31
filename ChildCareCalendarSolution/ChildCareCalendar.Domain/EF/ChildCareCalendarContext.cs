@@ -34,10 +34,10 @@ namespace ChildCareCalendar.Domain.EF
 	  .OnDelete(DeleteBehavior.Cascade);
 
 				entity.Property(e => e.Id).UseIdentityColumn();
-				entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
+				entity.Property(e => e.Email).HasMaxLength(100);
 				entity.Property(e => e.Avatar).HasMaxLength(255);
 				entity.Property(e => e.PhoneNumber).HasMaxLength(15);
-				entity.Property(e => e.Password).IsRequired();
+				entity.Property(e => e.Password);
 				entity.Property(e => e.Gender).HasConversion<String>().HasMaxLength(10);
 				entity.Property(e => e.Role).HasConversion<String>();
 			});

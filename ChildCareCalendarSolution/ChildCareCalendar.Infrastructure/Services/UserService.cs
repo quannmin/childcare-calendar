@@ -79,5 +79,9 @@ namespace ChildCareCalendar.Infrastructure.Services
             return users.FirstOrDefault();
         }
 
+        public async Task<AppUser> AddUser(AppUser user)
+        {
+            return await _userRepository.Add(user);
+        }
     }
 }

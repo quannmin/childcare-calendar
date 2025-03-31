@@ -28,8 +28,8 @@ namespace ChildCareCalendar.Infrastructure.Services
             var pay = new VnPayLibrary();
             var urlCallBack = $"{context.Request.Scheme}://{context.Request.Host}/PaymentCallback";
 
-            // Lấy số tiền từ `Appointment`
             var amount = ((int)model.TotalAmount * 100).ToString();
+            var orderInfo = $"Appointment:{model.Id}+{Guid.NewGuid()}";
 
             pay.AddRequestData("vnp_Version", _configuration["Vnpay:Version"]);
             pay.AddRequestData("vnp_Command", _configuration["Vnpay:Command"]);
@@ -39,7 +39,7 @@ namespace ChildCareCalendar.Infrastructure.Services
             pay.AddRequestData("vnp_CurrCode", _configuration["Vnpay:CurrCode"]);
             pay.AddRequestData("vnp_IpAddr", pay.GetIpAddress(context));
             pay.AddRequestData("vnp_Locale", _configuration["Vnpay:Locale"]);
-            pay.AddRequestData("vnp_OrderInfo", $"Appointment: {model.Id} - Doctor: {model.DoctorId}");
+            pay.AddRequestData("vnp_OrderInfo", orderInfo);
             pay.AddRequestData("vnp_OrderType", "Healthcare");
             pay.AddRequestData("vnp_ReturnUrl", urlCallBack);
             pay.AddRequestData("vnp_TxnRef", tick);
@@ -54,7 +54,6 @@ namespace ChildCareCalendar.Infrastructure.Services
             var pay = new VnPayLibrary();
             var response = new Payment();
 
-            // Kiểm tra dữ liệu trả về từ VNPay
             if (collections.Count == 0)
                 throw new Exception("VNPay response is empty!");
 
@@ -72,14 +71,16 @@ namespace ChildCareCalendar.Infrastructure.Services
             response.OrderId = collections["vnp_TxnRef"];
             response.VnPayResponseCode = collections["vnp_ResponseCode"];
             response.PaymentMethod = "VNPay";
+            response.OrderDescription = collections.ContainsKey("vnp_OrderInfo")
+    ? collections["vnp_OrderInfo"].ToString()
+    : $"Thanh toán VNPay cho đơn hàng {response.OrderId}";
 
-            // Lấy số tiền và chia cho 100
             if (collections.ContainsKey("vnp_Amount"))
             {
                 response.Amount = Convert.ToDecimal(collections["vnp_Amount"]) / 100;
             }
 
-            response.Success = collections["vnp_ResponseCode"] == "00"; // "00" là thành công
+            response.Success = collections["vnp_ResponseCode"] == "00";
             return response;
         }
     }
