@@ -68,7 +68,6 @@ namespace ChildCareCalendar.WebApp.Components.Pages.Authentication
                                  loginModel.Password,
                                  user.Password,
                                  HashType.SHA256);
-
                 if (!isPasswordValid)
                 {
                     errorMessage = "Mật khẩu không chính xác";
