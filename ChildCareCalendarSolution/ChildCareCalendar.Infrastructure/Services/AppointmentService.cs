@@ -186,5 +186,76 @@ namespace ChildCareCalendar.Infrastructure.Services
                 a => a.Payment
             )).OrderByDescending(a => a.CreatedAt).FirstOrDefault();
         }
+
+        public async Task<int> GetTodayAppointmentsCountAsync()
+        {
+            var today = DateTime.Today;
+            return await _appointmentRepository.CountAsync(a =>
+                a.CheckupDateTime.Date == today && !a.IsDelete);
+        }
+        // Get current week's appointments count
+        public async Task<int> GetWeekAppointmentsCountAsync()
+        {
+            var today = DateTime.Today;
+            var startOfWeek = today.AddDays(-(int)today.DayOfWeek);
+            var endOfWeek = startOfWeek.AddDays(6);
+
+            return await _appointmentRepository.CountAsync(a =>
+                a.CheckupDateTime.Date >= startOfWeek &&
+                a.CheckupDateTime.Date <= endOfWeek &&
+                !a.IsDelete);
+        }
+
+        // Get current month's appointments count
+        public async Task<int> GetMonthAppointmentsCountAsync()
+        {
+            var today = DateTime.Today;
+            var startOfMonth = new DateTime(today.Year, today.Month, 1);
+            var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
+
+            return await _appointmentRepository.CountAsync(a =>
+                a.CheckupDateTime.Date >= startOfMonth &&
+                a.CheckupDateTime.Date <= endOfMonth &&
+                !a.IsDelete);
+        }
+
+        // Get appointments by date range for charts
+        public async Task<Dictionary<DateTime, int>> GetAppointmentsByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            var appointments = await _appointmentRepository.FindAsync(a =>
+                a.CheckupDateTime.Date >= startDate.Date &&
+                a.CheckupDateTime.Date <= endDate.Date &&
+                !a.IsDelete);
+
+            return appointments
+                .GroupBy(a => a.CheckupDateTime.Date)
+                .OrderBy(g => g.Key)
+                .ToDictionary(g => g.Key, g => g.Count());
+        }
+
+        // Get appointments by hour for today
+        public async Task<Dictionary<int, int>> GetTodayAppointmentsByHourAsync()
+        {
+            var today = DateTime.Today;
+            var appointments = await _appointmentRepository.FindAsync(a =>
+                a.CheckupDateTime.Date == today && !a.IsDelete);
+
+            return appointments
+                .GroupBy(a => a.CheckupDateTime.Hour)
+                .OrderBy(g => g.Key)
+                .ToDictionary(g => g.Key, g => g.Count());
+        }
+
+        // Get appointments by status
+        public async Task<Dictionary<string, int>> GetAppointmentsByStatusAsync()
+        {
+            var appointments = await _appointmentRepository.GetAllAsync();
+
+            return appointments
+                .Where(a => !a.IsDelete)
+                .GroupBy(a => a.Status)
+                .OrderBy(g => g.Key)
+                .ToDictionary(g => g.Key ?? "Unknown", g => g.Count());
+        }
     }
 }

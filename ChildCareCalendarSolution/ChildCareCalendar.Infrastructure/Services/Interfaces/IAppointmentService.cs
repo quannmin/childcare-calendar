@@ -12,6 +12,12 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task UpdateAppointmentAsync(Appointment appointment);
         Task ChangeAppointmentStatusAsync(int appointmentId, string status);
         Task CancelAppointmentAsync(int appointmentId);
+        Task<int> GetTodayAppointmentsCountAsync();
+        Task<int> GetWeekAppointmentsCountAsync();
+        Task<int> GetMonthAppointmentsCountAsync();
+        Task<Dictionary<DateTime, int>> GetAppointmentsByDateRangeAsync(DateTime startDate, DateTime endDate);
+        Task<Dictionary<int, int>> GetTodayAppointmentsByHourAsync();
+        Task<Dictionary<string, int>> GetAppointmentsByStatusAsync();
         Task<IEnumerable<Appointment>> FindAppointmentAsync(string keyword);
         //Task<IEnumerable<Appointment>> GetAppointmentsByDoctorIdAsync(int doctorId, params Expression<Func<Appointment, object>>[] includes);
         Task<IEnumerable<Appointment>> FindAppointmentsAsync(Expression<Func<Appointment, bool>> predicate,
