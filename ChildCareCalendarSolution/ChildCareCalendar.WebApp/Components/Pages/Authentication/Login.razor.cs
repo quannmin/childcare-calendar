@@ -3,6 +3,8 @@ using Microsoft.JSInterop;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using BCrypt.Net;
 using ChildCareCalendar.Domain.ViewModels.Account;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ChildCareCalendar.WebApp.Components.Pages.Authentication
 {
@@ -12,7 +14,8 @@ namespace ChildCareCalendar.WebApp.Components.Pages.Authentication
         private bool showPassword = false;
         private bool isLoading = false;
         private string errorMessage = string.Empty;
-
+        [Inject]
+        private ProtectedSessionStorage SessionStorage { get; set; }
         [Inject]
         private NavigationManager NavigationManager { get; set; } = default!;
 
@@ -72,7 +75,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.Authentication
                     return;
                 }
 
-              
+
                 bool success = await AuthService.LoginAsync(loginModel.Email, loginModel.Password);
 
                 if (!success)
@@ -101,8 +104,11 @@ namespace ChildCareCalendar.WebApp.Components.Pages.Authentication
             {
                 isLoading = true;
                 errorMessage = string.Empty;
-            
-                NavigationManager.NavigateTo("/signin-google", forceLoad: true);
+
+                await SessionStorage.SetAsync("returnUrl", NavigationManager.Uri);
+
+                NavigationManager.NavigateTo("/google-login", forceLoad: true);
+                //NavigationManager.NavigateTo($"authentication/challenge?provider=Google&returnUrl={Uri.EscapeDataString(NavigationManager.BaseUri + "google-login")}", forceLoad: true);
             }
             catch (Exception ex)
             {

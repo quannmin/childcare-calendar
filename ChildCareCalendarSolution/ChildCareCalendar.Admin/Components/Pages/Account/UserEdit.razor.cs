@@ -4,7 +4,6 @@ using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using ChildCareCalendar.Utilities.Helper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.IdentityModel.Tokens;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Account
 {
@@ -21,7 +20,6 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
 
         [SupplyParameterFromForm(FormName = "UserUpdate")]
         private UserEditViewModel userEditViewModel { get; set; } = new();
-
         [Inject] private IUserService userService { get; set; } = default!;
         [Inject] private NavigationManager navigationManager { get; set; } = default!;
         [Inject] private IMapper mapper { get; set; } = default!;

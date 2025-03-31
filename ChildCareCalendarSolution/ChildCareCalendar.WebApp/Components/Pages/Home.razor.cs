@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ChildCareCalendar.Utilities.Helper;
 using ChildCareCalendar.Domain.ViewModels.Account;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
@@ -23,6 +22,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages
 				.Take(4)
 				.ToList();
 			Doctors = Mapper.Map<List<UserViewModel>>(topDoctors);
+			StateHasChanged();
 		}
 	}
 }
