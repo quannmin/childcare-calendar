@@ -130,6 +130,11 @@ namespace ChildCareCalendar.Infrastructure.Repository
             await _context.SaveChangesAsync();
         }
 
-
+        public async Task<T> Add(T entity)
+        {
+            await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
     }
 }

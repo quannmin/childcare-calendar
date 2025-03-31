@@ -66,5 +66,9 @@ namespace ChildCareCalendar.Infrastructure.Services
             return await _userRepository.GetPagedAsync(pageIndex, pageSize, filter);
         }
 
+        public async Task<AppUser> AddUser(AppUser user)
+        {
+            return await _userRepository.Add(user);
+        }
     }
 }

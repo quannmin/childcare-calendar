@@ -6,6 +6,7 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
     public interface IUserService
     {
         Task AddUserAsync(AppUser user);
+        Task<AppUser> AddUser(AppUser user);
         Task UpdateUserAsync(AppUser user);
         Task<int> DeleteUserAsync(int id);
         Task<IEnumerable<AppUser>> FindUsersAsync(Expression<Func<AppUser, bool>> predicate,
