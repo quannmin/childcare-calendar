@@ -1,112 +1,120 @@
-﻿using AutoMapper;
-using ChildCareCalendar.Domain.Entities;
-using ChildCareCalendar.Domain.ViewModels.CompositeViewModels;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
+using ChildCareCalendar.Domain.ViewModels;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using ChildCareCalendar.Utilities.Helper;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
+using System;
+using System.Threading.Tasks;
+using ChildCareCalendar.Domain.ViewModels.Account;
+using BCrypt.Net;
 
 namespace ChildCareCalendar.WebApp.Components.Pages.Authentication
 {
-    public partial class Registration
+    public partial class ForgotPassword
     {
-        private List<string> ErrorMessage = new();
-
         [SupplyParameterFromForm]
-        public User_ChildrenCreateViewModel compositeViewModel { get; set; } = new();
+        public ForgotPasswordViewModel forgotPasswordViewModel { get; set; } = new();
+
         [Inject] private IUserService userService { get; set; } = default!;
-        [Inject] private IChildrenRecordService childrenRecordService { get; set; } = default!;
         [Inject] private NavigationManager navigationManager { get; set; } = default!;
-        [Inject] private IMapper mapper { get; set; } = default!;
-        [Inject] private CloudinaryService cloudinaryService { get; set; } = default!;
         [Inject] private IEmailService emailService { get; set; } = default!;
+
         private IJSObjectReference? module = default!;
+        private EditContext editContext = default!;
 
         private bool isSubmitting = false;
         private bool isSendOTP = false;
+        private string generatedOtp = string.Empty;
+        private string existEmail = String.Empty;
 
-
-        private EditContext editContext = default!;
         protected override void OnInitialized()
         {
-            editContext = new EditContext(compositeViewModel);
+            editContext = new EditContext(forgotPasswordViewModel);
         }
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
                 module = await JS.InvokeAsync<IJSObjectReference>("import",
-                "./Components/Pages/Authentication/Registration.razor.js");
+                "./Components/Pages/Authentication/ForgotPassword.razor.js");
                 await module.InvokeVoidAsync("registerBlazorInstance", DotNetObjectReference.Create(this));
             }
         }
 
         private void ValidateConfirmPassword()
         {
-            editContext.NotifyFieldChanged(FieldIdentifier.Create(() => compositeViewModel._userCreateViewModel.ConfirmPassword));
+            editContext.NotifyFieldChanged(FieldIdentifier.Create(() => forgotPasswordViewModel.ConfirmPassword));
         }
-        private bool isDuplicatedEmail = false;
+
+        private bool isEmailNotFound = false;
         private async Task ResetInputEmail(ChangeEventArgs e)
         {
-            if (isDuplicatedEmail)
+            if (isEmailNotFound)
             {
                 await JS.InvokeVoidAsync("resetInputEmail");
-                isDuplicatedEmail = false;
+                isEmailNotFound = false;
             }
         }
-        private string generatedOtp = string.Empty;
+
         private async void ResendOTP()
         {
             generatedOtp = new Random().Next(1000, 9999).ToString();
 
             string subject = "Mã xác nhận OTP của bạn";
-            string body = $"Mã OTP của bạn là: <b>{generatedOtp}</b>. Vui lòng nhập mã này để xác nhận.";
-            if (compositeViewModel._userCreateViewModel.Email == null)
+            string body = GetOtpEmailTemplate(generatedOtp);
+
+            if (forgotPasswordViewModel.Email == null)
             {
                 return;
             }
-            await emailService.SendEmailAsync(compositeViewModel._userCreateViewModel.Email, subject, body);
+
+            await emailService.SendEmailAsync(forgotPasswordViewModel.Email, subject, body);
             await JS.InvokeVoidAsync("showAlertResendOTP");
         }
-        private string existEmail = String.Empty;
+
         private async void SendOtp()
         {
             bool isValid = await module.InvokeAsync<bool>("handleNextClickFirstForm");
             if (isValid)
             {
-                if (isSendOTP && existEmail.Equals(compositeViewModel._userCreateViewModel.Email))
+                if (isSendOTP && existEmail.Equals(forgotPasswordViewModel.Email))
                 {
                     await module.InvokeVoidAsync("showOTP");
                 }
                 else
                 {
-                    existEmail = compositeViewModel._userCreateViewModel.Email;
-                    var checkDuplicateEmail = await userService.FindUsersAsync(x => x.Email.ToLower()
-                .Equals(compositeViewModel._userCreateViewModel.Email.ToLower()));
+                    existEmail = forgotPasswordViewModel.Email;
+                    var user = await userService.FindUsersAsync(x => x.Email.ToLower()
+                        .Equals(forgotPasswordViewModel.Email.ToLower()));
 
-                    if (checkDuplicateEmail.Any())
+                    if (!user.Any())
                     {
-                        await JS.InvokeVoidAsync("displayEmailDuplicate");
+                        await JS.InvokeVoidAsync("displayEmailNotFound");
                         isSubmitting = false;
-                        isDuplicatedEmail = true;
+                        isEmailNotFound = true;
                         return;
                     }
+
                     generatedOtp = new Random().Next(1000, 9999).ToString();
 
-                    string subject = "Mã xác nhận OTP của bạn";
+                    string subject = "Mã xác nhận OTP để khôi phục mật khẩu";
                     string body = GetOtpEmailTemplate(generatedOtp);
-                    if (compositeViewModel._userCreateViewModel.Email == null)
+
+                    if (forgotPasswordViewModel.Email == null)
                     {
                         return;
                     }
-                    await emailService.SendEmailAsync(compositeViewModel._userCreateViewModel.Email, subject, body);
+
+                    await emailService.SendEmailAsync(forgotPasswordViewModel.Email, subject, body);
                     await module.InvokeVoidAsync("showOTP");
                     isSendOTP = true;
                 }
             }
             return;
         }
+
         [JSInvokable]
         public async Task VerifyOTP(string otpInput)
         {
@@ -121,99 +129,39 @@ namespace ChildCareCalendar.WebApp.Components.Pages.Authentication
             }
         }
 
-        private IBrowserFile? selectedFile;
-        private string? PreviewImageUrl;
-        private string? UploadedImageUrl;
-        private async Task HandleFileSelection(InputFileChangeEventArgs e)
+        private async Task HandleResetPassword()
         {
-            selectedFile = e.File;
-            if (selectedFile == null)
-            {
-                PreviewImageUrl = null;
-                return;
-            }
-
-            // Đọc file và hiển thị ảnh xem trước
-            using var stream = selectedFile.OpenReadStream(5 * 1024 * 1024);
-            using var memoryStream = new MemoryStream();
-            await stream.CopyToAsync(memoryStream);
-            var imageBytes = memoryStream.ToArray();
-            PreviewImageUrl = $"data:{selectedFile.ContentType};base64,{Convert.ToBase64String(imageBytes)}";
-        }
-
-        /// <summary>
-        /// Xử lý upload ảnh lên Cloudinary
-        /// </summary>
-        private async Task<bool> UploadImage()
-        {
-            if (selectedFile == null) return false;
-
-            try
-            {
-                using var stream = selectedFile.OpenReadStream(5 * 1024 * 1024);
-                UploadedImageUrl = await cloudinaryService.UploadImageAsync(stream, selectedFile.Name);
-
-                if (string.IsNullOrEmpty(UploadedImageUrl))
-                {
-                    ErrorMessage.Add("Lỗi upload ảnh, vui lòng thử lại.");
-                    return false;
-                }
-
-                compositeViewModel._userCreateViewModel.Avatar = UploadedImageUrl;
-                return true;
-            }
-            catch (Exception ex)
-            {
-                ErrorMessage.Add($"Lỗi upload ảnh: {ex.Message}");
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Xử lý tạo tài khoản
-        /// </summary>
-        private async Task HandleCreateUser()
-        {
-            compositeViewModel._userCreateViewModel.Role = Utilities.Constants.SystemConstant.AccountsRole.PhuHuynh;
-
             if (isSubmitting) return;
             isSubmitting = true;
 
-            ErrorMessage.Clear();
+            try
+            {
+                var user = await userService.GetUserByEmailAsync(forgotPasswordViewModel.Email);
 
-            // Upload ảnh nếu có file được chọn
-            if (selectedFile != null && !await UploadImage())
+                if (user != null)
+                {
+                    user.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(forgotPasswordViewModel.NewPassword, HashType.SHA256);              
+                    await userService.UpdateUserAsync(user);
+                 
+
+                    await JS.InvokeVoidAsync("showResetPasswordSuccess");
+                }
+                else
+                {
+                    await JS.InvokeVoidAsync("displayEmailNotFound");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error resetting password: {ex.Message}");
+                
+            }
+            finally
             {
                 isSubmitting = false;
-                return;
             }
-
-            // Mapping dữ liệu
-            AppUser user = mapper.Map<AppUser>(compositeViewModel._userCreateViewModel);
-            if (user == null)
-            {
-                ErrorMessage.Add("Không thể tạo tài khoản phụ huynh.");
-                isSubmitting = false;
-                return;
-            }
-
-            await userService.AddUserAsync(user);
-
-            ChildrenRecord childrenRecord = mapper.Map<ChildrenRecord>(compositeViewModel._childCreateViewModel);
-            if (childrenRecord == null)
-            {
-                ErrorMessage.Add("Không thể tạo hồ sơ cho trẻ.");
-                isSubmitting = false;
-                return;
-            }
-            childrenRecord.UserId = user.Id;
-
-            isSubmitting = false;
-
-            await childrenRecordService.AddChildrenRecordAsync(childrenRecord);
-
-            navigationManager.NavigateTo("/users/index");
         }
+
         private string GetOtpEmailTemplate(string otpCode)
         {
             return $@"
@@ -284,19 +232,19 @@ namespace ChildCareCalendar.WebApp.Components.Pages.Authentication
                     <body>
                         <div class='container'>
                             <div class='header'>
-                                <h1>Xác nhận đăng ký tài khoản</h1>
+                                <h1>Khôi phục mật khẩu</h1>
                             </div>
             
                             <div class='content'>
                                 <p>Xin chào,</p>
-                                <p>Cảm ơn bạn đã đăng ký tài khoản tại <strong>ChildCareCalendar</strong>. Dưới đây là mã OTP của bạn:</p>
+                                <p>Chúng tôi đã nhận được yêu cầu đặt lại mật khẩu cho tài khoản của bạn tại <strong>ChildCareCalendar</strong>. Dưới đây là mã OTP của bạn:</p>
                 
                                 <div class='otp-container'>
                                     <div class='otp-code'>{otpCode}</div>
                                 </div>
                 
                                 <p>Mã OTP có hiệu lực trong vòng <strong>10 phút</strong>. Vui lòng không chia sẻ mã này với bất kỳ ai.</p>
-                                <p>Nếu bạn không yêu cầu mã này, vui lòng bỏ qua email này.</p>
+                                <p>Nếu bạn không yêu cầu đặt lại mật khẩu, vui lòng bỏ qua email này hoặc liên hệ với chúng tôi ngay lập tức.</p>
                 
                                 <p>Trân trọng,</p>
                                 <p><strong>Đội ngũ ChildCareCalendar</strong></p>

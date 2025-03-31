@@ -11,7 +11,10 @@ namespace ChildCareCalendar.Domain.ViewModels.Account
         [EmailAddress(ErrorMessage = "Email không đúng định dạng.")]
         public string? Email { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Mật khẩu không thể trống")]
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu mới")]
+        [StringLength(100, ErrorMessage = "Mật khẩu phải có ít nhất {2} ký tự.", MinimumLength = 6)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$",
+            ErrorMessage = "Mật khẩu phải có ít nhất một chữ hoa, một chữ thường và một số")]
         public string? Password { get; set; }
 
         [Compare("Password", ErrorMessage = "Mật khẩu xác nhận không khớp")]
