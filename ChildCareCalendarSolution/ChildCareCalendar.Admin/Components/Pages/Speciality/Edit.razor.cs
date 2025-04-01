@@ -45,7 +45,8 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 				ErrorMessage = "Tên chuyên khoa đã tồn tại.";
 				return;
 			}
-			await SpecialityService.UpdateSpecialityAsync(Mapper.Map<Domain.Entities.Speciality>(EditModel));
+			var updateItem = await SpecialityService.FindSpecialitiesAsync(x => x.Id == EditModel.Id);
+			await SpecialityService.UpdateSpecialityAsync(Mapper.Map(EditModel, updateItem.FirstOrDefault()));
 			Navigation.NavigateTo("/specialities");
 		}
 	}
