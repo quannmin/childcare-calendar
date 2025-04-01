@@ -5,10 +5,17 @@
 <div>
     <h4 class="info-title">Vui lòng chọn chuyên khoa</h4>
 
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Tìm nhanh chuyên khoa">
-        <i class="bi bi-search"></i>
-    </div>
+    <EditForm Model="SearchData" OnValidSubmit="HandleSearch">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="search-box">
+            <InputText class="form-control" @bind-Value="SearchData.Keyword" placeholder="Tìm nhanh chuyên khoa..." />
+            <button type="submit" class="ms-2 btn btn-primary searchBtn">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </EditForm>
 
     <div class="list-specialty-container">
         @foreach (var specialty in Specialties)
