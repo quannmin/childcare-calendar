@@ -8,7 +8,7 @@
     <div class="calendar-header">
         <button @onclick="PrevMonth" disabled="@isPrevDisabled">❮</button>
         <span>@currentMonth.ToString("'THÁNG' MM-yyyy")</span>
-        <button @onclick="NextMonth" disabled="@isNextDisabled">❯</button>
+        <button @onclick="NextMonth">❯</button>
     </div>
 
     <div class="calendar-grid">
@@ -22,11 +22,12 @@
 
         @foreach (var day in DaysInMonth)
         {
-            <div class="calendar-day @(day.HasValue && day.Value < DateTime.Today ? "disabled" : "")"
+            bool isAvailable = AvailableDates.Any(d => d.Date == day);
+            <div class="calendar-day @(isAvailable ? "" : "disabled")"
                  @onclick="() => SelectDate(day)">
-                @if (day.HasValue)
+                @if (day != DateTime.MinValue)
                 {
-                    <span>@day.Value.Day</span>
+                    <span>@day.Day</span>
                 }
             </div>
         }

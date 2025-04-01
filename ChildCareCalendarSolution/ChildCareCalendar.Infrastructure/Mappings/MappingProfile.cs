@@ -73,7 +73,8 @@ namespace ChildCareCalendar.Infrastructure.Mappings
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender.ToString()))
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()));
             CreateMap<UserEditViewModel, AppUser>().ReverseMap();
-
+            CreateMap<UserCreateLoginGGViewModel, AppUser>()
+            .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()));
             CreateMap<AppointmentCreateViewModel, Appointment>();
             CreateMap<Appointment, AppointmentViewModel>()
             .ForMember(dest => dest.AppointmentId, opt => opt.MapFrom(src => src.Id))

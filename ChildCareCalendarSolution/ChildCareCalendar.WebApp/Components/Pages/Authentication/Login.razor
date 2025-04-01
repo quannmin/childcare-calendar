@@ -1,11 +1,8 @@
 ﻿@page "/login"
 @using System.Security.Claims
 @using ChildCareCalendar.WebApp.Components.Layout
-@using Microsoft.AspNetCore.Components.Authorization
-@using Microsoft.AspNetCore.Authentication
 @rendermode InteractiveServer
 @inject ChildCareCalendar.Domain.EF.ChildCareCalendarContext appDbContext
-
 @layout EmptyLayout
 
 <PageTitle>Đăng nhập - Child Care</PageTitle>
@@ -78,9 +75,17 @@
 							<i class="bi bi-exclamation-circle"></i> @errorMessage
 						</div>
 					}
-					<button type="submit" class="btn-login">
-						<span>Đăng nhập</span>
-						<i class="bi bi-arrow-right"></i>
+					<button type="submit" class="btn-login" disabled="@isLoading">
+						@if (isLoading)
+						{
+							<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+							<span>Đang xử lý...</span>
+						}
+						else
+						{
+							<span>Đăng nhập</span>
+							<i class="bi bi-arrow-right"></i>
+						}
 					</button>
 
 					<div class="divider">
@@ -92,7 +97,7 @@
 							<i class="bi bi-facebook"></i>
 							<span>Tiếp tục với Facebook</span>
 						</button>
-						<button type="button" class="btn-social btn-google" @onclick="HandleGoogleLogin">
+						<button class="btn-social btn-google" @onclick="HandleGoogleLogin">
 							<i class="bi bi-google"></i>
 							<span>Tiếp tục với Google</span>
 						</button>
@@ -492,5 +497,12 @@
 		.form-title {
 			font-size: 1.8rem;
 		}
+	}
+
+	.btn-login:disabled, .btn-social:disabled {
+		opacity: 0.7;
+		cursor: not-allowed;
+		transform: none !important;
+		box-shadow: none !important;
 	}
 </style>

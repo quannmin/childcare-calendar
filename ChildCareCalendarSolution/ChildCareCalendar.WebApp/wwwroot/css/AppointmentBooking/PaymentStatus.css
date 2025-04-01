@@ -1,0 +1,56 @@
+﻿.payment-status-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 15px;
+    min-height: 70vh;
+    background-color: #f8f9fa;
+}
+
+.status-box {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+    .status-box.success {
+        border-left: 8px solid #28a745;
+    }
+
+    .status-box.fail {
+        border-left: 8px solid #dc3545;
+    }
+
+    .status-box h2 {
+        color: #333;
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+.status-details p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.btn-return {
+    display: inline-block;
+    margin-top: 22px;  
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-return:hover {
+        background-color: #0056b3;
+    }
