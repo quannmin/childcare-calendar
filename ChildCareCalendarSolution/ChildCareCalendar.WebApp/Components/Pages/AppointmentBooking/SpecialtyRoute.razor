@@ -5,7 +5,15 @@
 
 <PageTitle>Đặt lịch</PageTitle>
 
-@if (!IsAuthenticated)
+@if (isLoading)
+{
+    <div class="d-flex justify-content-center mt-5">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+}
+else if (!IsAuthenticated)
 {
     <h3 class="alert alert-danger text-center">
         Bạn chưa đăng nhập. Vui lòng <a href="/Login">đăng nhập</a> để tiếp tục.

@@ -7,9 +7,10 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
 {
     public partial class SpecialtyRoute
     {
+        private bool isLoading = true;
         private bool IsAuthenticated = false;
         private AppUser? Parent;
-        private int userIdFromSession;
+        private int UserId;
 
         private int? selectedSpecialtyId;
         private string? selectedSpecialtyName;
@@ -22,19 +23,20 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
 
         [Inject] private IUserService UserService { get; set; } = default!;
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        protected override async Task OnInitializedAsync()
         {
-            if (firstRender)
+            try
             {
                 var userIdResult = await SessionStorage.GetAsync<int>("userId");
                 if (userIdResult.Success)
                 {
-                    userIdFromSession = userIdResult.Value;
+                    UserId = userIdResult.Value;
 
-                    Parent = (await UserService.FindUsersAsync(a => a.Id.Equals(userIdFromSession)))?.FirstOrDefault();
+                    Parent = (await UserService.FindUsersAsync(a => a.Id.Equals(UserId)))?.FirstOrDefault();
                     if (Parent != null && Parent.Role.Equals("PhuHuynh"))
                     {
                         IsAuthenticated = true;
+                        isLoading = false;
                     }
                     else
                     {
@@ -42,9 +44,18 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
                     }
                     StateHasChanged();
                 }
+                else
+                {
+                    Navigation.NavigateTo("/Login", forceLoad: true);
+                }
+                StateHasChanged();
+            }
+            catch (Exception)
+            {
+                IsAuthenticated = false;
             }
         }
-
+        
         private void HandleSpecialtySelection(Speciality speciality)
         {
             selectedSpecialtyId = speciality.Id;

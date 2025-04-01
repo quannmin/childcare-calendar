@@ -11,7 +11,7 @@
 
         <div class="search-box">
             <InputText class="form-control" @bind-Value="SearchData.Keyword" placeholder="Tìm nhanh chuyên khoa..." />
-            <button type="submit" class="ms-2 btn btn-primary searchBtn">
+            <button type="submit" class="ms-2 btn btn-light searchBtn">
                 <i class="bi bi-search"></i>
             </button>
         </div>
@@ -27,6 +27,11 @@
                     <div class="list-specialty-description">@specialty.Description</div>
                 }
             </div>
+        }
+
+        @if (!Specialties.Any())
+        {
+            <div class="no-results">Không tìm thấy chuyên khoa phù hợp.</div>
         }
     </div>
 </div>
