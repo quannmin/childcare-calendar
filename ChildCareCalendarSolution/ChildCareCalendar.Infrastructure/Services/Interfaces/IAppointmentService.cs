@@ -1,5 +1,7 @@
 ﻿using ChildCareCalendar.Domain.Entities;
 using System.Linq.Expressions;
+using ChildCareCalendar.Domain.ViewModels.Appointment;
+using ChildCareCalendar.Domain.ViewModels.Account;
 
 namespace ChildCareCalendar.Infrastructure.Services.Interfaces
 {
@@ -29,6 +31,8 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task<(IEnumerable<Appointment> appointments, int totalCount)> GetPagedAppointmentsByDoctorIdAsync(
         int doctorId, int pageIndex, int pageSize, string keyword = null);
         Task<Appointment?> FindLatestAppointmentAsync(int parentId, int doctorId);
+        Task<List<RevenueViewModel>> GetMonthlyRevenue(int year);
+        Task<List<DailyAppointmentCountViewModel>> GetWeeklyAppointmentsAsync(DateTime startDate);
 
     }
 }

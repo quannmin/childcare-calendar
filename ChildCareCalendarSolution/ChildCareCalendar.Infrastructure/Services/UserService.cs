@@ -1,4 +1,5 @@
 ﻿using ChildCareCalendar.Domain.Entities;
+using ChildCareCalendar.Domain.ViewModels.Account;
 using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using System.Linq.Expressions;
@@ -82,6 +83,36 @@ namespace ChildCareCalendar.Infrastructure.Services
         public async Task<AppUser> AddUser(AppUser user)
         {
             return await _userRepository.Add(user);
+        }
+
+        public async Task<List<NewUsersByRoleViewModel>> GetDailyNewUsersByRoleAsync(int days)
+        {
+            // Tính ngày bắt đầu (30 ngày trước đến hiện tại)
+            DateTime endDate = DateTime.Now.Date.AddDays(1); // Đến cuối ngày hôm nay
+            DateTime startDate = endDate.AddDays(-days);
+
+            // Lấy tất cả người dùng được tạo trong khoảng thời gian
+            var users = await _userRepository.FindAsync(
+                u => u.CreatedAt >= startDate &&
+                     u.CreatedAt < endDate &&
+                     !u.IsDelete);
+
+            // Nhóm người dùng theo ngày và vai trò
+            var result = Enumerable.Range(0, days)
+                .Select(dayOffset => {
+                    var currentDate = startDate.AddDays(dayOffset);
+                    var usersOnThisDay = users.Where(u => u.CreatedAt.Date == currentDate.Date);
+
+                    return new NewUsersByRoleViewModel
+                    {
+                        Date = currentDate,
+                        ParentCount = usersOnThisDay.Count(u => u.Role == "Parent"),
+                        DoctorCount = usersOnThisDay.Count(u => u.Role == "Doctor")
+                    };
+                })
+                .ToList();
+
+            return result;
         }
     }
 }

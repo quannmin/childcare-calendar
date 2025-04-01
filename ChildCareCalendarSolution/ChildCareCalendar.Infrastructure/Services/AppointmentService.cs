@@ -1,4 +1,5 @@
 ﻿using ChildCareCalendar.Domain.Entities;
+using ChildCareCalendar.Domain.ViewModels.Appointment;
 using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -65,11 +66,6 @@ namespace ChildCareCalendar.Infrastructure.Services
                 await _refundReportService.AddRefundReportAsync(refundReport);
             }
         }
-
-
-
-
-
         public async Task ChangeAppointmentStatusAsync(int appointmentId, string status)
         {
             var appointment = await _appointmentRepository.GetByIdAsync(appointmentId);
@@ -193,7 +189,6 @@ namespace ChildCareCalendar.Infrastructure.Services
             return await _appointmentRepository.CountAsync(a =>
                 a.CheckupDateTime.Date == today && !a.IsDelete);
         }
-        // Get current week's appointments count
         public async Task<int> GetWeekAppointmentsCountAsync()
         {
             var today = DateTime.Today;
@@ -257,5 +252,53 @@ namespace ChildCareCalendar.Infrastructure.Services
                 .OrderBy(g => g.Key)
                 .ToDictionary(g => g.Key ?? "Unknown", g => g.Count());
         }
+
+        public async Task<List<RevenueViewModel>> GetMonthlyRevenue(int year)
+        {
+            var appointments = await GetAllAppointmentsAsync();
+            var revenueData = appointments.Where(a => a.CheckupDateTime.Year == year && !a.IsDelete)
+                .GroupBy(a => a.CheckupDateTime.Month)
+                .Select(g => new RevenueViewModel
+                {
+                    Month = g.Key,
+                    Revenue = g.Sum(a => a.TotalAmount)
+                })
+                .OrderBy(r => r.Month)
+                .ToList();
+
+            return revenueData;
+        }
+
+        public async Task<List<DailyAppointmentCountViewModel>> GetWeeklyAppointmentsAsync(DateTime startDate)
+        {
+            // Calculate the end date (7 days from start date)
+            DateTime endDate = startDate.AddDays(7);
+
+            // Get all appointments within the date range
+            var appointments = await _appointmentRepository.FindAsync(
+                a => a.CreatedAt >= startDate &&
+                     a.CreatedAt < endDate &&
+                     !a.IsDelete,
+                a => a.Parent,
+                a => a.ChildrenRecord);
+
+            // Group appointments by day and count them
+            var result = Enumerable.Range(0, 7)
+                .Select(dayOffset => {
+                    var currentDate = startDate.AddDays(dayOffset);
+                    var count = appointments.Count(a => a.CreatedAt.Date == currentDate.Date);
+
+                    return new DailyAppointmentCountViewModel
+                    {
+                        Date = currentDate,
+                        DayOfWeek = currentDate.DayOfWeek.ToString(),
+                        Count = count
+                    };
+                })
+                .ToList();
+
+            return result;
+        }
+
     }
 }
