@@ -2,6 +2,7 @@
 using ChildCareCalendar.Domain.ViewModels.Account;
 using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
+using ChildCareCalendar.Utilities.Constants;
 using System.Linq.Expressions;
 
 namespace ChildCareCalendar.Infrastructure.Services
@@ -100,14 +101,15 @@ namespace ChildCareCalendar.Infrastructure.Services
             // Nhóm người dùng theo ngày và vai trò
             var result = Enumerable.Range(0, days)
                 .Select(dayOffset => {
-                    var currentDate = startDate.AddDays(dayOffset);
-                    var usersOnThisDay = users.Where(u => u.CreatedAt.Date == currentDate.Date);
+                    DateTime currentDate = startDate.AddDays(dayOffset);
+                    DateOnly a = DateOnly.FromDateTime(currentDate);
+                    var usersOnThisDay = users.Where(u => DateOnly.FromDateTime(u.CreatedAt) == DateOnly.FromDateTime(currentDate));
 
                     return new NewUsersByRoleViewModel
                     {
                         Date = currentDate,
-                        ParentCount = usersOnThisDay.Count(u => u.Role == "Parent"),
-                        DoctorCount = usersOnThisDay.Count(u => u.Role == "Doctor")
+                        ParentCount = usersOnThisDay.Count(u => u.Role.Equals("PhuHuynh")),
+                        DoctorCount = usersOnThisDay.Count(u => u.Role.Equals("BacSi"))
                     };
                 })
                 .ToList();
