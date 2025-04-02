@@ -48,7 +48,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
 
             Specialties = result.ToList();
         }
-        private async void HandleSpecialtySelection(Speciality speciality)
+        private async Task HandleSpecialtySelection(Speciality speciality)
         {
             Console.WriteLine("Selected Specialty: " + speciality.SpecialtyName);
             await OnSpecialtySelected.InvokeAsync(speciality);

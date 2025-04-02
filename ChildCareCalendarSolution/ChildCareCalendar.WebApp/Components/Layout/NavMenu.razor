@@ -1,40 +1,93 @@
-﻿<header id="header" class="header sticky-top">
+﻿@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+@inject ProtectedSessionStorage SessionStorage
+@rendermode InteractiveServer
+
+<header id="header" class="header sticky-top">
     <div class="branding d-flex align-items-center">
         <div class="container position-relative d-flex align-items-center justify-content-between">
             <a href="/" class="logo d-flex align-items-center me-auto">
                 <h1 class="sitename">Medilab</h1>
             </a>
-
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><NavLink href="/" class="active">Trang Chủ</NavLink></li>
+                    <li><NavLink href="/" Match="NavLinkMatch.All">Trang Chủ</NavLink></li>
                     <li><NavLink href="#about">Về Chúng Tôi</NavLink></li>
                     <li><NavLink href="/services">Chuyên Khoa</NavLink></li>
                     <li><NavLink href="#doctors">Bác Sĩ</NavLink></li>
-                    @* <li class="dropdown"> *@
-                    @*     <a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a> *@
-                    @*     <ul> *@
-                    @*         <li><a href="#">Dropdown 1</a></li> *@
-                    @*         <li class="dropdown"> *@
-                    @*             <a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a> *@
-                    @*             <ul> *@
-                    @*                 <li><a href="#">Deep Dropdown 1</a></li> *@
-                    @*                 <li><a href="#">Deep Dropdown 2</a></li> *@
-                    @*                 <li><a href="#">Deep Dropdown 3</a></li> *@
-                    @*                 <li><a href="#">Deep Dropdown 4</a></li> *@
-                    @*                 <li><a href="#">Deep Dropdown 5</a></li> *@
-                    @*             </ul> *@
-                    @*         </li> *@
-                    @*         <li><a href="#">Dropdown 2</a></li> *@
-                    @*         <li><a href="#">Dropdown 3</a></li> *@
-                    @*         <li><a href="#">Dropdown 4</a></li> *@
-                    @*     </ul> *@
-                    @* </li> *@
-                    @* <li><NavLink href="#contact">Contact</NavLink></li> *@
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
-            <a class="cta-btn d-none d-sm-block" href="/Appointment/Specialty">Make an Appointment</a>
+            <div class="d-flex align-items-center">
+                <a class="cta-btn d-none d-sm-block me-3" href="/Appointment/Specialty">Tạo lịch hẹn</a>
+
+                @if (!isLoginCheckComplete)
+                {
+                    <!-- Show nothing or a spinner while checking -->
+                    <div class="auth-placeholder" style="width: 80px;"></div>
+                }
+                else if (IsLoggedIn)
+                {
+                    <div class="dropdown">
+                        <a class="profile-icon" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle fs-4"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="/AccountDetail">Tài khoản</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" @onclick="Logout" @onclick:preventDefault>Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <a class="login-btn" href="/Login">Đăng nhập</a>
+                }
+            </div>
         </div>
     </div>
 </header>
+
+@code {
+    private bool IsLoggedIn { get; set; } = false;
+    private bool isLoginCheckComplete { get; set; } = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await CheckLoginStatus();
+            isLoginCheckComplete = true;
+            StateHasChanged();
+        }
+    }
+
+    private async Task CheckLoginStatus()
+    {
+        try
+        {
+            var userIdResult = await SessionStorage.GetAsync<int>("userId");
+            IsLoggedIn = userIdResult.Success && userIdResult.Value > 0;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error checking login status: {ex.Message}");
+            IsLoggedIn = false;
+        }
+    }
+
+    private async Task Logout()
+    {
+        try
+        {
+            await SessionStorage.DeleteAsync("userId");
+            IsLoggedIn = false;
+            NavigationManager.NavigateTo("/login", forceLoad: true);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error during logout: {ex.Message}");
+        }
+    }
+}
