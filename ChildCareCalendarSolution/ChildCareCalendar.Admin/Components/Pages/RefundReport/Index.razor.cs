@@ -83,20 +83,11 @@ namespace ChildCareCalendar.Admin.Components.Pages.RefundReport
             StateHasChanged();
         }
 
-        private void NextPage()
+        private void ChangePage(int newPage)
         {
-            if (CurrentPage < TotalPages)
+            if (newPage >= 1 && newPage <= TotalPages && newPage != CurrentPage)
             {
-                CurrentPage++;
-                UpdatePagedData();
-            }
-        }
-
-        private void PreviousPage()
-        {
-            if (CurrentPage > 1)
-            {
-                CurrentPage--;
+                CurrentPage = newPage;
                 UpdatePagedData();
             }
         }

@@ -6,7 +6,7 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
 {
     public interface IChildrenRecordService
     {
-        Task<IEnumerable<ChildrenRecord>> FindUsersAsync(Expression<Func<ChildrenRecord, bool>> predicate,
+        Task<IEnumerable<ChildrenRecord>> FindChildrenRecordsAsync(Expression<Func<ChildrenRecord, bool>> predicate,
                                                                         params Expression<Func<ChildrenRecord, object>>[] includes);
         Task AddChildrenRecordAsync(ChildrenRecord childrenRecord);
         Task UpdateChildrenRecordAsync(int id, ChildrenRecordEditViewModel childrenRecord);

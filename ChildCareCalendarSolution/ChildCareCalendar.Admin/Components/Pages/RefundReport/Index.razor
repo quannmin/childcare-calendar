@@ -2,16 +2,20 @@
 @rendermode InteractiveServer
 @attribute [Authorize(Roles = "QuanLy")]
 
-
 <h3>Quản lý lịch sử hoàn tiền</h3>
 
-<!-- Thanh tìm kiếm -->
-<div class="d-flex justify-content-between mb-3">
-    <input type="text"
-           @bind="SearchTerm"
-           @bind:event="oninput"
-           class="form-control w-25"
-           placeholder="Nhập tên phụ huynh..." />
+<!-- Search Bar -->
+<div class="row mb-4">
+    <div class="col-md-4"></div>
+    <div class="col-md-8">
+        <div class="d-flex">
+            <input type="text"
+                   @bind="SearchTerm"
+                   @bind:event="oninput"
+                   class="form-control me-2"
+                   placeholder="Nhập tên phụ huynh..." />
+        </div>
+    </div>
 </div>
 
 @if (RefundReports == null)
@@ -50,10 +54,61 @@ else
         </tbody>
     </table>
 
-    <!-- Điều hướng phân trang -->
-    <div class="d-flex justify-content-between">
-        <button class="btn btn-primary" @onclick="PreviousPage" disabled="@(CurrentPage == 1)">Trước</button>
-        <span>Trang @CurrentPage / @TotalPages</span>
-        <button class="btn btn-primary" @onclick="NextPage" disabled="@(CurrentPage == TotalPages)">Sau</button>
-    </div>
+    <!-- Pagination logic variables -->
+    @code {
+    private int maxPagesToShow = 5;
+    private int startPage => Math.Max(1, CurrentPage - maxPagesToShow / 2);
+    private int endPage => Math.Min(TotalPages, startPage + maxPagesToShow - 1);
+    }
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(CurrentPage == 1 ? "disabled" : "")">
+                <button class="page-link" @onclick="() => ChangePage(1)">«</button>
+            </li>
+            <li class="page-item @(CurrentPage == 1 ? "disabled" : "")">
+                <button class="page-link" @onclick="() => ChangePage(CurrentPage - 1)">‹</button>
+            </li>
+
+            @if (startPage > 1)
+            {
+                <li class="page-item">
+                    <button class="page-link" @onclick="() => ChangePage(1)">1</button>
+                </li>
+                @if (startPage > 2)
+                {
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                }
+            }
+
+            @for (int i = startPage; i <= endPage; i++)
+            {
+                <li class="page-item @(i == CurrentPage ? "active" : "")">
+                    <button class="page-link" @onclick="() => ChangePage(i)">@i</button>
+                </li>
+            }
+
+            @if (endPage < TotalPages)
+            {
+                @if (endPage < TotalPages - 1)
+                {
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                }
+                <li class="page-item">
+                    <button class="page-link" @onclick="() => ChangePage(TotalPages)">@TotalPages</button>
+                </li>
+            }
+
+            <li class="page-item @(CurrentPage == TotalPages ? "disabled" : "")">
+                <button class="page-link" @onclick="() => ChangePage(CurrentPage + 1)">›</button>
+            </li>
+            <li class="page-item @(CurrentPage == TotalPages ? "disabled" : "")">
+                <button class="page-link" @onclick="() => ChangePage(TotalPages)">»</button>
+            </li>
+        </ul>
+    </nav>
 }
