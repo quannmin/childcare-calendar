@@ -34,7 +34,7 @@
             <dd class="col-sm-9 mb-3">@AppointmentViewModel.CreatedAt.ToString("dd/MM/yyyy HH:mm")</dd>
 
             <dt class="col-sm-3 mb-3">Trạng thái</dt>
-            <dd class="col-sm-9 mb-3">@AppointmentViewModel.Status</dd>
+            <dd class="col-sm-9 mb-3">@AppointmentViewModel.Status.GetEnumDisplayName(typeof(SystemConstant.AppointmentStatus))</dd>
         </dl>
 
         <h3 class="sub-section-title">Chi tiết kết quả khám</h3>
@@ -84,7 +84,7 @@
                             <td>@prescription.MedicineName</td>
                             <td>@prescription.Quantity</td>
                             <td>@prescription.Dosage</td>
-                            <td>@prescription.Slot</td>
+                            <td>@prescription.Slot.GetEnumDisplayName(typeof(SystemConstant.PrescriptionSlot))</td>
                             <td>@prescription.MedicinePrice.ToString("N0")</td>
                             <td>@prescription.TotalAmount.ToString("N0")</td>
                         </tr>
