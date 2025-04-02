@@ -223,6 +223,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         private void GoBackToSlotSelection()
         {
             selectedWorkHourId = null;
+            selectedDoctorId = null;
             selectedPaymentMethod = null;
         }
 
