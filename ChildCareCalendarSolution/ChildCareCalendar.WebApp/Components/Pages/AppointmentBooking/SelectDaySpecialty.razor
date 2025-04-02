@@ -1,0 +1,97 @@
+﻿@using ChildCareCalendar.Infrastructure.Services.Interfaces
+@using Microsoft.AspNetCore.Components
+
+<div class="calendar-container">
+    <h2 class="info-title">Vui lòng chọn ngày khám</h2>
+
+    <div class="calendar-header">
+        <button @onclick="PrevMonth">❮</button>
+        <span>@currentMonth.ToString("'THÁNG' MM-yyyy")</span>
+        <button @onclick="NextMonth">❯</button>
+    </div>
+
+    <div class="calendar-grid">
+        <div class="day-label">CN</div>
+        <div class="day-label">Hai</div>
+        <div class="day-label">Ba</div>
+        <div class="day-label">Tư</div>
+        <div class="day-label">Năm</div>
+        <div class="day-label">Sáu</div>
+        <div class="day-label">Bảy</div>
+
+        @foreach (var day in DaysInMonth)
+        {
+            bool isAvailable = AvailableDates.Any(d => d.Date == day);
+            <div class="calendar-day @(isAvailable ? "" : "disabled")"
+                 @onclick="() => SelectDate(day)">
+                @if (day != DateTime.MinValue)
+                {
+                    <span>@day.Day</span>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public EventCallback<DateTime> OnDateSelected { get; set; }
+    [Parameter] public int SpecialtyId { get; set; }
+    [Inject] public IScheduleService ScheduleService { get; set; } = default!;
+
+    private DateTime currentMonth = DateTime.Today;
+    private List<DateTime> DaysInMonth = new();
+    private List<DateTime> AvailableDates = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await LoadAvailableDates();
+        GenerateCalendar();
+    }
+
+    private async Task LoadAvailableDates()
+    {
+        var schedules = await ScheduleService.FindSchedulesAsync(
+            s => s.Doctor.SpecialityId == SpecialtyId && s.WorkDay >= DateTime.Today, 
+            s => s.Doctor
+        );
+        AvailableDates = schedules.Select(s => s.WorkDay!.Value.Date).Distinct().ToList();
+    }
+
+    private void GenerateCalendar()
+    {
+        DaysInMonth.Clear();
+        var firstDayOfMonth = new DateTime(currentMonth.Year, currentMonth.Month, 1);
+        int daysInMonth = DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month);
+        int firstDayOfWeek = (int)firstDayOfMonth.DayOfWeek;
+
+        for (int i = 0; i < firstDayOfWeek; i++)
+        {
+            DaysInMonth.Add(DateTime.MinValue);
+        }
+
+        for (int day = 1; day <= daysInMonth; day++)
+        {
+            DaysInMonth.Add(new DateTime(currentMonth.Year, currentMonth.Month, day));
+        }
+    }
+
+    private void PrevMonth()
+    {
+        currentMonth = currentMonth.AddMonths(-1);
+        GenerateCalendar();
+    }
+
+    private void NextMonth()
+    {
+        currentMonth = currentMonth.AddMonths(1);
+        GenerateCalendar();
+    }
+
+    private async Task SelectDate(DateTime date)
+    {
+        if (AvailableDates.Contains(date))
+        {
+            await OnDateSelected.InvokeAsync(date);
+        }
+    }
+}

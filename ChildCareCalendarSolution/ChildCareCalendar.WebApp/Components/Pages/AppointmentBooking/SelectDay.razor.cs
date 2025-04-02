@@ -14,7 +14,6 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         private DateTime currentMonth = DateTime.Today;
         private List<DateTime> DaysInMonth = new();
         private List<DateTime> AvailableDates = new();
-        private bool isPrevDisabled = true;
 
         protected override async Task OnParametersSetAsync()
         {

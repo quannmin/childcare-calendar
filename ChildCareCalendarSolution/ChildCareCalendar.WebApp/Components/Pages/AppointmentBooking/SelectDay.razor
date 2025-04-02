@@ -6,7 +6,7 @@
     <h2 class="info-title">Vui lòng chọn ngày khám</h2>
 
     <div class="calendar-header">
-        <button @onclick="PrevMonth" disabled="@isPrevDisabled">❮</button>
+        <button @onclick="PrevMonth">❮</button>
         <span>@currentMonth.ToString("'THÁNG' MM-yyyy")</span>
         <button @onclick="NextMonth">❯</button>
     </div>

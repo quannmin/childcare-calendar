@@ -82,7 +82,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.UserDetail
         }
         private async Task LoadChildrenRecordAsync()
         {
-            ChildRecords = (await ChildRecordService.FindUsersAsync(c => !c.IsDelete && c.UserId.Equals(Parent.Id))).ToList();
+            ChildRecords = (await ChildRecordService.FindChildrenRecordsAsync(c => !c.IsDelete && c.UserId.Equals(Parent.Id))).ToList();
         }
 
         private async Task LoadAppointmentsAsync()

@@ -48,7 +48,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.ChildrenRecords
                     {
                         IsAuthenticated = true;
 
-                        var cr = (await ChildrenRecordService.FindUsersAsync(c => c.Id.Equals(id))).FirstOrDefault();
+                        var cr = (await ChildrenRecordService.FindChildrenRecordsAsync(c => c.Id.Equals(id))).FirstOrDefault();
 
                         ChildRecord = Mapper.Map<ChildrenRecordEditViewModel>(cr);
                     }
