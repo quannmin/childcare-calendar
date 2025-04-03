@@ -55,7 +55,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.ExaminationReport
             var uri = new Uri(Navigation.Uri);
             var queryParameters = HttpUtility.ParseQueryString(uri.Query);
 
-            // Get search parameter from URL
+     
             var searchKeyword = queryParameters["search"];
             SearchData.Keyword = searchKeyword ?? "";
 
