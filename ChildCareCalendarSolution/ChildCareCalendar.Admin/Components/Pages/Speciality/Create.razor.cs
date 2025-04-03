@@ -34,12 +34,6 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 
 			fullName = user.FindFirst("FullName")?.Value ?? string.Empty;
 		}
-
-		protected override void OnInitialized()
-		{
-			CreateModel.CreatedAt = DateTime.UtcNow;
-		}
-
 		
 		private async Task HandleCreate()
 		{
@@ -54,6 +48,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 
 			var newSpeciality = Mapper.Map<Domain.Entities.Speciality>(CreateModel);
 			newSpeciality.CreatedBy = fullName;
+			newSpeciality.CreatedAt = DateTime.UtcNow;
 
 			await SpecialityService.AddSpecialityAsync(newSpeciality);
 			Navigation.NavigateTo("/specialities");

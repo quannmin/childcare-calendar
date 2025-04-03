@@ -41,7 +41,8 @@ namespace ChildCareCalendar.Admin.Components.Pages.Service
 
 		private async Task HandleUpdate()
 		{
-			await ServiceService.UpdateServiceAsync(Mapper.Map<Domain.Entities.Service>(EditModel));
+			var updateItem = await ServiceService.FindServicesAsync(x => x.Id == EditModel.Id);
+			await ServiceService.UpdateServiceAsync(Mapper.Map(EditModel, updateItem.FirstOrDefault()));
 			Navigation.NavigateTo($"/specialities/detail/{specialityId}");
 		}
 	}

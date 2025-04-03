@@ -1,5 +1,7 @@
 ﻿using ChildCareCalendar.Domain.Entities;
 using System.Linq.Expressions;
+using ChildCareCalendar.Domain.ViewModels.Appointment;
+using ChildCareCalendar.Domain.ViewModels.Account;
 
 namespace ChildCareCalendar.Infrastructure.Services.Interfaces
 {
@@ -12,6 +14,12 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task UpdateAppointmentAsync(Appointment appointment);
         Task ChangeAppointmentStatusAsync(int appointmentId, string status);
         Task CancelAppointmentAsync(int appointmentId);
+        Task<int> GetTodayAppointmentsCountAsync();
+        Task<int> GetWeekAppointmentsCountAsync();
+        Task<int> GetMonthAppointmentsCountAsync();
+        Task<Dictionary<DateTime, int>> GetAppointmentsByDateRangeAsync(DateTime startDate, DateTime endDate);
+        Task<Dictionary<int, int>> GetTodayAppointmentsByHourAsync();
+        Task<Dictionary<string, int>> GetAppointmentsByStatusAsync();
         Task<IEnumerable<Appointment>> FindAppointmentAsync(string keyword);
         //Task<IEnumerable<Appointment>> GetAppointmentsByDoctorIdAsync(int doctorId, params Expression<Func<Appointment, object>>[] includes);
         Task<IEnumerable<Appointment>> FindAppointmentsAsync(Expression<Func<Appointment, bool>> predicate,
@@ -23,11 +31,12 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task<(IEnumerable<Appointment> appointments, int totalCount)> GetPagedAppointmentsByDoctorIdAsync(
         int doctorId, int pageIndex, int pageSize, string keyword = null);
         Task<Appointment?> FindLatestAppointmentAsync(int parentId, int doctorId);
+        Task<List<RevenueViewModel>> GetMonthlyRevenue(int year);
+        Task<List<DailyAppointmentCountViewModel>> GetWeeklyAppointmentsAsync(DateTime startDate);
         Task<List<Domain.Entities.Appointment>> GetAppointmentsByDoctorIdAndDateTimeAsync(
-           int doctorId,
-           DateTime date,
-           TimeSpan startTime,
-           TimeSpan endTime);
-
+          int doctorId,
+          DateTime date,
+          TimeSpan startTime,
+          TimeSpan endTime);
     }
 }

@@ -38,7 +38,10 @@
 	<div class="popup-overlay" @onclick="ClosePopup">
 		<div class="popup-mini" style="@popupPositionStyle" @onclick:stopPropagation="true">
 			<div class="popup-content--mini">
-				<button type="button" class="btn btn-success" @onclick="OpenCreatePopupAsync">Tạo lịch mới</button>
+				@if (selectedDate.Value.Date >= now.Date)
+				{
+					<button type="button" class="btn btn-success" @onclick="OpenCreatePopupAsync">Tạo lịch mới</button>
+				}
 				<button type="button" class="btn btn-info" @onclick="OpenDetailPopupAsync">Xem chi tiết</button>
 			</div>
 		</div>
@@ -113,7 +116,10 @@
 						<tr class="bg-white">
 							<th>Bác sĩ</th>
 							<th>Khung giờ</th>
-							<th>Thao tác</th>
+							@if (selectedDate.Value.Date >= now.Date)
+							{
+								<th>Thao tác</th>
+							}
 						</tr>
 					</thead>
 					<tbody>
@@ -122,10 +128,15 @@
 							<tr>
 								<td>@schedule.Doctor.FullName</td>
 								<td>@schedule.WorkHour.StartTime - @schedule.WorkHour.EndTime</td>
-								<td class="d-flex justify-content-evenly">
-									<NavLink class="btn btn-warning btn-sm text-white" @onclick="() => OpenEditPopupAsync(schedule.Id)">Chỉnh sửa</NavLink>
-									<button class="btn btn-danger btn-sm" @onclick="() => OpenDeletePopup(schedule.Id)">Xóa</button>
-								</td>
+								@if (selectedDate.Value.Date >= now.Date)
+								{
+									<td class="d-flex justify-content-evenly">
+
+										<NavLink class="btn btn-warning btn-sm text-white" @onclick="() => OpenEditPopupAsync(schedule.Id)">Chỉnh sửa</NavLink>
+										<button class="btn btn-danger btn-sm" @onclick="() => OpenDeletePopup(schedule.Id)">Xóa</button>
+
+									</td>
+								}
 							</tr>
 
 						}

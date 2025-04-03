@@ -56,7 +56,7 @@ else
                     <td>
                         <NavLink class="btn btn-info btn-sm" href="@($"/appointments/detail/{appointment.AppointmentId}")">Chi tiết</NavLink>
                         <NavLink class="btn btn-warning btn-sm" href="@($"/appointments/edit/{appointment.AppointmentId}")">Chỉnh sửa</NavLink>
-                        <button class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(appointment.AppointmentId)">Xóa</button>
+                        @* <button class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(appointment.AppointmentId)">Xóa</button> *@
                     </td>
                 </tr>
             }
@@ -139,7 +139,7 @@ else
 
 
 
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+@* <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -155,9 +155,9 @@ else
             </div>
         </div>
     </div>
-</div>
+</div> *@
 
-<script>
+@* <script>
     function showDeleteModal() {
         var modalElement = document.getElementById('deleteModal');
         if (!modalElement) {
@@ -177,7 +177,7 @@ else
         var modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
         modal.hide();
     }
-</script>
+</script> *@
 
 
 

@@ -67,7 +67,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
             { 
                 try
                 {
-                    ChildrenRecords = (await ChildrenRecordService.FindUsersAsync(cr => cr.UserId.Equals(parentId))).ToList();
+                    ChildrenRecords = (await ChildrenRecordService.FindChildrenRecordsAsync(cr => cr.UserId.Equals(parentId))).ToList();
                     StateHasChanged(); 
                 }
                 catch (Exception ex)
