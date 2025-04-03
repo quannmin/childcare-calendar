@@ -16,5 +16,7 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task AddScheduleAsync(Schedule schedule);
         Task UpdateScheduleAsync(Schedule schedule);
         Task DeleteScheduleAsync(int id);
+        Task<Schedule> GetScheduleByIdAsync(int id, params Expression<Func<Schedule, object>>[] includes);
+
     }
 }
