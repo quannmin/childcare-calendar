@@ -29,7 +29,7 @@ else
                         <h4 class="info-title">Thông tin lịch hẹn</h4>
                         @if (selectedSpecialtyId.HasValue)
                         {
-                            <p>Chuyên khoa: @(selectedSpecialtyName)</p>
+                            <p><strong>Chuyên khoa:</strong> @(selectedSpecialtyName)</p>
                         }
                         @if (selectedServiceId.HasValue)
                         {
@@ -43,6 +43,10 @@ else
                         @if (selectedWorkHourId.HasValue)
                         {
                             <p><strong>Giờ khám:</strong> @(selectedStartTime?.ToString(@"hh\:mm")) - @(selectedEndTime?.ToString(@"hh\:mm"))</p>
+                        }
+                        @if (selectedChildId.HasValue)
+                        {
+                            <p><strong>Họ tên bé:</strong> @(selectedChildName)</p>
                         }
                     </div>
                 </div>
@@ -87,11 +91,23 @@ else
                                 <span>Quay lại</span>
                             </div>
                         }
-                        @if (selectedWorkHourId.HasValue && string.IsNullOrEmpty(selectedPaymentMethod))
+                        @if (selectedWorkHourId.HasValue && !selectedChildId.HasValue)
+                        {
+                            <SelectChild ParentId="Parent.Id" OnChildSelected="HandleChildSelection"></SelectChild>
+                            <div class="go-back-btn"
+                                 @onclick="GoBackToSlotSelection"
+                                 style="display: inline-flex; align-items: center; gap: 5px; color: #007bff; background-color: transparent; border: none; font-weight: 500; cursor: pointer; padding: 6px 10px; border-radius: 6px;"
+                                 onmouseover="this.style.backgroundColor='#e7f1ff'; this.style.color='#0056b3';"
+                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#007bff';">
+                                <i class="bi bi-arrow-return-left"></i>
+                                <span>Quay lại</span>
+                            </div>
+                        }
+                        @if (selectedChildId.HasValue && string.IsNullOrEmpty(selectedPaymentMethod))
                         {
                             <SelectPayment OnPaymentSelected="HandlePaymentSelection" />
                             <div class="go-back-btn"
-                                 @onclick="GoBackToSlotSelection"
+                                 @onclick="GoBackToChildSelection"
                                  style="display: inline-flex; align-items: center; gap: 5px; color: #007bff; background-color: transparent; border: none; font-weight: 500; cursor: pointer; padding: 6px 10px; border-radius: 6px;"
                                  onmouseover="this.style.backgroundColor='#e7f1ff'; this.style.color='#0056b3';"
                                  onmouseout="this.style.backgroundColor='transparent'; this.style.color='#007bff';">
