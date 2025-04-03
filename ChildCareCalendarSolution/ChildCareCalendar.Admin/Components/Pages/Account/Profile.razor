@@ -1,0 +1,467 @@
+﻿@page "/profile"
+@using ChildCareCalendar.Infrastructure.Services.Interfaces
+@using System.ComponentModel.DataAnnotations;
+@inject IJSRuntime JS
+@rendermode InteractiveServer
+
+<h3>Profile</h3>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<div class="content-container">
+    <div class="page-header d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-person-circle me-2"></i>My Profile</h2>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    }
+    else if (account == null)
+    {
+        <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            Unable to load profile data. Please try logging in again.
+        </div>
+        <a href="/login" class="btn btn-primary">
+            <i class="bi bi-box-arrow-in-right me-2"></i>Go to Login
+        </a>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card shadow-lg rounded-4">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs mb-4" id="profileTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link @(activeTab == "profile" ? "active" : "")"
+                                @onclick="() => SetActiveTab(profileTab)">
+                                    <i class="bi bi-person me-2"></i>Profile Details
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link @(activeTab == "edit" ? "active" : "")"
+                                @onclick="() => SetActiveTab(editTab)">
+                                    <i class="bi bi-pencil-square me-2"></i>Edit Profile
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link @(activeTab == "password" ? "active" : "")"
+                                @onclick="() => SetActiveTab(changePasswordTab)">
+                                    <i class="bi bi-key me-2"></i>Change Password
+                                </button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="profileTabContent">
+                            <!-- Profile View Tab -->
+                            <div class="tab-pane fade @(activeTab == "profile" ? "show active" : "")" id="profile" role="tabpanel">
+                                <div class="d-flex flex-column align-items-center text-center mb-4">
+                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 100px; height: 100px; font-size: 40px;">
+                                        @(account.FullName?.Substring(0, 1).ToUpper() ?? "U")
+                                    </div>
+                                    <h4 class="mt-3">@account.FullName</h4>
+                                    <p class="text-muted mb-1">
+                                        @if (account.Role.Equals("QuanLy"))
+                                        {
+                                            <span class="badge bg-info">Quản lí</span>
+                                        }
+                                        else if (account.Role.Equals("BacSi"))
+                                        {
+                                            <span class="badge bg-warning">Bác sĩ</span>
+                                        }
+                                        else if (account.Role.Equals("PhuHuynh"))
+                                        {
+                                            <span class="badge bg-danger">Phụ Huynh</span>
+                                        }
+                                    </p>
+                                </div>
+
+                                <div class="card mb-3">
+                                    <div class="card-body">
+
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0"><i class="bi bi-person me-2"></i>Họ và tên</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                @account.FullName
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0"><i class="bi bi-person-badge me-2"></i>Số điện thoại</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                @account.PhoneNumber
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0"><i class="bi bi-envelope me-2"></i>Email</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                @account.Email
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0"><i class="bi bi-envelope me-2"></i>Ngày sinh</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                @account.Dob
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0"><i class="bi bi-envelope me-2"></i>Vai trò</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                @account.Role.GetEnumDisplayName(typeof(SystemConstant.AccountsRole))
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <a class="btn btn-outline-primary" href="/accounts">
+                                        <i class="bi bi-arrow-left me-2"></i>Back
+                                    </a>
+                                    <button class="btn btn-primary" @onclick="() => SetActiveTab(editTab)">
+                                        <i class="bi bi-pencil me-2"></i>Edit Profile
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Edit Profile Tab -->
+                            <div class="tab-pane fade @(activeTab == "edit" ? "show active" : "")" id="edit" role="tabpanel">
+                                <EditForm Model="@editAccount" OnValidSubmit="@UpdateProfile">
+                                    <DataAnnotationsValidator />
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Họ và tên</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                            <InputText class="form-control" @bind-Value="editAccount.FullName" />
+                                        </div>
+                                        <ValidationMessage For="() => editAccount.FullName" class="text-danger" />
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                            <InputText class="form-control" @bind-Value="editAccount.Email" />
+                                        </div>
+                                        <ValidationMessage For="() => editAccount.Email" class="text-danger" />
+                                    </div>
+
+                                    <div class="d-flex justify-content-between">
+                                        <button type="button" class="btn btn-outline-secondary" @onclick="() => SetActiveTab(profileTab)">
+                                            <i class="bi bi-x-circle me-2"></i>Cancel
+                                        </button>
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="bi bi-check-circle me-2"></i>Save Changes
+                                        </button>
+                                    </div>
+                                </EditForm>
+                            </div>
+
+                            <!-- Change Password Tab -->
+                            <div class="tab-pane fade @(activeTab == "password" ? "show active" : "")" id="password" role="tabpanel">
+                                <EditForm Model="@passwordModel" OnValidSubmit="@ChangePassword">
+                                    <DataAnnotationsValidator />
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Current Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                            <InputText type="password" class="form-control" @bind-Value="passwordModel.CurrentPassword" />
+                                        </div>
+                                        <ValidationMessage For="() => passwordModel.CurrentPassword" class="text-danger" />
+                                        @if (!string.IsNullOrEmpty(currentPasswordError))
+                                        {
+                                            <div class="text-danger">@currentPasswordError</div>
+                                        }
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">New Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                            <InputText type="password" class="form-control" @bind-Value="passwordModel.NewPassword" />
+                                        </div>
+                                        <ValidationMessage For="() => passwordModel.NewPassword" class="text-danger" />
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Confirm New Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+                                            <InputText type="password" class="form-control" @bind-Value="passwordModel.ConfirmPassword" />
+                                        </div>
+                                        <ValidationMessage For="() => passwordModel.ConfirmPassword" class="text-danger" />
+                                    </div>
+
+                                    <div class="d-flex justify-content-between">
+                                        <button type="button" class="btn btn-outline-secondary" @onclick="() => SetActiveTab(profileTab)">
+                                            <i class="bi bi-x-circle me-2"></i>Cancel
+                                        </button>
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="bi bi-check-circle me-2"></i>Update Password
+                                        </button>
+                                    </div>
+                                </EditForm>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private AppUser? account;
+    private AppUser editAccount = new();
+    private PasswordChangeModel passwordModel = new();
+    private string activeTab = "profile";
+    private bool isLoading = true;
+    private short? accountId = null;
+    private string currentPasswordError = string.Empty;
+    private string profileTab = "profile";
+    private string editTab = "edit";
+    private string changePasswordTab = "password";
+    private int? sessionAccountId;
+    private string? email = null;
+
+    [Inject]
+    AuthenticationStateProvider AuthStateProvider { get; set; } = default!;
+    [Inject] private IUserService userService { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try
+            {
+                var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+                var user = authState.User;
+
+                email = user.FindFirst(ClaimTypes.Email)?.Value ?? string.Empty;
+                if (email != null)
+                {
+                    await LoadProfile();
+                }
+                else
+                {
+                    isLoading = false;
+                    StateHasChanged();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading profile: {ex.Message}");
+                isLoading = false;
+                StateHasChanged();
+            }
+        }
+    }
+
+    private void SetActiveTab(string tabName)
+    {
+        activeTab = tabName;
+
+        if (tabName == "edit" && account != null)
+        {
+            editAccount = new AppUser
+                {
+                    Id = account.Id,
+                    FullName = account.FullName,
+                    Address = account.Address,
+                    Email = account.Email,
+                    Dob = account.Dob,
+                    Role = account.Role,
+                    Avatar = account.Avatar
+                };
+        }
+        else if (tabName == "password")
+        {
+            passwordModel = new PasswordChangeModel();
+            currentPasswordError = string.Empty;
+        }
+    }
+
+    private async Task LoadProfile()
+    {
+        if (email == null)
+        {
+            isLoading = false;
+            return;
+        }
+
+        try
+        {
+            account = await userService.GetUserByEmailAsync(email);
+
+            if (account != null)
+            {
+                editAccount = new AppUser
+                    {
+                        Id = account.Id,
+                        FullName = account.FullName,
+                        Address = account.Address,
+                        Email = account.Email,
+                        Dob = account.Dob,
+                        Role = account.Role,
+                        PhoneNumber = account.PhoneNumber
+                    };
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error retrieving account: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task UpdateProfile()
+    {
+        try
+        {
+            if (account != null)
+            {
+                editAccount.Password = account.Password;
+                editAccount.Role = account.Role;
+            }
+
+            await userService.UpdateUserAsync(editAccount);
+
+            await JS.InvokeVoidAsync("Swal.fire", "Success", "Profile updated successfully!", "success");
+
+            // Reload profile data
+            account = await userService.GetUserByEmailAsync(editAccount.Email);
+            SetActiveTab("profile");
+        }
+        catch (Exception ex)
+        {
+            await JS.InvokeVoidAsync("Swal.fire", "Error", $"Error updating profile: {ex.Message}", "error");
+        }
+    }
+
+    private async Task ChangePassword()
+    {
+        if (account == null) return;
+        var check = BCrypt.Net.BCrypt.EnhancedVerify(passwordModel.CurrentPassword, account.Password, BCrypt.Net.HashType.SHA256);
+
+        if (!check)
+        {
+            currentPasswordError = "Current password is incorrect";
+            return;
+        }
+
+        try
+        {
+            account.Password = passwordModel.NewPassword;
+            await userService.UpdateUserAsync(account);
+
+            await JS.InvokeVoidAsync("Swal.fire", "Success", "Password changed successfully!", "success");
+            passwordModel = new PasswordChangeModel();
+            SetActiveTab("profile");
+        }
+        catch (Exception ex)
+        {
+            await JS.InvokeVoidAsync("Swal.fire", "Error", $"Error changing password: {ex.Message}", "error");
+        }
+    }
+
+    public class PasswordChangeModel
+    {
+        [Required(ErrorMessage = "Current password is required")]
+        public string CurrentPassword { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "New password is required")]
+        [MinLength(6, ErrorMessage = "Password must be at least 6 characters")]
+        public string NewPassword { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Please confirm your password")]
+        [Compare("NewPassword", ErrorMessage = "Passwords do not match")]
+        public string ConfirmPassword { get; set; } = string.Empty;
+    }
+}
+
+<style>
+    /* Content container styling */
+    .content-container {
+        padding: 1.5rem;
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        margin-bottom: 2rem;
+    }
+
+    /* Page header styling */
+    .page-header {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    /* Tab styling */
+    .nav-tabs .nav-link {
+        border: none;
+        border-bottom: 2px solid transparent;
+        color: #6c757d;
+        padding: 0.5rem 1rem;
+    }
+
+        .nav-tabs .nav-link:hover {
+            border-color: transparent;
+            color: #0d6efd;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: #0d6efd;
+            background-color: transparent;
+            border-bottom: 2px solid #0d6efd;
+            font-weight: 500;
+        }
+
+    /* Form styling */
+    .input-group-text {
+        background-color: #f8f9fa;
+    }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    /* Badge styling */
+    .badge {
+        font-size: 0.875rem;
+        padding: 0.35em 0.65em;
+    }
+</style>
