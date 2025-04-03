@@ -16,34 +16,6 @@
 
     <InputNumber hidden @bind-Value="EditModel.Id" />
 
-    <!-- Chọn bác sĩ -->
-    <div class="form-group m-2">
-        <label class="control-label m-2">
-            Chọn bác sĩ
-            <span class="text-danger">*</span>
-        </label>
-        <InputSelect class="form-control" @bind-Value="EditModel.DoctorId">
-            <option value="">-- Chọn bác sĩ --</option>
-            @foreach (var doctor in Doctors)
-            {
-                <option value="@doctor.Id">@doctor.FullName</option>
-            }
-        </InputSelect>
-        <ValidationMessage For="@(() => EditModel.DoctorId)" class="text-danger" />
-    </div>
-
-    <!-- Chọn ngày khám -->
-    <div class="form-group m-2">
-        <label class="control-label m-2">
-            Chọn ngày khám
-            <span class="text-danger">*</span>
-        </label>
-        <InputDate class="form-control" @bind-Value="EditModel.CheckupDateTime" />
-
-        <ValidationMessage For="@(() => EditModel.CheckupDateTime)" class="text-danger" />
-    </div>
-
-
     <!-- Chọn trạng thái -->
     <div class="form-group m-2">
         <label class="control-label m-2">
