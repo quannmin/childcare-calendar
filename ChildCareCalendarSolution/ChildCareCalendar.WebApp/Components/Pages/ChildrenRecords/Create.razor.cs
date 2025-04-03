@@ -67,7 +67,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.ChildrenRecords
             try
             {
                 var createModel = Mapper.Map<ChildrenRecord>(CreateModel);
-                createModel.UserId = 6;
+                createModel.UserId = Parent.Id;
                 createModel.CreatedAt = DateTime.Now;
                 await ChildrenRecordService.AddChildrenRecordAsync(createModel);
                 Navigation.NavigateTo("/AccountDetail", forceLoad: true);
