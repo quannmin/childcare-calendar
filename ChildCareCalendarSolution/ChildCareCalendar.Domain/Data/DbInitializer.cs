@@ -102,10 +102,11 @@ namespace ChildCareCalendar.Domain.Data
                  context.Appointments.AddRange(
                     new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED",
                         ServiceId = 1, TotalAmount = 550_000, CheckupDateTime = new DateTime(2024, 11, 10), CreatedAt = DateTime.Now },
-                    new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", ServiceId = 1, TotalAmount = 750_000, CheckupDateTime = new DateTime(2023, 12, 5), CreatedAt = DateTime.Now },
-                    new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", ServiceId = 1, TotalAmount = 600_000, CheckupDateTime = new DateTime(2024, 9, 15), CreatedAt = DateTime.Now, ExaminationReportId = 1 },
+                    new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", ServiceId = 1, TotalAmount = 750_000, CheckupDateTime = new DateTime(2025, 04, 03, 9, 0, 0), CreatedAt = DateTime.Now },
+                    new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", ServiceId = 1, TotalAmount = 600_000, CheckupDateTime = new DateTime(2025, 04, 03, 8, 0, 0), CreatedAt = DateTime.Now, ExaminationReportId = 1 },
+                     new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", ServiceId = 1, TotalAmount = 600_000, CheckupDateTime = new DateTime(2025, 04, 03, 10, 0, 0), CreatedAt = DateTime.Now},
 
-                    new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED", ServiceId = 1, TotalAmount = 520_000, CheckupDateTime = new DateTime(2024, 8, 20), CreatedAt = DateTime.Now },
+                    new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED", ServiceId = 1, TotalAmount = 520_000, CheckupDateTime = new DateTime(2025, 8, 20), CreatedAt = DateTime.Now },
                     new Appointment { DoctorId = 4, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", ServiceId = 1, TotalAmount = 680_000, CheckupDateTime = new DateTime(2023, 9, 10), CreatedAt = DateTime.Now }
                     //new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", TotalAmount = 720_000, CheckupDateTime = new DateTime(2024, 10, 1), CreatedAt = DateTime.Now },
 

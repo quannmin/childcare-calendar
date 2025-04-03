@@ -65,7 +65,26 @@ namespace ChildCareCalendar.Infrastructure.Services
                 await _refundReportService.AddRefundReportAsync(refundReport);
             }
         }
+        public async Task<List<Appointment>> GetAppointmentsByDoctorIdAndDateTimeAsync(
+   int doctorId,
+   DateTime date,
+   TimeSpan startTime,
+   TimeSpan endTime)
+        {
+            DateTime startDateTime = date.Date.Add(startTime);
+            DateTime endDateTime = date.Date.Add(endTime);
 
+            var appointments = await _appointmentRepository.FindAsync(
+                a => !a.IsDelete &&
+                     a.DoctorId == doctorId &&
+                     a.CheckupDateTime >= startDateTime &&
+                     a.CheckupDateTime < endDateTime,
+                a => a.Parent,
+                a => a.ChildrenRecord,
+                a => a.Service);
+
+            return appointments.ToList();
+        }
 
 
 

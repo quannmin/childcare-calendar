@@ -43,7 +43,7 @@ namespace ChildCareCalendar.Infrastructure.Services
 
         public async Task<ExaminationReport> GetExaminationReportByIdAsync(int id, params Expression<Func<ExaminationReport, object>>[] includes)
         {
-            var query = _examinationRepository.GetQueryable(); // Lấy IQueryable từ repository
+            var query = _examinationRepository.GetQueryable(); 
 
         
             foreach (var include in includes)
@@ -74,6 +74,13 @@ namespace ChildCareCalendar.Infrastructure.Services
                 report.UpdatedAt = DateTime.UtcNow;
                 await _examinationRepository.UpdateAsync(report, report.Id);
             }
+        }
+        public async Task<int?> GetFirstExaminationReportIdByAppointmentIdAsync(int appointmentId)
+        {
+            return await _examinationRepository.GetQueryable()
+                .Where(r => r.AppointmentId == appointmentId && !r.IsDelete)
+                .Select(r => (int?)r.Id)
+                .FirstOrDefaultAsync();
         }
         public async Task<IEnumerable<ExaminationReport>> GetExaminationReportsByAppointmentIdAsync(int appointmentId)
         {
