@@ -1,0 +1,94 @@
+﻿@using ChildCareCalendar.Domain.Entities
+@using ChildCareCalendar.Infrastructure.Services.Interfaces
+@inject IScheduleService ScheduleService
+<link href="css/AppointmentBooking/Slot.css" rel="stylesheet" />
+
+<div class="slot-container">
+    <h4 class="info-title">Chọn khung giờ khám</h4>
+
+    @if (MorningSlots.Any())
+    {
+        <h5>Buổi sáng</h5>
+        <div class="slot-list">
+            @foreach (var group in MorningSlots)
+            {
+                bool isDisabled = !group.Any(s => !s.IsOccupied) || IsPastTime(group.First());
+                <button class="slot-btn"
+                        disabled="@isDisabled"
+                        style="@(isDisabled ? "background-color:#dc3545; cursor:not-allowed; opacity:0.7;" : null)"
+                        @onclick="() => SelectSlot(group)">
+                    @group.First().WorkHour!.StartTime.ToString("hh\\:mm") - @group.First().WorkHour!.EndTime.ToString("hh\\:mm")
+                </button>
+            }
+        </div>
+    }
+
+    @if (AfternoonSlots.Any())
+    {
+        <h5>Buổi chiều</h5>
+        <div class="slot-list">
+            @foreach (var group in AfternoonSlots)
+            {
+                bool isDisabled = !group.Any(s => !s.IsOccupied) || IsPastTime(group.First());
+                <button class="slot-btn"
+                        disabled="@isDisabled"
+                        style="@(isDisabled ? "background-color:#dc3545; cursor:not-allowed; opacity:0.7;" : null)"
+                        @onclick="() => SelectSlot(group)">
+                    @group.First().WorkHour!.StartTime.ToString("hh\\:mm") - @group.First().WorkHour!.EndTime.ToString("hh\\:mm")
+                </button>
+            }
+        </div>
+    }
+
+    @if (!MorningSlots.Any() && !AfternoonSlots.Any())
+    {
+        <p>Không có khung giờ nào khả dụng cho ngày đã chọn.</p>
+    }
+</div>
+
+@code {
+    [Parameter] public int SpecialtyId { get; set; }
+    [Parameter] public DateTime SelectedDate { get; set; }
+    [Parameter] public EventCallback<WorkHour> OnSlotSelected { get; set; }
+    [Parameter] public EventCallback<int> OnDoctorSelected { get; set; }
+
+    private List<List<Schedule>> MorningSlots = new();
+    private List<List<Schedule>> AfternoonSlots = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var schedules = await ScheduleService.FindSchedulesAsync(
+            s => s.Doctor.SpecialityId == SpecialtyId &&
+                 s.WorkDay.HasValue &&
+                 s.WorkDay.Value.Date == SelectedDate.Date,
+            s => s.WorkHour,
+            s => s.Doctor
+        );
+
+        var grouped = schedules
+            .Where(s => s.WorkHour != null)
+            .GroupBy(s => s.WorkHourId)
+            .Select(g => g.ToList())
+            .ToList();
+
+        MorningSlots = grouped.Where(g => g.First().WorkHour!.StartTime < TimeSpan.FromHours(12)).ToList();
+        AfternoonSlots = grouped.Where(g => g.First().WorkHour!.StartTime >= TimeSpan.FromHours(12)).ToList();
+    }
+
+    private bool IsPastTime(Schedule schedule)
+    {
+        return SelectedDate.Date == DateTime.Today && schedule.WorkHour!.StartTime <= DateTime.Now.TimeOfDay;
+    }
+
+    private async Task SelectSlot(List<Schedule> slotGroup)
+    {
+        var available = slotGroup.Where(s => !s.IsOccupied).ToList();
+        if (available.Count == 0) return;
+
+        var random = new Random();
+        var chosen = available[random.Next(available.Count)];
+
+        await OnSlotSelected.InvokeAsync(chosen.WorkHour!);
+        await OnDoctorSelected.InvokeAsync(chosen.UserId);
+    }
+}
