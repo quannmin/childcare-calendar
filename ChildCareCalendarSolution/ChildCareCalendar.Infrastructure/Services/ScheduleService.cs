@@ -36,5 +36,10 @@ namespace ChildCareCalendar.Infrastructure.Services
         {
 			await _repository.UpdateAsync(schedule, schedule.Id);
 		}
+
+        public async Task<Schedule> GetScheduleByIdAsync(int id, params Expression<Func<Schedule, object>>[] includes)
+        {
+            return await _repository.GetByIdAsync(id, includes);
+        }
     }
 }

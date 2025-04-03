@@ -2,6 +2,7 @@
 using ChildCareCalendar.Domain.EF;
 using ChildCareCalendar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -21,65 +22,111 @@ namespace ChildCareCalendar.Domain.Data
 			context.Database.EnsureDeleted();
 			context.Database.EnsureCreated();
 
-			if (!context.Users.Any())
-			{
-				if (!context.Specialities.Any())
-				{
-					context.Specialities.AddRange(
-						new Speciality { SpecialtyName = "Tai mũi họng", Description = "Children healthcare" },
-						new Speciality { SpecialtyName = "Da liễu", Description = "Skin healthcare" }
-					);
-					context.SaveChanges();
-				}
+            if (!context.Users.Any())
+            {
+                if (!context.Specialities.Any())
+                {
+                    context.Specialities.AddRange(
+                        new Speciality { SpecialtyName = "Tai mũi họng", Description = "Children healthcare" },
+                        new Speciality { SpecialtyName = "Da liễu", Description = "Skin healthcare" },
+                         new Speciality { SpecialtyName = "Nhi khoa", Description = "Chăm sóc sức khỏe trẻ em" },
+        new Speciality { SpecialtyName = "Tâm lý học", Description = "Tham vấn tâm lý trẻ em" },
+        new Speciality { SpecialtyName = "Dinh dưỡng", Description = "Tư vấn chế độ ăn uống cho trẻ" }
+                    );
+                    context.SaveChanges();
+                }
 
-				context.Users.AddRange(
-					new AppUser { Email = "manager@example.com", FullName = "Ông sếp", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "QuanLy", CreatedAt = DateTime.UtcNow, Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg" },
-					new AppUser { Email = "doctor1@example.com", FullName = "Bác sĩ Quân", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1, Gender = "Nam", CreatedAt = DateTime.UtcNow },
-					new AppUser
-					{
-						Email = "doctor2@example.com",
-						FullName = "Bác sĩ Lương",
-						Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256),
-						Role = "BacSi",
-						Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
-						SpecialityId = 2,
-						CreatedAt = DateTime.UtcNow
-					},
-					new AppUser { Email = "doctor3@example.com", FullName = "Bác sĩ Quốc", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1, CreatedAt = DateTime.UtcNow },
-					new AppUser { Email = "doctor4@example.com", FullName = "Bác sĩ Qui", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 2, CreatedAt = DateTime.UtcNow.AddDays(-1) },
-					new AppUser { Email = "parent1@example.com", FullName = "Chị Ba", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "PhuHuynh", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", PhoneNumber = "0123456789", Address = "123 Đường Cây Dừa, Xã Cây Cau, Huyện Cây Chuối, Tỉnh Bến Tre", CreatedAt = DateTime.UtcNow.AddDays(-2) },
-					 new AppUser
-					 {
-						 Email = "nguyenkhaiqui2003@gmail.com",
-						 FullName = "Qui nè",
-						 Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256),
-						 Role = "PhuHuynh",
-						 Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
-						 PhoneNumber = "0123456789",
-						 Address = "123 Đường Cây Dừa, Xã Cây Cau, Huyện Cây Chuối, Tỉnh Bến Tre",
-						 SpecialityId = 2,
-						 Gender = "Nữ",
-						 CreatedAt = DateTime.UtcNow.AddDays(-3)
-					 },
-					new AppUser { Email = "doctor3@example.com", FullName = "Bác sĩ Quốc", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1, Gender = "Nữ", CreatedAt = DateTime.UtcNow.AddDays(-1) },
-					new AppUser { Email = "doctor4@example.com", FullName = "Bác sĩ Qui", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 2, Gender = "Nam", CreatedAt = DateTime.UtcNow.AddDays(-2) },
-					new AppUser { Email = "parent1@example.com", FullName = "Chị Ba", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "PhuHuynh", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", PhoneNumber = "0123456789", Address = "123 Đường Cây Dừa, Xã Cây Cau, Huyện Cây Chuối, Tỉnh Bến Tre", Gender = "Nữ", CreatedAt = DateTime.UtcNow.AddDays(-4) }
-				);
-				context.SaveChanges();
-			}
+                context.Users.AddRange(
+                    new AppUser { Email = "manager@example.com", FullName = "Ông sếp", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "QuanLy" },
+                    new AppUser { Email = "doctor1@example.com", FullName = "Bác sĩ Quân", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1, Gender = "Nam" },
+                    new AppUser
+                    {
+                        Email = "doctor2@example.com",
+                        FullName = "Bác sĩ Lương",
+                        Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256),
+                        Role = "BacSi",
+                        Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
+                        SpecialityId = 2,
+                        Gender = "Nam"
+                    },
+                    new AppUser { Email = "doctor3@example.com", FullName = "Bác sĩ Quốc", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1, Gender = "Nam" },
+                    new AppUser { Email = "doctor4@example.com", FullName = "Bác sĩ Qui", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 2, Gender = "Nam" },
+                    new AppUser { Email = "parent1@example.com", FullName = "Chị Ba", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "PhuHuynh", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", PhoneNumber = "0123456789", Address = "123 Đường Cây Dừa, Xã Cây Cau, Huyện Cây Chuối, Tỉnh Bến Tre" },
+                     new AppUser
+                     {
+                         Email = "nguyenkhaiqui2003@gmail.com",
+                         FullName = "Qui nè",
+                         Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256),
+                         Role = "PhuHuynh",
+                         Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
+                         PhoneNumber = "0123456789",
+                         Address = "123 Đường Cây Dừa, Xã Cây Cau, Huyện Cây Chuối, Tỉnh Bến Tre",
+                         SpecialityId = 2,
+                         Gender = "Nam"
+                     },
+                    new AppUser { Email = "doctor5@example.com", FullName = "Bác sĩ Tiên", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1, Gender = "Nữ" },
+                    new AppUser { Email = "doctor6@example.com", FullName = "Bác sĩ Khánh", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 2, Gender = "Nam" },
+                    new AppUser { Email = "parent2@example.com", FullName = "Chị Tư", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "PhuHuynh", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", PhoneNumber = "0123456789", Address = "123 Đường Cây Dừa, Xã Cây Cau, Huyện Cây Chuối, Tỉnh Bến Tre", Gender = "Nữ" }, 
+                    new AppUser
+                    {
+                        Email = "doctornhi@example.com",
+                        FullName = "Bác sĩ Nhi",
+                        Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256),
+                        Role = "BacSi",
+                        Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
+                        SpecialityId = 3,
+                        Gender = "Nữ"
+                    },
+            new AppUser
+            {
+                Email = "doctortamly@example.com",
+                FullName = "Bác sĩ Tâm Lý",
+                Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256),
+                Role = "BacSi",
+                Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
+                SpecialityId = 4,
+                Gender = "Nam"
+            },
+            new AppUser
+            {
+                Email = "doctordinhduong@example.com",
+                FullName = "Bác sĩ Dinh Dưỡng",
+                Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256),
+                Role = "BacSi",
+                Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
+                SpecialityId = 5,
+                Gender = "Nữ"
+            }
+                );
+                context.SaveChanges();
+            }
 
-			if (!context.Services.Any())
-			{
-				context.Services.AddRange(
-					new Service { SpecialityId = 1, ServiceName = "Khám thường có BHYT", Description = "Basic health checkup", Price = 500000 },
-					new Service { SpecialityId = 2, ServiceName = "Khám thường có BHYT", Description = "Skin disease consultation", Price = 700000 },
-					new Service { SpecialityId = 1, ServiceName = "Khám thường không có BHYT", Description = "Basic health checkup", Price = 500000 },
-					new Service { SpecialityId = 2, ServiceName = "Khám thường không có BHYT", Description = "Skin disease consultation", Price = 700000 },
-					new Service { SpecialityId = 1, ServiceName = "Khám vip", Description = "Basic health checkup", Price = 500000 },
-					new Service { SpecialityId = 2, ServiceName = "Khám vip", Description = "Skin disease consultation", Price = 700000 }
-				);
-				context.SaveChanges();
-			}
+            if (!context.Services.Any())
+            {
+                context.Services.AddRange(
+                    new Service { SpecialityId = 1, ServiceName = "Khám thường có BHYT", Description = "Basic health checkup", Price = 500000 },
+                    new Service { SpecialityId = 2, ServiceName = "Khám thường có BHYT", Description = "Skin disease consultation", Price = 700000 },
+                    new Service { SpecialityId = 1, ServiceName = "Khám thường không có BHYT", Description = "Basic health checkup", Price = 500000 },
+                    new Service { SpecialityId = 2, ServiceName = "Khám thường không có BHYT", Description = "Skin disease consultation", Price = 700000 },
+                    new Service { SpecialityId = 1, ServiceName = "Khám vip", Description = "Basic health checkup", Price = 500000 },
+                    new Service { SpecialityId = 2, ServiceName = "Khám vip", Description = "Skin disease consultation", Price = 700000 },
+        // Dịch vụ Nhi khoa
+        new Service { SpecialityId = 3, ServiceName = "Khám thường có BHYT", Description = "Khám sức khỏe cơ bản cho trẻ", Price = 500000 },
+        new Service { SpecialityId = 3, ServiceName = "Khám thường không có BHYT", Description = "Khám sức khỏe cơ bản cho trẻ", Price = 700000 },
+        new Service { SpecialityId = 3, ServiceName = "Khám vip", Description = "Khám chuyên sâu cho trẻ", Price = 1000000 },
+
+                // Dịch vụ Tâm lý học
+        new Service { SpecialityId = 4, ServiceName = "Khám thường có BHYT", Description = "Tư vấn cá nhân cho trẻ", Price = 600000 },
+        new Service { SpecialityId = 4, ServiceName = "Khám thường không có BHYT", Description = "Tư vấn tâm lý cho phụ huynh và trẻ", Price = 800000 },
+        new Service { SpecialityId = 4, ServiceName = "Khám vip", Description = "Tư vấn tình trạng học tập, tâm lý trường lớp", Price = 750000 },
+
+        // Dịch vụ Dinh dưỡng
+        new Service { SpecialityId = 5, ServiceName = "Khám thường có BHYT", Description = "Tư vấn ăn uống khoa học theo độ tuổi", Price = 500000 },
+        new Service { SpecialityId = 5, ServiceName = "Khám thường không có BHYT", Description = "Đánh giá và lên kế hoạch dinh dưỡng", Price = 900000 },
+        new Service { SpecialityId = 5, ServiceName = "Khám vip", Description = "Định hướng điều chỉnh cân nặng", Price = 850000 }
+                );
+                context.SaveChanges();
+            }
 
 			if (!context.ChildrenRecords.Any())
 			{

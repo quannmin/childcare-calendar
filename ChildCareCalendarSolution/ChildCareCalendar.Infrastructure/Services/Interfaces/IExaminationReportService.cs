@@ -18,6 +18,7 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task<ExaminationReport> GetExaminationReportByIdAsync(int id, params Expression<Func<ExaminationReport, object>>[] includes);
        
         Task<IEnumerable<ExaminationReport>> GetExaminationReportsByAppointmentIdAsync(int appointmentId);
+        Task<int?> GetFirstExaminationReportIdByAppointmentIdAsync(int appointmentId);
         Task<(IEnumerable<ExaminationReport> reports, int totalCount)> GetPagedExaminationReportsAsync(
                 int pageIndex,
                 int pageSize,

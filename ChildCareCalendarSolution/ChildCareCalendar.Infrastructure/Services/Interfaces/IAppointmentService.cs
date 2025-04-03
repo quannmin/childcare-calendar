@@ -33,6 +33,10 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
         Task<Appointment?> FindLatestAppointmentAsync(int parentId, int doctorId);
         Task<List<RevenueViewModel>> GetMonthlyRevenue(int year);
         Task<List<DailyAppointmentCountViewModel>> GetWeeklyAppointmentsAsync(DateTime startDate);
-
+        Task<List<Domain.Entities.Appointment>> GetAppointmentsByDoctorIdAndDateTimeAsync(
+          int doctorId,
+          DateTime date,
+          TimeSpan startTime,
+          TimeSpan endTime);
     }
 }

@@ -5,15 +5,18 @@ using ChildCareCalendar.Domain.ViewModels.Appointment;
 using ChildCareCalendar.Infrastructure.Services;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using System.Web;
+using static ChildCareCalendar.Utilities.Constants.SystemConstant;
 
 namespace ChildCareCalendar.Admin.Components.DoctorPages.Appointment
 {
     public partial class Index
     {
         private List<AppointmentViewModel> Appointments = new();
-
+        [Inject]
+        private AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
         [Inject]
         IMapper Mapper { get; set; }
 
@@ -21,14 +24,19 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.Appointment
         IAppointmentService AppointmentService { get; set; }
 
         [Inject]
+        IExaminationReportService ExaminationReportService { get; set; }
+
+        [Inject]
         IUserService UserService { get; set; }
 
-        private int? DoctorId = 2;
+        private int? DoctorId = null;
 
         [SupplyParameterFromForm]
         private AppointmentSearchViewModel SearchData { get; set; } = new();
         [Inject]
         private NavigationManager Navigation { get; set; }
+
+        private Dictionary<int, int?> AppointmentReportIds = new();
 
         [Inject]
         private IJSRuntime JS { get; set; }
@@ -47,6 +55,26 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.Appointment
             //{
             //    DoctorId = user.DoctorId;
             //}
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+            if (user.Identity?.IsAuthenticated == true)
+            {
+            
+                var doctorClaim = user.FindFirst("Id");
+                if (doctorClaim != null && int.TryParse(doctorClaim.Value, out int doctorIdClaim))
+                {
+                    DoctorId = doctorIdClaim;
+                }
+                else
+                {
+                  
+                    DoctorId = null;
+                }
+            }
+            else
+            {
+                DoctorId = null;
+            }
             var uri = new Uri(Navigation.Uri);
             var queryParameters = HttpUtility.ParseQueryString(uri.Query);
             var page = queryParameters["page"];
@@ -74,9 +102,19 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.Appointment
                 var (appointments, totalCount) = await AppointmentService.GetPagedAppointmentsByDoctorIdAsync(
                     DoctorId.Value, CurrentPage, PageSize, SearchData.Keyword);
 
+
                 Appointments = Mapper.Map<List<AppointmentViewModel>>(appointments);
                 TotalItems = totalCount;
                 TotalPages = (int)Math.Ceiling((double)TotalItems / PageSize);
+
+                AppointmentReportIds = new Dictionary<int, int?>();
+                foreach (var appointment in Appointments)
+                {
+                    if (appointment.Status.ToLower() == AppointmentStatus.Completed.ToString().ToLower())
+                    {                      
+                        AppointmentReportIds[appointment.AppointmentId] = await GetExaminationReportId(appointment.AppointmentId);
+                    }
+                }
             }
             else
             {
@@ -104,6 +142,10 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.Appointment
 
 
             }
+        }
+        private async Task<int?> GetExaminationReportId(int appointmentId)
+        {
+            return await ExaminationReportService.GetFirstExaminationReportIdByAppointmentIdAsync(appointmentId);
         }
 
     }
