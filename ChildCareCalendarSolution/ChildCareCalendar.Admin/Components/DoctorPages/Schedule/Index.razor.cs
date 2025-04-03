@@ -145,16 +145,16 @@ namespace ChildCareCalendar.Admin.Components.DoctorPages.Schedule
             return days;
         }
 
-        protected void PrevMonth()
+        protected async Task PrevMonth()
         {
             currentDate = currentDate.AddMonths(-1);
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
 
-        protected void NextMonth()
+        protected async Task NextMonth()
         {
             currentDate = currentDate.AddMonths(1);
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
 
         private async Task ShowAppointmentsAsync(DateTime date, WorkHourViewModel workHour)
