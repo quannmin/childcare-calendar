@@ -33,7 +33,7 @@ namespace ChildCareCalendar.Domain.Data
 				}
 
 				context.Users.AddRange(
-					new AppUser { Email = "manager@example.com", FullName = "Ông sếp", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "QuanLy", CreatedAt = DateTime.UtcNow },
+					new AppUser { Email = "manager@example.com", FullName = "Ông sếp", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "QuanLy", CreatedAt = DateTime.UtcNow, Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg" },
 					new AppUser { Email = "doctor1@example.com", FullName = "Bác sĩ Quân", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1, Gender = "Nam", CreatedAt = DateTime.UtcNow },
 					new AppUser
 					{
@@ -110,7 +110,8 @@ namespace ChildCareCalendar.Domain.Data
 			{
 				context.Schedules.AddRange(
 					new Schedule { UserId = 2, WorkDay = DateTime.Now, WorkHourId = 1 },
-					new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(1), WorkHourId = 1 }
+					new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(1), WorkHourId = 1 },
+					new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(-1), WorkHourId = 1 }
 				);
 				context.SaveChanges();
 			}
