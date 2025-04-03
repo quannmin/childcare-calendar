@@ -33,6 +33,5 @@ namespace ChildCareCalendar.Utilities.Helper
             var emailValidation = new EmailAddressAttribute();
             return emailValidation.IsValid(emailAddress);
         }
-
     }
 }

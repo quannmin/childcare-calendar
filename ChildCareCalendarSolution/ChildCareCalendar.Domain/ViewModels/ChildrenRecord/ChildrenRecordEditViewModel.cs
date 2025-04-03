@@ -15,7 +15,7 @@ namespace ChildCareCalendar.Domain.ViewModels.ChildrenRecord
         public string? FullName { get; set; }
 
         [Required(ErrorMessage = "Ngày tháng năm sinh không thể trống")]
-        [UserDobValidation]
+        [PastDateValidation]
         public DateTime? Dob { get; set; }
         public SystemConstant.Gender Gender { get; set; }
 
