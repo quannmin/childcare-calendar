@@ -24,7 +24,6 @@ namespace ChildCareCalendar.Utilities.CheckValidInput
 
 			return false;
 		}
-	{
 
 	}
 }
