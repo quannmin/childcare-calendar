@@ -17,7 +17,8 @@ namespace ChildCareCalendar.WebApp.Components.Pages.UserDetail
         private int userIdFromSession;
         private List<ChildrenRecord>? ChildRecords;
         private List<AppointmentViewModel>? Appointments;
-        
+        private AppUser editedUser = new AppUser();
+
 
         [Inject]
         IMapper Mapper { get; set; }
@@ -45,36 +46,43 @@ namespace ChildCareCalendar.WebApp.Components.Pages.UserDetail
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (firstRender)
+            try
             {
-                var userIdResult = await SessionStorage.GetAsync<int>("userId");
-                if (userIdResult.Success)
+                if (firstRender)
                 {
-                    userIdFromSession = userIdResult.Value;
-
-                    Parent = (await UserService.FindUsersAsync(a => a.Id.Equals(userIdFromSession)))?.FirstOrDefault();
-                    if (Parent != null && Parent.Role.Equals("PhuHuynh"))
+                    var userIdResult = await SessionStorage.GetAsync<int>("userId");
+                    if (userIdResult.Success)
                     {
-                        IsAuthenticated = true;
-                        await LoadChildrenRecordAsync();
-                        await LoadAppointmentsAsync();
+                        userIdFromSession = userIdResult.Value;
+
+                        Parent = (await UserService.FindUsersAsync(a => a.Id.Equals(userIdFromSession)))?.FirstOrDefault();
+                        if (Parent != null && Parent.Role.Equals("PhuHuynh"))
+                        {
+                            IsAuthenticated = true;
+                            await LoadChildrenRecordAsync();
+                            await LoadAppointmentsAsync();
+                        }
+                        else
+                        {
+                            Navigation.NavigateTo("/Login", forceLoad: true);
+                        }
+                        StateHasChanged();
                     }
                     else
                     {
+                        Console.WriteLine("Không lấy được dữ liệu userId từ session.");
                         Navigation.NavigateTo("/Login", forceLoad: true);
                     }
-                    StateHasChanged();
                 }
-                else
-                {
-                    Console.WriteLine("Không lấy được dữ liệu userId từ session.");
-                    Navigation.NavigateTo("/Login", forceLoad: true);
-                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in OnAfterRenderAsync: {ex.Message}");
             }
         }
         private async Task LoadChildrenRecordAsync()
         {
-            ChildRecords = (await ChildRecordService.FindUsersAsync(c => !c.IsDelete && c.UserId.Equals(Parent.Id))).ToList();
+            ChildRecords = (await ChildRecordService.FindChildrenRecordsAsync(c => !c.IsDelete && c.UserId.Equals(Parent.Id))).ToList();
         }
 
         private async Task LoadAppointmentsAsync()
@@ -85,7 +93,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.UserDetail
             Appointments.Reverse();
         }
 
-        private async void ConfirmDelete(int id)
+        private async Task ConfirmDelete(int id)
         {
             idToDelete = id;
             await JS.InvokeVoidAsync("showDeleteModal");
@@ -104,7 +112,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.UserDetail
             await JS.InvokeVoidAsync("hideDeleteModal");
         }
 
-        private async void ConfirmDeleteChild(int childId)
+        private async Task ConfirmDeleteChild(int childId)
         {
             childIdToDelete = childId;
             await JS.InvokeVoidAsync("showDeleteChildModal");
@@ -121,5 +129,45 @@ namespace ChildCareCalendar.WebApp.Components.Pages.UserDetail
             await JS.InvokeVoidAsync("hideDeleteChildModal");
         }
 
+        private async Task ShowEditProfileModal()
+        {
+            // Create a copy of the Parent user to avoid changing the original until save
+            editedUser = new AppUser
+            {
+                Id = Parent.Id,
+                FullName = Parent.FullName,
+                PhoneNumber = Parent.PhoneNumber,
+                Address = Parent.Address,
+                Dob = Parent.Dob,
+                Gender = Parent.Gender,
+                // Copy only the editable properties
+            };
+
+            await JS.InvokeVoidAsync("showEditProfileModal");
+        }
+
+        private async Task SaveUserProfile()
+        {
+            try
+            {
+                // Update only the editable fields
+                Parent.FullName = editedUser.FullName;
+                Parent.PhoneNumber = editedUser.PhoneNumber;
+                Parent.Address = editedUser.Address;
+                Parent.Dob = editedUser.Dob;
+                Parent.Gender = editedUser.Gender;
+
+                // Save changes to the database
+                await UserService.UpdateUserAsync(Parent);
+
+                // Close the modal
+                await JS.InvokeVoidAsync("hideEditProfileModal");
+            }
+            catch (Exception ex)
+            {
+                // Handle error
+                Console.WriteLine($"Error updating user profile: {ex.Message}");
+            }
+        }
     }
 }
