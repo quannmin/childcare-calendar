@@ -13,7 +13,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0">
-                                    <img src="@avatar ?? ../assets/images/user/avatar-1.jpg" alt="user-image" class="user-avtar wid-45 rounded-circle" />
+                                    <img src="@(avatar ?? "../assets/images/user/avatar-1.jpg")" alt="user-image" class="user-avtar wid-45 rounded-circle" />
                                 </div>
                                 <div class="flex-grow-1 ms-3 me-2">
                                     <h6 class="mb-0">@fullName</h6>
@@ -27,9 +27,9 @@
                             </div>
                             <div class="collapse pc-user-links" id="pc_sidebar_userlink">
                                 <div class="pt-3">
-                                    <a href="#!">
+                                    <a href="/profile">
                                         <i class="ti ti-user"></i>
-                                        <span>My Account</span>
+                                        <span>Tài Khoản</span>
                                     </a>
                                     @* <a href="#!">
 									<i class="ti ti-settings"></i>
@@ -39,9 +39,9 @@
 									<i class="ti ti-lock"></i>
 									<span>Lock Screen</span>
 									</a> *@
-                                    <a href="#!">
+                                    <a href="/logout">
                                         <i class="ti ti-power"></i>
-                                        <span>Logout</span>
+                                        <span>Đăng xuất</span>
                                     </a>
                                 </div>
                             </div>
@@ -185,6 +185,15 @@
                                     <i class="ti ti-calendar-event"></i>
                                 </span>
                                 <span class="pc-mtext">Lịch khám cho bác sĩ</span>
+                                @* <span class="pc-arrow"><i data-feather="chevron-right"></i></span> *@
+                            </a>
+                        </li> 
+                        <li class="pc-item">
+                            <a href="/doctor-schedule" class="pc-link">
+                                <span class="pc-micon">
+                                    <i class="ti ti-calendar-event"></i>
+                                </span>
+                                <span class="pc-mtext">Lịch làm việc bác sĩ</span>
                                 @* <span class="pc-arrow"><i data-feather="chevron-right"></i></span> *@
                             </a>
                         </li>

@@ -7,8 +7,8 @@ namespace ChildCareCalendar.Utilities.CheckValidInput
     {
         public UserDobValidation()
         {
-            ErrorMessage = "The year of birth must be between 1960 and 2030";
-        }
+			ErrorMessage = "The year of birth must be between 1960 and 2030";
+		}
 
         public override bool IsValid(object? value)
         {
@@ -19,8 +19,8 @@ namespace ChildCareCalendar.Utilities.CheckValidInput
             if (value is DateTime dateTime)
             {
                 int year = dateTime.Year;
-                return year >= 1960 && year <= 2030;
-            }
+				return year >= 1960 && year <= 2030;
+			}
 
             return false;
         }

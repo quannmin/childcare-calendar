@@ -1,0 +1,172 @@
+﻿@page "/doctor-schedule"
+@using System.Globalization
+@using ChildCareCalendar.Domain.ViewModels.Schedule
+@using static ChildCareCalendar.Utilities.Constants.SystemConstant
+@rendermode InteractiveServer
+@attribute [Authorize(Roles = "BacSi, Admin")]
+
+<div class="container my-4">
+    <h3>Lịch làm việc của BS. @Doctor?.FullName</h3>
+    <div class="calendar border p-3">
+        <div class="calendar-header d-flex justify-content-between align-items-center mb-2">
+            <button class="btn btn-primary" @onclick="PrevMonth">&lt;</button>
+            <span>@currentDate.ToString("MMMM yyyy", new CultureInfo("vi-VN"))</span>
+            <button class="btn btn-primary" @onclick="NextMonth">&gt;</button>
+        </div>
+        <div class="calendar-body d-grid" style="grid-template-columns: repeat(7, 1fr);">
+            @foreach (var day in dayNames)
+            {
+                <div class="text-center fw-bold border-bottom pb-1">@day</div>
+            }
+            @foreach (var day in DaysInMonth)
+            {
+                <div class="day border p-1" style="min-height:80px;">
+                    <div class="day-number text-end">
+                        @if (day.Day > 0)
+                        {
+                            <span>@day.Day</span>
+                        }
+                    </div>
+                    @if (day.Schedules.Any())
+                    {
+                        <div class="schedule-items mt-1">
+                            @foreach (var schedule in day.Schedules)
+                            {
+                                <button @onclick="() => ShowAppointmentsAsync(new DateTime(currentDate.Year, currentDate.Month, day.Day), schedule.WorkHour)"
+                                        class="badge bg-primary d-block mb-1 border-0"
+                                        style="font-size:0.8rem; cursor:pointer; width:100%; text-align:center;">
+                                    @schedule.WorkHour.StartTime.ToString(@"hh\:mm") - @schedule.WorkHour.EndTime.ToString(@"hh\:mm")
+                                </button>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Appointment Modal -->
+<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="appointmentModalLabel">@modalTitle</h5>            
+            </div>
+            <div class="modal-body">
+                @if (SelectedAppointments == null)
+                {
+                    <p class="text-center">Đang tải dữ liệu...</p>
+                }
+                else if (!SelectedAppointments.Any())
+                {
+                    <p class="text-center">Không có lịch khám nào trong khung giờ này</p>
+                }
+                else
+                {
+                    <table class="table table-bordered table-hover text-center">
+                        <thead class="table-dark">
+                            <tr style="background-color: #007fff; border: 2px solid gray">                       
+                                <th>Phụ huynh</th>
+                                <th>Trẻ em</th>
+                                <th>Dịch vụ</th>
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var appointment in SelectedAppointments)
+                            {
+                                <tr class="border">                                  
+                                    <td>@appointment.ParentName</td>
+                                    <td>@appointment.ChildName</td>
+                                    <td>@appointment.ServiceName</td>
+                                    <td>@appointment.TotalAmount.ToString() VND</td>
+                                    <td>@appointment.Status</td>
+                                    <td class="">
+                                        @if (appointment.Status.ToLower() == AppointmentStatus.Completed.ToString().ToLower())
+                                        {
+                                            if (AppointmentReportIds.TryGetValue(appointment.AppointmentId, out var reportId) && reportId.HasValue)
+                                            {
+                                                <NavLink class="btn btn-info btn-sm" href="@($"/examination-reports/detail/{reportId}")">
+                                                    Chi tiết
+                                                </NavLink>
+                                            }
+                                        }
+                                        @if (appointment.Status.ToLower() == AppointmentStatus.Checked_In.ToString().ToLower())
+                                        {
+                                            <NavLink class="btn btn-primary btn-sm ml-2" href="@($"/appointments/{appointment.AppointmentId}/create-examination-report")">
+                                                Tạo kết quả khám
+                                            </NavLink>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @onclick="CloseModalAsync">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>`
+<style>
+    /* Định dạng bảng */
+    .table {
+        width: 100%;
+        table-layout: fixed;
+        white-space: nowrap;
+    }
+
+        .table th,
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+            padding: 8px;
+            border: 1px solid #ddd;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .table thead {
+            background-color: #007fff;
+            color: white;
+        }
+
+        .table td:last-child {
+            width: 150px;
+        }
+
+    /* Định dạng modal */
+    .modal-dialog {
+        max-width: 900px;
+    }
+
+    .modal-content {
+        border-radius: 8px;
+    }
+
+    .modal-body {
+        overflow-x: auto;
+    }
+
+    /* Định dạng nút */
+    .btn {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+        border-radius: 5px;
+    }
+
+    .table td .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .modal-dialog.modal-lg {
+        max-width: 90% !important; 
+    }
+</style>

@@ -35,6 +35,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Schedule
 		private List<ScheduleViewModel> DetailViewModel = new();
 		private ScheduleEditViewModel EditViewModel = new();
 		private DateTime currentDate = DateTime.Today;
+		private DateTime now = DateTime.Today;
 		private DateTime? selectedDate = null;
 
 		private bool isPopupOpen = false;

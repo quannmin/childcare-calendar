@@ -2,6 +2,7 @@
 using ChildCareCalendar.Domain.ViewModels.ServiceVM;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace ChildCareCalendar.Admin.Components.Pages.Service
 {
@@ -22,17 +23,28 @@ namespace ChildCareCalendar.Admin.Components.Pages.Service
 
 		[Inject]
 		private NavigationManager Navigation { get; set; } = default!;
+        [Inject]
+        AuthenticationStateProvider AuthStateProvider { get; set; } = default!;
+        private string fullName = string.Empty;
 
-		protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
+        {
+            var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            fullName = user.FindFirst("FullName")?.Value ?? string.Empty;
+        }
+        protected override void OnInitialized()
 		{
 			CreateModel.SpecialityId = id;
-			CreateModel.CreatedAt = DateTime.UtcNow;
 		}
 
 		private async Task HandleCreate()
 		{
 			var newService = Mapper.Map<Domain.Entities.Service>(CreateModel);
-			await ServiceService.AddServiceAsync(newService);
+			newService.CreatedBy = fullName;
+			newService.CreatedAt = DateTime.UtcNow;
+            await ServiceService.AddServiceAsync(newService);
 			Navigation.NavigateTo($"/specialities/detail/{id}");
 		}
 	}

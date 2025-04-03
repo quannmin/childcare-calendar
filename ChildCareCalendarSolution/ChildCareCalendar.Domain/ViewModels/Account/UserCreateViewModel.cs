@@ -32,7 +32,7 @@ namespace ChildCareCalendar.Domain.ViewModels.Account
         public SystemConstant.Gender Gender { get; set; }
         public string? Address { get; set; }
         [Required(ErrorMessage = "Ngày tháng năm sinh không thể trống")]
-        [UserDobValidation]
+        [UserDob18Age]
         public DateTime? Dob { get; set; }
     }
 }

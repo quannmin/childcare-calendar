@@ -1,424 +1,721 @@
 ﻿@page "/"
 @rendermode InteractiveServer
+@inject IJSRuntime JS
+@using ChildCareCalendar.Domain.ViewModels.Account
+@using ChildCareCalendar.Infrastructure.Services.Interfaces
+@using ChildCareCalendar.Infrastructure.Services
+@using ChildCareCalendar.Domain.ViewModels
+@using ChildCareCalendar.Domain.Entities
 <PageTitle>Dashboard</PageTitle>
 
 <div class="pc-content">
-	<div class="row">
-		<div class="col-md-6 col-xxl-3">
-			<div class="card">
-				<div class="card-body">
-					<div class="d-flex align-items-center">
-						<div class="flex-shrink-0">
-							<div class="avtar avtar-s bg-light-primary">
-								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path opacity="0.4"
-										  d="M13 9H7"
-										  stroke="#4680FF"
-										  stroke-width="1.5"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-									<path d="M22.0002 10.9702V13.0302C22.0002 13.5802 21.5602 14.0302 21.0002 14.0502H19.0402C17.9602 14.0502 16.9702 13.2602 16.8802 12.1802C16.8202 11.5502 17.0602 10.9602 17.4802 10.5502C17.8502 10.1702 18.3602 9.9502 18.9202 9.9502H21.0002C21.5602 9.9702 22.0002 10.4202 22.0002 10.9702Z"
-										  stroke="#4680FF"
-										  stroke-width="1.5"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-									<path d="M17.48 10.55C17.06 10.96 16.82 11.55 16.88 12.18C16.97 13.26 17.96 14.05 19.04 14.05H21V15.5C21 18.5 19 20.5 16 20.5H7C4 20.5 2 18.5 2 15.5V8.5C2 5.78 3.64 3.88 6.19 3.56C6.45 3.52 6.72 3.5 7 3.5H16C16.26 3.5 16.51 3.50999 16.75 3.54999C19.33 3.84999 21 5.76 21 8.5V9.95001H18.92C18.36 9.95001 17.85 10.17 17.48 10.55Z"
-										  stroke="#4680FF"
-										  stroke-width="1.5"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-								</svg>
-							</div>
-						</div>
-						<div class="flex-grow-1 ms-3">
-							<h6 class="mb-0">All Earnings</h6>
-						</div>
-						<div class="flex-shrink-0 ms-3">
-							<div class="dropdown">
-								<a class="avtar avtar-s btn-link-secondary dropdown-toggle arrow-none"
-								   href="#"
-								   data-bs-toggle="dropdown"
-								   aria-haspopup="true"
-								   aria-expanded="false">
-									<i class="ti ti-dots-vertical f-18"></i>
-								</a>
-								<div class="dropdown-menu dropdown-menu-end">
-									<a class="dropdown-item" href="#">Today</a>
-									<a class="dropdown-item" href="#">Weekly</a>
-									<a class="dropdown-item" href="#">Monthly</a>
-								</div>
-							</div>
-						</div>
-					</div>
+    <!-- Date Range Filter -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title mb-3">
+                <i class="bi bi-calendar-range me-2"></i>Chọn khoảng thời gian
+            </h5>
+            <div class="row g-3">
+                <div class="col-md-5">
+                    <label class="form-label">Ngày bắt đầu</label>
+                    <input type="date" class="form-control" @bind="StartDate" @bind:format="yyyy-MM-dd" />
+                </div>
+                <div class="col-md-5">
+                    <label class="form-label">Ngày kết thúc</label>
+                    <input type="date" class="form-control" @bind="EndDate" @bind:format="yyyy-MM-dd" />
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="button" class="btn btn-primary w-100" @onclick="FilterData">
+                        <i class="bi bi-filter me-1"></i> Lọc
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-					<div class="bg-body p-3 mt-3 rounded">
-						<div class="mt-3 row align-items-center">
-							<div class="col-7">
-								<div id="all-earnings-graph"></div>
-							</div>
-							<div class="col-5">
-								<h5 class="mb-1">$3,020</h5>
-								<p class="text-primary mb-0"><i class="ti ti-arrow-up-right"></i> 30.6%</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+    @if (FilteredAppointments.Any())
+    {
+        <div class="row mb-4">
+            <!-- Summary Cards -->
+            <div class="col-md-3">
+                <div class="card bg-primary text-white h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Tổng số cuộc hẹn</h5>
+                        <h1 class="display-4">@FilteredAppointments.Count</h1>
+                        <p class="card-text">
+                            <small>Từ @StartDate.ToString("dd/MM/yyyy") đến @EndDate.ToString("dd/MM/yyyy")</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-success text-white h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Hoàn thành</h5>
+                        <h1 class="display-4">@CompletedAppointments</h1>
+                        <p class="card-text">
+                            <small>@(FilteredAppointments.Any() ? (CompletedAppointments * 100.0 / FilteredAppointments.Count).ToString("0.0") : "0.0")% tổng số</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-secondary text-white h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Đang chờ</h5>
+                        <h1 class="display-4">@PendingAppointments</h1>
+                        <p class="card-text">
+                            <small>@(FilteredAppointments.Any() ? (PendingAppointments * 100.0 / FilteredAppointments.Count).ToString("0.0") : "0.0")% tổng số</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-info text-white h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Dịch vụ</h5>
+                        <h1 class="display-4">@AppointmentsByService.Count</h1>
+                        <p class="card-text">
+                            <small>Phổ biến nhất: @(AppointmentsByService.Any() ? AppointmentsByService.OrderByDescending(x => x.Value).First().Key : "N/A")</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 
-		<div class="col-md-6 col-xxl-3">
-			<div class="card">
-				<div class="card-body">
-					<div class="d-flex align-items-center">
-						<div class="flex-shrink-0">
-							<div class="avtar avtar-s bg-light-warning">
-								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M21 7V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V7C3 4 4.5 2 8 2H16C19.5 2 21 4 21 7Z"
-										  stroke="#E58A00"
-										  stroke-width="1.5"
-										  stroke-miterlimit="10"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-									<path opacity="0.6"
-										  d="M14.5 4.5V6.5C14.5 7.6 15.4 8.5 16.5 8.5H18.5"
-										  stroke="#E58A00"
-										  stroke-width="1.5"
-										  stroke-miterlimit="10"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-									<path opacity="0.6"
-										  d="M8 13H12"
-										  stroke="#E58A00"
-										  stroke-width="1.5"
-										  stroke-miterlimit="10"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-									<path opacity="0.6"
-										  d="M8 17H16"
-										  stroke="#E58A00"
-										  stroke-width="1.5"
-										  stroke-miterlimit="10"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-								</svg>
-							</div>
-						</div>
-						<div class="flex-grow-1 ms-3">
-							<h6 class="mb-0">Page Views</h6>
-						</div>
-						<div class="flex-shrink-0 ms-3">
-							<div class="dropdown">
-								<a class="avtar avtar-s btn-link-secondary dropdown-toggle arrow-none"
-								   href="#"
-								   data-bs-toggle="dropdown"
-								   aria-haspopup="true"
-								   aria-expanded="false">
-									<i class="ti ti-dots-vertical f-18"></i>
-								</a>
-								<div class="dropdown-menu dropdown-menu-end">
-									<a class="dropdown-item" href="#">Today</a>
-									<a class="dropdown-item" href="#">Weekly</a>
-									<a class="dropdown-item" href="#">Monthly</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="bg-body p-3 mt-3 rounded">
-						<div class="mt-3 row align-items-center">
-							<div class="col-7">
-								<div id="page-views-graph"></div>
-							</div>
-							<div class="col-5">
-								<h5 class="mb-1">290K+</h5>
-								<p class="text-warning mb-0"><i class="ti ti-arrow-up-right"></i> 30.6%</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-6 col-xxl-3">
-			<div class="card">
-				<div class="card-body">
-					<div class="d-flex align-items-center">
-						<div class="flex-shrink-0">
-							<div class="avtar avtar-s bg-light-success">
-								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M8 2V5"
-										  stroke="#2ca87f"
-										  stroke-width="1.5"
-										  stroke-miterlimit="10"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-									<path d="M16 2V5"
-										  stroke="#2ca87f"
-										  stroke-width="1.5"
-										  stroke-miterlimit="10"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-									<path opacity="0.4"
-										  d="M3.5 9.08984H20.5"
-										  stroke="#2ca87f"
-										  stroke-width="1.5"
-										  stroke-miterlimit="10"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-									<path d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"
-										  stroke="#2ca87f"
-										  stroke-width="1.5"
-										  stroke-miterlimit="10"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-									<path opacity="0.4"
-										  d="M15.6947 13.7002H15.7037"
-										  stroke="#2ca87f"
-										  stroke-width="2"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-									<path opacity="0.4"
-										  d="M15.6947 16.7002H15.7037"
-										  stroke="#2ca87f"
-										  stroke-width="2"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-									<path opacity="0.4"
-										  d="M11.9955 13.7002H12.0045"
-										  stroke="#2ca87f"
-										  stroke-width="2"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-									<path opacity="0.4"
-										  d="M11.9955 16.7002H12.0045"
-										  stroke="#2ca87f"
-										  stroke-width="2"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-									<path opacity="0.4"
-										  d="M8.29431 13.7002H8.30329"
-										  stroke="#2ca87f"
-										  stroke-width="2"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-									<path opacity="0.4"
-										  d="M8.29395 16.7002H8.30293"
-										  stroke="#2ca87f"
-										  stroke-width="2"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-								</svg>
-							</div>
-						</div>
-						<div class="flex-grow-1 ms-3">
-							<h6 class="mb-0">Total Task</h6>
-						</div>
-						<div class="flex-shrink-0 ms-3">
-							<div class="dropdown">
-								<a class="avtar avtar-s btn-link-secondary dropdown-toggle arrow-none"
-								   href="#"
-								   data-bs-toggle="dropdown"
-								   aria-haspopup="true"
-								   aria-expanded="false">
-									<i class="ti ti-dots-vertical f-18"></i>
-								</a>
-								<div class="dropdown-menu dropdown-menu-end">
-									<a class="dropdown-item" href="#">Today</a>
-									<a class="dropdown-item" href="#">Weekly</a>
-									<a class="dropdown-item" href="#">Monthly</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="bg-body p-3 mt-3 rounded">
-						<div class="mt-3 row align-items-center">
-							<div class="col-7">
-								<div id="total-task-graph"></div>
-							</div>
-							<div class="col-5">
-								<h5 class="mb-1">839</h5>
-								<p class="text-success mb-0"><i class="ti ti-arrow-up-right"></i> New</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-6 col-xxl-3">
-			<div class="card">
-				<div class="card-body">
-					<div class="d-flex align-items-center">
-						<div class="flex-shrink-0">
-							<div class="avtar avtar-s bg-light-danger">
-								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-										  stroke="#DC2626"
-										  stroke-width="1.5"
-										  stroke-miterlimit="10"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-									<path opacity="0.4"
-										  d="M8.4707 10.7402L12.0007 14.2602L15.5307 10.7402"
-										  stroke="#DC2626"
-										  stroke-width="1.5"
-										  stroke-linecap="round"
-										  stroke-linejoin="round" />
-								</svg>
-							</div>
-						</div>
-						<div class="flex-grow-1 ms-3">
-							<h6 class="mb-0">Download</h6>
-						</div>
-						<div class="flex-shrink-0 ms-3">
-							<div class="dropdown">
-								<a class="avtar avtar-s btn-link-secondary dropdown-toggle arrow-none"
-								   href="#"
-								   data-bs-toggle="dropdown"
-								   aria-haspopup="true"
-								   aria-expanded="false">
-									<i class="ti ti-dots-vertical f-18"></i>
-								</a>
-								<div class="dropdown-menu dropdown-menu-end">
-									<a class="dropdown-item" href="#">Today</a>
-									<a class="dropdown-item" href="#">Weekly</a>
-									<a class="dropdown-item" href="#">Monthly</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="bg-body p-3 mt-3 rounded">
-						<div class="mt-3 row align-items-center">
-							<div class="col-7">
-								<div id="download-graph"></div>
-							</div>
-							<div class="col-5">
-								<h5 class="mb-1">2,067</h5>
-								<p class="text-danger mb-0"><i class="ti ti-arrow-up-right"></i> 30.6%</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-9 m-auto">
-			<div class="card">
-				<div class="card-body">
-					<div class="d-flex align-items-center mb-2">
-						<div class="flex-grow-1">
-							<h5 class="mb-0">Repeat customer rate</h5>
-						</div>
-						<div class="flex-shrink-0 ms-3">
-							<div class="dropdown">
-								<a class="avtar avtar-s btn-link-secondary dropdown-toggle arrow-none"
-								   href="#"
-								   data-bs-toggle="dropdown"
-								   aria-haspopup="true"
-								   aria-expanded="false">
-									<i class="ti ti-dots f-18"></i>
-								</a>
-								<div class="dropdown-menu dropdown-menu-end">
-									<a class="dropdown-item" href="#">Today</a>
-									<a class="dropdown-item" href="#">Weekly</a>
-									<a class="dropdown-item" href="#">Monthly</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<h5 class="text-end my-2">5.44% <span class="badge bg-success">+2.6%</span> </h5>
-					<div id="customer-rate-graph"></div>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-9 m-auto">
-			<div class="card">
-				<div class="card-body">
-					<div class="d-flex align-items-center justify-content-between">
-						<h5 class="mb-0">Project overview</h5>
-						<div class="dropdown">
-							<a class="avtar avtar-s btn-link-secondary dropdown-toggle arrow-none"
-							   href="#"
-							   data-bs-toggle="dropdown"
-							   aria-haspopup="true"
-							   aria-expanded="false">
-								<i class="ti ti-dots f-18"></i>
-							</a>
-							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="#">Today</a>
-								<a class="dropdown-item" href="#">Weekly</a>
-								<a class="dropdown-item" href="#">Monthly</a>
-							</div>
-						</div>
-					</div>
-					<div class="row align-items-center justify-content-center">
-						<div class="col-md-6 col-xl-4">
-							<div class="mt-3 row align-items-center">
-								<div class="col-6">
-									<p class="text-muted mb-1">Total Tasks</p>
-									<h5 class="mb-0">34,686</h5>
-								</div>
-								<div class="col-6">
-									<div id="total-tasks-graph"></div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6 col-xl-4">
-							<div class="mt-3 row align-items-center">
-								<div class="col-6">
-									<p class="text-muted mb-1">Pending Tasks</p>
-									<h5 class="mb-0">3,786</h5>
-								</div>
-								<div class="col-6">
-									<div id="pending-tasks-graph"></div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6 col-xl-4">
-							<div class="mt-3 d-grid">
-								<button class="btn btn-primary d-flex align-items-center justify-content-center gap-2">
-									<i class="ti ti-plus"></i> Add project
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="row">
+        @* Tổng lịch hẹn trong tuần *@
+        <div class="col-md-6 col-xxl-4">
+            <div class="col-md-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <div class="avtar avtar-s bg-light-primary">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path opacity="0.4"
+                                              d="M13 9H7"
+                                              stroke="#4680FF"
+                                              stroke-width="1.5"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                        <path d="M22.0002 10.9702V13.0302C22.0002 13.5802 21.5602 14.0302 21.0002 14.0502H19.0402C17.9602 14.0502 16.9702 13.2602 16.8802 12.1802C16.8202 11.5502 17.0602 10.9602 17.4802 10.5502C17.8502 10.1702 18.3602 9.9502 18.9202 9.9502H21.0002C21.5602 9.9702 22.0002 10.4202 22.0002 10.9702Z"
+                                              stroke="#4680FF"
+                                              stroke-width="1.5"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                        <path d="M17.48 10.55C17.06 10.96 16.82 11.55 16.88 12.18C16.97 13.26 17.96 14.05 19.04 14.05H21V15.5C21 18.5 19 20.5 16 20.5H7C4 20.5 2 18.5 2 15.5V8.5C2 5.78 3.64 3.88 6.19 3.56C6.45 3.52 6.72 3.5 7 3.5H16C16.26 3.5 16.51 3.50999 16.75 3.54999C19.33 3.84999 21 5.76 21 8.5V9.95001H18.92C18.36 9.95001 17.85 10.17 17.48 10.55Z"
+                                              stroke="#4680FF"
+                                              stroke-width="1.5"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-0">Tổng lịch hẹn trong tuần</h6>
+                            </div>
+                        </div>
+
+                        <div class="bg-body p-3 mt-3 rounded">
+                            <div class="mt-3 row align-items-center">
+                                <div class="col-7">
+                                    <div id="all-earnings-graph"></div>
+                                </div>
+                                <div class="col-5">
+                                    <p class="text-primary mb-0">Tổng lượt hẹn</p>
+                                    <h5 class="mb-1" id="total-appointments">@(WeeklyAppointments.Sum())</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Lịch hẹn theo trạng thái trong ngày</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="bg-body p-3 mt-3 rounded">
+                            <div class="mt-3 row align-items-center">
+                                <div class="col-7">
+                                    <div id="chart-donut-status-appointment"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @* Người dùng mới trong 30 ngày qua *@
+        <div class="col-md-6 col-xxl-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Người dùng mới trong 30 ngày qua</h5>
+                </div>
+                <div class="card-body">
+                    <div id="new-users-line-chart"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9 m-auto">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="flex-grow-1">
+                            <h5 class="mb-0">Doanh thu trong năm nay</h5>
+                        </div>
+                    </div>
+                    <div id="customer-rate-graph"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Added Footer Buttons -->
+    <div class="d-flex justify-content-between mt-4">
+        <a href="/appointments" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Trở về danh sách cuộc hẹn
+        </a>
+        <button @onclick="PrintReport" class="btn btn-primary">
+            <i class="bi bi-printer me-1"></i> In báo cáo
+        </button>
+    </div>
 </div>
 
+@if (SwalErrorMessage != null || SwalSuccessMessage != null)
+{
+    <div id="notifications" style="display:none;">
+        <input type="hidden" id="swalError" value="@SwalErrorMessage" />
+        <input type="hidden" id="swalSuccess" value="@SwalSuccessMessage" />
+    </div>
+}
+
+@code {
+    [Inject]
+    private IAppointmentService appointmentService { get; set; } = default!;
+    [Inject]
+    private IUserService userService { get; set; } = default!;
+
+    // Date filter properties
+    private DateTime StartDate { get; set; } = DateTime.Now.AddMonths(-1);
+    private DateTime EndDate { get; set; } = DateTime.Now;
+
+    // Data for charts
+    private List<decimal> MonthlyRevenue { get; set; } = new List<decimal> { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    private List<int> WeeklyAppointments { get; set; } = new List<int> { 0, 0, 0, 0, 0, 0, 0 };
+    private List<NewUsersByRoleViewModel> NewUsersByRole { get; set; } = new List<NewUsersByRoleViewModel>();
+    private Dictionary<string, int> TodayAppointmentsByHour { get; set; } = new Dictionary<string, int>();
+
+    // Filtered data for summary cards
+    private List<ChildCareCalendar.Domain.Entities.Appointment> FilteredAppointments { get; set; } = new List<ChildCareCalendar.Domain.Entities.Appointment>();
+    private Dictionary<string, int> AppointmentsByService { get; set; } = new Dictionary<string, int>();
+    private Dictionary<string, int> AppointmentsByDoctor { get; set; } = new Dictionary<string, int>();
+    private Dictionary<DateTime, int> AppointmentsByDate { get; set; } = new Dictionary<DateTime, int>();
+    private int CompletedAppointments { get; set; } = 0;
+    private int PendingAppointments { get; set; } = 0;
+
+    private bool IsLoading = true;
+    private string? SwalErrorMessage;
+    private string? SwalSuccessMessage;
+    private bool _needChartUpdate = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Task.Delay(500);
+            await UpdateChart();
+            await ShowNotifications();
+        }
+    }
+
+    private async Task LoadData()
+    {
+        try
+        {
+            NewUsersByRole = await userService.GetDailyNewUsersByRoleAsync(30);
+            if (NewUsersByRole == null)
+            {
+                NewUsersByRole = new List<NewUsersByRoleViewModel>();
+            }
+
+            DateTime startOfWeek = DateTime.Now.Date.AddDays(-(int)DateTime.Now.DayOfWeek);
+            var weeklyData = await appointmentService.GetWeeklyAppointmentsAsync(startOfWeek);
+            if (weeklyData != null && weeklyData.Any())
+            {
+                WeeklyAppointments = weeklyData.Select(d => d.Count).ToList();
+                while (WeeklyAppointments.Count < 7)
+                {
+                    WeeklyAppointments.Add(0);
+                }
+            }
+
+            var revenueData = await appointmentService.GetMonthlyRevenue(DateTime.Now.Year);
+            if (revenueData != null && revenueData.Any())
+            {
+                MonthlyRevenue = Enumerable.Range(1, 12)
+                    .Select(m => revenueData.FirstOrDefault(r => r.Month == m)?.Revenue ?? 0)
+                    .ToList();
+            }
+
+            TodayAppointmentsByHour = await appointmentService.GetAppointmentsByStatusAsync();
+            if (TodayAppointmentsByHour == null)
+            {
+                TodayAppointmentsByHour = new Dictionary<string, int>();
+            }
+
+            await FilterData();
+
+            IsLoading = false;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading data: {ex.Message}");
+            SwalErrorMessage = $"Lỗi khi tải dữ liệu: {ex.Message}";
+            IsLoading = false;
+        }
+    }
+
+    private async Task FilterData()
+    {
+        try
+        {
+            // Get all appointments within date range
+            var appointments = await appointmentService.GetAllAppointmentsAsync(
+                a => a.Doctor,
+                a => a.Service,
+                a => a.Parent,
+                a => a.ChildrenRecord
+            );
+
+            FilteredAppointments = appointments
+                .Where(a => !a.IsDelete && a.CheckupDateTime.Date >= StartDate.Date && a.CheckupDateTime.Date <= EndDate.Date)
+                .OrderByDescending(a => a.CheckupDateTime)
+                .ToList();
+
+            // Group by service
+            AppointmentsByService = FilteredAppointments
+                .GroupBy(a => a.Service?.ServiceName ?? "Unknown")
+                .OrderByDescending(g => g.Count())
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            // Group by doctor
+            AppointmentsByDoctor = FilteredAppointments
+                .GroupBy(a => a.Doctor?.FullName ?? "Unknown")
+                .OrderByDescending(g => g.Count())
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            // Group by date
+            AppointmentsByDate = FilteredAppointments
+                .GroupBy(a => a.CheckupDateTime.Date)
+                .OrderByDescending(g => g.Key)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            // Count by status
+            CompletedAppointments = FilteredAppointments.Count(a => a.Status?.Equals("Completed", StringComparison.OrdinalIgnoreCase) == true);
+            PendingAppointments = FilteredAppointments.Count(a => a.Status?.Equals("Pending", StringComparison.OrdinalIgnoreCase) == true
+                                                           || a.Status?.Equals("Ordered", StringComparison.OrdinalIgnoreCase) == true);
+
+            StateHasChanged();
+
+            _needChartUpdate = true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error filtering data: {ex.Message}");
+            SwalErrorMessage = $"Lỗi khi lọc dữ liệu: {ex.Message}";
+        }
+    }
+
+    private async Task UpdateChart()
+    {
+        try
+        {
+            // Ensure we have valid data to pass to JavaScript
+            var dates = NewUsersByRole.Any()
+                ? NewUsersByRole.Select(x => x.Date.ToString("dd")).ToArray()
+                : new[] { "01", "02", "03", "04", "05" };
+
+            var parentCounts = NewUsersByRole.Any()
+                ? NewUsersByRole.Select(x => x.ParentCount).ToArray()
+                : new[] { 0, 0, 0, 0, 0 };
+
+            var doctorCounts = NewUsersByRole.Any()
+                ? NewUsersByRole.Select(x => x.DoctorCount).ToArray()
+                : new[] { 0, 0, 0, 0, 0 };
+
+            var statusKeys = TodayAppointmentsByHour.Any()
+                ? TodayAppointmentsByHour.Keys.ToList()
+                : new List<string> { "Pending", "Confirmed", "Completed", "Cancelled" };
+
+            var statusValues = TodayAppointmentsByHour.Any()
+                ? TodayAppointmentsByHour.Values.ToList()
+                : new List<int> { 0, 0, 0, 0 };
+
+            await JS.InvokeVoidAsync("initializeCharts",
+                MonthlyRevenue,
+                WeeklyAppointments,
+                dates,
+                parentCounts,
+                doctorCounts,
+                statusKeys,
+                statusValues);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error initializing charts: {ex.Message}");
+            SwalErrorMessage = $"Lỗi khi khởi tạo biểu đồ: {ex.Message}";
+            await ShowNotifications();
+        }
+    }
+
+    private async Task PrintReport()
+    {
+        await JS.InvokeVoidAsync("window.print");
+    }
+
+    private async Task ShowNotifications()
+    {
+        if (!string.IsNullOrEmpty(SwalErrorMessage))
+        {
+            await JS.InvokeVoidAsync("Swal.fire", new
+            {
+                icon = "error",
+                title = "Lỗi",
+                text = SwalErrorMessage,
+                confirmButtonColor = "#3085d6"
+            });
+            SwalErrorMessage = null;
+        }
+
+        if (!string.IsNullOrEmpty(SwalSuccessMessage))
+        {
+            await JS.InvokeVoidAsync("Swal.fire", new
+            {
+                icon = "success",
+                title = "Thành công",
+                text = SwalSuccessMessage,
+                confirmButtonColor = "#3085d6"
+            });
+            SwalSuccessMessage = null;
+        }
+    }
+}
+
 <script src="/assets/js/plugins/apexcharts.min.js"></script>
-<script src="/assets/js/pages/dashboard-default.js"></script>
-<!-- [Page Specific JS] end -->
-<!-- Required Js -->
 <script src="/assets/js/plugins/popper.min.js"></script>
 <script src="/assets/js/plugins/simplebar.min.js"></script>
 <script src="/assets/js/plugins/bootstrap.min.js"></script>
 <script src="/assets/js/fonts/custom-font.js"></script>
 <script src="/assets/js/pcoded.js"></script>
 <script src="/assets/js/plugins/feather.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-	layout_change('false');
-</script>
+    if (!window.charts) {
+          window.charts = {};
+      } else {
+          Object.keys(window.charts).forEach(key => {
+              if (window.charts[key] && typeof window.charts[key].destroy === 'function') {
+                  window.charts[key].destroy();
+              }
+          });
+      }
+    var initializeCharts = function (monthlyRevenue, weeklyAppointments, dates, parentCounts, doctorCounts, statusKeys, statusValues) {
+        function translateStatus(status) {
+            const translations = {
+                'Pending': 'Đang chờ',
+                'Ordered': 'Đã đặt',
+                'Confirmed': 'Xác nhận',
+                'Completed': 'Hoàn thành',
+                'Cancelled': 'Đã hủy',
+                'Checked_In': 'Đã đăng ký',
+                'CHECKED_IN': 'Đã đăng ký'
+            };
 
-<script>
-	layout_theme_contrast_change('false');
-</script>
+            return translations[status] || status;
+        }
+        var options1 = {
+            chart: {
+                type: 'bar',
+                height: 80,
+                sparkline: { enabled: true }
+            },
+            colors: ['#4680FF'],
+            plotOptions: {
+                bar: {
+                    columnWidth: '80%',
+                    distributed: true
+                }
+            },
+            series: [
+                {
+                    name: 'Lịch hẹn',
+                    data: weeklyAppointments || [0, 0, 0, 0, 0, 0, 0]
+                }
+            ],
+            xaxis: {
+                categories: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+            },
+            tooltip: {
+                y: {
+                    title: {
+                        formatter: function () {
+                            return 'Lịch hẹn:';
+                        }
+                    }
+                }
+            }
+        };
+        try {
+            if (document.querySelector('#all-earnings-graph')) {
+                 var chart = new ApexCharts(document.querySelector('#all-earnings-graph'), options1);
+                chart.render();
+            }
+        } catch (error) {
+            console.error("Error rendering weekly appointments chart:", error);
+        }
 
-<script>
-	change_box_container('false');
-</script>
+        // New Users Line Chart
 
-<script>
-	layout_caption_change('true');
-</script>
 
-<script>
-	layout_rtl_change('false');
-</script>
+        try {
+            var options2 = {
+            series: [
+                {
+                    name: 'Phụ huynh',
+                    data: parentCounts
+                },
+                {
+                    name: 'Bác sĩ',
+                    data: doctorCounts
+                }
+            ],
+            chart: {
+                type: 'line',
+                height: 350,
+                zoom: {
+                    enabled: true
+                },
+                toolbar: {
+                    show: true
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth',
+                width: [3, 3]
+            },
+            colors: ['#4680FF', '#FF5252'],
+            title: {
+                text: 'Số lượng người dùng mới theo vai trò',
+                align: 'left'
+            },
+            grid: {
+                row: {
+                    colors: ['#f3f3f3', 'transparent'],
+                    opacity: 0.5
+                },
+            },
+            markers: {
+                size: 4
+            },
+            xaxis: {
+                categories: dates,
+                title: {
+                    text: 'Ngày'
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Số lượng'
+                },
+                min: 0
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'right',
+            },
+            tooltip: {
+                shared: true,
+                intersect: false,
+                y: {
+                    formatter: function (y) {
+                        if (typeof y !== "undefined") {
+                            return y.toFixed(0) + " người dùng";
+                        }
+                        return y;
+                    }
+                }
+            }
+        };
+            if (document.querySelector('#new-users-line-chart')) {
+        var chart = new ApexCharts(document.querySelector('#new-users-line-chart'), options2);
+            chart.render();
+            }
+        } catch (error) {
+            console.error("Error rendering new users chart:", error);
+        }
 
-<script>
-	preset_change('preset-1');
-</script>
+        // Monthly Revenue Chart
+        var options5 = {
+            chart: {
+                type: 'area',
+                height: 300,
+                toolbar: {
+                    show: false
+                }
+            },
+            colors: ['#0d6efd'],
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shadeIntensity: 1,
+                    type: 'vertical',
+                    inverseColors: false,
+                    opacityFrom: 0.5,
+                    opacityTo: 0
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                width: 1
+            },
+            plotOptions: {
+                bar: {
+                    columnWidth: '45%',
+                    borderRadius: 4
+                }
+            },
+            grid: {
+                strokeDashArray: 4
+            },
+            series: [
+                {
+                    name: 'Doanh thu',
+                    data: monthlyRevenue || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                }
+            ],
+            xaxis: {
+                categories: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false
+                }
+            }
+        };
+        try {
+            if (document.querySelector('#customer-rate-graph')) {
 
-<script>
-	main_layout_change('vertical');
+               var chart = new ApexCharts(document.querySelector('#customer-rate-graph'), options5);
+                 chart.render();
+            }
+        } catch (error) {
+            console.error("Error rendering revenue chart:", error);
+        }
+              var translatedStatusKeys = statusKeys && statusKeys.length > 0
+            ? statusKeys.map(key => translateStatus(key))
+            : ['Đang chờ', 'Xác nhận', 'Hoàn thành', 'Đã hủy'];
+
+                            // Appointment Status Donut Chart
+            var optionsDonut = {
+            chart: {
+                type: 'donut',
+                height: 350
+            },
+            series: statusValues && statusValues.length > 0 ? statusValues : [0, 0, 0, 0],
+                labels: translatedStatusKeys,
+            colors: ['#4680FF', '#2CA87F', '#E58A00', '#FF5252'],
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: '65%',
+                        labels: {
+                            show: true,
+                            name: { show: true },
+                            value: { show: true }
+                        }
+                    }
+                }
+            },
+            dataLabels: {
+                enabled: true
+            },
+            legend: {
+                position: 'bottom'
+            }
+        };
+        try {
+            if (document.querySelector('#chart-donut-status-appointment')) {
+
+            var chart = new ApexCharts(document.querySelector('#chart-donut-status-appointment'), optionsDonut);
+            chart.render();
+            }
+        } catch (error) {
+            console.error("Error rendering appointment status chart:", error);
+        }
+    }
+
+    // Safe layout functions
+    function safeExecute(fn, ...args) {
+        try {
+            if (typeof window[fn] === 'function') {
+                window[fn](...args);
+            }
+        } catch (error) {
+            console.error(`Error executing ${fn}:`, error);
+        }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        safeExecute('layout_change', 'false');
+        safeExecute('layout_theme_contrast_change', 'false');
+        safeExecute('change_box_container', 'false');
+        safeExecute('layout_caption_change', 'true');
+        safeExecute('layout_rtl_change', 'false');
+        safeExecute('preset_change', 'preset-1');
+        safeExecute('main_layout_change', 'vertical');
+
+        // Show notifications if they exist (for initial page load)
+        var errorMessage = document.getElementById('swalError')?.value;
+        var successMessage = document.getElementById('swalSuccess')?.value;
+
+        if (errorMessage && errorMessage.trim() !== '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: errorMessage,
+                confirmButtonColor: '#3085d6'
+            });
+        }
+
+        if (successMessage && successMessage.trim() !== '') {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: successMessage,
+                confirmButtonColor: '#3085d6'
+            });
+        }
+    });
+          
+
 </script>

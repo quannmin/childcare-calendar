@@ -1,4 +1,5 @@
 ﻿using ChildCareCalendar.Domain.Entities;
+using ChildCareCalendar.Domain.ViewModels.Account;
 using System.Linq.Expressions;
 
 namespace ChildCareCalendar.Infrastructure.Services.Interfaces
@@ -20,5 +21,8 @@ namespace ChildCareCalendar.Infrastructure.Services.Interfaces
        int pageIndex,
        int pageSize,
        string keyword = null);
+
+        Task<List<NewUsersByRoleViewModel>> GetDailyNewUsersByRoleAsync(int days);
+
     }
 }

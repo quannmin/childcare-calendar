@@ -65,7 +65,7 @@ else
     int startPage = Math.Max(1, CurrentPage - maxPagesToShow / 2);
     int endPage = Math.Min(TotalPages, startPage + maxPagesToShow - 1);
 
-    // Đảm bảo không bị lệch nếu ở gần trang cuối
+
     if (endPage - startPage < maxPagesToShow - 1)
     {
         startPage = Math.Max(1, endPage - maxPagesToShow + 1);

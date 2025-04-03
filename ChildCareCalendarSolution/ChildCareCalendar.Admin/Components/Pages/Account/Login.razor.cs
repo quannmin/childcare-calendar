@@ -32,8 +32,10 @@ namespace ChildCareCalendar.Admin.Components.Pages.Account
 
             var claims = new List<Claim>
             {
+                
                 new Claim(ClaimTypes.Email, loginModel.Email),
                 new Claim(ClaimTypes.Role, userAccount.Role),
+                new Claim("Id", userAccount.Id.ToString()),
                 new Claim("FullName", userAccount.FullName),
                 new Claim("Avatar", userAccount.Avatar != null ? userAccount.Avatar : string.Empty)
             };

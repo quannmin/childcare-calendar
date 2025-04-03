@@ -40,22 +40,19 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 
         private async Task LoadData()
         {
-			if (id != 0 && DetailViewModel.Id == 0)
+			var speciality = await SpecialityService.FindSpecialitiesAsync(x => x.Id == id);
+			if (speciality.Any())
 			{
-				var speciality = await SpecialityService.FindSpecialitiesAsync(x => x.Id == id);
-				if (speciality.Any())
-				{
-					var firstSpeciality = speciality.FirstOrDefault();
-					DetailViewModel = Mapper.Map<SpecialityDetailViewModel>(firstSpeciality);
-				}
-
-				var service = await ServiceService.FindServicesAsync(x => x.SpecialityId == id && !x.IsDelete);
-				if (service.Any()) 
-				{
-					ServiceViewModel = Mapper.Map<List<ServiceViewModel>>(service);
-				}
-				StateHasChanged();
+				var firstSpeciality = speciality.FirstOrDefault();
+				DetailViewModel = Mapper.Map<SpecialityDetailViewModel>(firstSpeciality);
 			}
+
+			var service = await ServiceService.FindServicesAsync(x => x.SpecialityId == id && !x.IsDelete);
+			if (service.Any())
+			{
+				ServiceViewModel = Mapper.Map<List<ServiceViewModel>>(service);
+			}
+			StateHasChanged();
 		}
 
 		private async void ConfirmDelete(int id)
@@ -70,9 +67,11 @@ namespace ChildCareCalendar.Admin.Components.Pages.Speciality
 			{
 				await ServiceService.DeleteServiceAsync(idToDelete.Value);
 				idToDelete = null;
-				await LoadData();
 			}
 			await JS.InvokeVoidAsync("hideDeleteModal");
+			await LoadData();
+			StateHasChanged();
+
 		}
 	}
 }

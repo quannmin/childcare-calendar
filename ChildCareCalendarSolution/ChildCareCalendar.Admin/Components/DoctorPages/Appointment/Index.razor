@@ -52,10 +52,21 @@ else
                     <td>@appointment.TotalAmount.ToString() VND</td>
                     <td>@appointment.Status</td>
                     <td class="d-flex justify-content-evenly">
-                        <NavLink class="btn btn-info btn-sm" href="@($"/appointments/detail/{appointment.AppointmentId}")">Chi tiết</NavLink>
+
+                        @if (appointment.Status.ToLower() == AppointmentStatus.Completed.ToString().ToLower())
+                        {
+                            if (AppointmentReportIds.TryGetValue(appointment.AppointmentId, out var reportId) && reportId.HasValue)
+                            {
+                                <NavLink class="btn btn-info btn-sm" href="@($"/examination-reports/detail/{reportId}")">
+                                    Chi tiết
+                                </NavLink>
+                            }                       
+                        }
                         @if (appointment.Status.ToLower() == AppointmentStatus.Checked_In.ToString().ToLower())
                         {
-                            <NavLink class="btn btn-primary btn-sm ml-2" href="@($"/appointments/{appointment.AppointmentId}/create-examination-report")">Tạo kết quả khám</NavLink>
+                            <NavLink class="btn btn-primary btn-sm ml-2" href="@($"/appointments/{appointment.AppointmentId}/create-examination-report")">
+                                Tạo kết quả khám
+                            </NavLink>
                         }
                     </td>
                 </tr>
@@ -65,7 +76,7 @@ else
 }
 <!-- Pagination -->
 @{
-    int maxPagesToShow = 5; // Số trang tối đa hiển thị
+    int maxPagesToShow = 5;
     int startPage = Math.Max(1, CurrentPage - maxPagesToShow / 2);
     int endPage = Math.Min(TotalPages, startPage + maxPagesToShow - 1);
 
