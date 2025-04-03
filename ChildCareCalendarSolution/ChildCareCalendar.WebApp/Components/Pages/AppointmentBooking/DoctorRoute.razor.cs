@@ -179,7 +179,7 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
             {
                 DoctorId = selectedDoctorId.Value,
                 ParentId = UserId,
-                ChildrenRecordId = 1,
+                ChildrenRecordId = selectedChildId,
                 ServiceId = selectedServiceId ?? 0,
                 TotalAmount = (decimal)selectedServicePrice.Value,
                 CheckupDateTime = selectedDate.Value.Date + selectedStartTime!.Value,

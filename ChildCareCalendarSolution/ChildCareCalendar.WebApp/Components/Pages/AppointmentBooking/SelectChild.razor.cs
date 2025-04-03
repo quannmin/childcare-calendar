@@ -15,20 +15,26 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         [Inject]
         IChildrenRecordService ChildrenRecordService { get; set; } = default!;
 
+        [Inject]
+        NavigationManager Navigation { get; set; } = default!;
 
         private List<ChildrenRecord> ChildrenRecords = new();
 
-
         protected override async Task OnInitializedAsync()
         {
-            var result = await ChildrenRecordService.FindUsersAsync(c => c.Parent.Id.Equals(ParentId) && !c.IsDelete);
+            var result = await ChildrenRecordService.FindChildrenRecordsAsync(c => c.Parent.Id.Equals(ParentId) && !c.IsDelete);
             ChildrenRecords = result.ToList();
         }
 
-        private async void HandleChildSelection(ChildrenRecord children)
+        private async void HandleChildSelection(ChildrenRecord child)
         {
-            Console.WriteLine("Selected Child: " + children.FullName);
-            await OnChildSelected.InvokeAsync(children);
+            Console.WriteLine("Selected Child: " + child.FullName);
+            await OnChildSelected.InvokeAsync(child);
+        }
+
+        private void NavigateToAccountDetail()
+        {
+            Navigation.NavigateTo("/AccountDetail", forceLoad: true);
         }
     }
 }

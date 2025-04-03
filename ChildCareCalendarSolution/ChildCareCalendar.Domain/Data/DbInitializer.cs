@@ -59,9 +59,9 @@ namespace ChildCareCalendar.Domain.Data
                          SpecialityId = 2,
                          Gender = "Nữ"
                      },
-                    new AppUser { Email = "doctor3@example.com", FullName = "Bác sĩ Quốc", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1, Gender = "Nữ" },
-                    new AppUser { Email = "doctor4@example.com", FullName = "Bác sĩ Qui", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 2, Gender = "Nam" },
-                    new AppUser { Email = "parent1@example.com", FullName = "Chị Ba", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "PhuHuynh", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", PhoneNumber = "0123456789", Address = "123 Đường Cây Dừa, Xã Cây Cau, Huyện Cây Chuối, Tỉnh Bến Tre", Gender = "Nữ" }
+                    new AppUser { Email = "doctor5@example.com", FullName = "Bác sĩ Tiên", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1, Gender = "Nữ" },
+                    new AppUser { Email = "doctor6@example.com", FullName = "Bác sĩ Khánh", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 2, Gender = "Nam" },
+                    new AppUser { Email = "parent2@example.com", FullName = "Chị Tư", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "PhuHuynh", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", PhoneNumber = "0123456789", Address = "123 Đường Cây Dừa, Xã Cây Cau, Huyện Cây Chuối, Tỉnh Bến Tre", Gender = "Nữ" }
                 );
                 context.SaveChanges();
             }
