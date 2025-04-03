@@ -8,9 +8,11 @@
         @if (Parent != null)
         {
             <div class="d-flex justify-content-center">
-                <div class="profile-container w-75">
-                    <img src="@Parent.Avatar" alt="Avatar" class="avatar" />
-                    <div class="info">
+                <div class="profile-container justify-content-evenly w-100">
+                    <div class="m-4">
+                        <img src="@Parent.Avatar" alt="Avatar" class="avatar" />
+                    </div>
+                    <div class="m-4 info">
                         <p><strong>Họ và tên:</strong> @Parent.FullName</p>
                         <p><strong>Email:</strong> @Parent.Email</p>
                         <p><strong>Số điện thoại:</strong> @Parent.PhoneNumber</p>
@@ -18,6 +20,10 @@
                         <p><strong>Ngày sinh:</strong> @Parent.Dob.ToString("dd/MM/yyyy")</p>
                         <p><strong>Giới tính:</strong> @Parent.Gender</p>
                     </div>
+                    <div>
+                        <button class="btn btn-primary" @onclick="ShowEditProfileModal">Chỉnh sửa</button>
+                    </div>
+
                 </div>
             </div>
 
@@ -113,6 +119,85 @@
     }
     
 </div>
+
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileModalLabel">Chỉnh sửa thông tin cá nhân</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <EditForm Model="@editedUser" OnValidSubmit="SaveUserProfile">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">Họ và tên</label>
+                        <InputText id="fullName" @bind-Value="editedUser.FullName" class="form-control" />
+                        <ValidationMessage For="@(() => editedUser.FullName)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">Số điện thoại</label>
+                        <InputText id="phoneNumber" @bind-Value="editedUser.PhoneNumber" class="form-control" />
+                        <ValidationMessage For="@(() => editedUser.PhoneNumber)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Địa chỉ</label>
+                        <InputText id="address" @bind-Value="editedUser.Address" class="form-control" />
+                        <ValidationMessage For="@(() => editedUser.Address)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="dob" class="form-label">Ngày sinh</label>
+                        <InputDate id="dob" @bind-Value="editedUser.Dob" class="form-control" />
+                        <ValidationMessage For="@(() => editedUser.Dob)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="gender" class="form-label">Giới tính</label>
+                        <InputSelect id="gender" @bind-Value="editedUser.Gender" class="form-control">
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                            <option value="Khác">Khác</option>
+                        </InputSelect>
+                        <ValidationMessage For="@(() => editedUser.Gender)" />
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Keep the existing script functions and add these:
+    function showEditProfileModal() {
+        var modalElement = document.getElementById('editProfileModal');
+        if (!modalElement) {
+            console.error("Lỗi: Không tìm thấy modal với id 'editProfileModal'.");
+            return;
+        }
+        var modal = new bootstrap.Modal(modalElement);
+        modal.show();
+    }
+
+    function hideEditProfileModal() {
+        var modalElement = document.getElementById('editProfileModal');
+        if (!modalElement) {
+            console.error("Lỗi: Không tìm thấy modal với id 'editProfileModal'.");
+            return;
+        }
+        var modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+        modal.hide();
+    }
+</script>
 
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">

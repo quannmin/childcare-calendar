@@ -83,7 +83,8 @@ namespace ChildCareCalendar.WebApp.Components.Pages.UserDetail
                 a => a.Parent,
                 a => a.ChildrenRecord,
                 a => a.Doctor,
-                a => a.FollowUpAppointment
+                a => a.FollowUpAppointment,
+                a => a.Service
                 );
 
             //Chỉ appointment của parent nào thì parent đó mới được xem

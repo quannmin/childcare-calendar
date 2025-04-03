@@ -34,7 +34,7 @@ namespace ChildCareCalendar.Infrastructure.Services
             if (appointment != null && appointment.Status.Trim().Equals("Ordered", StringComparison.OrdinalIgnoreCase))
             {
                 int hoursSinceBooking = (int)(DateTime.Now - appointment.CreatedAt).TotalHours;
-
+                
                 string refundPercentage;
                 decimal refundAmount;
 
