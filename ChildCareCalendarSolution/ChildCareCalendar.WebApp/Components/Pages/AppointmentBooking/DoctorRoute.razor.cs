@@ -27,6 +27,8 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         private TimeSpan? selectedEndTime;
         private double? selectedServicePrice;
         private string? selectedPaymentMethod;
+        private int? selectedChildId;
+        private string? selectedChildName;
 
         private AppUser? selectedDoctor;
         private Speciality? selectedSpeciality;
@@ -139,6 +141,13 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
             StateHasChanged();
         }
 
+        private void HandleChildSelection(ChildrenRecord children)
+        {
+            selectedChildId = children.Id;
+            selectedChildName = children.FullName;
+            StateHasChanged();
+        }
+
         private async Task HandlePaymentSelection(string paymentMethod)
         {
             if (!string.IsNullOrEmpty(paymentMethod))
@@ -248,6 +257,12 @@ namespace ChildCareCalendar.WebApp.Components.Pages.AppointmentBooking
         {
             selectedWorkHourId = null;
             selectedPaymentMethod = null;
+        }
+
+        private void GoBackToChildSelection()
+        {
+            selectedChildId = null;
+            selectedChildName = null;
         }
     }
 }
