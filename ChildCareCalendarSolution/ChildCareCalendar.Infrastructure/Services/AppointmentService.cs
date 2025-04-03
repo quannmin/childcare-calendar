@@ -233,7 +233,7 @@ namespace ChildCareCalendar.Infrastructure.Services
         {
             var today = DateTime.Today;
             var appointments = await _appointmentRepository.FindAsync(a =>
-                a.CheckupDateTime.Date == today && !a.IsDelete);
+                DateOnly.FromDateTime(a.CheckupDateTime.Date) == DateOnly.FromDateTime(today) && !a.IsDelete);
 
             return appointments
                 .GroupBy(a => a.CheckupDateTime.Hour)
@@ -299,6 +299,5 @@ namespace ChildCareCalendar.Infrastructure.Services
 
             return result;
         }
-
-    }
+	}
 }
