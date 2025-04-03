@@ -1,33 +1,43 @@
 ﻿@page "/logout"
 @using Microsoft.AspNetCore.Authentication
-@inject NavigationManager navigationManager
-@attribute [Authorize(Roles = "QuanLy,BacSi")]
-
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body flex-column">
-                <div class="text-center">
-                </div>
-                <div class="text-center mt-2">
-                    <span class="text-danger fw-bolder">You've successfully logged out of the application.</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using Microsoft.AspNetCore.Authorization
+@inject IHttpContextAccessor HttpContextAccessor
+@inject NavigationManager NavigationManager
+@attribute [Authorize]
 
 @code {
-    [CascadingParameter]
-    HttpContext HttpContext { get; set; }
-
     protected override async Task OnInitializedAsync()
     {
-        await base.OnInitializedAsync();
-        if (HttpContext.User.Identity.IsAuthenticated)
+        try
         {
-            await HttpContext.SignOutAsync();
-            navigationManager.NavigateTo("/logout", true);
+            // Ensure HttpContext is not null
+            var httpContext = HttpContextAccessor.HttpContext;
+            if (httpContext == null)
+            {
+                NavigationManager.NavigateTo("/login", forceLoad: true);
+                return;
+            }
+
+            // Sign out
+            await httpContext.SignOutAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme
+            );
+
+            // Clear cookies
+            httpContext.Response.Cookies.Delete(
+                CookieAuthenticationDefaults.AuthenticationScheme
+            );
+
+            StateHasChanged();
+
+            await Task.Delay(100);
+            NavigationManager.NavigateTo("/login", forceLoad: true);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Logout error: {ex.Message}");
+            NavigationManager.NavigateTo("/login", forceLoad: true);
         }
     }
 }
