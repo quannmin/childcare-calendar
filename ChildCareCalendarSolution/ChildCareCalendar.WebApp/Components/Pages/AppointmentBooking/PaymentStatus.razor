@@ -81,8 +81,18 @@
             var appointment = await AppointmentService.GetAppointmentByIdAsync(appointmentId);
             if (appointment != null)
             {
-                appointment.PaymentId = savedPayment.Id;
-                await AppointmentService.UpdateAppointmentAsync(appointment);
+                if (paymentSuccess)
+                {
+                    // Giao dịch thành công -> cập nhật ID thanh toán
+                    appointment.PaymentId = savedPayment.Id;
+                    await AppointmentService.UpdateAppointmentAsync(appointment);
+                }
+                else
+                {
+                    // Giao dịch thất bại -> xoá cuộc hẹn
+                    await AppointmentService.DeleteAppointmentAsync(appointment.Id);
+                    Console.WriteLine("❌ Giao dịch thất bại - Đã xoá cuộc hẹn!");
+                }
             }
         }
         
