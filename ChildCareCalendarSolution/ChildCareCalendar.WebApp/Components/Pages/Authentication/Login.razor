@@ -36,7 +36,7 @@
 		<!-- Right side - Login Form -->
 		<div class="login-form-side">
 			<div class="form-container">
-				<h2 class="form-title">Chào mừng trở lại!</h2>
+				<h2 class="form-title">CHÀO MỪNG ĐẾN VỚI CHILDCARE!</h2>
 				<p class="form-subtitle">Vui lòng đăng nhập để tiếp tục</p>
 
 				<EditForm Model="loginModel" OnValidSubmit="HandleValidSubmit" class="login-form">
@@ -91,18 +91,17 @@
 					<div class="divider">
 						<span>hoặc</span>
 					</div>
-
-					<div class="social-login">
-						<button class="btn-social btn-google" @onclick="HandleGoogleLogin">
-							<i class="bi bi-google"></i>
-							<span>Tiếp tục với Google</span>
-						</button>
-					</div>
-
-					<div class="register-link">
-						Chưa có tài khoản? <a href="/register">Đăng ký ngay</a>
-					</div>
 				</EditForm>
+				<div class="social-login">
+					<button class="btn-social btn-google" @onclick="HandleGoogleLogin">
+						<i class="bi bi-google"></i>
+						<span>Tiếp tục với Google</span>
+					</button>
+				</div>
+
+				<div class="register-link">
+					Chưa có tài khoản? <a href="/register">Đăng ký ngay</a>
+				</div>
 			</div>
 		</div>
 	</div>

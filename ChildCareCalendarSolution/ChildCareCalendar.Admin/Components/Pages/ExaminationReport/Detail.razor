@@ -1,4 +1,5 @@
 ﻿@page "/examination-reports/detail/{ExaminationReportId:int}"
+@using static ChildCareCalendar.Utilities.Constants.SystemConstant
 @rendermode InteractiveServer
 @attribute [Authorize(Roles = "BacSi")]
 
@@ -46,7 +47,7 @@ else
                 <tr>
                     <td>@medicine.MedicineName</td>
                     <td>@medicine.Dosage</td>
-                    <td>@medicine.Slot</td>
+                    <td>@medicine.Slot.ToString().GetEnumDisplayName(typeof(PrescriptionSlot))</td>
                     <td>@medicine.Quantity</td>
                     <td>@medicine.TotalAmount.ToString("N0") VND</td>
                 </tr>
