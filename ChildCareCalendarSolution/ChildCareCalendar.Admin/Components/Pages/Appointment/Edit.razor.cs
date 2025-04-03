@@ -48,9 +48,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
 
             var exist = await AppointmentService.GetAppointmentByIdAsync(EditModel.Id);
             if (exist != null)
-            {
-                exist.DoctorId = EditModel.DoctorId;
-                exist.CheckupDateTime = EditModel.CheckupDateTime;
+            {            
                 exist.Status = EditModel.Status;
                 exist.UpdatedAt = DateTime.Now;
             }
