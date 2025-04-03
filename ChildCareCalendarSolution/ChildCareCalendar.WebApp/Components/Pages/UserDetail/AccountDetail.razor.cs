@@ -28,6 +28,9 @@ namespace ChildCareCalendar.WebApp.Components.Pages.UserDetail
 
         [Inject]
         private IChildrenRecordService ChildRecordService { get; set; } = default!;
+        [Inject]
+        private IScheduleService ScheduleService { get; set; } = default!;
+
 
         [Inject]
         private IAppointmentService AppointmentService { get; set; } = default!;
@@ -103,14 +106,35 @@ namespace ChildCareCalendar.WebApp.Components.Pages.UserDetail
         {
             if (idToDelete.HasValue)
             {
+                var appointment = await AppointmentService.GetAppointmentByIdAsync(idToDelete.Value);
 
-                await AppointmentService.CancelAppointmentAsync(idToDelete.Value);
-                await AppointmentService.ChangeAppointmentStatusAsync(idToDelete.Value, "Cancelled");
-                idToDelete = null;
-                await LoadAppointmentsAsync();
+                if (appointment != null)
+                {
+                    // 1. Cập nhật trạng thái
+                    await AppointmentService.CancelAppointmentAsync(idToDelete.Value);
+                    await AppointmentService.ChangeAppointmentStatusAsync(idToDelete.Value, "Cancelled");
+
+                    // 2. Giải phóng slot nếu ScheduleId hợp lệ
+                    if (appointment.ScheduleId > 0)
+                    {
+                        Console.WriteLine("ScheduleId: " + appointment.ScheduleId);
+                        var schedule = await ScheduleService.GetScheduleByIdAsync(appointment.ScheduleId);
+                        Console.WriteLine("Schedule null? " + (schedule == null));
+                        if (schedule != null)
+                        {
+                            schedule.IsOccupied = false;
+                            await ScheduleService.UpdateScheduleAsync(schedule);
+                        }
+                    }
+
+                    idToDelete = null;
+                    await LoadAppointmentsAsync();
+                }
             }
+
             await JS.InvokeVoidAsync("hideDeleteModal");
         }
+
 
         private async Task ConfirmDeleteChild(int childId)
         {
