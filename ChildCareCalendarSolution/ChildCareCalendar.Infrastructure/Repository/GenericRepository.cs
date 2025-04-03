@@ -136,5 +136,17 @@ namespace ChildCareCalendar.Infrastructure.Repository
             await _context.SaveChangesAsync();
             return entity;
         }
+
+        public async Task<int> CountAsync(Expression<Func<T, bool>> predicate = null)
+        {
+            IQueryable<T> query = _dbSet;
+
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
+
+            return await query.CountAsync();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ChildCareCalendar.Domain.Entities;
+using ChildCareCalendar.Domain.ViewModels.Appointment;
 using ChildCareCalendar.Infrastructure.Repository;
 using ChildCareCalendar.Infrastructure.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -65,11 +66,6 @@ namespace ChildCareCalendar.Infrastructure.Services
                 await _refundReportService.AddRefundReportAsync(refundReport);
             }
         }
-
-
-
-
-
         public async Task ChangeAppointmentStatusAsync(int appointmentId, string status)
         {
             var appointment = await _appointmentRepository.GetByIdAsync(appointmentId);
@@ -186,5 +182,122 @@ namespace ChildCareCalendar.Infrastructure.Services
                 a => a.Payment
             )).OrderByDescending(a => a.CreatedAt).FirstOrDefault();
         }
-    }
+
+        public async Task<int> GetTodayAppointmentsCountAsync()
+        {
+            var today = DateTime.Today;
+            return await _appointmentRepository.CountAsync(a =>
+                a.CheckupDateTime.Date == today && !a.IsDelete);
+        }
+        public async Task<int> GetWeekAppointmentsCountAsync()
+        {
+            var today = DateTime.Today;
+            var startOfWeek = today.AddDays(-(int)today.DayOfWeek);
+            var endOfWeek = startOfWeek.AddDays(6);
+
+            return await _appointmentRepository.CountAsync(a =>
+                a.CheckupDateTime.Date >= startOfWeek &&
+                a.CheckupDateTime.Date <= endOfWeek &&
+                !a.IsDelete);
+        }
+
+        // Get current month's appointments count
+        public async Task<int> GetMonthAppointmentsCountAsync()
+        {
+            var today = DateTime.Today;
+            var startOfMonth = new DateTime(today.Year, today.Month, 1);
+            var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
+
+            return await _appointmentRepository.CountAsync(a =>
+                a.CheckupDateTime.Date >= startOfMonth &&
+                a.CheckupDateTime.Date <= endOfMonth &&
+                !a.IsDelete);
+        }
+
+        // Get appointments by date range for charts
+        public async Task<Dictionary<DateTime, int>> GetAppointmentsByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            var appointments = await _appointmentRepository.FindAsync(a =>
+                a.CheckupDateTime.Date >= startDate.Date &&
+                a.CheckupDateTime.Date <= endDate.Date &&
+                !a.IsDelete);
+
+            return appointments
+                .GroupBy(a => a.CheckupDateTime.Date)
+                .OrderBy(g => g.Key)
+                .ToDictionary(g => g.Key, g => g.Count());
+        }
+
+        // Get appointments by hour for today
+        public async Task<Dictionary<int, int>> GetTodayAppointmentsByHourAsync()
+        {
+            var today = DateTime.Today;
+            var appointments = await _appointmentRepository.FindAsync(a =>
+                DateOnly.FromDateTime(a.CheckupDateTime.Date) == DateOnly.FromDateTime(today) && !a.IsDelete);
+
+            return appointments
+                .GroupBy(a => a.CheckupDateTime.Hour)
+                .OrderBy(g => g.Key)
+                .ToDictionary(g => g.Key, g => g.Count());
+        }
+
+        // Get appointments by status
+        public async Task<Dictionary<string, int>> GetAppointmentsByStatusAsync()
+        {
+            var appointments = await _appointmentRepository.GetAllAsync();
+
+            return appointments
+                .Where(a => !a.IsDelete)
+                .GroupBy(a => a.Status)
+                .OrderBy(g => g.Key)
+                .ToDictionary(g => g.Key ?? "Unknown", g => g.Count());
+        }
+
+        public async Task<List<RevenueViewModel>> GetMonthlyRevenue(int year)
+        {
+            var appointments = await GetAllAppointmentsAsync();
+            var revenueData = appointments.Where(a => a.CheckupDateTime.Year == year && !a.IsDelete)
+                .GroupBy(a => a.CheckupDateTime.Month)
+                .Select(g => new RevenueViewModel
+                {
+                    Month = g.Key,
+                    Revenue = g.Sum(a => a.TotalAmount)
+                })
+                .OrderBy(r => r.Month)
+                .ToList();
+
+            return revenueData;
+        }
+
+        public async Task<List<DailyAppointmentCountViewModel>> GetWeeklyAppointmentsAsync(DateTime startDate)
+        {
+            // Calculate the end date (7 days from start date)
+            DateTime endDate = startDate.AddDays(7);
+
+            // Get all appointments within the date range
+            var appointments = await _appointmentRepository.FindAsync(
+                a => a.CreatedAt >= startDate &&
+                     a.CreatedAt < endDate &&
+                     !a.IsDelete,
+                a => a.Parent,
+                a => a.ChildrenRecord);
+
+            // Group appointments by day and count them
+            var result = Enumerable.Range(0, 7)
+                .Select(dayOffset => {
+                    var currentDate = startDate.AddDays(dayOffset);
+                    var count = appointments.Count(a => a.CreatedAt.Date == currentDate.Date);
+
+                    return new DailyAppointmentCountViewModel
+                    {
+                        Date = currentDate,
+                        DayOfWeek = currentDate.DayOfWeek.ToString(),
+                        Count = count
+                    };
+                })
+                .ToList();
+
+            return result;
+        }
+	}
 }
