@@ -106,182 +106,183 @@ namespace ChildCareCalendar.Domain.Data
 				context.SaveChanges();
 			}
 
-            if (!context.Schedules.Any())
-            {
-                context.Schedules.AddRange(
-                    new Schedule { UserId = 2, WorkDay = DateTime.Now, WorkHourId = 1 },
-                    new Schedule { UserId = 2, WorkDay = DateTime.Now, WorkHourId = 2 },
-                    new Schedule { UserId = 2, WorkDay = DateTime.Now, WorkHourId = 3 },
-                    new Schedule { UserId = 2, WorkDay = DateTime.Now, WorkHourId = 4 },
-                    new Schedule { UserId = 3, WorkDay = DateTime.Now, WorkHourId = 1 },
-                    new Schedule { UserId = 3, WorkDay = DateTime.Now, WorkHourId = 2 },
-                    new Schedule { UserId = 3, WorkDay = DateTime.Now, WorkHourId = 3 },
-                    new Schedule { UserId = 3, WorkDay = DateTime.Now, WorkHourId = 4 },
-                    new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(-1), WorkHourId = 1 },
-                    new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(-2), WorkHourId = 2 },
-                    new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(1), WorkHourId = 3 },
-                    new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(1), WorkHourId = 4 },
-                    new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(1), WorkHourId = 5 }
-                );
-                context.SaveChanges();
-            }
-
-            if (!context.Appointments.Any())
-            {
-                context.Appointments.AddRange(
-                   new Appointment
-                   {
-                       DoctorId = 2,
-                       ParentId = 6,
-                       ScheduleId = 1,
-                       ChildrenRecordId = 1,
-                       Status = "ORDERED",
-                       ServiceId = 1,
-                       TotalAmount = 550_000,
-                       CheckupDateTime = new DateTime(2024, 11, 10),
-                       CreatedAt = DateTime.Now
-                   },
-                   new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", ServiceId = 1, TotalAmount = 750_000, CheckupDateTime = new DateTime(2023, 12, 5), CreatedAt = DateTime.Now },
-                   new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", ServiceId = 1, TotalAmount = 600_000, CheckupDateTime = new DateTime(2024, 9, 15), CreatedAt = DateTime.Now, ExaminationReportId = 1 },
-
-                   new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED", ServiceId = 1, TotalAmount = 520_000, CheckupDateTime = new DateTime(2024, 8, 20), CreatedAt = DateTime.Now },
-                   new Appointment { DoctorId = 4, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", ServiceId = 1, TotalAmount = 680_000, CheckupDateTime = new DateTime(2023, 9, 10), CreatedAt = DateTime.Now }
-//new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", TotalAmount = 720_000, CheckupDateTime = new DateTime(2024, 10, 1), CreatedAt = DateTime.Now },
-
-			if (!context.ExaminationReports.Any())
+			if (!context.Schedules.Any())
 			{
-				context.ExaminationReports.AddRange(
-					new ExaminationReport { AppointmentId = 3, ChildrenRecordId = 1, Diagnosis = "Khỏe", Notes = "Theo dõi thường xuyên", CreatedAt = DateTime.Now }
+				context.Schedules.AddRange(
+					new Schedule { UserId = 2, WorkDay = DateTime.Now, WorkHourId = 1 },
+					new Schedule { UserId = 2, WorkDay = DateTime.Now, WorkHourId = 2 },
+					new Schedule { UserId = 2, WorkDay = DateTime.Now, WorkHourId = 3 },
+					new Schedule { UserId = 2, WorkDay = DateTime.Now, WorkHourId = 4 },
+					new Schedule { UserId = 3, WorkDay = DateTime.Now, WorkHourId = 1 },
+					new Schedule { UserId = 3, WorkDay = DateTime.Now, WorkHourId = 2 },
+					new Schedule { UserId = 3, WorkDay = DateTime.Now, WorkHourId = 3 },
+					new Schedule { UserId = 3, WorkDay = DateTime.Now, WorkHourId = 4 },
+					new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(-1), WorkHourId = 1 },
+					new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(-2), WorkHourId = 2 },
+					new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(1), WorkHourId = 3 },
+					new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(1), WorkHourId = 4 },
+					new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(1), WorkHourId = 5 }
 				);
 				context.SaveChanges();
 			}
 
-			if (!context.Medicines.Any())
+			if (!context.Appointments.Any())
 			{
-				context.Medicines.AddRange(
-					new Medicine { Name = "Paracetamol", Price = 5 },
-					new Medicine { Name = "Ibuprofen", Price = 8 },
-					new Medicine { Name = "Aspirin", Price = 6 },
-					new Medicine { Name = "Cetirizine", Price = 7 },
-					new Medicine { Name = "Amoxicillin", Price = 12 },
-					new Medicine { Name = "Metformin", Price = 10 },
-					new Medicine { Name = "Loratadine", Price = 5 },
-					new Medicine { Name = "Omeprazole", Price = 9 },
-					new Medicine { Name = "Simvastatin", Price = 11 },
-					new Medicine { Name = "Metronidazole", Price = 8 },
-					new Medicine { Name = "Furosemide", Price = 7 },
-					new Medicine { Name = "Prednisolone", Price = 10 },
-					new Medicine { Name = "Paracetamol", Price = 5 },
-					new Medicine { Name = "Ibuprofen", Price = 8 },
-					new Medicine { Name = "Aspirin", Price = 6 },
-					new Medicine { Name = "Cetirizine", Price = 7 },
-					new Medicine { Name = "Amoxicillin", Price = 12 },
-					new Medicine { Name = "Metformin", Price = 10 },
-					new Medicine { Name = "Loratadine", Price = 5 },
-					new Medicine { Name = "Omeprazole", Price = 9 },
-					new Medicine { Name = "Simvastatin", Price = 11 },
-					new Medicine { Name = "Metronidazole", Price = 8 },
-					new Medicine { Name = "Furosemide", Price = 7 },
-					new Medicine { Name = "Prednisolone", Price = 10 },
-					new Medicine { Name = "Paracetamol", Price = 5 },
-					new Medicine { Name = "Ibuprofen", Price = 8 },
-					new Medicine { Name = "Aspirin", Price = 6 },
-					new Medicine { Name = "Cetirizine", Price = 7 },
-					new Medicine { Name = "Amoxicillin", Price = 12 },
-					new Medicine { Name = "Metformin", Price = 10 },
-					new Medicine { Name = "Loratadine", Price = 5 },
-					new Medicine { Name = "Omeprazole", Price = 9 },
-					new Medicine { Name = "Simvastatin", Price = 11 },
-					new Medicine { Name = "Metronidazole", Price = 8 },
-					new Medicine { Name = "Furosemide", Price = 7 },
-					new Medicine { Name = "Prednisolone", Price = 10 },
-					new Medicine { Name = "Paracetamol", Price = 5 },
-					new Medicine { Name = "Ibuprofen", Price = 8 },
-					new Medicine { Name = "Aspirin", Price = 6 },
-					new Medicine { Name = "Cetirizine", Price = 7 },
-					new Medicine { Name = "Amoxicillin", Price = 12 },
-					new Medicine { Name = "Metformin", Price = 10 },
-					new Medicine { Name = "Loratadine", Price = 5 },
-					new Medicine { Name = "Omeprazole", Price = 9 },
-					new Medicine { Name = "Simvastatin", Price = 11 },
-					new Medicine { Name = "Metronidazole", Price = 8 },
-					new Medicine { Name = "Furosemide", Price = 7 },
-					new Medicine { Name = "Prednisolone", Price = 10 },
-					new Medicine { Name = "Paracetamol", Price = 5 },
-					new Medicine { Name = "Ibuprofen", Price = 8 },
-					new Medicine { Name = "Aspirin", Price = 6 },
-					new Medicine { Name = "Cetirizine", Price = 7 },
-					new Medicine { Name = "Amoxicillin", Price = 12 },
-					new Medicine { Name = "Metformin", Price = 10 },
-					new Medicine { Name = "Loratadine", Price = 5 },
-					new Medicine { Name = "Omeprazole", Price = 9 },
-					new Medicine { Name = "Simvastatin", Price = 11 },
-					new Medicine { Name = "Metronidazole", Price = 8 },
-					new Medicine { Name = "Furosemide", Price = 7 },
-					new Medicine { Name = "Prednisolone", Price = 10 },
-					new Medicine { Name = "Paracetamol", Price = 5 },
-					new Medicine { Name = "Ibuprofen", Price = 8 },
-					new Medicine { Name = "Aspirin", Price = 6 },
-					new Medicine { Name = "Cetirizine", Price = 7 },
-					new Medicine { Name = "Amoxicillin", Price = 12 },
-					new Medicine { Name = "Metformin", Price = 10 },
-					new Medicine { Name = "Loratadine", Price = 5 },
-					new Medicine { Name = "Omeprazole", Price = 9 },
-					new Medicine { Name = "Simvastatin", Price = 11 },
-					new Medicine { Name = "Metronidazole", Price = 8 },
-					new Medicine { Name = "Furosemide", Price = 7 },
-					new Medicine { Name = "Prednisolone", Price = 10 }
+				context.Appointments.AddRange(
+				   new Appointment
+				   {
+					   DoctorId = 2,
+					   ParentId = 6,
+					   ScheduleId = 1,
+					   ChildrenRecordId = 1,
+					   Status = "ORDERED",
+					   ServiceId = 1,
+					   TotalAmount = 550_000,
+					   CheckupDateTime = new DateTime(2024, 11, 10),
+					   CreatedAt = DateTime.Now
+				   },
+				   new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", ServiceId = 1, TotalAmount = 750_000, CheckupDateTime = new DateTime(2023, 12, 5), CreatedAt = DateTime.Now },
+				   new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", ServiceId = 1, TotalAmount = 600_000, CheckupDateTime = new DateTime(2024, 9, 15), CreatedAt = DateTime.Now, ExaminationReportId = 1 },
 
-				);
-				context.SaveChanges();
-			}
+				   new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED", ServiceId = 1, TotalAmount = 520_000, CheckupDateTime = new DateTime(2024, 8, 20), CreatedAt = DateTime.Now },
+				   new Appointment { DoctorId = 4, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", ServiceId = 1, TotalAmount = 680_000, CheckupDateTime = new DateTime(2023, 9, 10), CreatedAt = DateTime.Now });
+				//new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", TotalAmount = 720_000, CheckupDateTime = new DateTime(2024, 10, 1), CreatedAt = DateTime.Now },
+
+				if (!context.ExaminationReports.Any())
+				{
+					context.ExaminationReports.AddRange(
+						new ExaminationReport { AppointmentId = 3, ChildrenRecordId = 1, Diagnosis = "Khỏe", Notes = "Theo dõi thường xuyên", CreatedAt = DateTime.Now }
+					);
+					context.SaveChanges();
+				}
+
+				if (!context.Medicines.Any())
+				{
+					context.Medicines.AddRange(
+						new Medicine { Name = "Paracetamol", Price = 5 },
+						new Medicine { Name = "Ibuprofen", Price = 8 },
+						new Medicine { Name = "Aspirin", Price = 6 },
+						new Medicine { Name = "Cetirizine", Price = 7 },
+						new Medicine { Name = "Amoxicillin", Price = 12 },
+						new Medicine { Name = "Metformin", Price = 10 },
+						new Medicine { Name = "Loratadine", Price = 5 },
+						new Medicine { Name = "Omeprazole", Price = 9 },
+						new Medicine { Name = "Simvastatin", Price = 11 },
+						new Medicine { Name = "Metronidazole", Price = 8 },
+						new Medicine { Name = "Furosemide", Price = 7 },
+						new Medicine { Name = "Prednisolone", Price = 10 },
+						new Medicine { Name = "Paracetamol", Price = 5 },
+						new Medicine { Name = "Ibuprofen", Price = 8 },
+						new Medicine { Name = "Aspirin", Price = 6 },
+						new Medicine { Name = "Cetirizine", Price = 7 },
+						new Medicine { Name = "Amoxicillin", Price = 12 },
+						new Medicine { Name = "Metformin", Price = 10 },
+						new Medicine { Name = "Loratadine", Price = 5 },
+						new Medicine { Name = "Omeprazole", Price = 9 },
+						new Medicine { Name = "Simvastatin", Price = 11 },
+						new Medicine { Name = "Metronidazole", Price = 8 },
+						new Medicine { Name = "Furosemide", Price = 7 },
+						new Medicine { Name = "Prednisolone", Price = 10 },
+						new Medicine { Name = "Paracetamol", Price = 5 },
+						new Medicine { Name = "Ibuprofen", Price = 8 },
+						new Medicine { Name = "Aspirin", Price = 6 },
+						new Medicine { Name = "Cetirizine", Price = 7 },
+						new Medicine { Name = "Amoxicillin", Price = 12 },
+						new Medicine { Name = "Metformin", Price = 10 },
+						new Medicine { Name = "Loratadine", Price = 5 },
+						new Medicine { Name = "Omeprazole", Price = 9 },
+						new Medicine { Name = "Simvastatin", Price = 11 },
+						new Medicine { Name = "Metronidazole", Price = 8 },
+						new Medicine { Name = "Furosemide", Price = 7 },
+						new Medicine { Name = "Prednisolone", Price = 10 },
+						new Medicine { Name = "Paracetamol", Price = 5 },
+						new Medicine { Name = "Ibuprofen", Price = 8 },
+						new Medicine { Name = "Aspirin", Price = 6 },
+						new Medicine { Name = "Cetirizine", Price = 7 },
+						new Medicine { Name = "Amoxicillin", Price = 12 },
+						new Medicine { Name = "Metformin", Price = 10 },
+						new Medicine { Name = "Loratadine", Price = 5 },
+						new Medicine { Name = "Omeprazole", Price = 9 },
+						new Medicine { Name = "Simvastatin", Price = 11 },
+						new Medicine { Name = "Metronidazole", Price = 8 },
+						new Medicine { Name = "Furosemide", Price = 7 },
+						new Medicine { Name = "Prednisolone", Price = 10 },
+						new Medicine { Name = "Paracetamol", Price = 5 },
+						new Medicine { Name = "Ibuprofen", Price = 8 },
+						new Medicine { Name = "Aspirin", Price = 6 },
+						new Medicine { Name = "Cetirizine", Price = 7 },
+						new Medicine { Name = "Amoxicillin", Price = 12 },
+						new Medicine { Name = "Metformin", Price = 10 },
+						new Medicine { Name = "Loratadine", Price = 5 },
+						new Medicine { Name = "Omeprazole", Price = 9 },
+						new Medicine { Name = "Simvastatin", Price = 11 },
+						new Medicine { Name = "Metronidazole", Price = 8 },
+						new Medicine { Name = "Furosemide", Price = 7 },
+						new Medicine { Name = "Prednisolone", Price = 10 },
+						new Medicine { Name = "Paracetamol", Price = 5 },
+						new Medicine { Name = "Ibuprofen", Price = 8 },
+						new Medicine { Name = "Aspirin", Price = 6 },
+						new Medicine { Name = "Cetirizine", Price = 7 },
+						new Medicine { Name = "Amoxicillin", Price = 12 },
+						new Medicine { Name = "Metformin", Price = 10 },
+						new Medicine { Name = "Loratadine", Price = 5 },
+						new Medicine { Name = "Omeprazole", Price = 9 },
+						new Medicine { Name = "Simvastatin", Price = 11 },
+						new Medicine { Name = "Metronidazole", Price = 8 },
+						new Medicine { Name = "Furosemide", Price = 7 },
+						new Medicine { Name = "Prednisolone", Price = 10 }
+
+					);
+					context.SaveChanges();
+				}
 
 
 
-			if (!context.PrescriptionDetails.Any())
-			{
-				context.PrescriptionDetails.AddRange(
-					new PrescriptionDetail { MedicineId = 1, ExaminationReportId = 1, Dosage = 2, Quantity = 10, TotalAmount = 50, Slot = "DAY" },
-					new PrescriptionDetail { MedicineId = 2, ExaminationReportId = 1, Dosage = 2, Quantity = 10, TotalAmount = 50, Slot = "DAY" },
-					new PrescriptionDetail { MedicineId = 3, ExaminationReportId = 1, Dosage = 2, Quantity = 10, TotalAmount = 50, Slot = "DAY" }
-				);
+				if (!context.PrescriptionDetails.Any())
+				{
+					context.PrescriptionDetails.AddRange(
+						new PrescriptionDetail { MedicineId = 1, ExaminationReportId = 1, Dosage = 2, Quantity = 10, TotalAmount = 50, Slot = "DAY" },
+						new PrescriptionDetail { MedicineId = 2, ExaminationReportId = 1, Dosage = 2, Quantity = 10, TotalAmount = 50, Slot = "DAY" },
+						new PrescriptionDetail { MedicineId = 3, ExaminationReportId = 1, Dosage = 2, Quantity = 10, TotalAmount = 50, Slot = "DAY" }
+					);
 
-				context.SaveChanges();
-			}
+					context.SaveChanges();
+				}
 
-			if (!context.RefundReports.Any())
-			{
-				context.RefundReports.AddRange(
-					new RefundReport
-					{
-						RefundAmount = 104000,
-						RefundDate = DateTime.Now.AddDays(-1),
-						RefundPercentage = "20",
-						AppointmentId = 4,
-						IsDelete = false
-					},
-					new RefundReport
-					{
-						RefundAmount = 260000,
-						RefundDate = DateTime.Now.AddDays(-2),
-						RefundPercentage = "50",
-						AppointmentId = 2,
-						IsDelete = false
-					},
-					new RefundReport
-					{
-						RefundAmount = 420000,
-						RefundDate = DateTime.Now.AddDays(-3),
-						RefundPercentage = "70",
-						AppointmentId = 3,
-						IsDelete = false
-					}
-				);
+				if (!context.RefundReports.Any())
+				{
+					context.RefundReports.AddRange(
+						new RefundReport
+						{
+							RefundAmount = 104000,
+							RefundDate = DateTime.Now.AddDays(-1),
+							RefundPercentage = "20",
+							AppointmentId = 4,
+							IsDelete = false
+						},
+						new RefundReport
+						{
+							RefundAmount = 260000,
+							RefundDate = DateTime.Now.AddDays(-2),
+							RefundPercentage = "50",
+							AppointmentId = 2,
+							IsDelete = false
+						},
+						new RefundReport
+						{
+							RefundAmount = 420000,
+							RefundDate = DateTime.Now.AddDays(-3),
+							RefundPercentage = "70",
+							AppointmentId = 3,
+							IsDelete = false
+						}
+					);
 
-				context.SaveChanges();
+					context.SaveChanges();
+				}
 			}
 		}
-	}
+	} 
 }
 
 
