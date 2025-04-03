@@ -35,17 +35,33 @@ namespace ChildCareCalendar.Domain.Data
                 context.Users.AddRange(
                     new AppUser { Email = "manager@example.com", FullName = "Ông sếp", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "QuanLy" },
                     new AppUser { Email = "doctor1@example.com", FullName = "Bác sĩ Quân", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1, Gender = "Nam" },
-                    new AppUser { Email = "doctor2@example.com", FullName = "Bác sĩ Lương", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
-						SpecialityId = 2  },
+                    new AppUser
+                    {
+                        Email = "doctor2@example.com",
+                        FullName = "Bác sĩ Lương",
+                        Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256),
+                        Role = "BacSi",
+                        Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
+                        SpecialityId = 2
+                    },
                     new AppUser { Email = "doctor3@example.com", FullName = "Bác sĩ Quốc", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1 },
                     new AppUser { Email = "doctor4@example.com", FullName = "Bác sĩ Qui", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 2 },
                     new AppUser { Email = "parent1@example.com", FullName = "Chị Ba", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "PhuHuynh", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", PhoneNumber = "0123456789", Address = "123 Đường Cây Dừa, Xã Cây Cau, Huyện Cây Chuối, Tỉnh Bến Tre" },
-                     new AppUser { Email = "nguyenkhaiqui2003@gmail.com", FullName = "Qui nè", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "PhuHuynh", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", PhoneNumber = "0123456789", Address = "123 Đường Cây Dừa, Xã Cây Cau, Huyện Cây Chuối, Tỉnh Bến Tre", SpecialityId = 2,
+                     new AppUser
+                     {
+                         Email = "nguyenkhaiqui2003@gmail.com",
+                         FullName = "Qui nè",
+                         Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256),
+                         Role = "PhuHuynh",
+                         Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg",
+                         PhoneNumber = "0123456789",
+                         Address = "123 Đường Cây Dừa, Xã Cây Cau, Huyện Cây Chuối, Tỉnh Bến Tre",
+                         SpecialityId = 2,
                          Gender = "Nữ"
-                    },
-                    new AppUser { Email = "doctor3@example.com", FullName = "Bác sĩ Quốc", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1, Gender = "Nữ" },
-                    new AppUser { Email = "doctor4@example.com", FullName = "Bác sĩ Qui", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 2 , Gender = "Nam" },
-                    new AppUser { Email = "parent1@example.com", FullName = "Chị Ba", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "PhuHuynh", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", PhoneNumber = "0123456789", Address = "123 Đường Cây Dừa, Xã Cây Cau, Huyện Cây Chuối, Tỉnh Bến Tre", Gender = "Nữ" }
+                     },
+                    new AppUser { Email = "doctor5@example.com", FullName = "Bác sĩ Tiên", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 1, Gender = "Nữ" },
+                    new AppUser { Email = "doctor6@example.com", FullName = "Bác sĩ Khánh", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "BacSi", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", SpecialityId = 2, Gender = "Nam" },
+                    new AppUser { Email = "parent2@example.com", FullName = "Chị Tư", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("123456", HashType.SHA256), Role = "PhuHuynh", Avatar = "https://res.cloudinary.com/dpv6ag6bd/image/upload/v1741011756/uploads/z6371167496504_2db428e17a8859153b0704bcaa604017.jpg", PhoneNumber = "0123456789", Address = "123 Đường Cây Dừa, Xã Cây Cau, Huyện Cây Chuối, Tỉnh Bến Tre", Gender = "Nữ" }
                 );
                 context.SaveChanges();
             }
@@ -92,22 +108,43 @@ namespace ChildCareCalendar.Domain.Data
             {
                 context.Schedules.AddRange(
                     new Schedule { UserId = 2, WorkDay = DateTime.Now, WorkHourId = 1 },
-                    new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(1), WorkHourId = 1 }
+                    new Schedule { UserId = 2, WorkDay = DateTime.Now, WorkHourId = 2 },
+                    new Schedule { UserId = 2, WorkDay = DateTime.Now, WorkHourId = 3 },
+                    new Schedule { UserId = 2, WorkDay = DateTime.Now, WorkHourId = 4 },
+                    new Schedule { UserId = 3, WorkDay = DateTime.Now, WorkHourId = 1 },
+                    new Schedule { UserId = 3, WorkDay = DateTime.Now, WorkHourId = 2 },
+                    new Schedule { UserId = 3, WorkDay = DateTime.Now, WorkHourId = 3 },
+                    new Schedule { UserId = 3, WorkDay = DateTime.Now, WorkHourId = 4 },
+                    new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(1), WorkHourId = 1 },
+                    new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(1), WorkHourId = 2 },
+                    new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(1), WorkHourId = 3 },
+                    new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(1), WorkHourId = 4 },
+                    new Schedule { UserId = 3, WorkDay = DateTime.Now.AddDays(1), WorkHourId = 5 }
                 );
                 context.SaveChanges();
             }
 
             if (!context.Appointments.Any())
             {
-                 context.Appointments.AddRange(
-                    new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED",
-                        ServiceId = 1, TotalAmount = 550_000, CheckupDateTime = new DateTime(2024, 11, 10), CreatedAt = DateTime.Now },
-                    new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", ServiceId = 1, TotalAmount = 750_000, CheckupDateTime = new DateTime(2023, 12, 5), CreatedAt = DateTime.Now },
-                    new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", ServiceId = 1, TotalAmount = 600_000, CheckupDateTime = new DateTime(2024, 9, 15), CreatedAt = DateTime.Now, ExaminationReportId = 1 },
+                context.Appointments.AddRange(
+                   new Appointment
+                   {
+                       DoctorId = 2,
+                       ParentId = 6,
+                       ScheduleId = 1,
+                       ChildrenRecordId = 1,
+                       Status = "ORDERED",
+                       ServiceId = 1,
+                       TotalAmount = 550_000,
+                       CheckupDateTime = new DateTime(2024, 11, 10),
+                       CreatedAt = DateTime.Now
+                   },
+                   new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", ServiceId = 1, TotalAmount = 750_000, CheckupDateTime = new DateTime(2023, 12, 5), CreatedAt = DateTime.Now },
+                   new Appointment { DoctorId = 2, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", ServiceId = 1, TotalAmount = 600_000, CheckupDateTime = new DateTime(2024, 9, 15), CreatedAt = DateTime.Now, ExaminationReportId = 1 },
 
-                    new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED", ServiceId = 1, TotalAmount = 520_000, CheckupDateTime = new DateTime(2024, 8, 20), CreatedAt = DateTime.Now },
-                    new Appointment { DoctorId = 4, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", ServiceId = 1, TotalAmount = 680_000, CheckupDateTime = new DateTime(2023, 9, 10), CreatedAt = DateTime.Now }
-                    //new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", TotalAmount = 720_000, CheckupDateTime = new DateTime(2024, 10, 1), CreatedAt = DateTime.Now },
+                   new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED", ServiceId = 1, TotalAmount = 520_000, CheckupDateTime = new DateTime(2024, 8, 20), CreatedAt = DateTime.Now },
+                   new Appointment { DoctorId = 4, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", ServiceId = 1, TotalAmount = 680_000, CheckupDateTime = new DateTime(2023, 9, 10), CreatedAt = DateTime.Now }
+//new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "COMPLETED", TotalAmount = 720_000, CheckupDateTime = new DateTime(2024, 10, 1), CreatedAt = DateTime.Now },
 
 //new Appointment { DoctorId = 3, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "ORDERED", TotalAmount = 530_000, CheckupDateTime = new DateTime(2024, 7, 5), CreatedAt = DateTime.Now },
 //new Appointment { DoctorId = 4, ParentId = 6, ScheduleId = 1, ChildrenRecordId = 1, Status = "CHECKED_IN", TotalAmount = 710_000, CheckupDateTime = new DateTime(2023, 8, 15), CreatedAt = DateTime.Now },

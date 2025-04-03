@@ -87,11 +87,6 @@ namespace ChildCareCalendar.WebApp.Components.Pages.UserDetail
                 a => a.Service
                 );
 
-            //Chỉ appointment của parent nào thì parent đó mới được xem
-            if (appointment.Parent.Id == id)
-            {
-                Navigation.NavigateTo("/Login", forceLoad: true);
-            }
             AppointmentViewModel = Mapper.Map<AppointmentDetailViewModel>(appointment);
 
         }
