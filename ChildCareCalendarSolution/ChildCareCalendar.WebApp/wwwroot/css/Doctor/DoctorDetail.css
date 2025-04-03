@@ -4,7 +4,6 @@
     padding: 20px;
 }
 
-/* Phần thông tin bác sĩ */
 .doctor-detail {
     background-color: #f5f9ff;
     padding: 20px;
@@ -14,13 +13,14 @@
 
 .doctor-info {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     background: white;
-    padding: 20px;
+    padding: 20px 20px 40px 20px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
-    overflow: hidden;
+    flex-wrap: wrap;
+    min-height: 180px;
+    overflow: visible;
 }
 
 .doctor-image {
@@ -36,7 +36,11 @@
 .doctor-details {
     flex: 1;
     min-width: 0;
-    overflow: hidden;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-grow: 1;
 }
 
 .doctor-name {
@@ -61,13 +65,17 @@
     cursor: pointer;
     font-size: 15px;
     margin-top: 10px;
+    margin-bottom: 5px;
+    display: inline-block;
+    position: relative;
+    z-index: 10;
 }
 
     .btn-primary:hover {
         background-color: #009acd;
     }
 
-/* Phần danh sách bác sĩ cùng chuyên khoa */
+/* Related Doctors Section */
 .related-doctors {
     background-color: #f5f9ff;
     padding: 20px;
@@ -135,7 +143,7 @@
     cursor: pointer;
     font-size: 14px;
     margin-top: 10px;
-    position: relative; /* Đảm bảo không bị che bởi phần tử khác */
+    position: relative;
     z-index: 10;
 }
 
