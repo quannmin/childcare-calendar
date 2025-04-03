@@ -1,0 +1,44 @@
+﻿<link href="css/AppointmentBooking/MainLayout.css" rel="stylesheet" />
+
+<div>
+    <h4 class="info-title">Vui lòng chọn hồ sơ bé</h4>
+
+    @if (ChildrenRecords.Count == 0)
+    {
+        <div class="no-records">
+            <h3 class="text-danger text">Bạn chưa có hồ sơ trẻ em</h3>
+            <button class="btn btn-primary add-btn mb-3" @onclick="NavigateToAccountDetail">Thêm hồ sơ</button>
+        </div>
+    }
+    else
+    {
+        <div class="service-table-container">
+            <table class="service-table">
+                <thead>
+                    <tr>
+                        <th>Tên bé</th>
+                        <th>Ngày sinh</th>
+                        <th>Giới tính</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var child in ChildrenRecords)
+                    {
+                        <tr>
+                            <td>
+                                <strong>@child.FullName</strong>
+                            </td>
+                            <td>@child.Dob.ToString("dd/MM/yyyy")</td>
+                            <td>@child.Gender.GetEnumDisplayName(typeof(SystemConstant.Gender))</td>
+                            <td>
+                                <button class="btn book-btn" @onclick="() => HandleChildSelection(child)">Chọn</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+

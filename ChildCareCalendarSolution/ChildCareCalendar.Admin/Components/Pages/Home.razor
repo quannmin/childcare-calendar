@@ -245,27 +245,23 @@
     {
         try
         {
-            // Load user data
             NewUsersByRole = await userService.GetDailyNewUsersByRoleAsync(30);
             if (NewUsersByRole == null)
             {
                 NewUsersByRole = new List<NewUsersByRoleViewModel>();
             }
 
-            // Get weekly appointments data
             DateTime startOfWeek = DateTime.Now.Date.AddDays(-(int)DateTime.Now.DayOfWeek);
             var weeklyData = await appointmentService.GetWeeklyAppointmentsAsync(startOfWeek);
             if (weeklyData != null && weeklyData.Any())
             {
                 WeeklyAppointments = weeklyData.Select(d => d.Count).ToList();
-                // Ensure we have 7 days
                 while (WeeklyAppointments.Count < 7)
                 {
                     WeeklyAppointments.Add(0);
                 }
             }
 
-            // Get revenue data
             var revenueData = await appointmentService.GetMonthlyRevenue(DateTime.Now.Year);
             if (revenueData != null && revenueData.Any())
             {
@@ -280,7 +276,6 @@
                 TodayAppointmentsByHour = new Dictionary<string, int>();
             }
 
-            // Get all appointments for filtered view
             await FilterData();
 
             IsLoading = false;

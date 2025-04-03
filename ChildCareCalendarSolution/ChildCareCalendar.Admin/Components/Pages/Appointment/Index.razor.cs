@@ -27,7 +27,7 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
         [Inject]
         private IJSRuntime JS { get; set; }
 
-        private int? idToDelete;
+        //private int? idToDelete;
         private int CurrentPage = 1;
         private int PageSize = 10;
         private int TotalPages = 1;
@@ -92,21 +92,21 @@ namespace ChildCareCalendar.Admin.Components.Pages.Appointment
             }
         }
 
-        private async void ConfirmDelete(int id)
-        {
-            idToDelete = id;
-            await JS.InvokeVoidAsync("showDeleteModal");
-        }
+        //private async void ConfirmDelete(int id)
+        //{
+        //    idToDelete = id;
+        //    await JS.InvokeVoidAsync("showDeleteModal");
+        //}
 
-        private async Task DeleteAppointment()
-        {
-            if (idToDelete.HasValue)
-            {
-                await AppointmentService.DeleteAppointmentAsync(idToDelete.Value);
-                idToDelete = null;
-                await LoadAppointmentsAsync();
-            }
-            await JS.InvokeVoidAsync("hideDeleteModal");
-        }
+        //private async Task DeleteAppointment()
+        //{
+        //    if (idToDelete.HasValue)
+        //    {
+        //        await AppointmentService.DeleteAppointmentAsync(idToDelete.Value);
+        //        idToDelete = null;
+        //        await LoadAppointmentsAsync();
+        //    }
+        //    await JS.InvokeVoidAsync("hideDeleteModal");
+        //}
     }
 }
